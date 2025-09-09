@@ -1,4 +1,4 @@
-publiccodeYmlVersion: 0.4.0
+publiccodeYmlVersion: '0.4.0'
 name: RISCA
 applicationSuite: Regione Piemonte Sistema Informativo Ambiente
 url: https://github.com/regione-piemonte/risca
@@ -66,3 +66,7 @@ localisation:
   localisationReady: false
   availableLanguages:
   - it
+it:
+  countryExtensionVersion: '1.0'
+  riuso:
+    codiceIPA: r_piemon
