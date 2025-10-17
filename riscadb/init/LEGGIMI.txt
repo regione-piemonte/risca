@@ -1,0 +1,45 @@
+/* *****************************************************
+ * Copyright Regione Piemonte - 2025
+ * SPDX-License-Identifier: EUPL-1.2-or-later
+ ******************************************************/
+
+Presupponendo di dover creare l'ambiente database da zero gli script da eseguire in sequenza sono:
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+CONNETTERSI ALLO USER DI AMMINISTRAZIONE:
+
+
+iniziale-1.0.0-01-drops_schemas_roles.sql   ==> Serve per la riesecuzione, elimina tutto l'ambiente database.
+                                                Può essere quindi saltato la prima volta o comunque quando non è ancora stato creato nulla
+
+iniziale-1.0.0-02-create_roles.sql          ==> Crea tutti i ruoli ( risca, risca_rw)
+
+iniziale-1.0.0-03-create_schemas.sql        ==> Crea tutti gli schemi ( risca)
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+CONNETTERSI ALLO USER DI RISCA:
+
+riscadb-1.0.0-01-drops_objects.sql    ==> Serve per la riesecuzione, elimina tutti gli oggetti dello schema risca
+                                        Può essere quindi saltato la prima volta o comunque quando non è ancora stato creato nulla
+
+riscadb-1.0.0-02-set_search_path.sql  ==> Setta opportunamente il parametro di sistema SEARCH_PATH
+
+riscadb-1.0.0-03-create_tables.sql    ==> Crea tutte le tabelle dello schema risca
+
+riscadb-1.0.0-04-create_sequences.sql ==> Crea tutte le sequence dello schema risca
+
+riscadb-1.0.0-05-create_functions.sql ==> Crea tutte le function dello schema risca
+
+riscadb-1.0.0-06-create_views.sql     ==> Crea tutte le viste dello schema risca
+
+riscadb-1.0.0-07-insert_data.sql      ==> Inserisce tutti i dati necessari in alcune tabelle dello schema risca (es. tabelle di decodifica)
+
+riscadb-1.0.0-08-insert_limiti_amministrativi.sql      ==> Inserisce tutti i dati necessari alla gestione dei limiti amministrativi (es. comuni,regioni, etc...)
+
+---------------------------------------------------------------------------------------------------------
