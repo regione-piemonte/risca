@@ -1,0 +1,38 @@
+<div class="r-m-intL-t">
+  <!-- FILO ARIANNA -->
+  <risca-filo-arianna></risca-filo-arianna>
+</div>
+
+<div *ngIf="navExists">
+  <ul ngbNav #ngbNavList="ngbNav" class="nav r-ngb-nav-2"
+    [(activeId)]="tabActive"
+    [destroyOnHide]="destroyOnHide" 
+  >
+    <ng-container *ngFor="let nav of riscaNav.navs; let i = index">
+      <li class="nav-item" [ngbNavItem]="nav.ngbNavItem" [disabled]="nav.disabled">
+        <a ngbNavLink [id]="nav.ngbNavItem"
+          [ngClass]="[(i | riscaNavLinkClass:riscaNav:nav2ndLvlClass)]"
+          (click)="cambiaNav(nav.ngbNavItem)"
+        >
+          <div>{{ nav.label }}</div>
+        </a>
+        <ng-template ngbNavContent>
+          <div class="tab-pane fade show" [id]="nav.ngbNavItem">
+            <!-- RICERCHE PAGAMENTI -->
+            <ng-container *riscaMaintain="nav.component === riscaNav.RICERCHE_COMPONENT">
+              <ricerche-pagamenti [tipoRicercaPagamenti]="tipoRicercaPagamenti"></ricerche-pagamenti>
+            </ng-container>
+            
+            <!-- PAGAMENTI DA VISIONARE -->
+            <ng-container *riscaMaintain="nav.component === riscaNav.PAG_DA_VIS_COMPONENT">
+              <pagamenti-da-visionare></pagamenti-da-visionare>
+            </ng-container>
+
+          </div>
+        </ng-template>
+      </li>
+    </ng-container>
+  </ul>
+
+  <div class="tab-content" id="tabAzioniGestionePagamenti" [ngbNavOutlet]="ngbNavList"></div>
+</div>

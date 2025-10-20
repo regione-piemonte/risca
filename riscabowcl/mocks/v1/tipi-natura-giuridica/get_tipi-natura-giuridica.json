@@ -1,0 +1,32 @@
+[
+	{
+		"id_tipo_natura_giuridica": 1,
+		"cod_tipo_natura_giuridica": "S.S.",
+		"des_tipo_natura_giuridica": "Società Semplice"
+	},
+	{
+		"id_tipo_natura_giuridica": 2,
+		"cod_tipo_natura_giuridica": "S.N.C.",
+		"des_tipo_natura_giuridica": "Società in Nome Collettivo"
+	},
+	{
+		"id_tipo_natura_giuridica": 3,
+		"cod_tipo_natura_giuridica": "S.A.S.",
+		"des_tipo_natura_giuridica": "Società in Accomandita Semplice\r\n"
+	},
+	{
+		"id_tipo_natura_giuridica": 4,
+		"cod_tipo_natura_giuridica": "S.R.L.",
+		"des_tipo_natura_giuridica": "Società a Responsabilità Limitata"
+	},
+	{
+		"id_tipo_natura_giuridica": 5,
+		"cod_tipo_natura_giuridica": "S.P.A.",
+		"des_tipo_natura_giuridica": "Società Per Azioni"
+	},
+	{
+		"id_tipo_natura_giuridica": 6,
+		"cod_tipo_natura_giuridica": "S.A.P.A.",
+		"des_tipo_natura_giuridica": "Società in Accomandita Per Azioni"
+	}
+]

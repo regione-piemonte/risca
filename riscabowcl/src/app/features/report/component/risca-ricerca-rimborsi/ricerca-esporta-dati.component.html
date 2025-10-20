@@ -1,0 +1,56 @@
+<form [formGroup]="mainForm">
+  
+  <div class="row">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- DATA DA -->
+          <risca-datepicker [formControlName]="RED_C.DATA_DA"
+            [idFormControl]="RED_C.DATA_DA"
+            [cssConfig]="formInputs.dataDaConfig.css"
+            [dataConfig]="formInputs.dataDaConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [errMapFormGroup]="EM.MAP_VALIDAZIONE_DATE_START_ESPORTA_DATI"
+            [disableRequiredCheck]="false"
+          ></risca-datepicker>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- DATA A -->
+          <risca-datepicker [formControlName]="RED_C.DATA_A"
+            [idFormControl]="RED_C.DATA_A"
+            [cssConfig]="formInputs.dataAConfig.css"
+            [dataConfig]="formInputs.dataAConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [errMapFormGroup]="EM.MAP_VALIDAZIONE_DATE_END_ESPORTA_DATI"
+            [disableRequiredCheck]="false"
+          ></risca-datepicker>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- STATO RIMBORSI' -->
+          <risca-select 
+            [formControlName]="RED_C.TIPO_ELABORA_REPORT"
+            [idFormControl]="RED_C.TIPO_ELABORA_REPORT"
+            [cssConfig]="formInputs.tipoElaboraReportConfig.css"
+            [dataConfig]="formInputs.tipoElaboraReportConfig.data"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [errMapFormGroup]="EM.MAP_FORM_GROUP_REQUIRED"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaTEReport"
+            [propertyToShow]="RED_C.PROPERTY_TIPO_ELABORA_REPORT"
+            [disableRequiredCheck]="false"
+          ></risca-select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</form>

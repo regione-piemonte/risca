@@ -1,0 +1,68 @@
+<!-- TESTATA -->
+<risca-modal-header
+  [title]="modalTitle"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+  <div class="container-fluid r-plr--0">
+
+    <!-- FORM DEL RIMBORSO -->
+    <div class="row r-m-intL-b">
+
+      <!--MODALITA MANUALE-->
+      <div class="col" *ngIf="manuale">
+        <risca-pagamento-manuale #riscaVersamentoManuale
+          [pagamento]="pagamento"
+          [dettagliPagamento]="dettagliPagamentoSearch"
+          [modalita]="modalita"
+          (onFormSubmit)="modificaPagamentoManuale($event)"
+        ></risca-pagamento-manuale>
+      </div>
+
+      <!-- MODALITA PAGAMENTO BOLLETTAZIONE -->
+      <div class="col" *ngIf="!manuale">
+        <risca-pagamento-bollettazione #riscaVersamentoNonManuale
+          [pagamento]="pagamento"
+          [dettagliPagamento]="dettagliPagamentoSearch"
+          [modalita]="modalita"
+          (onFormSubmit)="modificaPagamentoBollettazione($event)"
+          (onFormErrors)="onPagamentoErrors($event)"
+          (onVerificaImporti)="onVerificaImporti($event)"
+          (onVerificaImportiError)="onVerificaImportiError($event)"
+        ></risca-pagamento-bollettazione>
+      </div>
+    </div>
+    
+    <!-- ALERT -->
+    <div class="row" *ngIf="alertConfigsCheck">
+      <div class="col">
+        <risca-alert
+          [alertConfigs]="alertConfigs"
+          [allowAlertClose]="true"
+          (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+        ></risca-alert>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GESTIONE DEL RIMBORSO -->
+<div class="modal-footer risca-model-footer" *ngIf="!showCambiaCreditore">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="onAnnullaRimborso()"
+  ></risca-button>
+
+  <!-- CONFERMA -->
+  <risca-primary-button
+    [dataConfig]="btnConferma"
+    [disable]="!permettiSalvaPagamento"
+    (onClick)="onConfermaRimborso()"
+  ></risca-primary-button>
+</div>

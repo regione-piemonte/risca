@@ -1,0 +1,1190 @@
+{
+  "components": [
+    {
+      "label": "formRicercaSoggetto",
+      "tableView": false,
+      "key": "formRicercaSoggetto",
+      "type": "form",
+      "input": true,
+      "components": [
+        {
+          "content": "Cerca e inserisci il Soggetto Titolare del Provvedimento, puoi inserire uno o più Soggetti Titolari",
+          "hideLabel": true,
+          "input": false,
+          "key": "soggettiTitolo",
+          "label": "Cerca e inserisci il Soggetto Titolare del Provvedimento, puoi inserire uno o più Soggetti Titolari",
+          "tag": "h5",
+          "tags": [
+            "b"
+          ],
+          "type": "htmlelement"
+        },
+        {
+          "content": "* Campo obbligatorio",
+          "customClass": "bg-clear",
+          "hideLabel": true,
+          "input": false,
+          "key": "soggettiCampoObbligatorio",
+          "label": "* Campo obbligatorio",
+          "tag": "p",
+          "type": "htmlelement"
+        },
+        {
+          "clearOnHide": false,
+          "columns": [
+            {
+              "components": [
+                {
+                  "clearOnHide": true,
+                  "input": true,
+                  "inputFormat": "plain",
+                  "inputType": "text",
+                  "key": "soggettiCF",
+                  "label": "Codice Fiscale della Persona Giuridica",
+                  "labelPosition": "top",
+                  "persistent": true,
+                  "spellcheck": true,
+                  "tableView": false,
+                  "type": "textfield",
+                  "unique": false,
+                  "validate": {
+                    "pattern": "^[A-Z|a-z]{6}[0-9]{2}[A-Z|a-z][0-9]{2}[A-Z|a-z][0-9]{3}[A-Z|a-z]$",
+                    "required": true
+                  },
+                  "defaultValue": "DRGRJL92H08Z100R"
+                }
+              ],
+              "offset": 0,
+              "pull": 0,
+              "push": 0,
+              "width": 6
+            },
+            {
+              "components": [
+                {
+                  "label": "Tipo Soggetto",
+                  "widget": "choicesjs",
+                  "tableView": false,
+                  "data": {
+                    "url": "http://localhost:3000/api/tipi-soggetto"
+                  },
+                  "dataSrc": "url",
+                  "template": "<span>{{ item.des_tipo_soggetto }}</span>",
+                  "valueProperty": "cod_tipo_soggetto",
+                  "defaultValue": "PF",
+                  "selectThreshold": 0.3,
+                  "validate": {
+                    "required": true
+                  },
+                  "key": "tipoSoggetto",
+                  "type": "select",
+                  "indexeddb": {
+                    "filter": {}
+                  },
+                  "input": true
+                },
+                {
+                  "action": "event",
+                  "autofocus": false,
+                  "block": true,
+                  "customConditional": "",
+                  "disableOnInvalid": true,
+                  "event": "cercaConCF",
+                  "input": true,
+                  "key": "soggettiCFCerca",
+                  "label": "Cerca",
+                  "leftIcon": "",
+                  "properties": {},
+                  "rightIcon": "",
+                  "size": "md",
+                  "tableView": false,
+                  "theme": "outline-success",
+                  "type": "button"
+                }
+              ],
+              "offset": 0,
+              "pull": 0,
+              "push": 0,
+              "width": 6
+            }
+          ],
+          "hideLabel": true,
+          "input": false,
+          "key": "colonneRicercaCf",
+          "label": "Ricerca Cf",
+          "lockKey": true,
+          "tableView": false,
+          "type": "columns"
+        }
+      ]
+    },
+    {
+      "label": "ContainerAnagraficaSoggetto",
+      "tableView": false,
+      "key": "containerAnagraficaSoggetto",
+      "type": "container",
+      "hidden": true,
+      "input": true,
+      "components": [
+        {
+          "content": "Puoi modificare i dati e/o inserire direttamente un soggetto",
+          "customClass": "bg-clear",
+          "hideLabel": true,
+          "input": false,
+          "key": "datiSoggettoTitolo",
+          "label": "Puoi modificare i dati e/o inserire direttamente un soggetto",
+          "tag": "h6",
+          "tags": [
+            "b"
+          ],
+          "type": "htmlelement"
+        },
+        {
+          "label": "AnagraficaSoggetto",
+          "hideLabel": true,
+          "key": "editGridAnagraficaSoggetto",
+          "addAnother": "Aggiungi Soggetto",
+          "removeRow": "Annulla",
+          "hideRemoveRow": true,
+          "saveRow": "Inserisci soggetto",
+          "type": "editgrid",
+          "hasRemoveButtons": false,
+          "input": true,
+          "readOnly": true,
+          "disabled": false,
+          "templates": {
+            "header": "<div class=\"row\">{% util.eachComponent(components, function(component) { %}{% if (component.hasOwnProperty('tableView') && component.tableView) { %}<div class=\"col-sm-2\"><strong>{{ component.label }}</strong></div>{% } %}{% }) %}</div>",
+            "row": "<div class=\"row\">{% util.eachComponent(components, function(component) { %}{% if (component.hasOwnProperty('tableView') && component.tableView) { %}<div class=\"col-sm-2\">{{ getView(component, row[component.key]) }}</div>{% } %}{% }) %}{% if (!instance.disabled) { %}<div class=\"col-sm-2\"><div class=\"btn-group pull-right\"><button class=\"btn btn-default btn-light btn-sm editRow\"><i class=\"{{ iconClass('edit') }}\"></i></button>{% if (!instance.hasRemoveButtons || instance.hasRemoveButtons()) { %}<button class=\"btn btn-danger btn-sm removeRow\"><i class=\"{{ iconClass('trash') }}\"></i></button>{% } %}</div></div>{% } %}</div>",
+            "footer": ""
+          },
+          "components": [
+            {
+              "content": "Dati soggetto",
+              "customClass": "bg-clear",
+              "hideLabel": false,
+              "input": false,
+              "key": "datiSoggettoTitle",
+              "label": "Dati soggetto",
+              "tag": "b",
+              "type": "htmlelement"
+            },
+            {
+              "clearOnHide": false,
+              "columns": [
+                {
+                  "components": [
+                    {
+                      "clearOnHide": true,
+                      "input": true,
+                      "inputFormat": "plain",
+                      "inputType": "text",
+                      "key": "datiSoggettoRagioneSociale",
+                      "label": "Ragione Sociale",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "spellcheck": true,
+                      "tableView": true,
+                      "type": "textfield",
+                      "validate": {
+                        "custom": "",
+                        "customPrivate": false,
+                        "maxLength": "",
+                        "minLength": "",
+                        "pattern": "",
+                        "required": true
+                      }
+                    },
+                    {
+                      "input": true,
+                      "inputFormat": "plain",
+                      "inputType": "text",
+                      "key": "datiSoggettoCodiceFiscale",
+                      "label": "Codice Fiscale",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "spellcheck": true,
+                      "tableView": true,
+                      "type": "textfield",
+                      "unique": false,
+                      "validate": {
+                        "custom": "",
+                        "customPrivate": false,
+                        "maxLength": "",
+                        "minLength": "",
+                        "pattern": "",
+                        "required": true
+                      }
+                    }
+                  ],
+                  "offset": 0,
+                  "pull": 0,
+                  "push": 0,
+                  "width": 6
+                },
+                {
+                  "components": [
+                    {
+                      "clearOnHide": true,
+                      "data": {
+                        "url": "http://localhost:3000/api/tipi-natura-giuridica"
+                      },
+                      "dataSrc": "url",
+                      "input": true,
+                      "key": "datiSoggettoTipologia",
+                      "template": "<span>{{ item.des_tipo_natura_giuridica }}</span>",
+                      "valueProperty": "cod_tipo_natura_giuridica",
+                      "label": "Tipologia",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "protected": false,
+                      "tableView": false,
+                      "type": "select",
+                      "validate": {
+                        "required": true
+                      }
+                    },
+                    {
+                      "clearOnHide": true,
+                      "input": true,
+                      "inputFormat": "plain",
+                      "inputType": "text",
+                      "key": "datiSoggettoPartitaIva",
+                      "label": "Partita IVA",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "spellcheck": true,
+                      "tableView": true,
+                      "type": "textfield",
+                      "validate": {
+                        "custom": "",
+                        "customPrivate": false,
+                        "maxLength": "",
+                        "minLength": "",
+                        "pattern": "",
+                        "required": true
+                      }
+                    }
+                  ],
+                  "offset": 0,
+                  "pull": 0,
+                  "push": 0,
+                  "width": 6
+                }
+              ],
+              "hideLabel": true,
+              "input": false,
+              "key": "colonneDatiSoggetto",
+              "label": "ColonneDatiSoggetto",
+              "tableView": false,
+              "type": "columns"
+            },
+            {
+              "content": "Sede legale",
+              "customClass": "bg-clear",
+              "hideLabel": false,
+              "input": false,
+              "key": "sedeLegaleTitle",
+              "label": "Sede legale",
+              "tag": "b",
+              "type": "htmlelement"
+            },
+            {
+              "clearOnHide": false,
+              "columns": [
+                {
+                  "components": [
+                    {
+                      "clearOnHide": true,
+                      "data": {
+                        "custom": "",
+                        "json": "",
+                        "resource": "",
+                        "url": "",
+                        "values": [
+                          {
+                            "label": "Italia",
+                            "value": "ita"
+                          }
+                        ]
+                      },
+                      "dataSrc": "values",
+                      "defaultValue": "ita",
+                      "input": true,
+                      "key": "sedeLegaleStato",
+                      "label": "Stato",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "protected": false,
+                      "tableView": false,
+                      "template": "<span>{{ item.label }}</span>",
+                      "type": "select",
+                      "validate": {
+                        "required": true
+                      },
+                      "valueProperty": "value"
+                    },
+                    {
+                      "clearOnHide": true,
+                      "data": {
+                        "custom": "",
+                        "json": "",
+                        "resource": "",
+                        "url": "",
+                        "values": [
+                          {
+                            "label": "Torino",
+                            "value": "TO"
+                          }
+                        ]
+                      },
+                      "dataSrc": "values",
+                      "input": true,
+                      "key": "sedeLegaleProvincia",
+                      "label": "Provincia",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "protected": false,
+                      "tableView": false,
+                      "template": "<span>{{ item.label }}</span>",
+                      "type": "select",
+                      "validate": {
+                        "required": true
+                      },
+                      "valueProperty": "value"
+                    },
+                    {
+                      "clearOnHide": true,
+                      "data": {
+                        "custom": "",
+                        "json": "",
+                        "resource": "",
+                        "url": "",
+                        "values": [
+                          {
+                            "label": "Torino",
+                            "value": "torino"
+                          }
+                        ]
+                      },
+                      "dataSrc": "values",
+                      "input": true,
+                      "key": "sedeLegaleComune",
+                      "label": "Comune",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "protected": false,
+                      "tableView": false,
+                      "template": "<span>{{ item.label }}</span>",
+                      "type": "select",
+                      "validate": {
+                        "required": true
+                      },
+                      "valueProperty": "value"
+                    }
+                  ],
+                  "offset": 0,
+                  "pull": 0,
+                  "push": 0,
+                  "width": 6
+                },
+                {
+                  "components": [
+                    {
+                      "clearOnHide": true,
+                      "input": true,
+                      "inputFormat": "plain",
+                      "inputType": "text",
+                      "key": "sedeLegaleCAP",
+                      "label": "CAP",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "spellcheck": true,
+                      "tableView": false,
+                      "type": "textfield",
+                      "unique": false,
+                      "validate": {
+                        "custom": "",
+                        "customPrivate": false,
+                        "maxLength": "",
+                        "minLength": "",
+                        "pattern": "",
+                        "required": true
+                      }
+                    },
+                    {
+                      "clearOnHide": true,
+                      "input": true,
+                      "inputFormat": "plain",
+                      "inputType": "text",
+                      "key": "sedeLegaleIndirizzo",
+                      "label": "Indirizzo",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "spellcheck": true,
+                      "tableView": false,
+                      "type": "textfield",
+                      "unique": false,
+                      "validate": {
+                        "custom": "",
+                        "customPrivate": false,
+                        "maxLength": "",
+                        "minLength": "",
+                        "pattern": "",
+                        "required": true
+                      }
+                    },
+                    {
+                      "clearOnHide": true,
+                      "input": true,
+                      "inputFormat": "plain",
+                      "inputType": "text",
+                      "key": "sedeLegaleNum",
+                      "label": "Num",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "spellcheck": true,
+                      "tableView": false,
+                      "type": "textfield",
+                      "unique": false,
+                      "validate": {
+                        "custom": "",
+                        "customPrivate": false,
+                        "maxLength": "",
+                        "minLength": "",
+                        "pattern": "",
+                        "required": true
+                      }
+                    }
+                  ],
+                  "offset": 0,
+                  "pull": 0,
+                  "push": 0,
+                  "width": 6
+                }
+              ],
+              "hideLabel": true,
+              "input": false,
+              "key": "colonneSedeLegale",
+              "label": "ColonneSedeLegale",
+              "tableView": false,
+              "type": "columns"
+            },
+            {
+              "label": "formRicercaRichiedente",
+              "tableView": false,
+              "input": true,
+              "type": "form",
+              "key": "formRicercaRichiedente",
+              "components": [
+                {
+                  "content": "Seleziona la tua carica ricoperta rispetto al foggetto titolare",
+                  "customClass": "bg-clear",
+                  "hideLabel": false,
+                  "input": false,
+                  "key": "caricaRicopertaTitle",
+                  "label": "Carica Ricoperta",
+                  "tag": "b",
+                  "type": "htmlelement"
+                },
+                {
+                  "clearOnHide": true,
+                  "data": {
+                    "url": "http://localhost:3000/api/ruoli-compilante"
+                  },
+                  "dataSrc": "url",
+                  "template": "<span>{{ item.des_ruolo_compilante }}</span>",
+                  "valueProperty": "cod_ruolo_compilante",
+                  "input": true,
+                  "key": "ruoloCompilante",
+                  "label": "Carica ricoperta",
+                  "labelPosition": "top",
+                  "persistent": true,
+                  "protected": false,
+                  "tableView": false,
+                  "type": "select",
+                  "validate": {
+                    "required": true
+                  }
+                },
+                {
+                  "content": "Dati Richiedente",
+                  "customClass": "bg-clear",
+                  "hideLabel": false,
+                  "input": false,
+                  "key": "datiRichiedenteTitle",
+                  "label": "Dati Richiedente",
+                  "tag": "b",
+                  "type": "htmlelement"
+                },
+                {
+                  "clearOnHide": false,
+                  "columns": [
+                    {
+                      "components": [
+                        {
+                          "clearOnHide": true,
+                          "data": {
+                            "url": "http://localhost:3000/api/ruoli-soggetto"
+                          },
+                          "dataSrc": "url",
+                          "template": "<span>{{ item.des_ruolo_soggetto }}</span>",
+                          "valueProperty": "cod_ruolo_soggetto",
+                          "input": true,
+                          "key": "datiRichiedenteInQualitaDi",
+                          "label": "In qualità di",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "protected": false,
+                          "tableView": false,
+                          "type": "select",
+                          "validate": {
+                            "required": true
+                          }
+                        }
+                      ],
+                      "offset": 0,
+                      "pull": 0,
+                      "push": 0,
+                      "width": 6
+                    },
+                    {
+                      "components": [
+                        {
+                          "clearOnHide": true,
+                          "input": true,
+                          "inputFormat": "plain",
+                          "inputType": "text",
+                          "key": "datiRichiedenteCF",
+                          "label": "Codice Fiscale",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "spellcheck": true,
+                          "tableView": false,
+                          "type": "textfield",
+                          "unique": false,
+                          "validate": {
+                            "custom": "",
+                            "customPrivate": false,
+                            "maxLength": "",
+                            "minLength": "",
+                            "pattern": "",
+                            "required": true
+                          }
+                        },
+                        {
+                          "action": "event",
+                          "autofocus": false,
+                          "block": true,
+                          "customConditional": "",
+                          "disableOnInvalid": true,
+                          "event": "cercaRichiedenteConCF",
+                          "input": true,
+                          "key": "richiedenteCFCerca",
+                          "label": "Cerca",
+                          "leftIcon": "",
+                          "properties": {},
+                          "rightIcon": "",
+                          "size": "md",
+                          "tableView": false,
+                          "theme": "outline-success",
+                          "type": "button"
+                        }
+                      ],
+                      "offset": 0,
+                      "pull": 0,
+                      "push": 0,
+                      "width": 6
+                    }
+                  ],
+                  "hideLabel": true,
+                  "input": false,
+                  "key": "colonneRicercaRichiedente",
+                  "label": "ColonneRicercaRichiedente",
+                  "tableView": false,
+                  "type": "columns"
+                }
+              ]
+            },
+            {
+              "label": "Container Richiedente",
+              "tableView": false,
+              "key": "containerRichiedente",
+              "type": "container",
+              "disabled": true,
+              "input": true,
+              "components": [
+                {
+                  "clearOnHide": false,
+                  "columns": [
+                    {
+                      "components": [
+                        {
+                          "clearOnHide": true,
+                          "input": true,
+                          "inputFormat": "plain",
+                          "inputType": "text",
+                          "key": "datiRichiedenteCognome",
+                          "label": "Cognome",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "spellcheck": true,
+                          "tableView": true,
+                          "type": "textfield",
+                          "unique": false,
+                          "validate": {
+                            "custom": "",
+                            "customPrivate": false,
+                            "maxLength": "",
+                            "minLength": "",
+                            "pattern": "",
+                            "required": true
+                          }
+                        }
+                      ],
+                      "offset": 0,
+                      "pull": 0,
+                      "push": 0,
+                      "width": 6
+                    },
+                    {
+                      "components": [
+                        {
+                          "clearOnHide": true,
+                          "input": true,
+                          "inputFormat": "plain",
+                          "inputType": "text",
+                          "key": "datiRichiedenteNome",
+                          "label": "Nome",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "spellcheck": true,
+                          "tableView": true,
+                          "type": "textfield",
+                          "unique": false,
+                          "validate": {
+                            "custom": "",
+                            "customPrivate": false,
+                            "maxLength": "",
+                            "minLength": "",
+                            "pattern": "",
+                            "required": true
+                          }
+                        }
+                      ],
+                      "offset": 0,
+                      "pull": 0,
+                      "push": 0,
+                      "width": 6
+                    }
+                  ],
+                  "hideLabel": true,
+                  "input": false,
+                  "key": "colonneDatiRichiedente",
+                  "label": "ColonneDatiRichiedente",
+                  "tableView": false,
+                  "type": "columns"
+                },
+                {
+                  "content": "Nato a",
+                  "customClass": "bg-clear",
+                  "hideLabel": true,
+                  "input": false,
+                  "key": "natoADescrizione",
+                  "label": "Nato a",
+                  "tag": "p",
+                  "type": "htmlelement"
+                },
+                {
+                  "clearOnHide": false,
+                  "columns": [
+                    {
+                      "components": [
+                        {
+                          "clearOnHide": true,
+                          "data": {
+                            "custom": "",
+                            "json": "",
+                            "resource": "",
+                            "url": "",
+                            "values": [
+                              {
+                                "label": "Italia",
+                                "value": "ita"
+                              }
+                            ]
+                          },
+                          "dataSrc": "values",
+                          "defaultValue": "ita",
+                          "input": true,
+                          "key": "natoAStato",
+                          "label": "Stato",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "protected": false,
+                          "tableView": false,
+                          "template": "<span>{{ item.label }}</span>",
+                          "type": "select",
+                          "validate": {
+                            "required": true
+                          },
+                          "valueProperty": "value"
+                        },
+                        {
+                          "clearOnHide": true,
+                          "data": {
+                            "custom": "",
+                            "json": "",
+                            "resource": "",
+                            "url": "",
+                            "values": [
+                              {
+                                "label": "Torino",
+                                "value": "TO"
+                              }
+                            ]
+                          },
+                          "dataSrc": "values",
+                          "input": true,
+                          "key": "natoAProvincia",
+                          "label": "Provincia",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "protected": false,
+                          "tableView": false,
+                          "template": "<span>{{ item.label }}</span>",
+                          "type": "select",
+                          "validate": {
+                            "required": true
+                          },
+                          "valueProperty": "value"
+                        }
+                      ],
+                      "offset": 0,
+                      "pull": 0,
+                      "push": 0,
+                      "width": 6
+                    },
+                    {
+                      "components": [
+                        {
+                          "clearOnHide": true,
+                          "data": {
+                            "custom": "",
+                            "json": "",
+                            "resource": "",
+                            "url": "",
+                            "values": [
+                              {
+                                "label": "Torino",
+                                "value": "torino"
+                              }
+                            ]
+                          },
+                          "dataSrc": "values",
+                          "input": true,
+                          "key": "natoAComune",
+                          "label": "Comune",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "protected": false,
+                          "tableView": false,
+                          "template": "<span>{{ item.label }}</span>",
+                          "type": "select",
+                          "validate": {
+                            "required": true
+                          },
+                          "valueProperty": "value"
+                        },
+                        {
+                          "autofocus": false,
+                          "clearOnHide": true,
+                          "datePicker": {
+                            "datepickerMode": "day",
+                            "initDate": "",
+                            "maxDate": null,
+                            "maxMode": "year",
+                            "minDate": null,
+                            "minMode": "day",
+                            "showWeeks": true,
+                            "startingDay": 0,
+                            "yearColumns": 5,
+                            "yearRows": 4
+                          },
+                          "datepickerMode": "day",
+                          "defaultDate": "",
+                          "enableDate": true,
+                          "enableTime": false,
+                          "format": "yyyy-MM-dd",
+                          "input": true,
+                          "key": "natoADataDiNascita",
+                          "label": "Data di nascita",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "placeholder": "",
+                          "tableView": false,
+                          "timePicker": {
+                            "arrowkeys": true,
+                            "hourStep": 1,
+                            "minuteStep": 1,
+                            "mousewheel": true,
+                            "readonlyInput": false,
+                            "showMeridian": true
+                          },
+                          "type": "datetime",
+                          "validate": {
+                            "custom": "",
+                            "required": true
+                          }
+                        }
+                      ],
+                      "offset": 0,
+                      "pull": 0,
+                      "push": 0,
+                      "width": 6
+                    }
+                  ],
+                  "hideLabel": true,
+                  "input": false,
+                  "key": "colonneNatoA",
+                  "label": "ColonneNatoA",
+                  "tableView": false,
+                  "type": "columns"
+                },
+                {
+                  "content": "Residente in",
+                  "customClass": "bg-clear",
+                  "hideLabel": true,
+                  "input": false,
+                  "key": "residenteInDescrizione",
+                  "label": "Residente in",
+                  "tag": "p",
+                  "type": "htmlelement"
+                },
+                {
+                  "clearOnHide": false,
+                  "columns": [
+                    {
+                      "components": [
+                        {
+                          "clearOnHide": true,
+                          "data": {
+                            "custom": "",
+                            "json": "",
+                            "resource": "",
+                            "url": "",
+                            "values": [
+                              {
+                                "label": "Italia",
+                                "value": "ita"
+                              }
+                            ]
+                          },
+                          "dataSrc": "values",
+                          "defaultValue": "ita",
+                          "input": true,
+                          "key": "residenteInStato",
+                          "label": "Stato",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "protected": false,
+                          "tableView": false,
+                          "template": "<span>{{ item.label }}</span>",
+                          "type": "select",
+                          "validate": {
+                            "required": true
+                          },
+                          "valueProperty": "value"
+                        },
+                        {
+                          "clearOnHide": true,
+                          "data": {
+                            "custom": "",
+                            "json": "",
+                            "resource": "",
+                            "url": "",
+                            "values": [
+                              {
+                                "label": "Torino",
+                                "value": "TO"
+                              }
+                            ]
+                          },
+                          "dataSrc": "values",
+                          "input": true,
+                          "key": "residenteInProvincia",
+                          "label": "Provincia",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "protected": false,
+                          "tableView": false,
+                          "template": "<span>{{ item.label }}</span>",
+                          "type": "select",
+                          "validate": {
+                            "required": true
+                          },
+                          "valueProperty": "value"
+                        },
+                        {
+                          "clearOnHide": true,
+                          "data": {
+                            "custom": "",
+                            "json": "",
+                            "resource": "",
+                            "url": "",
+                            "values": [
+                              {
+                                "label": "Torino",
+                                "value": "torino"
+                              }
+                            ]
+                          },
+                          "dataSrc": "values",
+                          "input": true,
+                          "key": "residenteInComune",
+                          "label": "Comune",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "protected": false,
+                          "tableView": false,
+                          "template": "<span>{{ item.label }}</span>",
+                          "type": "select",
+                          "validate": {
+                            "required": true
+                          },
+                          "valueProperty": "value"
+                        }
+                      ],
+                      "offset": 0,
+                      "pull": 0,
+                      "push": 0,
+                      "width": 6
+                    },
+                    {
+                      "components": [
+                        {
+                          "clearOnHide": true,
+                          "input": true,
+                          "inputFormat": "plain",
+                          "inputType": "text",
+                          "key": "residenteInCAP",
+                          "label": "CAP",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "spellcheck": true,
+                          "tableView": false,
+                          "type": "textfield",
+                          "unique": false,
+                          "validate": {
+                            "custom": "",
+                            "customPrivate": false,
+                            "maxLength": "",
+                            "minLength": "",
+                            "pattern": "",
+                            "required": true
+                          }
+                        },
+                        {
+                          "clearOnHide": true,
+                          "input": true,
+                          "inputFormat": "plain",
+                          "inputType": "text",
+                          "key": "residenteInIndirizzo",
+                          "label": "Indirizzo",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "spellcheck": true,
+                          "tableView": false,
+                          "type": "textfield",
+                          "unique": false,
+                          "validate": {
+                            "custom": "",
+                            "customPrivate": false,
+                            "maxLength": "",
+                            "minLength": "",
+                            "pattern": "",
+                            "required": true
+                          }
+                        },
+                        {
+                          "clearOnHide": true,
+                          "input": true,
+                          "inputFormat": "plain",
+                          "inputType": "text",
+                          "key": "residenteInNum",
+                          "label": "Num",
+                          "labelPosition": "top",
+                          "persistent": true,
+                          "spellcheck": true,
+                          "tableView": false,
+                          "type": "textfield",
+                          "unique": false,
+                          "validate": {
+                            "custom": "",
+                            "customPrivate": false,
+                            "maxLength": "",
+                            "minLength": "",
+                            "pattern": "",
+                            "required": true
+                          }
+                        }
+                      ],
+                      "offset": 0,
+                      "pull": 0,
+                      "push": 0,
+                      "width": 6
+                    }
+                  ],
+                  "hideLabel": true,
+                  "input": false,
+                  "key": "colonneResidenteIn",
+                  "label": "ColonneResidenteIn",
+                  "tableView": false,
+                  "type": "columns"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Container Referente",
+      "tableView": false,
+      "key": "containerReferente",
+      "type": "container",
+      "hidden": true,
+      "customConditional": "show = data[\"containerAnagraficaSoggetto\"] && data[\"containerAnagraficaSoggetto\"].editGridAnagraficaSoggetto.length > 0;",
+      "input": true,
+      "components": [
+        {
+          "content": "Aggiungi uno o più Referenti oppure prosegui e seleziona \"Avanti\"",
+          "customClass": "bg-clear",
+          "hideLabel": true,
+          "input": false,
+          "key": "referenteDescrizione",
+          "label": "referenteDescrizione",
+          "tag": "h6",
+          "tags": [
+            "b"
+          ],
+          "type": "htmlelement"
+        },
+        {
+          "label": "AnagraficaReferente",
+          "hideLabel": true,
+          "key": "editGridAnagraficaReferente",
+          "addAnother": "Aggiungi Referente",
+          "removeRow": "Annulla",
+          "hideRemoveRow": true,
+          "saveRow": "Inserisci Referente",
+          "type": "editgrid",
+          "input": true,
+          "readOnly": true,
+          "disabled": false,
+          "templates": {
+            "header": "<div class=\"row\">{% util.eachComponent(components, function(component) { %}{% if (component.hasOwnProperty('tableView') && component.tableView) { %}<div class=\"col-sm-2\"><strong>{{ component.label }}</strong></div>{% } %}{% }) %}</div>",
+            "row": "<div class=\"row\">{% util.eachComponent(components, function(component) { %}{% if (component.hasOwnProperty('tableView') && component.tableView) { %}<div class=\"col-sm-2\">{{ getView(component, row[component.key]) }}</div>{% } %}{% }) %}{% if (!instance.disabled) { %}<div class=\"col-sm-2\"><div class=\"btn-group pull-right\"><button class=\"btn btn-default btn-light btn-sm editRow\"><i class=\"{{ iconClass('edit') }}\"></i></button>{% if (!instance.hasRemoveButtons || instance.hasRemoveButtons()) { %}<button class=\"btn btn-danger btn-sm removeRow\"><i class=\"{{ iconClass('trash') }}\"></i></button>{% } %}</div></div>{% } %}</div>",
+            "footer": ""
+          },
+          "components": [
+            {
+              "content": "Referente",
+              "customClass": "bg-clear",
+              "hideLabel": true,
+              "input": false,
+              "key": "referenteTitolo",
+              "label": "referenteTitolo",
+              "tag": "b",
+              "type": "htmlelement"
+            },
+            {
+              "label": "ColonneReferente",
+              "columns": [
+                {
+                  "components": [
+                    {
+                      "clearOnHide": true,
+                      "input": true,
+                      "inputFormat": "plain",
+                      "inputType": "text",
+                      "key": "referenteCognome",
+                      "label": "Cognome",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "spellcheck": true,
+                      "tableView": true,
+                      "type": "textfield",
+                      "unique": false,
+                      "validate": {
+                        "required": true
+                      }
+                    },
+                    {
+                      "clearOnHide": true,
+                      "input": true,
+                      "inputFormat": "plain",
+                      "inputType": "text",
+                      "key": "referenteNome",
+                      "label": "Nome",
+                      "labelPosition": "top",
+                      "persistent": true,
+                      "spellcheck": true,
+                      "tableView": true,
+                      "type": "textfield",
+                      "unique": false,
+                      "validate": {
+                        "required": true
+                      }
+                    }
+                  ],
+                  "width": 6,
+                  "offset": 0,
+                  "push": 0,
+                  "pull": 0,
+                  "size": "md"
+                },
+                {
+                  "components": [
+                    {
+                      "label": "Telefono",
+                      "tableView": true,
+                      "validate": {
+                        "required": true
+                      },
+                      "key": "referenteTelefono",
+                      "type": "phoneNumber",
+                      "input": true,
+                      "inputMask": "+99 999 999999",
+                      "hideOnChildrenHidden": false
+                    },
+                    {
+                      "label": "Email",
+                      "tableView": true,
+                      "validate": {
+                        "required": true
+                      },
+                      "key": "referenteEmail",
+                      "type": "email",
+                      "input": true,
+                      "hideOnChildrenHidden": false
+                    }
+                  ],
+                  "width": 6,
+                  "offset": 0,
+                  "push": 0,
+                  "pull": 0,
+                  "size": "md"
+                }
+              ],
+              "key": "colonneReferente",
+              "type": "columns",
+              "input": false,
+              "tableView": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "display": "form"
+}

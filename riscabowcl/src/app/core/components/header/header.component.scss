@@ -1,0 +1,145 @@
+.container-fluid {
+  @media screen and (max-width: 800px) {
+    padding: 0;
+  }
+
+  @media screen and (min-width: 801px) {
+    padding: 0 80px 0 75px;
+  }
+}
+
+header .container-fluid {
+  @media screen and (max-width: 800px) {
+    padding: 0 15px;
+
+    a {
+      font-size: 0.875rem;
+      font-weight: bold;
+    }
+  }
+
+  @media screen and (min-width: 801px) {
+    padding: 0 104px;
+
+    a {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+}
+
+header {
+  nav {
+    &.navbar {
+      padding: 0.5rem 0;
+    }
+
+    @media screen and (max-width: 800px) {
+      .menu-button {
+        display: block;
+      }
+    }
+
+    @media screen and (min-width: 801px) {
+      .menu-button {
+        display: none;
+      }
+    }
+
+    .menu-button {
+      padding: 0 1rem 0 0;
+
+      i {
+        font-size: 1.5em;
+        color: white;
+      }
+    }
+
+    .navbar-brand {
+      letter-spacing: 0.48px;
+      margin: 0 10px;
+      white-space: normal;
+    }
+
+    .nav-button-group {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.user-circle {
+  background-color: white;
+  color: #006cb4;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+.user-circle::after {
+  content: none !important;
+}
+
+.bg-second-blue {
+  background-color: #213366;
+}
+
+.navbar-nav>li {
+  float: left;
+  position: relative;
+}
+
+#myTab>li.nav-item>a.nav-link.active {
+  border-bottom: 5px solid #006CB4;
+}
+
+.second-nav {
+  height: 50px;
+  background: #0381D6 0% 0% no-repeat padding-box;
+  opacity: 1;
+
+  .navbar-brand {
+    color: white;
+  }
+}
+
+.col-user-menu {
+  flex: 0 0 30px;
+}
+
+.risca-header {
+  overflow-x: hidden;
+}
+
+.user-menu-btn {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.user-menu-btn:focus {
+  outline: none;
+}
+
+.user-menu-btn:focus-visible {
+  outline: none;
+}
+
+.r-ngbddi-label {
+  margin-left: 30px;
+  display: inline;
+}

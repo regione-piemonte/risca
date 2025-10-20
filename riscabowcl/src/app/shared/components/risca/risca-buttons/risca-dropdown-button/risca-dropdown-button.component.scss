@@ -1,0 +1,33 @@
+.r-btn-dropdown::after {
+  content: none !important;
+}
+
+.r-dropdown-item:hover {
+  background-color: #7fb8f2;
+}
+
+.r-dropdown-item:focus,
+.r-dropdown-item:focus-within {
+  outline: none;
+  color: #fff;
+  background-color: #0062cc;
+  border-color: #005cbf;
+}
+
+.r-dropdown-icon {
+  display: inline !important;
+  margin-left: 10px;
+}
+
+.r-dropdown-icon svg {
+  width: 10px;
+  height: 10px;
+}
+
+.r-dropdown-icon #rddb-icon-open {
+  margin-bottom: 5px;
+}
+
+.r-dropdown-icon #rddb-icon-close {
+  margin-top: 2px;
+}

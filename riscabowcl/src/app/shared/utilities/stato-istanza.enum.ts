@@ -1,0 +1,8 @@
+export enum StatoIstanzaEnum {
+  TUTTE = 'TUTTE',
+  BOZZA = 'BOZZA',
+  DA_FIRMARE = 'DA FIRMARE',
+  DA_INTEGRARE = 'DA INTEGRARE',
+  FIRMATE = 'FIRMATE',
+  PRESENTATE = 'PRESENTATE',
+}

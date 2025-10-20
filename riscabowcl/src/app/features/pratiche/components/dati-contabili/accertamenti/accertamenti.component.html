@@ -1,0 +1,150 @@
+<!-- LABEL DI TESTATA -->
+<div class="row">
+  <div class="col risca-head-section-label">
+    Dettaglio accertamenti
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="risca-common-label">
+      Definizione attività accertamenti
+    </div>
+  </div>
+</div>
+
+<!-- TABELLA STATO DEBITORIO -->
+<div class="row r-m-intL-t" *ngIf="checkSDTable">
+  <div class="col">
+    <risca-table
+      [cssConfig]="riepilogoSDAccertanentiTable.cssConfig"
+      [dataConfig]="riepilogoSDAccertanentiTable.dataConfig"
+      [source]="riepilogoSDAccertanentiTable.source"
+    ></risca-table>
+  </div>
+</div>
+
+<!-- TITOLO TIPI ATTIVITA ACCERTAMENTO -->
+<div class="row r-m-intL-t">
+  <div class="col risca-head-section-label">
+    Attività di accertamento sullo stato debitorio
+  </div>
+</div>
+
+<!-- SELECT TIPO ATTIVITA ACCERTAMENTO -->
+<div class="row r-mt--10">
+  <div class="col">
+    <form [formGroup]="mainForm">
+      <!-- SELECT TIPO ATTIVITA ACCERTAMENTO -->
+      <risca-select
+        [formControlName]="ACC_C.TIPO_ATTIVITA"
+        [idFormControl]="ACC_C.TIPO_ATTIVITA"
+        [formGroup]="mainForm"
+        [cssConfig]="formInputs.tipoAccertamentoConfig.css"
+        [dataConfig]="formInputs.tipoAccertamentoConfig.data"
+        [formSubmitted]="mainFormSubmitted"
+        [dataSource]="tipiAttivitaAccertamento"
+        [propertyToShow]="ACC_C.PROPERTY_DES_ATTIVITA_STATO_DEB"
+      ></risca-select>
+    </form>
+  </div>
+</div>
+
+<!-- SEPARATORE -->
+<risca-separator></risca-separator>
+
+<!-- ATTIVITA ACCERTAMENTO -->
+<div class="row">
+  <div class="col-auto risca-head-section-label r-mr--70">
+    {{ ACC_C.TITLE_ACCERTAMENTI }}
+  </div>
+  <div class="col col-accordion-istanza r-mt--a">
+    <!-- NUOVO ACCERTAMENTO -->
+    <risca-accordion-switch
+      [label]="ACC_C.NUOVO_ACCERTAMENTO"
+      [accordionAperto]="showNuoviAccertamenti"
+      [disabled]="disableUserInputs"
+      (onAccordionClick)="toggleNuoviAccertamenti($event)"
+    ></risca-accordion-switch>
+  </div>
+</div>
+
+<!-- ACCORDION CON FORM PER INSERIMENTO NUOVO ACCERTAMENTO -->
+<div class="row r-m-intL-t" *ngIf="showNuoviAccertamenti">
+  <!-- TOGGLE NUOVO ACCERTAMENTO -->
+  <div class="col">
+    <div class="risca-accordion-container">
+      
+      <!-- FORM -->
+      <risca-accertamento #riscaAccertamento
+        [modalita]="C_C.INSERIMENTO"
+        (onFormSubmit)="onAggiungiAccertamento($event)"
+      ></risca-accertamento>
+
+      <!--RICERCA CREDITORE CLOSED-->
+      <div class="row r-mt--20" *ngIf="showNuoviAccertamenti">
+        <div class="col r-ml--aggiungi">
+          <!-- BOTTONE CONFERMA -->
+          <risca-primary-button
+            [dataConfig]="{ label: 'Aggiungi' }"
+            [disable]="disableUserInputs"
+            (click)="aggiungiAccertamento()"
+          ></risca-primary-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABELLA ACCERTAMENTI -->
+<div class="row r-m-intL-t">
+  <div class="col" *ngIf="checkAccertamentiTable">
+    <risca-table
+      [cssConfig]="accertamentiTable.cssConfig"
+      [dataConfig]="accertamentiTable.dataConfig"
+      [source]="accertamentiTable.source"
+      (onRowDelete)="rimuoviAccertamento($event)"
+      (onRowModify)="modificaAccertamento($event)"
+    ></risca-table>
+  </div>
+  <div class="col" *ngIf="!checkAccertamentiTable">
+    Non sono stati trovati accertamenti per lo stato debitorio corrente.
+  </div>
+</div>
+
+<!--ALERT-->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <!-- GESTIONE DEGLI ERRORI -->
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- SEPARATORE -->
+<risca-separator></risca-separator>
+
+<!-- BOTTONI -->
+<div class="row">
+  <div class="col">
+    <!-- TORNA INDIETRO -->
+    <ng-container *riscaMaintain="showIndietro">
+      <risca-button
+        [dataConfig]="C_C.BTN_INDIETRO"
+        [cssConfig]="C_C.CSS_INDIETRO"
+        (onClick)="tornaIndietro()">
+      </risca-button>
+    </ng-container>
+    <!-- TORNA A STATI DEBITORI -->
+    <ng-container *riscaMaintain="showTASD">
+      <torna-a-stati-debitori></torna-a-stati-debitori>
+    </ng-container>
+    <!-- SALVA MODIFICHE -->
+    <pulsante-salva-modifiche
+      class="float-right"
+      [disable]="disableUserInputs"
+      (salvaModifiche)="onFormSubmit()"
+    ></pulsante-salva-modifiche>
+  </div>
+</div>

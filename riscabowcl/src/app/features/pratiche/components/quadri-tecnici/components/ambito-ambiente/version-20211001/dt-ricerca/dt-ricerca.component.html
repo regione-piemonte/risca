@@ -1,0 +1,224 @@
+<!-- DATI TECNICI FORM -->
+<form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+
+  <!-- PRIMA PARTE - LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-head-section-label">
+        Dati tecnici
+      </div>
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- CORPO IDRICO CAPTAZIONE -->
+          <risca-text [formControlName]="RDTA_C.CORPO_IDRICO_CAPTAZIONE"
+            [idFormControl]="RDTA_C.CORPO_IDRICO_CAPTAZIONE"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [cssConfig]="formInputs.corpoIdricoCaptazioneConfig.css"
+            [dataConfig]="formInputs.corpoIdricoCaptazioneConfig.data"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+          ></risca-text>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- COMUNE -->
+          <risca-text [formControlName]="RDTA_C.COMUNE"
+            [idFormControl]="RDTA_C.COMUNE"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [cssConfig]="formInputs.comuneConfig.css"
+            [dataConfig]="formInputs.comuneConfig.data"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [toUpperCase]="true"
+          ></risca-text>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- IMPIANTO IDROELETTRICO -->
+          <risca-text [formControlName]="RDTA_C.NOME_IMPIANTO_IDROELETTRICO"
+            [idFormControl]="RDTA_C.NOME_IMPIANTO_IDROELETTRICO"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [cssConfig]="formInputs.nomeImpiantoIdroElettricoConfig.css"
+            [dataConfig]="formInputs.nomeImpiantoIdroElettricoConfig.data"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+          ></risca-text>
+        </div>
+
+        <div>
+          <!-- PORTATA DA ASSEGNARE -->
+          <risca-number [formControlName]="RDTA_C.PORTATA_DA_ASSEGNARE"
+            [idFormControl]="RDTA_C.PORTATA_DA_ASSEGNARE"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.portataDaAssegnareConfig.css"
+            [dataConfig]="formInputs.portataDaAssegnareConfig.data"
+            [errMapFormControl]="EM.MAP_FORMATO_NUMERO_6_INT_4_DEC"
+          ></risca-number>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+</form>
+
+<!-- FORM INSERIMENTO USI -->
+<form id="usiForm" [formGroup]="usiForm" (ngSubmit)="usiSubmit()">
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="risca-accordion-container">
+
+        <!-- ACCORDION PER USI DI LEGGE -->
+        <div class="row">
+          <div class="col-auto">
+  
+            <!-- ACCORDION LABEL USI DI LEGGE -->
+            <risca-accordion-switch
+              [label]="RDTA_C.ACCORDION_USI_DI_LEGGE"
+              [accordionAperto]="usiApriChiudi"
+              (onAccordionClick)="toggleUsiDiLegge($event)"
+            ></risca-accordion-switch>
+  
+          </div>
+        </div>
+        
+        <!-- CONTENITORE PER IL FORM USI DI LEGGE, GESTITO DALL'ACCORDION -->
+        <div riscaDisplay [showOn]="usiApriChiudi">
+
+          <div class="row">
+            <div class="col">
+
+                <div class="d-flex flex-row r-m-intL-t">
+                  <div class="r-mr--40">
+                    <!-- USO DI LEGGE -->
+                    <risca-select [formControlName]="RDTA_C.USO_DI_LEGGE"
+                      [idFormControl]="RDTA_C.USO_DI_LEGGE"
+                      [cssConfig]="formInputs.usoDiLeggeConfig.css"
+                      [dataConfig]="formInputs.usoDiLeggeConfig.data"
+                      [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                      [formGroup]="usiForm"
+                      [formSubmitted]="usiFormSubmitted"
+                      [dataSource]="listaUsiDiLegge"
+                      [propertyToShow]="RDTA_C.PROPERTY_USO_DI_LEGGE"
+                    ></risca-select>
+                  </div>
+
+                  <div class="r-mr--40">
+                    <!-- USI DI LEGGE SPECIFICI -->
+                    <risca-select [formControlName]="RDTA_C.USI_DI_LEGGE_SPECIFICI"
+                      [idFormControl]="RDTA_C.USI_DI_LEGGE_SPECIFICI"
+                      [cssConfig]="formInputs.usiDiLeggeSpecificiConfig.css"
+                      [dataConfig]="formInputs.usiDiLeggeSpecificiConfig.data"
+                      [formGroup]="usiForm"
+                      [formSubmitted]="usiFormSubmitted"
+                      [dataSource]="listaUsiDiLeggeSpecifici"
+                      [propertyToShow]="RDTA_C.PROPERTY_USI_DI_LEGGE_SPECIFICI"
+                    ></risca-select>
+                  </div>
+
+                  <div class="r-mr--40">
+                    <!-- UNITA DI MISURA -->
+                    <risca-text [formControlName]="RDTA_C.UNITA_DI_MISURA_DESC"
+                      [idFormControl]="RDTA_C.UNITA_DI_MISURA_DESC"
+                      [formGroup]="usiForm"
+                      [cssConfig]="formInputs.unitaMisuraDescConfig.css"
+                      [dataConfig]="formInputs.unitaMisuraDescConfig.data"
+                    ></risca-text>
+                  </div>
+
+                  <div class="r-mr--40">
+                    <!-- QUANTITA DA -->
+                    <risca-number [formControlName]="RDTA_C.QUANTITA_DA"
+                      [idFormControl]="RDTA_C.QUANTITA_DA"
+                      [cssConfig]="formInputs.quantitaDaConfig.css"
+                      [dataConfig]="formInputs.quantitaDaConfig.data"
+                      [formGroup]="usiForm"
+                      [formSubmitted]="usiFormSubmitted"
+                      [errMapFormGroup]="EM.MAP_MIN_MAX_CHECK"
+                    ></risca-number>
+                  </div>
+                
+                  <div class="r-mr--40">
+                    <!-- QUANTITA A -->
+                    <risca-number [formControlName]="RDTA_C.QUANTITA_A"
+                      [idFormControl]="RDTA_C.QUANTITA_A"
+                      [cssConfig]="formInputs.quantitaAConfig.css"
+                      [dataConfig]="formInputs.quantitaAConfig.data"
+                      [formGroup]="usiForm"
+                      [formSubmitted]="usiFormSubmitted"
+                      [errMapFormGroup]="EM.MAP_MIN_MAX_CHECK"
+                    ></risca-number>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+
+          <div class="row r-m-intL-t">
+            <div class="col">
+
+              <!-- Riga -->
+              <div class="flex-row">
+                <div class="data-scadenza-emas-iso">
+                  <div class="r-mr--40">
+                    <!-- DATA INIZIO CONCESSIONE -->
+                    <risca-datepicker [formControlName]="RDTA_C.DATA_SCADENZA_EMAS_ISO_DA"
+                      [idFormControl]="RDTA_C.DATA_SCADENZA_EMAS_ISO_DA"
+                      [cssConfig]="formInputs.dataScadenzaEmasIsoDaConfig.css"
+                      [dataConfig]="formInputs.dataScadenzaEmasIsoDaConfig.data"
+                      [formGroup]="usiForm"
+                      [formSubmitted]="usiFormSubmitted"
+                      [errMapFormGroup]="EM.MAP_DATA_INIZIO_DATA_FINE_INVALID"
+                    ></risca-datepicker>
+                  </div>
+                  
+                  <div class="r-mr--40">
+                    <!-- DATA INIZIO CONCESSIONE -->
+                    <risca-datepicker [formControlName]="RDTA_C.DATA_SCADENZA_EMAS_ISO_A"
+                      [idFormControl]="RDTA_C.DATA_SCADENZA_EMAS_ISO_A"
+                      [cssConfig]="formInputs.dataScadenzaEmasIsoAConfig.css"
+                      [dataConfig]="formInputs.dataScadenzaEmasIsoAConfig.data"
+                      [formGroup]="usiForm"
+                      [formSubmitted]="usiFormSubmitted"
+                      [errMapFormGroup]="EM.MAP_DATA_INIZIO_DATA_FINE_INVALID"
+                    ></risca-datepicker>
+                  </div>
+                </div>
+    
+                <div class="dta-mt-24">
+                  <button form="usiForm" type="submit" class="btn btn-default" [disabled]="!this.usiForm?.valid">
+                    {{ C_C.BTN_AGGIUNGI.label }}
+                  </button>
+                </div>
+    
+              </div>
+            </div>
+          </div>
+
+          <!-- DIVISORE -->
+          <risca-separator *ngIf="existTableUsi"></risca-separator>
+
+        </div>
+        
+        <!-- TABELLA USI DI LEGGE -->
+        <div class="row" *ngIf="existTableUsi" [ngClass]="{ 'r-m-intL-t' : !usiApriChiudi }">
+          <div class="col">
+            <risca-table 
+              [cssConfig]="usiTable.cssConfig"
+              [dataConfig]="usiTable.dataConfig"
+              [source]="usiTable.source"
+              (onRowDelete)="eliminaUso($event)"
+            ></risca-table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>

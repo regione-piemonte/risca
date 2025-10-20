@@ -1,0 +1,82 @@
+[
+    {
+        "id_oggetto": 1,
+        "den_oggetto": "Villa Angular",
+        "des_oggetto": "Descrizione dell'opera Villa Angular",
+        "cod_scriva": "010101",
+        "cod_sira": "11111",
+        "tipologia_oggetto": "",
+        "stato_oggetto": null,
+        "ubicazione_oggetto": [
+            {
+                "id_ubicazione_oggetto": 1,
+                "id_oggetto": 1,
+                "comune": {
+                    "id_comune": 4852,
+                    "codice_istat_comune": "054001",
+                    "toponimo": "ASSISI",
+                    "cap_comune": "06081",
+                    "sigla_provincia": "PE",
+                    "des_provincia": "PERUGIA"
+                },
+                "den_indirizzo": "Viale alberato",
+                "num_civico": "11",
+                "des_localita": "Assisi",
+                "ind_geo_provenienza": null
+            }
+        ]
+    },
+    {
+        "id_oggetto": 2,
+        "den_oggetto": "Parco Tematico Angular",
+        "des_oggetto": "Descrizione dell'opera Parco Tematico Angular",
+        "cod_scriva": "020202",
+        "cod_sira": "22222",
+        "tipologia_oggetto": "",
+        "stato_oggetto": null,
+        "ubicazione_oggetto": [
+            {
+                "id_ubicazione_oggetto": 2,
+                "id_oggetto": 2,
+                "comune": {
+                    "id_comune": 4869,
+                    "codice_istat_comune": "054018",
+                    "toponimo": "FOLIGNO",
+                    "cap_comune": "06034",
+                    "sigla_provincia": "PE",
+                    "des_provincia": "PERUGIA"
+                },
+                "den_indirizzo": "",
+                "num_civico": "",
+                "des_localita": "",
+                "ind_geo_provenienza": null
+            },
+            {
+                "id_ubicazione_oggetto": 3,
+                "id_oggetto": 2,
+                "comune": {
+                    "id_comune": 4852,
+                    "codice_istat_comune": "054001",
+                    "toponimo": "ASSISI",
+                    "cap_comune": "06081",
+                    "sigla_provincia": "PE",
+                    "des_provincia": "PERUGIA"
+                },
+                "den_indirizzo": "",
+                "num_civico": "",
+                "des_localita": "",
+                "ind_geo_provenienza": null
+            }
+        ]
+    },
+    {
+        "id_oggetto": 3,
+        "den_oggetto": "Grand Hotel Google",
+        "des_oggetto": "Descrizione dell'opera Grand Hotel Google",
+        "cod_scriva": "030303",
+        "cod_sira": "33333",
+        "tipologia_oggetto": "",
+        "stato_oggetto": null,
+        "ubicazione_oggetto": null
+    }
+]

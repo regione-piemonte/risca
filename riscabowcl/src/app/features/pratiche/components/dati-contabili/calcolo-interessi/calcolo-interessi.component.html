@@ -1,0 +1,112 @@
+<!-- LABEL CAMPI OBBLIGATORI -->
+<div class="row">
+  <div class="col">
+    <div class="risca-obbligatorio-label">*Campi obbligatori</div>
+  </div>
+</div>
+
+<!-- SELECT TIPO ATTIVITA ACCERTAMENTO -->
+<div class="row">
+  <div class="col">
+    <form [formGroup]="mainForm">
+      <div class="row">
+        <div class="col">
+          <!-- CANONE MANCANTE -->
+          <risca-number-it-format
+            [formControlName]="CI_C.CANONE_MANCANTE"
+            [cssConfig]="formInputs.canoneMancanteConfig.css"
+            [dataConfig]="formInputs.canoneMancanteConfig.data"
+            [idFormControl]="CI_C.CANONE_MANCANTE"
+            [formGroup]="mainForm"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [formSubmitted]="mainFormSubmitted"
+          ></risca-number-it-format>
+        </div>
+      </div>
+
+      <div class="row r-m-intL-t">
+        <div class="col risca-col-standard">
+          <!-- DATA SCADENZA PAGAMENTO -->
+          <risca-datepicker
+            [formControlName]="CI_C.DATA_SCADENZA_PAGAMENTO"
+            [idFormControl]="CI_C.DATA_SCADENZA_PAGAMENTO"
+            [cssConfig]="formInputs.dataScadenzaPagamentoConfig.css"
+            [dataConfig]="formInputs.dataScadenzaPagamentoConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [formSubmitted]="mainFormSubmitted"
+            [disableRequiredCheck]="false"
+          ></risca-datepicker>
+        </div>
+        <div class="col risca-col-standard">
+          <!-- DATA PROTOCOLLO -->
+          <risca-datepicker
+            [formControlName]="CI_C.DATA_VERSAMENTO"
+            [idFormControl]="CI_C.DATA_VERSAMENTO"
+            [cssConfig]="formInputs.dataVersamentoConfig.css"
+            [dataConfig]="formInputs.dataVersamentoConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [formSubmitted]="mainFormSubmitted"
+            [disableRequiredCheck]="false"
+          ></risca-datepicker>
+        </div>
+      </div>
+
+      <div class="row r-m-intL-t">
+        <div class="col risca-col-standard">
+          <!-- INTERESSI DOVUTI -->
+          <risca-text-fake
+            [formControlName]="CI_C.INTERESSI_DOVUTI"
+            [idFormControl]="CI_C.INTERESSI_DOVUTI"
+            [cssConfig]="formInputs.interessiDovutiConfig.css"
+            [dataConfig]="formInputs.interessiDovutiConfig.data"
+            [formGroup]="mainForm"
+            [isNumber]="true"
+            [decimali]="2"
+            [decimaliNonSignificativi]="true"
+          ></risca-text-fake>
+        </div>
+
+        <div class="col">
+          <!-- TOTALI DA VERSARE -->
+          <risca-text-fake
+            [formControlName]="CI_C.TOTALE_DA_VERSARE"
+            [idFormControl]="CI_C.TOTALE_DA_VERSARE"
+            [cssConfig]="formInputs.totaleDaVersareConfig.css"
+            [dataConfig]="formInputs.totaleDaVersareConfig.data"
+            [formGroup]="mainForm"
+            [isNumber]="true"
+            [decimali]="2"
+            [decimaliNonSignificativi]="true"
+          ></risca-text-fake>
+        </div>
+
+        <div class="col r-mt--10">
+          <!-- CALCOLA -->
+          <risca-default-button
+            class=""
+            [cssConfig]="btnVersamenti.cssConfig"
+            [dataConfig]="btnVersamenti.dataConfig"
+            [disable]="!statoDebitorio"
+            (onClick)="onFormSubmit()">
+          </risca-default-button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--ALERT-->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <!-- GESTIONE DEGLI ERRORI -->
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "Mario",
+    "surname": "Rossi",
+    "address": "Via tal dei tali"
+  },
+  {
+    "id": "2",
+    "name": "Luigi",
+    "surname": "Verdi",
+    "address": "Via dietro l'angolo"
+  },
+  {
+    "id": "3",
+    "name": "Piero",
+    "surname": "Bianchi",
+    "address": "Via del paese"
+  },
+  {
+    "id": "4",
+    "name": "Luigi",
+    "surname": "Rossi",
+    "address": "Via tal dei tali"
+  },
+  {
+    "id": "5",
+    "name": "Piero",
+    "surname": "Verdi",
+    "address": "Via dietro l'angolo"
+  },
+  {
+    "id": "6",
+    "name": "Mario",
+    "surname": "Bianchi",
+    "address": "Via del paese"
+  }
+]

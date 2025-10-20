@@ -1,0 +1,223 @@
+<div class="container-fluid r-plr--0">
+  <div class="row">
+    <div class="col">
+
+      <!-- DATI SOGGETTO FORM -->
+      <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+
+        <!-- RIGA 1 -->
+        <div class="d-flex flex-row">
+          <div class="r-mr--40">
+            <!-- TIPO SOGGETTO -->
+            <risca-select [formControlName]="RDS_C.TIPO_SOGGETTO"
+              [cssConfig]="tipoSoggettoConfig.css"
+              [dataConfig]="tipoSoggettoConfig.data"
+              [idFormControl]="RDS_C.TIPO_SOGGETTO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaTipiSoggetto"
+              [propertyToShow]="RDS_C.PROPERTY_TIPO_SOGGETTO"
+              [disableRequiredCheck]="false"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.TIPO_SOGGETTO"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+          <div class="r-mr--40">
+            <!-- NATURA GIURIDICA -->
+            <risca-select [formControlName]="RDS_C.NATURA_GIURIDICA"
+              [cssConfig]="naturaGiuridicaConfig.css"
+              [dataConfig]="naturaGiuridicaConfig.data"
+              [idFormControl]="RDS_C.NATURA_GIURIDICA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaNatureGiuridiche"
+              [propertyToShow]="RDS_C.PROPERTY_NATURA_GIURIDICA"
+              [disableRequiredCheck]="false"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.TIPO_NATURA_GIURIDICA"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+          <div class="">
+            <!-- CODICE FISCALE -->
+            <risca-text [formControlName]="RDS_C.CODICE_FISCALE"
+              [cssConfig]="codiceFiscaleConfig.css"
+              [dataConfig]="codiceFiscaleConfig.data"
+              [idFormControl]="RDS_C.CODICE_FISCALE"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_COD_FISC_TIPO_SOGG"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.CF_SOGGETTO"
+            ></risca-text>
+          </div>
+        </div>
+
+        <!-- RIGA 2 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- RAGIONE SOCIALE -->
+            <risca-text [formControlName]="RDS_C.RAGIONE_SOCIALE"
+              [cssConfig]="ragioneSocialeConfig.css"
+              [dataConfig]="ragioneSocialeConfig.data"
+              [idFormControl]="RDS_C.RAGIONE_SOCIALE"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.RAGIONE_SOCIALE"
+            ></risca-text>
+          </div>
+          <div class="">
+            <!-- PARTITA IVA -->
+            <risca-text [formControlName]="RDS_C.PARTITA_IVA"
+              [cssConfig]="partitaIvaConfig.css"
+              [dataConfig]="partitaIvaConfig.data"
+              [idFormControl]="RDS_C.PARTITA_IVA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_PARTITA_IVA_SOGGETTO"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.PARTITA_IVA_SOGGETTO"
+            ></risca-text>
+          </div>
+        </div>
+
+        <!-- RIGA 3 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- COGNOME -->
+            <risca-text [formControlName]="RDS_C.COGNOME"
+              [cssConfig]="cognomeConfig.css"
+              [dataConfig]="cognomeConfig.data"
+              [idFormControl]="RDS_C.COGNOME"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.COGNOME"
+            ></risca-text>
+          </div>
+          <div class="r-mr--40">
+            <!-- NOME -->
+            <risca-text [formControlName]="RDS_C.NOME"
+              [cssConfig]="nomeConfig.css"
+              [dataConfig]="nomeConfig.data"
+              [idFormControl]="RDS_C.NOME"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.NOME"
+            ></risca-text>
+          </div>
+          <div class="">
+            <!-- DATEPICKER DATA DI NASCITA -->
+            <risca-datepicker [formControlName]="RDS_C.DATA_NASCITA"
+              [cssConfig]="dataDiNascitaConfig.css"
+              [dataConfig]="dataDiNascitaConfig.data"
+              [idFormControl]="RDS_C.DATA_NASCITA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.DATA_NASCITA_SOGGETTO"
+            ></risca-datepicker>
+          </div>
+        </div>
+
+        <!-- RIGA 4 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- SELECT STATO -->
+            <risca-select [formControlName]="RDS_C.STATO_NASCITA"
+              [cssConfig]="statoDiNascitaConfig.css"
+              [dataConfig]="statoDiNascitaConfig.data"
+              [idFormControl]="RDS_C.STATO_NASCITA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaStati"
+              [propertyToShow]="RDS_C.PROPERTY_STATO_NASCITA"
+              [disableRequiredCheck]="false"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.NAZIONE_NASCITA"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+          <div class="r-mr--40" *ngIf="fStatoItalia">
+            <!-- COMUNE -->
+            <risca-typeahead [formControlName]="RDS_C.COMUNE_NASCITA"
+              [cssConfig]="comuneDiNascitaConfig.css"
+              [dataConfig]="comuneDiNascitaConfig.data"
+              [idFormControl]="RDS_C.COMUNE_NASCITA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [allowUserInput]="false"
+              [autoCompleteOnBlur]="true"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.COMUNE_NASCITA"
+            ></risca-typeahead>
+          </div>
+          <div class="" *ngIf="fStatoItalia">
+            <!-- SELECT PROVINCIA -->
+            <risca-select [formControlName]="RDS_C.PROVINCIA_NASCITA"
+              [cssConfig]="provinciaDiNascitaConfig.css"
+              [dataConfig]="provinciaDiNascitaConfig.data"
+              [idFormControl]="RDS_C.PROVINCIA_NASCITA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaProvince"
+              [propertyToShow]="RDS_C.PROPERTY_PROVINCIA_NASCITA"
+              [disableRequiredCheck]="false"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+          <div class="" *ngIf="!fStatoItalia">
+            <!-- CITTA ESTERA -->
+            <risca-text [formControlName]="RDS_C.CITTA_ESTERA_NASCITA"
+              [cssConfig]="cittaEsteraNascitaConfig.css"
+              [dataConfig]="cittaEsteraNascitaConfig.data"
+              [idFormControl]="RDS_C.CITTA_ESTERA_NASCITA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.CITTA_ESTERA_NASCITA"
+            ></risca-text>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button form="mainForm" type="submit" class="btn btn-primary" *ngIf="showSubmit" [disabled]="!this.mainForm.valid">
+              SALVA
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

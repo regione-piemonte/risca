@@ -1,0 +1,71 @@
+<div class="card-box card-box-internal">
+
+  <!-- TITOLO -->
+  <div class="d-flex flex-row">
+    <div class="risca-head-section-label">
+      Dati ricerca
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <!--Form ricerca pratica semplice-->
+      <risca-ricerca-semplice-pratiche #refRRSP
+        [ricerca]="ricercaPS?.ricerca"
+        (onFormSubmit)="avviaRicercaSemplice($event)"
+      ></risca-ricerca-semplice-pratiche>
+    </div>
+  </div>
+
+  <risca-separator *ngIf="tablePratiche?.source.length > 0"></risca-separator>
+
+  <!--Tabella risultati ricerca avanzata Pratiche-->
+  <div class="d-flex flex-row" *ngIf="tablePratiche?.source.length > 0">
+    <div class="risca-head-section-label">
+      Risultati ricerca
+    </div>
+  </div>
+
+  <!--Tabella risultati ricerca semplice Pratiche-->
+  <div class="row r-m-intL-t" *ngIf="tablePratiche?.source?.length > 0">
+    <div class="col">
+      <risca-table
+        [cssConfig]="tablePratiche.cssConfig"
+        [dataConfig]="tablePratiche.dataConfig"
+        [source]="tablePratiche.source"
+        [isFETable]="false"
+        (onRowDetail)="modificaPratica($event)"
+        (onCambioPagina)="cambiaPagina($event)"
+      ></risca-table>
+    </div>
+  </div>
+
+</div>
+
+<!-- GESTIONE DEGLI ERRORI -->
+<div class="row r-m-intL" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert [alertConfigs]="alertConfigs" (onAlertHidden)="onAlertHidden($event, alertConfigs)"></risca-alert>
+  </div>
+</div>
+
+<!-- BOTTONI PER AVVIO RICERCA -->
+<div class="button-group r-m-intL-t">
+  <!-- CONTAINER -->
+  <div class="row">
+    <div class="col">
+      <!-- ANNULLA -->
+      <risca-link-button
+        [dataConfig]="{ label: 'ANNULLA' }"
+        (onClick)="annullaRicercaSemplice()">
+      </risca-link-button>
+    </div>
+    <div class="col text-right">
+      <!-- CONFERMA -->
+      <risca-primary-button 
+        [dataConfig]="{ label: 'CERCA PRATICA' }"
+        (onClick)="ricercaSemplice()">
+      </risca-primary-button>
+    </div>
+  </div>
+</div>

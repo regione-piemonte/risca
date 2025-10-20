@@ -1,0 +1,73 @@
+// VARIABILI
+$disabled-color: #6C757D;
+
+/**
+ * NOTA BENE: nav-main e ul-azioni-pagamento hanno una formazione css per creare un distanziamento top/bottom
+ *            che permetta la corretta visualizzazione delle box shadow/margin degli elementi sopra e sotto la navbar.
+ */
+.nav-main {
+  border: none;
+  background-color: #F0F3F8;
+  padding-top: 39px;
+  padding-bottom: 36px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.ul-azioni-pagamento {
+  margin-top: 1px;
+  margin-bottom: 6px;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.navbar-nav>li {
+  float: left;
+  position: relative;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  border-bottom: none;
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  padding: 0px;
+}
+
+.nav-tabs .nav-link.disabled {
+  color: $disabled-color !important;
+}
+
+.nav-first {
+  margin-left: 0px;
+  margin-right: 20px;
+}
+
+.nav-center {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.nav-last {
+  margin-left: 20px;
+  margin-right: 0px;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #F0F3F8;
+  color: #006CB4;
+}
+
+#myTab>li.nav-item>a.nav-link.active {
+  border-bottom: none;
+  opacity: 1;
+}

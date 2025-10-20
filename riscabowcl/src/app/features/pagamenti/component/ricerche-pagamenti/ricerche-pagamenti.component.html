@@ -1,0 +1,41 @@
+<!-- Box navigazione dati pratica-->
+<div class="card-box" *ngIf="riscaNav?.navs">
+
+  <ul ngbNav #ngbNavList="ngbNav" class="nav r-ngb-nav-3"
+    [(activeId)]="tabActive"
+    [destroyOnHide]="true"
+  >
+    <ng-container *ngFor="let nav of riscaNav.navs">
+      <li class="nav-item" [ngbNavItem]="nav.ngbNavItem" [disabled]="nav.disabled">
+        <a ngbNavLink class="nav-link"
+          [id]="nav.ngbNavItem" 
+          (click)="cambiaNav(nav.ngbNavItem)"
+        >
+          <div>{{ nav.label }}</div>
+        </a>
+        <ng-template ngbNavContent>
+          <div class="tab-pane fade show" [id]="nav.ngbNavItem">
+            
+            <!-- PAGAMENTI -->
+            <ng-container *riscaMaintain="nav.component === riscaNav.RICERCA_PAG_COMPONENT">
+              <ricerca-pagamenti></ricerca-pagamenti>
+            </ng-container>
+
+          </div>
+        </ng-template>
+      </li>
+    </ng-container>
+  </ul>
+
+  <!-- TAB CONTENT CONTAINER -->
+  <div class="tab-content" id="tabRicerchePagamenti" [ngbNavOutlet]="ngbNavList"></div>
+  
+</div>
+
+<div class="row r-m-intL-t">
+  <div class="col">
+    <risca-alert-listener
+      [allowAlertClose]="true"
+    ></risca-alert-listener>
+  </div>
+</div>

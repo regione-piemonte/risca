@@ -3208,8 +3208,7 @@ public class BusinessLogicManager  implements BusinessLogic
 			sorisFr1DAO.delete();
 			sorisFr3DAO.delete();
 			sorisFr7DAO.delete();
-			result = soris99CDAO.delete();
-			System.out.println("result--> "+result);	
+			result = soris99CDAO.delete();	
 		
 		LOG.debug("[BusinessLogicManager : deleteWorkingSoris] END");
 		return result;

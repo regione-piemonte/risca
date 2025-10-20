@@ -1,0 +1,128 @@
+<!-- HEADER STANDARD PER LA MODALE -->
+<risca-modal-header [title]="title" (onClickClose)="modalDismiss()"></risca-modal-header>
+
+<!-- CORPO DELLA MODALE -->
+<div class="modal-body risca-modal-body">
+  
+  <!-- FORM DATI -->
+  <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+    
+    <!-- RIGA DELLA FORM -->
+    <div class="row">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="r-mr--60">
+            <!-- TIPO ELABORAZIONE -->
+            <risca-text [formControlName]="BM_C.TIPO_ELABORABORAZIONE"
+              [idFormControl]="BM_C.TIPO_ELABORABORAZIONE"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.tipoElaborazioneConfig.css"
+              [dataConfig]="formInputs.tipoElaborazioneConfig.data"
+            ></risca-text>
+          </div>
+
+          <div class="bo-mr-47">
+            <!-- DATA SCADENZA PAGAMENTO -->
+            <risca-datepicker [formControlName]="BM_C.DATA_SCADENZA_PAGAMENTO"
+              [idFormControl]="BM_C.DATA_SCADENZA_PAGAMENTO"
+              [cssConfig]="formInputs.dataScedenzaPagamentoConfig.css"
+              [dataConfig]="formInputs.dataScedenzaPagamentoConfig.data"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_BOLLETTAZIONE_O_DATA_SCAD_PAG"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+            ></risca-datepicker>
+          </div>
+
+          <div>
+            <!-- SELECT ANNO -->
+            <risca-select [formControlName]="BM_C.ANNO"
+              [idFormControl]="BM_C.ANNO"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.annoConfig.css"
+              [dataConfig]="formInputs.annoConfig.data"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_BOLLETTAZIONE_ORDINARIA_ANNO"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaAnni"
+              [propertyToShow]="BM_C.PROPERTY_ANNO"
+            ></risca-select>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGA DELLA FORM -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="risca-container-standard r-mr--60">
+            <!-- DATA PROTOCOLLO -->
+            <risca-datepicker [formControlName]="BM_C.DATA_PROTOCOLLO"
+              [idFormControl]="BM_C.DATA_PROTOCOLLO"
+              [cssConfig]="formInputs.dataProtocolloConfig.css"
+              [dataConfig]="formInputs.dataProtocolloConfig.data"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_BOLLETTAZIONE_DATA_PROT_DATA_SCAD_PAG"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+            ></risca-datepicker>
+          </div>
+          <div class="r-mr--60">        
+            <!-- NUMERO PROTOCOLLO -->
+            <risca-text [formControlName]="BM_C.NUMERO_PROTOCOLLO"
+              [idFormControl]="BM_C.NUMERO_PROTOCOLLO"
+              [cssConfig]="formInputs.numeroProtocolloConfig.css"
+              [dataConfig]="formInputs.numeroProtocolloConfig.data"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+            ></risca-text>
+          </div>
+
+          <div>
+            <!-- DIRIGENTE PRE TEMPORE -->
+            <risca-text [formControlName]="BM_C.DIRIGENTE_PRO_TEMPORE"
+              [idFormControl]="BM_C.DIRIGENTE_PRO_TEMPORE"
+              [cssConfig]="formInputs.dirigenteProTemporeConfig.css"
+              [dataConfig]="formInputs.dirigenteProTemporeConfig.data"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+            ></risca-text>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<!-- FOOTER DELLA MODALE -->
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="onFormReset()"
+  ></risca-button>
+
+  <risca-primary-button
+    [dataConfig]="BTN_CONFERMA"
+    (onClick)="onFormSubmit()">
+  </risca-primary-button>
+
+</div>

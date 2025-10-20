@@ -1,0 +1,14 @@
+<div class="r-m-intL-t">
+  <!-- FILO ARIANNA -->
+  <risca-filo-arianna></risca-filo-arianna>
+</div>
+
+<!-- CARD-BOX -->
+<div class="card-box card-box-external card-box-internal" *ngIf="statoDebitorio">
+  <!-- ACCERTAMENTI -->
+  <rimborsi
+    [tornaAStatiDebitori]="false"
+    [tornaIndietro]="true"
+    (onTornaIndietro)="onTornaIndietro($event)"
+  ></rimborsi>
+</div>

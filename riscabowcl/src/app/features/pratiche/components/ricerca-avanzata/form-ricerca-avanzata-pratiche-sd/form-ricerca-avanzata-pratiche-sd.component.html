@@ -1,0 +1,511 @@
+<form [formGroup]="mainForm">
+  <!-- LABEL DI TESTATA -->
+  <div class="d-flex flex-row">
+    <div class="risca-head-section-label">
+      Dati titolare
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <!-- TIPO SOGGETTO -->
+        <div class="r-mr--40">
+          <risca-select [formControlName]="RRAP_C.TIPO_SOGGETTO"
+            [idFormControl]="RRAP_C.TIPO_SOGGETTO"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.tipoSoggettoConfig.css"
+            [dataConfig]="formInputs.tipoSoggettoConfig.data"
+            [dataSource]="listaTipiSoggetto"
+            [propertyToShow]="RRAP_C.PROPERTY_TIPO_SOGGETTO"
+            [ignoreDBDefault]="true"
+          ></risca-select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <div class="r-mr--40">
+          <!-- RAGIONE SOCIALE O COGNOME -->
+          <risca-text [formControlName]="RRAP_C.RAGIONE_SOCIALE_COGNOME"
+            [idFormControl]="RRAP_C.RAGIONE_SOCIALE_COGNOME"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.ragioneSocialeOCognomeConfig.css"
+            [dataConfig]="formInputs.ragioneSocialeOCognomeConfig.data"
+          ></risca-text>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- CODICE FISCALE -->
+          <risca-text [formControlName]="RRAP_C.CODICE_FISCALE"
+            [idFormControl]="RRAP_C.CODICE_FISCALE"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.codiceFiscaleConfig.css"
+            [dataConfig]="formInputs.codiceFiscaleConfig.data"
+            [errMapFormControl]="EM.MAP_PATTERN_COD_FISC"
+            [formSubmitted]="ricercaPraticaSubmitted"
+            [toUpperCase]="true"
+          ></risca-text>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- PARTITA IVA -->
+          <risca-text [formControlName]="RRAP_C.PARTITA_IVA"
+            [cssConfig]="formInputs.partitaIVAConfig.css"
+            [dataConfig]="formInputs.partitaIVAConfig.data"
+            [errMapFormControl]="EM.MAP_PARTITA_IVA"
+            [idFormControl]="RRAP_C.PARTITA_IVA"
+            [formGroup]="mainForm"
+            [disableRequiredCheck]="false"></risca-text>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- STATO RESIDENZA-->
+          <risca-select [formControlName]="RRAP_C.STATO_RESIDENZA"
+            [idFormControl]="RRAP_C.STATO_RESIDENZA"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.statoConfig.css"
+            [dataConfig]="formInputs.statoConfig.data"
+            [dataSource]="listaNazioni"
+            [propertyToShow]="RRAP_C.PROPERTY_NAZIONI"
+            [ignoreDBDefault]="true"
+            [listenToRefreshData]="true"
+          ></risca-select>
+        </div>
+        <div class="r-mr--40" *ngIf="fStatoItalia">
+          <!-- COMUNE_RESIDENZA -->
+          <risca-typeahead [formControlName]="RRAP_C.COMUNE_RESIDENZA"
+            [cssConfig]="formInputs.comuneConfig.css"
+            [dataConfig]="formInputs.comuneConfig.data"
+            [idFormControl]="RRAP_C.COMUNE_RESIDENZA"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [allowUserInput]="false"
+            [autoCompleteOnBlur]="true"
+            [disableRequiredCheck]="false"
+            [toUpperCase]="true"
+          ></risca-typeahead>
+        </div>
+        <div class="" *ngIf="fStatoItalia">
+          <!-- PROVINCIA RESIDENZA -->
+          <risca-select [formControlName]="RRAP_C.PROVINCIA_RESIDENZA"
+            [cssConfig]="formInputs.provinciaConfig.css"
+            [dataConfig]="formInputs.provinciaConfig.data"
+            [idFormControl]="RRAP_C.PROVINCIA_RESIDENZA"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaProvince"
+            [propertyToShow]="RRAP_C.PROPERTY_PROVINCE"
+            [disableRequiredCheck]="false"
+            [ignoreDBDefault]="true"
+          ></risca-select>
+        </div>
+        <div class="" *ngIf="!fStatoItalia">
+          <!-- CITTA ESTERA -->
+          <risca-text [formControlName]="RRAP_C.CITTA_ESTERA_RESIDENZA"
+            [cssConfig]="formInputs.cittaEsteraNascitaConfig.css"
+            [dataConfig]="formInputs.cittaEsteraNascitaConfig.data"
+            [idFormControl]="RRAP_C.CITTA_ESTERA_RESIDENZA"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [disableRequiredCheck]="false"
+          ></risca-text>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- RAGIONE SOCIALE O COGNOME -->
+          <risca-text
+            [formControlName]="RRAP_C.INDIRIZZO"
+            [idFormControl]="RRAP_C.INDIRIZZO"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.indirizzoConfig.css"
+            [dataConfig]="formInputs.indirizzoConfig.data"
+          ></risca-text>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+
+  <!-- LABEL DI TESTATA -->
+  <div class="d-flex flex-row">
+    <div class="risca-head-section-label">
+      Dati amministrativi
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t" *ngIf="isMRPratiche">
+    <div class="col">
+
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- DATA SCADENZA CONCESSIONE DA -->
+          <risca-datepicker
+            [formControlName]="RRAP_C.SCADENZA_CONCESSIONE_DA"
+            [idFormControl]="RRAP_C.SCADENZA_CONCESSIONE_DA"
+            [cssConfig]="formInputs.scadenzaConcessioneDaConfig.css"
+            [dataConfig]="formInputs.scadenzaConcessioneDaConfig.data"
+            [formGroup]="mainForm"
+            [errMapFormGroup]="EM.MAP_DATA_INI_FIN_SCADENZA_CONCESSIONE"
+          ></risca-datepicker>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- DATA SCADENZA CONCESSIONE A -->
+          <risca-datepicker [formControlName]="RRAP_C.SCADENZA_CONCESSIONE_A"
+            [idFormControl]="RRAP_C.SCADENZA_CONCESSIONE_A"
+            [cssConfig]="formInputs.scadenzaConcessioneAConfig.css"
+            [dataConfig]="formInputs.scadenzaConcessioneAConfig.data"
+            [formGroup]="mainForm"
+            [errMapFormGroup]="EM.MAP_DATA_INI_FIN_SCADENZA_CONCESSIONE"
+          ></risca-datepicker>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- DATA RINUNCIA REVOCA DA -->
+          <risca-datepicker
+            [formControlName]="RRAP_C.DATA_RINUNCIA_REVOCA_DA"
+            [idFormControl]="RRAP_C.DATA_RINUNCIA_REVOCA_DA"
+            [cssConfig]="formInputs.dataRinunciaRevocaDaConfig.css"
+            [dataConfig]="formInputs.dataRinunciaRevocaDaConfig.data"
+            [formGroup]="mainForm"
+            [errMapFormGroup]="EM.MAP_DATA_INI_FIN_DATA_RINUNCIA_REVOCA"
+          ></risca-datepicker>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- DATA RINUNCIA REVOCA A -->
+          <risca-datepicker
+            [formControlName]="RRAP_C.DATA_RINUNCIA_REVOCA_A"
+            [idFormControl]="RRAP_C.DATA_RINUNCIA_REVOCA_A"
+            [cssConfig]="formInputs.dataRinunciaRevocaAConfig.css"
+            [dataConfig]="formInputs.dataRinunciaRevocaAConfig.data"
+            [formGroup]="mainForm"
+            [errMapFormGroup]="EM.MAP_DATA_INI_FIN_DATA_RINUNCIA_REVOCA"
+          ></risca-datepicker>
+        </div>
+      
+      </div>
+
+      <div class="d-flex flex-row r-m-intL-t">
+        
+        <div class="r-mr--40">
+          <!-- TIPOLOGIA PRATICA -->
+          <risca-select 
+            [formControlName]="RRAP_C.TIPOLOGIA_PRATICA"
+            [idFormControl]="RRAP_C.TIPOLOGIA_PRATICA"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.tipologiaPraticaConfig.css"
+            [dataConfig]="formInputs.tipologiaPraticaConfig.data"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaTipologiePratica"
+            [propertyToShow]="RRAP_C.PROPERTY_TIPOLOGIA_PRATICA"
+            [ignoreDBDefault]="true"
+          ></risca-select>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- STATO PRATICA -->
+          <risca-select
+            [formControlName]="RRAP_C.STATO_PRATICA"
+            [idFormControl]="RRAP_C.STATO_PRATICA"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"          
+            [cssConfig]="formInputs.statoPraticaConfig.css"
+            [dataConfig]="formInputs.statoPraticaConfig.data"
+            [dataSource]="listaStatiPratiche"
+            [propertyToShow]="RRAP_C.PROPERTY_STATO_PRATICA"
+            [ignoreDBDefault]="true"
+          ></risca-select>
+        </div>
+
+        <div>
+          <!-- PROVINCIA COMPETENZA -->
+          <risca-select [formControlName]="RRAP_C.PROVINCIA_COMPETENZA"
+            [idFormControl]="RRAP_C.PROVINCIA_COMPETENZA"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [cssConfig]="formInputs.provinciaCompetenzaConfig.css"
+            [dataConfig]="formInputs.provinciaCompetenzaConfig.data"
+            [dataSource]="listaProvinceCompetenza"
+            [propertyToShow]="RRAP_C.PROPERTY_PROVINCIA_COMPETENZA"
+          ></risca-select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t" *ngIf="isMRStatiDebitori">
+    <div class="col">
+
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- CANONE -->
+          <risca-number
+            [formControlName]="RRAP_C.CANONE"
+            [idFormControl]="RRAP_C.CANONE"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.canoneConfig.css"
+            [dataConfig]="formInputs.canoneConfig.data"
+          ></risca-number>
+        </div>
+      
+        <div class="r-mr--40">
+          <!-- ANNO CANONE -->
+          <risca-number
+            [formControlName]="RRAP_C.ANNO_CANONE"
+            [idFormControl]="RRAP_C.ANNO_CANONE"
+            [cssConfig]="formInputs.annoCanoneConfig.css"
+            [dataConfig]="formInputs.annoCanoneConfig.data"
+            [formGroup]="mainForm"
+          ></risca-number>
+        </div>
+
+        <div class="rrap-mt-36-5">
+          <!-- RESTITUITO_AL_MITTENTE -->
+          <risca-checkbox
+            [formControlName]="RRAP_C.RESTITUITO_AL_MITTENTE"
+            [idFormControl]="RRAP_C.RESTITUITO_AL_MITTENTE"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.restituitoAlMittenteConfig.css"
+            [dataConfig]="formInputs.restituitoAlMittenteConfig.data"
+            [dataSource]="formInputs.restituitoAlMittenteConfig.source"
+            [onlyLastValue]="true"
+          ></risca-checkbox>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+
+  <div class="risca-accordion-container">
+    <!-- ACCORDION PER ISTANZA -->
+    <div class="row">
+      <div class="col-auto">
+
+        <!-- ACCORDION LABEL ISTANZA -->
+        <risca-accordion-switch
+          [label]="RRAP_C.ACCORDION_ISTANZA_PROVVEDIMENTO"
+          [accordionAperto]="istanzaProvvedimentoApriChiudi"
+          (onAccordionClick)="toggleIstanzaProvvedimento($event)">
+        </risca-accordion-switch>
+
+      </div>
+    </div>
+
+    <!-- CONTENITORE PER IL FORM ISTANZA/PROVVEDIMENTO, GESTITO DALL'ACCORDION -->
+    <div riscaDisplay [showOn]="istanzaProvvedimentoApriChiudi">
+      <!-- GESTIONE ISTANZE -->
+      <div class="row">
+        <div class="col">
+
+          <div class="d-flex flex-row r-m-intL-t">
+
+            <div class="r-mr--40">
+              <!-- TIPOLOGIA ISTANZA -->
+              <risca-select
+                [formControlName]="RRAP_C.TIPO_ISTANZA"
+                [idFormControl]="RRAP_C.TIPO_ISTANZA"
+                [formGroup]="mainForm"
+                [cssConfig]="formInputs.tipoIstanzaConfig.css"
+                [dataConfig]="formInputs.tipoIstanzaConfig.data"
+                [dataSource]="listaTipiIstanza"
+                [propertyToShow]="RRAP_C.PROPERTY_TIPO_PROVVEDIMENTO"
+                [ignoreDBDefault]="true"
+              ></risca-select>
+            </div>
+
+            <div class="r-mr--40">
+              <!-- DATA ISTANZA DA -->
+              <risca-datepicker
+                [formControlName]="RRAP_C.DATA_ISTANZA_DA"
+                [idFormControl]="RRAP_C.DATA_ISTANZA_DA"
+                [cssConfig]="formInputs.dataIstanzaDaConfig.css"
+                [dataConfig]="formInputs.dataIstanzaDaConfig.data"
+                [formGroup]="mainForm"
+                [errMapFormGroup]="EM.MAP_DATA_INI_FIN_DATA_ISTANZA"
+              ></risca-datepicker>
+            </div>
+
+            <div class="r-mr--40">
+              <!-- DATA ISTANZA A -->
+              <risca-datepicker
+                [formControlName]="RRAP_C.DATA_ISTANZA_A"
+                [idFormControl]="RRAP_C.DATA_ISTANZA_A"
+                [cssConfig]="formInputs.dataIstanzaAConfig.css"
+                [dataConfig]="formInputs.dataIstanzaAConfig.data"
+                [formGroup]="mainForm"
+                [errMapFormGroup]="EM.MAP_DATA_INI_FIN_DATA_ISTANZA"
+              ></risca-datepicker>
+            </div>
+
+            <!-- BOTTONE PER AVVIO INSERIMENTO ISTANZA -->
+            <div class="r-mt--23">
+              <risca-button 
+                [dataConfig]="C_C.BTN_AGGIUNGI"
+                [cssConfig]="C_C.CSS_AGGIUNGI"
+                [disable]="dataIstanzaInvalid"
+                (onClick)="aggiungiIstanza()"
+              ></risca-button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TABELLA ISTANZE -->
+      <div class="row r-m-intL-t r-mb---15" *ngIf="checkIstanzeTable">
+        <div class="col">
+          <risca-table
+            [cssConfig]="istanzeTable.cssConfig"
+            [dataConfig]="istanzeTable.dataConfig"
+            [source]="istanzeTable.source"
+            (onRowDelete)="eliminaIstanza($event)"
+          ></risca-table>
+        </div>
+      </div>
+      
+      <!-- DIVISORE -->
+      <risca-separator></risca-separator>
+
+      <!-- GESTIONE ISTANZE -->
+      <div class="row">
+        <div class="col">
+
+          <div class="d-flex flex-row">
+              
+            <!-- TIPO PROVVEDIMENTO -->
+            <div class="r-mr--40">
+              <risca-select
+                [formControlName]="RRAP_C.TIPO_PROVVEDIMENTO"
+                [idFormControl]="RRAP_C.TIPO_PROVVEDIMENTO"
+                [formGroup]="mainForm"
+                [cssConfig]="formInputs.tipoProvvedimentoConfig.css"
+                [dataConfig]="formInputs.tipoProvvedimentoConfig.data"
+                [dataSource]="listaTipiProvvedimenti"
+                [propertyToShow]="RRAP_C.PROPERTY_TIPO_PROVVEDIMENTO"
+                [ignoreDBDefault]="true"
+              ></risca-select>
+            </div>
+
+            <!-- TIPO TITOLO -->
+            <div class="risca-container-standard r-mr--40">
+              <risca-select 
+                [formControlName]="RRAP_C.TIPO_TITOLO"
+                [idFormControl]="RRAP_C.TIPO_TITOLO"
+                [formGroup]="mainForm"
+                [cssConfig]="formInputs.tipoTitoloConfig.css"
+                [dataConfig]="formInputs.tipoTitoloConfig.data"
+                [dataSource]="listaTipiTitoli"            
+                [propertyToShow]="RRAP_C.PROPERTY_TIPO_TITOLO"
+                [ignoreDBDefault]="true"
+              ></risca-select>
+            </div>
+
+            <!-- NUMERO TITOLO -->
+            <div class="r-mr--40">
+              <risca-text
+                [formControlName]="RRAP_C.NUMERO_TITOLO"
+                [idFormControl]="RRAP_C.NUMERO_TITOLO"
+                [formGroup]="mainForm"
+                [cssConfig]="formInputs.numeroTitoloConfig.css"
+                [dataConfig]="formInputs.numeroTitoloConfig.data"
+              ></risca-text>
+            </div>
+
+            <!-- DATA TITOLO DA -->
+            <div class="r-mr--40">
+              <risca-datepicker
+                [formControlName]="RRAP_C.DATA_TITOLO_DA"
+                [idFormControl]="RRAP_C.DATA_TITOLO_DA" 
+                [cssConfig]="formInputs.dataTitoloDaConfig.css"
+                [dataConfig]="formInputs.dataTitoloDaConfig.data"
+                [formGroup]="mainForm"
+                [errMapFormGroup]="EM.MAP_DATA_INI_FIN_DATA_TITOLO"
+              ></risca-datepicker>
+            </div>
+
+            <!-- DATA TITOLO A -->
+            <div class="r-mr--40">
+              <risca-datepicker
+                [formControlName]="RRAP_C.DATA_TITOLO_A"
+                [idFormControl]="RRAP_C.DATA_TITOLO_A"
+                [cssConfig]="formInputs.dataTitoloAConfig.css"
+                [dataConfig]="formInputs.dataTitoloAConfig.data"
+                [formGroup]="mainForm"
+                [errMapFormGroup]="EM.MAP_DATA_INI_FIN_DATA_TITOLO"
+              ></risca-datepicker>
+            </div>
+
+            <!-- BOTTONE PER AVVIO INSERIMENTO ISTANZA -->
+            <div class="r-mt--23">
+              <risca-button 
+                [dataConfig]="C_C.BTN_AGGIUNGI"
+                [cssConfig]="C_C.CSS_AGGIUNGI"
+                [disable]="dataTitoloInvalid"
+                (onClick)="aggiungiProvvedimento()"
+              ></risca-button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      
+      <!-- TABELLA PROVVEDIMENTI -->
+      <div class="row r-m-intL-t r-mb---15" *ngIf="checkProvvedimentiTable">
+        <div class="col">
+          <risca-table
+            [cssConfig]="provvedimentiTable.cssConfig"
+            [dataConfig]="provvedimentiTable.dataConfig"
+            [source]="provvedimentiTable.source"
+            (onRowDelete)="eliminaProvvedimento($event)"
+          ></risca-table>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <risca-separator></risca-separator>
+
+  <!-- DATI TECNICI -->
+  <quadri-tecnici-ricerca #appQuadriTecniciRicerca
+    [parentFormKey]="RRAP_C.FORM_KEY_PARENT"
+    [childFormKey]="RRAP_C.FORM_KEY_CHILD_DT"
+    [datiTecnici]="datiTecniciConfigs"
+    (onFormSubmit)="inviaRiscossioneSearch($event)"
+  ></quadri-tecnici-ricerca>
+
+</form>

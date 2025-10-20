@@ -1,0 +1,36 @@
+<!-- HEADER -->
+<risca-modal-header
+  [title]="activePrompt?.title"
+  (onClickClose)="onPromptClose()"
+></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+  <div class="row" *ngIf="prompts?.length > 1">
+    <div class="col">
+      Messaggio: {{ currentPromptIndex + 1 }}/{{ lastPromptIndex + 1 }}
+    </div>
+  </div>
+  <div class="row r-mtb--20">
+    <div class="col">
+      <div [innerHTML]="activePrompt?.code | riscaMessage | riscaInnerHTML"></div>
+    </div>  
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="modal-footer risca-model-footer">
+  <!-- BOTTONE DI ANNULLA -->
+  <risca-button class="r-mri--a"
+    [cssConfig]="activePrompt?.cancelBtn?.cssConfig"
+    [dataConfig]="activePrompt?.cancelBtn?.dataConfig"
+    (onClick)="onPromptCancel()"
+  ></risca-button>
+
+  <!-- BOTTONE DI CONFERMA -->
+  <risca-button
+    [cssConfig]="activePrompt?.confirmBtn?.cssConfig"
+    [dataConfig]="activePrompt?.confirmBtn?.dataConfig"
+    (onClick)="onPromptConfirm()"
+  ></risca-button>  
+</div>

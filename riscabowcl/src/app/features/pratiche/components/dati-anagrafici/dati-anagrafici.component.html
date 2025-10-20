@@ -1,0 +1,292 @@
+<div class="card-box card-box-internal">
+  <!-- CERCA TITOLARE IN TESTATA -->
+  <div class="row" *ngIf="mostraCercaTitolareTestata">
+    <div class="col risca-common-label">
+      <div class="d-flex flex-row">
+        <div class="r-mtb--a r-mr--40">
+          Cerca il <strong>TITOLARE</strong> della Pratica: se il Titolare non è
+          presente, sarà possibile inserirlo.
+        </div>
+        <div>
+          <risca-primary-button
+            [dataConfig]="labelPulsanteTitolare"
+            [disable]="disableUserInputs"
+            (onClick)="apriCercaTitolare()"
+          ></risca-primary-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERT PER LA COMUNICAZIONE UTENTE DI POSSIBILI EVENTI -->
+  <div class="row r-m-intL-t" *ngIf="alertCEConfigscheck">
+    <div class="col">
+      <!-- GESTIONE DEI MESSAGGI -->
+      <risca-alert
+        [alertConfigs]="alertCEConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertCEConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+  <!-- ALERT PER LA COMUNICAZIONE UTENTE DELLE MODIFICHE AL SOGGETTO -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <!-- GESTIONE DEI MESSAGGI -->
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+  <!-- CONTENITORE DEI DATI DEL REFERENTE -->
+  <ng-container *ngIf="showDatiAnagrafici">
+    <div class="row r-m-intL-t">
+      <div class="col risca-common-label" [innerHTML]="titleDatiAnagrafici"></div>
+    </div>
+    
+    <div class="row r-m-intL-t" *ngIf="gruppoP">
+      <div class="col risca-common-label">
+        {{ DA_C.TESTO_TESTATA_CON_GRUPPO_DETTAGLIO }}
+      </div>
+    </div>
+
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-dati-soggetto #riscaDatiSoggetto
+          [parentFormKey]="DA_C.FORM_KEY_PARENT_DA"
+          [childFormKey]="DA_C.FORM_KEY_CHILD_DA_DATI_SOGGETTO"
+          [datiAnagrafici]="soggettoP"
+          [modalita]="C_C.MODIFICA"
+          [fonteConfigs]="fonteConfigs"
+          [praticaSoggettoDisabled]="disableUserInputs"
+        ></risca-dati-soggetto>
+      </div>
+    </div>
+    <!-- CERCA TITOLARE IN TESTATA -->
+    <div class="row row-cerca-titolare" *ngIf="!mostraCercaTitolareTestata">
+      <div class="col col-cerca-titolare risca-col-standard-x3 r-mr--40">
+        <!-- COL VUOTA COME SPAZIATORE -->
+      </div>
+      <div class="col">
+        <risca-primary-button
+          [dataConfig]="labelPulsanteTitolare"
+          [disable]="disableUserInputs"
+          (onClick)="apriCercaTitolare()"
+        ></risca-primary-button>
+      </div>
+    </div>
+
+    <!-- DIVISORE -->
+    <risca-separator></risca-separator>
+
+    <div class="row">
+      <div class="col risca-common-label">Contatti</div>
+    </div>
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-contatti #riscaContatti
+          [parentFormKey]="DA_C.FORM_KEY_PARENT_DA"
+          [childFormKey]="DA_C.FORM_KEY_CHILD_DA_CONTATTI"
+          [datiAnagrafici]="soggettoP"
+          [idRecapito]="idRecapitoP"
+          [modalita]="C_C.MODIFICA"
+          [fonteConfigs]="fonteConfigs"
+          [praticaSoggettoDisabled]="disableUserInputs"
+        ></risca-contatti>
+      </div>
+    </div>
+
+    <!-- DIVISORE -->
+    <risca-separator></risca-separator>
+    
+    <div class="row">
+      <div class="col risca-common-label">Recapito principale</div>
+    </div>
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-recapito #riscaRecapito
+          [parentFormKey]="DA_C.FORM_KEY_PARENT_DA"
+          [childFormKey]="DA_C.FORM_KEY_CHILD_DA_RECAPITO"
+          [datiAnagrafici]="soggettoP"
+          [idRecapito]="idRecapitoP"
+          [gruppoIS]="gruppoP"
+          [modalita]="C_C.MODIFICA"
+          [fonteConfigs]="fonteConfigs"
+          [praticaSoggettoDisabled]="disableUserInputs"
+        ></risca-recapito>
+      </div>
+    </div>
+
+    <!-- DIVISORE -->
+    <risca-separator></risca-separator>
+
+    <!-- RECAPITI ALTERNATIVI -->
+    <div class="row">
+      <div class="col col-recapito-alternativo r-mr--50">
+        <div class="row">
+          <div class="col risca-common-label">Recapito Alternativo</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="risca-common-label">
+              &egrave; possibile inserire un solo Recapito Alternativo
+              associato alla Pratica.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-recapito-alternativo-accordion r-mt--a">
+        <div class="row">
+          <div class="col">
+            <risca-accordion-switch
+              [label]="DA_C.ACC_NUO_REC_ALT"
+              [disabled]="!isGestioneAbilitata || disableUserInputs"
+              [accordionAperto]="showNuoviRecapitiAlternativi"
+              (onAccordionClick)="toggleNuoviRecapitiAlternativi($event)"
+            ></risca-accordion-switch>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCORDION CON FORM PER INSERIMENTO NUOVO RECAPITO ALTERNATIVO -->
+    <div class="row r-m-intL-t" *ngIf="showNuoviRecapitiAlternativi">
+      <div class="col">
+        <div class="risca-accordion-container">
+          <div class="row">
+            <div class="col">
+              <risca-recapito #riscaDARecapitoAlt
+                [parentFormKey]="DA_C.FORM_KEY_PARENT_DA_RECAPITI_ALTERNATIVI"
+                [childFormKey]="DA_C.FORM_KEY_CHILD_DA_RECAPITO_ALTERNATIVO"
+                [modalita]="C_C.INSERIMENTO"
+                [praticaSoggettoDisabled]="disableUserInputs"
+              ></risca-recapito>
+            </div>
+          </div>
+
+          <!-- DIVISORE -->
+          <risca-separator></risca-separator>
+
+          <div class="row">
+            <div class="col risca-common-label">Contatti</div>
+          </div>
+          <div class="row r-m-intL-t">
+            <div class="col">
+              <risca-contatti #riscaDAContattiAlt
+                [parentFormKey]="DA_C.FORM_KEY_PARENT_DA_RECAPITI_ALTERNATIVI"
+                [childFormKey]="DA_C.FORM_KEY_CHILD_DA_CONTATTI_ALTERNATIVO"
+                [modalita]="C_C.INSERIMENTO"
+                [praticaSoggettoDisabled]="disableUserInputs"
+              ></risca-contatti>
+            </div>
+          </div>
+
+          <div class="d-flex flex-row">
+            <div class="risca-container-standard-x3">
+              <!-- CONFERMA -->
+              <div class="float-right">
+                <risca-primary-button
+                  [dataConfig]="{ label: 'Aggiungi' }"
+                  [disable]="disableUserInputs"
+                  (onClick)="aggiungiRecapitoAlternativo()"
+                ></risca-primary-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABELLA RECAPITI ALTERNATIVI -->
+    <div class="row r-m-intL-t" *ngIf="checkRecapitiA">
+      <div class="col">
+        <risca-table #riscaTRecapitiAlt
+          [cssConfig]="recapitiAlternativiTable.cssConfig"
+          [dataConfig]="recapitiAlternativiTable.dataConfig"
+          [source]="recapitiAlternativiTable.source"
+          (onRowDelete)="rimuoviRecapitoAlternativo($event)"
+          (onRowModify)="modificaRecapitoAlternativo($event)"
+          (onRadioClick)="collegaRecapitoAlternativoAPratica($event)"
+          (onRowCustomAction)="customActionRATable($event)"
+        ></risca-table>
+      </div>
+    </div>
+
+    <!-- PULSANTE DI DESELEZIONE DEI RADIO BUTTON PER LA TABELLA DEI RECAPITI ALTERNATIVI -->
+    <div class="row r-m-intL-t" *ngIf="checkRecapitiA">
+      <div class="col">
+        <!-- CONFERMA -->
+        <risca-primary-button
+          [dataConfig]="{ label: 'Deseleziona' }"
+          [disable]="disableUserInputs"
+          (onClick)="deselezionaRecapitoAlternativoScelto()"
+        >
+        </risca-primary-button>
+      </div>
+    </div>
+
+    <!-- GESTIONE DELLA SEZIONE PER GRUPPO E COMPONENTI GRUPPO -->
+    <ng-container *riscaMaintain="gruppoIsAbilitato">
+      <!-- DIVISORE -->
+      <risca-separator></risca-separator>
+
+      <!-- MESSAGGIO STATICO QUANDO NON VIENE SELEZIONATO UN GRUPPO O NON VIENE DEFINITO DA CONFIGURAZIONE -->
+      <ng-template #noGruppoSelected>
+        <!-- COMPONENTI GRUPPI -->
+        <div class="row">
+          <div class="col col-componenti-gruppo">
+            <div class="risca-common-label">Componenti Gruppo</div>
+          </div>
+        </div>
+        <div class="row r-m-intL-t">
+          <div class="col">
+            <div class="risca-common-label">
+              <strong>La riscossione non è associata a nessun gruppo.</strong>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- VERIFICO SE E' STATO DEFINITO UN GRUPPO -->
+      <ng-container *ngIf="gruppoP; else noGruppoSelected">
+        <!-- COMPONENTI GRUPPI -->
+        <div class="row">
+          <div class="col">
+            <div class="risca-common-label">Componenti Gruppo</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="risca-common-label">
+              &egrave; possibile effettuare modifiche tramite la
+              <ng-container *riscaMaintain="!disableUserInputs">
+                <span class="risca-link" (click)="dettaglioGruppo()">
+                  scheda gruppo
+                </span>
+              </ng-container>
+              <ng-container *riscaMaintain="disableUserInputs">
+                scheda gruppo
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <!-- GESTIONE DELLA TABELLA COMPONENTI GRUPPO -->
+        <ng-container *ngIf="checkTableCG">
+          <!-- COMPONENTI GRUPPO - COMPONENTE TABELLA CHE GESTISCE I DATI DEI SOGGETTI COME COMPONENTI GRUPPO -->
+          <div class="row r-m-intL-t">
+            <div class="col">
+              <risca-table
+                [cssConfig]="componentiGruppoTable.cssConfig"
+                [dataConfig]="componentiGruppoTable.dataConfig"
+                [source]="componentiGruppoTable.source"
+                (onRowDetail)="dettaglioComponenteGruppo($event)"
+              ></risca-table>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

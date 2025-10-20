@@ -1,0 +1,132 @@
+<div class="card-box card-box-internal">
+  <!-- INTERESSI LEGALI -->
+  <div class="d-flex flex-row r-m-intL-b">
+    <div class="risca-head-section-label">
+      Interessi Legali
+    </div>
+  </div>
+  <div class="risca-accordion-container r-m-intL-b">
+    <div class="d-flex flex-row">
+      <div class="risca-obbligatorio-label">
+        *campi obbligatori
+      </div>
+    </div>
+    <!-- FORM DI INSERIMENTO INTERESSI LEGALI -->
+    <div class="row">
+      <div class="col">
+        <interessi-legali-form
+          #interessiLegaliFormComponent
+          [showButtonAggiungi]="TDI_C.SHOW_BUTTON_AGGIUNGI"
+          [showFieldDataFine]="TDI_C.SHOW_FIELD_DATA_FINE"
+          [disabledDataInizio]="TDI_C.DISABLED_FIELD_DATA_INIZIO"
+          [AEADisabled]="AEA_TDIDisabled"
+          [modalita]="modalitaInserimento"
+          (onFormSubmit)="interessiLegaliFormSubmit($event)">
+        </interessi-legali-form>
+      </div>
+    </div>
+  </div>
+
+  <!-- GESTIONE DEGLI ERRORI -->
+  <div class="row r-m-intL" *ngIf="alertInteressiLegaliConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertInteressiLegaliConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertInteressiLegaliConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+  <!--  TABELLA INTERESSI LEGALI -->
+  <div class="row r-m-intL-t">
+    <div class="col" *ngIf="existInteressiLegali">
+      <risca-table
+        [cssConfig]="interessiLegaliTable.cssConfig"
+        [dataConfig]="interessiLegaliTable.dataConfig"
+        [source]="interessiLegaliTable.source"
+        [isFETable]="false"
+        (onCambioPagina)="onCambioPaginaInteressiLegali($event)"
+        (onRowModify)="onModificaInteressiLegali($event)"
+        (onRowDelete)="onCancellaInteressiLegali($event)"
+      >
+      </risca-table>
+    </div>
+    <div class="col" *ngIf="!existInteressiLegali">
+      <div>
+        Non ci sono elementi all'interno della tabella
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERESSI DI MORA -->
+  <div class="d-flex flex-row r-m-intL-b">
+    <div class="risca-head-section-label">
+      Interessi di Mora
+    </div>
+  </div>
+  <div class="risca-accordion-container">
+    <div class="d-flex flex-row">
+      <div class="risca-obbligatorio-label">
+        *campi obbligatori
+      </div>
+    </div>
+    <!-- FORM DI INSERIMENTO INTERESSI DI MORA -->
+    <div class="row">
+      <div class="col">
+        <interessi-di-mora-form
+          #interessiDiMoraFormComponent
+          [showButtonAggiungi]="TDI_C.SHOW_BUTTON_AGGIUNGI"
+          [showFieldDataFine]="TDI_C.SHOW_FIELD_DATA_FINE"
+          [showFieldGiorni]="TDI_C.SHOW_FIELD_GIORNI"
+          [disabledDataInizio]="TDI_C.DISABLED_FIELD_DATA_INIZIO"
+          [AEADisabled]="AEA_TDIDisabled"
+          [modalita]="modalitaInserimento"
+          (onFormSubmit)="interessiDiMoraFormSubmit($event)"
+        >
+        </interessi-di-mora-form>
+      </div>
+    </div>
+  </div>
+
+  <!-- GESTIONE DEGLI ERRORI -->
+  <div class="row r-m-intL" *ngIf="alertInteressiMoraConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertInteressiMoraConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertInteressiMoraConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+  <!-- TABELLA INTERESSI DI MORA -->
+  <div class="row r-m-intL-t">
+    <div class="col" *ngIf="existInteressiDiMora">
+      <!-- modificare proprietà di output, dichiarare due funzioni nel componente che come input prendano var row, guarda tipologia dentro la funzione -->
+      <risca-table
+        [cssConfig]="interessiDiMoraTable.cssConfig"
+        [dataConfig]="interessiDiMoraTable.dataConfig"
+        [source]="interessiDiMoraTable.source"
+        [isFETable]="true"
+        (onCambioPagina)="onCambioPaginaInteressiDiMora($event)"
+        (onRowModify)="onModificaInteressiDiMora($event)"
+        (onRowDelete)="onCancellaInteressiDiMora($event)"
+      >
+      </risca-table>
+    </div>
+    <div class="col" *ngIf="!existInteressiDiMora">
+      <div>
+        Non ci sono elementi all'interno della tabella
+      </div>
+    </div>
+  </div>
+
+  <!-- GESTIONE DEGLI ERRORI -->
+  <div class="row r-m-intL" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+</div>

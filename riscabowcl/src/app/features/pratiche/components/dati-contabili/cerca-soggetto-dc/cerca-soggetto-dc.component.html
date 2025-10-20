@@ -1,0 +1,72 @@
+<!-- RIGA DI TESTATA CON DATI E CHECK -->
+<div class="row">
+  <div class="col-8">
+    <!-- ETICHETTA DI TESTO -->
+    <div class="risca-common-label"
+      [innerHTML]="formDescription"
+    ></div>
+  </div>
+  <div class="col-4 r-mtb--a" *riscaMaintain="gestioneGruppiON">
+    <!-- CHECKBOX PER GESTIONE MANUALE -->
+    <div class="form-check form-check-inline float-right check-visualizza-gruppi">
+      <input class="form-check-input risca-input-border risca-checkbox"
+        type="checkbox"
+        id="visualizzaGruppi"
+        [(ngModel)]="visualizzaGruppi"
+        (click)="toggleVisualizzaGruppi()"
+      />
+      <label class="form-check-label risca-checkbox-label-standard"for="visualizzaGruppi">
+        Visualizza gruppi
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- COMPONENTE CHE GESTISCE LE INFORMAZIONI PER LA RICERCA -->
+<div class="row r-m-intL-t">
+  <div class="col">
+    <form-cerca-soggetto
+      (onSoggettoRicerca)="onSoggettoRicerca($event)"
+      (onSoggettoCercato)="onSoggettoCercato($event)"
+    ></form-cerca-soggetto>
+  </div>
+</div>
+
+<!-- SOGGETTO - COMPONENTE TABELLA CHE GESTISCE I RISULTATI DELLA RICERCA SOGGETTO -->
+<div class="row r-m-intL-t" *ngIf="soggettoTrovato && tableSoggetti">
+  <div class="col">
+    <risca-table
+      [cssConfig]="tableSoggetti.cssConfig"
+      [dataConfig]="tableSoggetti.dataConfig"
+      [source]="tableSoggetti.source"
+    ></risca-table>
+  </div>
+</div>
+
+<!-- GRUPPI - COMPONENTE TABELLA CHE GESTISCE I RISULTATI DELLA RICERCA SOGGETTO -->
+<ng-container *riscaMaintain="gestioneGruppiON">
+  <div class="row r-m-intL-t" *ngIf="mostraTabellaGruppi">
+    <div class="col">
+      <risca-table
+        [cssConfig]="tableGruppi.cssConfig"
+        [dataConfig]="tableGruppi.dataConfig"
+        [source]="tableGruppi.source"
+        (onRadioClick)="collegaGruppoAPratica($event)"
+      ></risca-table>
+    </div>
+  </div>
+</ng-container>
+
+<!-- ALERT NEL CASO IN CUI NON VENGANO TROVATI DATI  -->
+<ng-container *ngIf="ricerca && !soggettoTrovato">
+  <!-- ALERT DI WARNING CHE INFORMA L'UTENTE CHE IL SOGGETTO CERCATO NON ESISTE -->
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <!-- GESTIONE DEI MESSAGGI -->
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+</ng-container>

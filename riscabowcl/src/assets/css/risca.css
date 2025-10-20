@@ -1,0 +1,24 @@
+.note-textarea {
+  width: 700px;
+  height: 31px;
+  overflow-y: scroll;
+  resize: none;
+} 
+
+.form-control-sm {
+	width: 279px;
+	height: 31px;
+	border: 1px solid #DEE2E6;
+	border-radius: 3px;
+
+}
+
+textarea.form-control-sm {
+
+	width: 279px;
+	height: 70px;
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	border: 1px solid #DEE2E6;
+	border-radius: 3px;
+	opacity: 1;
+}

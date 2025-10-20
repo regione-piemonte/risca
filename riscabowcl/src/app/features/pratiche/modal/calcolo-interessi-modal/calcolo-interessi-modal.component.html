@@ -1,0 +1,55 @@
+<!-- TESTATA -->
+<risca-modal-header
+  [title]="modalTitle"
+  (onClickClose)="modalCancel()"
+></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+  
+  <!--COMPONENTE FORM-->
+  <div class="row">
+    <div class="col">
+      
+      <!-- COMPONENTE CALCOLO INTERESSI -->
+      <calcolo-interessi #appCalcoloInteressi
+        [parentFormKey]="AI_C.FORM_KEY_PARENT"
+        [childFormKey]="AI_C.FORM_KEY_CHILD_DTSD"
+        [modalita]="modalita"
+        [statoDebitorio]="statoDebitorio"
+      ></calcolo-interessi>
+
+    </div>
+  </div>
+
+
+  <!-- GESTIONE DELL'ALERT -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+</div>
+
+<!-- GESTIONE DEL RIMBORSO -->
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="onAnnulla()"
+  ></risca-button>
+
+  <!-- CONFERMA -->
+  <risca-primary-button
+    [dataConfig]="AI_C.BTN_MODAL_CHIUDI"
+    (onClick)="modalCancel()">
+  </risca-primary-button>
+
+</div>

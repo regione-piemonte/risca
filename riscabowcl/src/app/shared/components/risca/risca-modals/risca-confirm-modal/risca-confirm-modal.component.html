@@ -1,0 +1,35 @@
+<div class="modal-header risca-modal-header">
+  <h4 class="modal-title risca-modal-title"
+    [innerHTML]="dataModal.title"
+  ></h4>
+  <risca-button *riscaMaintain="dataModal.showCloseBtn"
+    [cssConfig]="{ customButton: 'risca-btn-x close', typeButton: '' }"
+    [dataConfig]="{ label: '&times;' }"
+    (onClick)="modalCancel(cancelPayload)">
+  </risca-button>
+</div>
+
+<div class="modal-body risca-modal-body">
+  <div class="r-mt--40 r-mb--70">
+    <div [innerHTML]="dataModal.body | riscaInnerHTML"></div>
+  </div>
+</div>
+
+<div class="modal-footer risca-model-footer">
+  <div style="width: 100%;">
+    <!-- BOTTONE CLOSE -->
+    <risca-default-button *riscaMaintain="dataModal.showCancelBtn"
+      class="left"
+      [cssConfig]="{ customButton: 'mr-auto' }"
+      [dataConfig]="{ label: dataModal.buttonCancel }"
+      (onClick)="modalCancel(cancelPayload)">
+    </risca-default-button>
+
+    <!-- BOTTONE CONFERMA -->
+    <risca-primary-button *riscaMaintain="dataModal.showConfirmBtn"
+      class="right"
+      [dataConfig]="{ label: dataModal.buttonConfirm }"
+      (onClick)="modalConfirm(confirmPayload)">
+    </risca-primary-button>
+  </div>
+</div>

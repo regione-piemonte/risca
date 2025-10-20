@@ -1,0 +1,191 @@
+<div class="container-fluid r-plr--0">
+  <div class="row">
+    <div class="col">
+
+      <!-- RECAPITO FORM -->
+      <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+
+        <!-- RIGA 1 -->
+        <div class="d-flex flex-row">
+          <div class="r-mr--40">
+            <!-- SELECT TIPO SEDE -->
+            <risca-select [formControlName]="RR_C.TIPO_SEDE"
+              [cssConfig]="tipoSedeConfig.css"
+              [dataConfig]="tipoSedeConfig.data"
+              [idFormControl]="RR_C.TIPO_SEDE"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaTipiSede"
+              [propertyToShow]="RR_C.PROPERTY_TIPO_SEDE"
+              [disableRequiredCheck]="false"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.TIPO_SEDE"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+          <div class="">
+            <!-- PRESSO -->
+            <risca-text [formControlName]="RR_C.PRESSO"
+              [cssConfig]="pressoConfig.css"
+              [dataConfig]="pressoConfig.data"
+              [idFormControl]="RR_C.PRESSO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.PRESSO"
+            ></risca-text>
+          </div>
+        </div>
+
+        <!-- RIGA 2 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- LOCALITA -->
+            <risca-text [formControlName]="RR_C.LOCALITA"
+              [cssConfig]="localitaConfig.css"
+              [dataConfig]="localitaConfig.data"
+              [idFormControl]="RR_C.LOCALITA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.LOCALITA"
+            ></risca-text>
+          </div>
+          <div class="r-mr--40">
+            <!-- INDIRIZZO -->
+            <risca-text [formControlName]="RR_C.INDIRIZZO"
+              [cssConfig]="indirizzoConfig.css"
+              [dataConfig]="indirizzoConfig.data"
+              [idFormControl]="RR_C.INDIRIZZO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.INDIRIZZO"
+            ></risca-text>
+          </div>
+          <div class="r-mr--13">
+            <!-- NUMERO CIVICO -->
+            <risca-text [formControlName]="RR_C.NUMERO_CIVICO"
+              [cssConfig]="numeroCivicoConfig.css"
+              [dataConfig]="numeroCivicoConfig.data"
+              [idFormControl]="RR_C.NUMERO_CIVICO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.NUMERO_CIVICO"
+            ></risca-text>
+          </div>
+          <div class="">
+            <!-- CAP -->
+            <risca-text [formControlName]="RR_C.CAP"
+              [cssConfig]="capConfig.css"
+              [dataConfig]="capConfig.data"
+              [idFormControl]="RR_C.CAP"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_CAP_RECAPITO"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.CAP"
+            ></risca-text>            
+          </div>
+        </div>
+
+        <!-- RIGA 3 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- SELECT STATO -->
+            <risca-select [formControlName]="RR_C.STATO"
+              [cssConfig]="statoConfig.css"
+              [dataConfig]="statoConfig.data"
+              [idFormControl]="RR_C.STATO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaStati"
+              [propertyToShow]="RR_C.PROPERTY_STATO"
+              [disableRequiredCheck]="false"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.NAZIONE_RECAPITO"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+          <div class="r-mr--40" *ngIf="fStatoItalia">
+            <!-- COMUNE -->
+            <risca-typeahead [formControlName]="RR_C.COMUNE"
+              [cssConfig]="comuneConfig.css"
+              [dataConfig]="comuneConfig.data"
+              [idFormControl]="RR_C.COMUNE"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_COMUNE_VALIDO_FC"
+              [errMapFormGroup]="EM.MAP_COMUNE_VALIDO_FG"
+              [formSubmitted]="mainFormSubmitted"
+              [allowUserInput]="false"
+              [autoCompleteOnBlur]="true"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.COMUNE_RECAPITO"
+            ></risca-typeahead>
+          </div>
+          <div class="r-mr--40" *ngIf="fStatoItalia">
+            <!-- SELECT PROVINCIA -->
+            <risca-select [formControlName]="RR_C.PROVINCIA"
+              [cssConfig]="provinciaConfig.css"
+              [dataConfig]="provinciaConfig.data"
+              [idFormControl]="RR_C.PROVINCIA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaProvince"
+              [propertyToShow]="RR_C.PROPERTY_PROVINCIA"
+              [disableRequiredCheck]="false"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+          <div class="r-mr--80" *ngIf="!fStatoItalia">
+            <!-- CITTA ESTERA -->
+            <risca-text [formControlName]="RR_C.CITTA_ESTERA_RECAPITO"
+              [cssConfig]="cittaEsteraRecapitoConfig.css"
+              [dataConfig]="cittaEsteraRecapitoConfig.data"
+              [idFormControl]="RR_C.CITTA_ESTERA_RECAPITO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.CITTA_ESTERA_RECAPITO"
+            ></risca-text>
+          </div>
+          <div class="mt-auto" *ngIf="showISBtn" 
+            [ngClass]="{ 'r-ml--input-standard': !fStatoItalia }"
+          >
+            <!-- PULSANTE INDIRIZZO SPEDIZIONE -->
+            <risca-button
+              [cssConfig]="configISBtn.cssConfig"
+              [dataConfig]="configISBtn.dataConfig"
+              [disable]="disableISBtn"
+              (onClick)="aggiornaIndirizzoSpedizione()"
+            ></risca-button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button form="mainForm" type="submit" class="btn btn-primary" *ngIf="showSubmit" [disabled]="!this.mainForm.valid">
+              SALVA
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

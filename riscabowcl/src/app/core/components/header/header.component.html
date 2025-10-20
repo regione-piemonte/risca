@@ -1,0 +1,63 @@
+<!-- HEADER DELL'APPLICAZIONE -->
+<header class="risca-header">
+  <!--Navbar-->
+  <nav class="navbar navbar-expand bg-primary navbar-dark">
+    <div class="container-fluid">
+
+      <div class="row r-wp--100 r-m--0 r-p--0">
+        <!-- TITLE DI SINISTRA -->
+        <div class="col-auto r-m--0 r-p--0">
+          <div class="navbar-brand" (click)="goToHome()">
+            <div [innerHTML]="H_C.MAIN_TITLE"></div>
+          </div>
+        </div>
+
+        <!-- MENU DI DESTRA -->
+        <div class="col r-mlr--0 r-mtb--a r-p--0">
+          <!-- Navbar links -->
+          <div ngbDropdown *ngIf="userExist" class="nav-button-group float-right"
+            [autoClose]="false"
+            [display]="NGBDisplays.dynamic"
+            [placement]="NGBPlacements.bottom_right"
+          >
+            <span ngbDropdownToggle id="userMenu" class="user-circle unselectable"
+              [title]="titleDettaglioUser"
+            >
+              {{ inizialiUser }}
+            </span>
+            <div ngbDropdownMenu aria-labelledby="userMenu">
+              <button ngbDropdownItem class="user-menu-btn" (click)="callLogout()">
+                <risca-icon [icon]="R_I.logout" [iconStyles]="NGB_DDI_FIX"></risca-icon>
+                <div class="r-ngbddi-label">Esci</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <nav class="navbar navbar-expand second-nav">
+    <div class="container-fluid">
+
+      <!-- Brand -->
+      <div class="navbar-brand">
+        {{ pageInfo.subTitle }}
+      </div>
+
+      <!-- Navbar links -->
+      <div class="nav-button-group">
+        <span>
+          <img src="assets/icon-navbar-info.svg" 
+            width="21px"
+            title="Manuale utente"
+            alt="Manuale utente"
+            (click)="downloadManualeUtente()"
+          />
+        </span>
+      </div>
+    </div>
+  </nav>
+
+</header>

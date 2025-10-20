@@ -1,0 +1,17 @@
+.rtf-input {
+  background-color: transparent;
+  border-color: transparent;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: default;
+
+  &:focus,
+  &:focus-visible {
+    border-color: transparent;
+    box-shadow: none;
+    cursor: default;
+  }
+}

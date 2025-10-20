@@ -1,0 +1,119 @@
+<div class="container-fluid r-plr--0">
+  <!-- FORM DATI CREDITORE -->
+  <div class="row">
+    <div class="col">
+      <!-- RECAPITO FORM -->
+      <form [formGroup]="mainForm">
+        <!-- RIGA 1 -->
+        <div class="d-flex flex-row">
+          <div class="r-mr--15">
+            <!-- NUMERO PROTOCOLLO -->
+            <risca-text
+              [formControlName]="ACC_C.NUM_PROTOCOLLO"
+              [cssConfig]="formInputs.numProtocolloConfig.css"
+              [dataConfig]="formInputs.numProtocolloConfig.data"
+              [idFormControl]="ACC_C.NUM_PROTOCOLLO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+          </div>
+          <div class="r-mr--40">
+            <!-- DATA PROTOCOLLO -->
+            <risca-datepicker
+              [formControlName]="ACC_C.DATA_PROTOCOLLO"
+              [cssConfig]="formInputs.dataProtocolloConfig.css"
+              [dataConfig]="formInputs.dataProtocolloConfig.data"
+              [idFormControl]="ACC_C.DATA_PROTOCOLLO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+          <div class="r-mr--15">
+            <!-- DATA SCADENZA -->
+            <risca-datepicker
+              [formControlName]="ACC_C.DATA_SCADENZA"
+              [cssConfig]="formInputs.dataScadenzaConfig.css"
+              [dataConfig]="formInputs.dataScadenzaConfig.data"
+              [idFormControl]="ACC_C.DATA_SCADENZA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+          <div class="r-mr--40">
+            <!-- DATA NOTIFICA -->
+            <risca-datepicker
+              [formControlName]="ACC_C.DATA_NOTIFICA"
+              [cssConfig]="formInputs.dataNotificaConfig.css"
+              [dataConfig]="formInputs.dataNotificaConfig.data"
+              [idFormControl]="ACC_C.DATA_NOTIFICA"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+        </div>
+
+        <!-- RIGA 2 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- SELECT ATTIVITA TIPO ACCERTAMENTO -->
+            <risca-select
+              [formControlName]="ACC_C.TIPO_ACCERTAMENTO"
+              [cssConfig]="formInputs.idTipoAccertamentoConfig.css"
+              [dataConfig]="formInputs.idTipoAccertamentoConfig.data"
+              [idFormControl]="ACC_C.TIPO_ACCERTAMENTO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaTipiAccertamenti"
+              [propertyToShow]="ACC_C.PROPERTY_TIPO_ATTIVITA_ACCERTAMENTO"
+            ></risca-select>
+          </div>
+          <div class="r-mr--40 r-a-width-note">
+            <!-- NOTE -->
+            <risca-textarea
+              [formControlName]="ACC_C.NOTE"
+              [idFormControl]="ACC_C.NOTE"
+              [cssConfig]="formInputs.noteConfig.css"
+              [dataConfig]="formInputs.noteConfig.data"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-textarea>
+          </div>
+        </div>
+
+        <!-- RIGA 3 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- FLAG RESTITUITO AL MITTENTE -->
+            <risca-checkbox
+              [formControlName]="ACC_C.FLG_RESTITUITO"
+              [idFormControl]="ACC_C.FLG_RESTITUITO"
+              [cssConfig]="formInputs.flgRestituitoConfig.css"
+              [dataConfig]="formInputs.flgRestituitoConfig.data"
+              [dataSource]="formInputs.flgRestituitoConfig.source"
+              [formGroup]="mainForm"
+              [onlyLastValue]="true"
+            ></risca-checkbox>
+          </div>
+          <div class="">
+            <!-- FLAG ANNULLATO -->
+            <risca-checkbox
+              [formControlName]="ACC_C.FLG_ANNULLATO"
+              [idFormControl]="ACC_C.FLG_ANNULLATO"
+              [cssConfig]="formInputs.flgAnnullatoConfig.css"
+              [dataConfig]="formInputs.flgAnnullatoConfig.data"
+              [dataSource]="formInputs.flgAnnullatoConfig.source"
+              [formGroup]="mainForm"
+              [onlyLastValue]="true"
+            ></risca-checkbox>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

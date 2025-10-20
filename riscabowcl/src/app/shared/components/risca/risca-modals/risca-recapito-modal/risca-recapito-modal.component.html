@@ -1,0 +1,79 @@
+<risca-modal-header
+  [title]="modalTitle"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<div class="modal-body risca-modal-body">
+  <!-- ALERT DEGLI ERRORI -->
+  <div class="row r-m-intL" *ngIf="alertConfirmConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfirmConfigs"
+        (onConfirm)="onConfirmModifica($event)"
+        (onCancel)="onCancelModifica($event)"
+        (onAlertHidden)="onAlertHidden($event, alertConfirmConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+  <!-- RECAPITO -->
+  <div class="row">
+    <div class="col risca-common-label">Recapito</div>
+  </div>
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <risca-recapito
+        #riscaRecapitoModal
+        [parentFormKey]="RRM_C.FORM_KEY_PARENT_RECAPITO_MODAL"
+        [childFormKey]="RRM_C.FORM_KEY_CHILD_RECAPITO_MODAL"
+        [datiAnagrafici]="datiAnagrafici"
+        [idRecapito]="idRecapito"
+        [modalita]="modalita"
+      ></risca-recapito>
+    </div>
+  </div>
+
+  <!-- DIVISORE -->
+  <risca-separator></risca-separator>
+
+  <!-- CONTATTI DEL SOGGETTO -->
+  <div class="row">
+    <div class="col risca-common-label">Contatti</div>
+  </div>
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <risca-contatti #riscaContattiModal
+        [parentFormKey]="RRM_C.FORM_KEY_PARENT_RECAPITO_MODAL"
+        [childFormKey]="RRM_C.FORM_KEY_CHILD_CONTATTI_MODAL"
+        [datiAnagrafici]="datiAnagrafici"
+        [idRecapito]="idRecapito"
+        [modalita]="modalita"
+        (onCloseISModal)="onCloseIndirizziSpedizioneModal($event)"
+      ></risca-contatti>
+    </div>
+  </div>
+
+  <!-- ALERT DEGLI ERRORI -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert [alertConfigs]="alertConfigs" (onAlertHidden)="onAlertHidden($event, alertConfigs)"></risca-alert>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="resetRecapitoBtn()"
+  ></risca-button>
+  <!-- BOTTONE CHE APRE LA PAGINA D'INSERIMENTO DI UN NUOVO SOGGETTO -->
+  <risca-primary-button
+    [dataConfig]="{ label: 'SALVA MODIFICHE' }"
+    [disable]="!abilitaSoggetto"
+    (onClick)="salvaModificheRecapito()"
+  >
+  </risca-primary-button>
+</div>

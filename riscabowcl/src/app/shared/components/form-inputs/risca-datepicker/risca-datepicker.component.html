@@ -1,0 +1,147 @@
+<!-- FORM GROUP -->
+<div class="form-group risca-form-group"
+  [ngClass]="cssConfig.customForm | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+  [ngStyle]="cssConfig.customForm | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+>
+
+  <!-- LABEL -->
+  <risca-input-label
+    [cssConfig]="cssConfig"
+    [dataConfig]="dataConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [idDOM]="idDOM"
+    [disableRequiredCheck]="disableRequired"
+  ></risca-input-label>
+
+  <!-- CONTENITORE PER LA INPUT -->
+  <div class="row r-m--0 r-p--0">
+
+    <!-- COLONNA LABEL DI SINISTRA -->
+    <div class="col-auto r-m--0 r-mr--15 r-p--0" *riscaMaintain="labelLeftTmpl"
+      [ngClass]="cssConfig.labelColLeft | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.labelColLeft | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+      <risca-input-label
+        [cssConfig]="cssConfig"
+        [dataConfig]="dataConfig"
+        [idFormControl]="idFC"
+        [formGroup]="formGroup"
+        [idDOM]="idDOM"
+        [disableRequiredCheck]="disableRequired"
+        [position]="labelLeft"
+      ></risca-input-label>
+    </div>
+
+    <!-- COLONNA DELLA INPUT -->
+    <div class="col r-m--0 r-p--0">
+      <ng-container *ngTemplateOutlet="riscaDatepickerTmpl"></ng-container>
+    </div>
+
+    <!-- COLONNA LABEL DI DESTRA -->
+    <div class="col-auto r-m--0 r-ml--15 r-p--0" *riscaMaintain="labelRightTmpl"
+      [ngClass]="cssConfig.labelColRight | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.labelColRight | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+      <risca-input-label
+        [cssConfig]="cssConfig"
+        [dataConfig]="dataConfig"
+        [idFormControl]="idFC"
+        [formGroup]="formGroup"
+        [idDOM]="idDOM"
+        [disableRequiredCheck]="disableRequired"
+        [position]="labelRight"
+      ></risca-input-label>
+    </div>
+
+  </div>
+  
+  <!-- FORM CONTROL - GESTIONE ERRORI -->
+  <risca-form-control-error
+    [cssConfig]="cssConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [errMapFormControl]="mappaErroriFC"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-control-error>
+  <!-- FORM GROUP - GESTIONE ERRORI -->
+  <risca-form-group-error
+    [cssConfig]="cssConfig"
+    [formGroup]="formGroup"
+    [errMapFormGroup]="mappaErroriFG"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-group-error>
+  
+</div>
+
+<ng-template #riscaDatepickerTmpl>
+  <!-- INPUT GROUP -->
+  <div class="input-group">
+    <!-- INPUT -->
+    <input ngbDatepicker #refRiscaDatePicker="ngbDatepicker"
+      class="form-control risca-input-border risca-datepicker"
+      
+      [id]="idDOM"
+      [name]="idFC"
+      [(ngModel)]="_value"
+      [disabled]="disabled"
+      [placeholder]="dataConfig?.placeholder || 'GG/MM/AAAA'"
+      
+      [ngClass]="[
+        disabled ? 'rid-disabled' : '',
+        cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_CLASS,
+        (cssConfig.showErrorFC && formControl.invalid && (formSubmitted || formControl.dirty || formControl.touched))
+        ||
+        (cssConfig.showErrorFG && formGroup.invalid && formErrors && (formSubmitted || formGroup.dirty || formGroup.touched))
+          ? 'risca-input-border-error' : '',
+        conditionalClass
+      ]"
+      [ngStyle]="cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+
+      [footerTemplate]="footerRiscaDatepicker"
+      [minDate]="dataConfig.minDate"
+      [maxDate]="dataConfig.maxDate"
+      
+      (blur)="onDatepickerBlur()"
+      (dateSelect)="onDateSelect()"
+    >
+    <!-- INPUT CALENDARIO - FOOTER -->
+    <ng-template #footerRiscaDatepicker>
+      <hr class="my-0">
+      <!-- PULSANTE DI RESET DELL'INPUT -->
+      <button class="btn btn-default btn-sm m-2 float-left"
+        (click)="resetCalendario(); refRiscaDatePicker.close();"
+      >
+        PULISCI
+      </button>
+      <!-- PULSANTE DI CHIUSURA DEL POPUP -->
+      <button class="btn btn-primary btn-sm m-2 float-right"
+        (click)="refRiscaDatePicker.close()"
+      >
+        CHIUDI
+      </button>
+    </ng-template>
+    <!-- INPUT CALENDARIO - APPENDICE CON ICONA -->
+    <div class="input-group-append">
+      <button type="button" class="risca-appendice-icona-calendario"
+        [ngClass]="{
+          'rid-disabled': disabled,
+          'risca-input-border-error':
+            (cssConfig.showErrorFC && formControl.invalid && (formSubmitted || formControl.dirty || formControl.touched))
+            ||
+            (cssConfig.showErrorFG && formGroup.invalid && formErrors && (formSubmitted || formGroup.dirty || formGroup.touched))
+          }"
+        [disabled]="disabled"
+        (click)="refRiscaDatePicker.toggle()"
+      >
+        <!-- ICONA CALENDARIO ABILITATA -->
+        <ng-container *ngIf="!disabled">
+          <img src="assets/icon-calendar.svg" alt="Calendario" />
+        </ng-container>
+        <ng-container *ngIf="disabled">
+          <img src="assets/icon-calendar-disabled.svg" alt="Calendario (disattivato)" />
+        </ng-container>
+      </button>
+    </div>
+  </div>
+</ng-template>

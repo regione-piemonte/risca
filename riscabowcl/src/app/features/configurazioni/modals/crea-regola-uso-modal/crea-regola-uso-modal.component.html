@@ -1,0 +1,69 @@
+<!-- HEADER STANDARD PER LA MODALE -->
+<risca-modal-header
+  [title]="CRUM_C.MODAL_TITLE"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<!-- CORPO DELLA MODALE -->
+<div class="modal-body risca-modal-body">
+  
+  <!-- DESCRIZIONE -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-common-label">
+        La funzionalità crea i <strong>canoni unitari</strong> e minimi per l'anno successivo, prendendo come
+        base di calcolo gli importi previsti per l'anno in corso ed aumentandoli della
+        percentuale indicata.
+        <br><br>
+        Se non viene indicata nessuna percentuale, i canoni per il nuovo
+        anno saranno uguali a quelli dell'anno in corso.
+      </div>
+    </div>
+  </div>
+  
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="risca-obbligatorio-label">*Campi obbligatori</div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="row">
+    <div class="col">
+      <crea-regola-uso-form #creaRegolaUsoFormComp
+        [creaRegolaUsoForm]="creaRegolaUsoForm"
+        (onFormSubmit)="onFormSubmit($event)"
+      ></crea-regola-uso-form>
+    </div>
+  </div>
+
+  <!-- ALERT -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER DELLA MODALE -->
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="annullaCreaRegolaUso()"
+  ></risca-button>
+
+  <!-- CREA -->
+  <risca-button
+    [dataConfig]="C_C.BTN_CREA"
+    [cssConfig]="C_C.CSS_CREA"
+    (onClick)="confermaCreaRegolaUso()"
+  ></risca-button>
+</div>

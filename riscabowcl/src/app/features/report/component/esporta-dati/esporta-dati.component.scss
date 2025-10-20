@@ -1,0 +1,22 @@
+.container-report-disponibili {
+  background-color: #def0d9;
+}
+
+.container-report-errore {
+  background-color: #f0d9d9;
+}
+
+.file-link {
+  color: #1a0dab;
+  text-decoration: underline;
+  cursor: pointer !important;
+  font-weight: bold;
+}
+
+.file-error {
+  cursor: pointer !important;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}

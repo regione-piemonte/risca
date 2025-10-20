@@ -1,0 +1,185 @@
+<div class="card-box card-box-internal">
+
+  <!-- TESTATA INIZIALE -->
+  <div class="row">
+    <div class="col risca-common-label">
+      Il sistema filtra tutti gli <strong>stati debitori</strong> per i quali sono dovute delle somme di canone e/o interessi sulla base di parametri di selezione.
+    </div>
+  </div>
+  
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <!-- FORM DI RICERCA-->
+      <risca-ricerca-morosita #riscaRicercaMorosita
+        [filtriIniziali]="filtriSDMIniziali"
+        (onFormSubmit)="onFiltriReady($event)"
+        (onFormErrors)="onComponenteErrors($event)"
+        (onEmitServiziError)="handleServiziError($event)"
+      ></risca-ricerca-morosita>
+    </div>
+  </div>
+
+  <!-- STRUTTURA DEL DOM NEL CASO IN CUI CI SONO RISULTATI PER LA RICERCA -->
+  <ng-container *ngIf="checkTableRicerca">
+    
+    <risca-separator></risca-separator>
+
+    <!-- TITOLO TABELLA -->
+    <div class="d-flex flex-row">
+      <div class="risca-head-section-label">
+        Elenco morosità
+      </div>
+    </div>
+
+    <!-- TABELLA DI RICERCA -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-table #tableSDMorosita
+          [cssConfig]="ricercaSDxMorositaTable.cssConfig"
+          [dataConfig]="ricercaSDxMorositaTable.dataConfig"
+          [source]="ricercaSDxMorositaTable.source"
+          [sourcesSelected]="ricercaSDxMorositaTable.sourceSelected"
+          [comparatorRows]="ricercaSDxMorositaTable.comparatorRows"
+          [comparatorOriginals]="ricercaSDxMorositaTable.comparatorOriginals"
+          [isFETable]="false"
+          [allSelectedDisableRowsCheck]="true"
+          [tutteLeRigheSelezionate]="ricercaSDxMorositaTable.tutteLeRigheSelezionate"
+          (onCambioPagina)="cambiaPagina($event)"
+          (onAllCheckboxesChange)="onTuttiSDSelezionati($event)"
+          (onCheckboxesChecked)="onStatiDebitoriSelezionati($event)"
+          (onRowDetail)="onDettaglioMorosita($event)"
+          (onRowCustomAction)="onSDCustomAction($event)"
+        ></risca-table>
+      </div>
+    </div>
+
+    <!-- VISUALIZZAZIONE RISULTATI TABELLA -->
+    <div class="row r-m-intL-t">
+      <div class="col col-table-sd-selezionati">
+        <div class="risca-accordion-container">
+
+          <!-- ACCORDION -->
+          <div class="row">
+            <div class="col-auto">
+    
+              <!-- ACCORDION STATI DEBITORI SELEZIONATI -->
+              <risca-accordion-switch
+                [label]="RM_C.ACCORDION_SD_SELEZIONATI"
+                [accordionAperto]="sdSelezionatiApriChiudi"
+                (onAccordionClick)="toggleSDSelezionati($event)"
+              ></risca-accordion-switch>
+    
+            </div>
+          </div>
+
+          <!-- CONTENITORE DEGLI STATI DEBITORI SELEZIONATI -->
+          <div riscaDisplay [showOn]="sdSelezionatiApriChiudi">
+            
+            <!-- STATI DEBITORI SELEZIONATI MANUALMENTE CON DATI -->
+            <div class="row r-m-intL-t" *ngIf="!allSDSelezionati && checkTableTracciatore">
+              <div class="col">
+                <!-- TRACCIATORE DELLE SELEZIONI DEGLI STATI DEBITORI -->
+                <risca-table-trace-selections
+                  [cssConfig]="sdSelezionatixMorositaTable.cssConfig"
+                  [dataConfig]="sdSelezionatixMorositaTable.dataConfig"
+                  [source]="sdSelezionatixMorositaTable.source"
+                  (onRowDelete)="rimuoviSDSelezionato($event)"
+                ></risca-table-trace-selections>
+              </div>
+            </div>
+            <!-- STATI DEBITORI SELEZIONATI MANUALMENTE SENZA DATI -->
+            <div class="row r-m-intL-t" *ngIf="!allSDSelezionati && !checkTableTracciatore">
+              <div class="col">
+                {{ RM_C.LABEL_NESSUN_SD_SELEZIONATO }}
+              </div>
+            </div>
+
+            <!-- TUTTI STATI DEBITORI SELEZIONATI DA CHECK IN TESTATA -->
+            <div class="row r-m-intL-t" *ngIf="allSDSelezionati">
+              <div class="col">
+                {{ RM_C.LABEL_TUTTI_SD_SELEZIONATI }}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>    
+
+    <!-- ATTIVITA' D'APPLICARE AGLI STATI DEBITORI -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <form [formGroup]="mainForm">
+          <div class="d-flex flex-row">
+            
+            <div class="r-mr--40">
+              <!-- ATTIVITA MOROSITA' -->
+              <risca-select 
+                [formControlName]="RM_C.ATTIVITA_MOROSITA_SD"
+                [idFormControl]="RM_C.ATTIVITA_MOROSITA_SD"
+                [cssConfig]="formInputs.attivitaMorositaConfig.css"
+                [dataConfig]="formInputs.attivitaMorositaConfig.data"
+                [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                [errMapFormGroup]="EM.MAP_FORM_GROUP_REQUIRED"
+                [formGroup]="mainForm"
+                [formSubmitted]="mainFormSubmitted"
+                [dataSource]="listaAttivitaStatoDeb"
+                [propertyToShow]="RM_C.PROPERTY_ATTIVITA_MOROSITA_SD"
+                [disableRequiredCheck]="false"
+              ></risca-select>
+            </div>
+            
+            <div class="rm-mt-24">
+              <!-- APPLICA ATTIVITA MOROSITA' AGLI SD SELEZIONATI -->
+              <risca-default-button 
+                [dataConfig]="RM_C.BTN_APPLICA_ATTIVITA_MOROSITA"
+                [disable]="!checkSDSelezionati"
+                (onClick)="onFormSubmit()">
+              </risca-default-button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <risca-separator></risca-separator>
+    
+    <!-- BOTTONI PER AVVIO RICERCA -->
+    <div class="button-group">
+      <!-- CONTAINER -->
+      <div class="row">
+        <div class="col-auto">
+          <!-- ANNULLA -->
+          <risca-link-button
+            [dataConfig]="C_C.BTN_ANNULLA"
+            (onClick)="annullaRicerca()">
+          </risca-link-button>
+        </div>
+        <div class="col">
+          <!--- SPAZIATORE AUTOMATICO -->
+        </div>
+        <div class="col-auto" *ngIf="isCompatibileCreaRuolo">
+          <!-- CREA RUOLO -->
+          <risca-default-button 
+            [dataConfig]="RM_C.BTN_CREA_RUOLO"
+            [disable]="isDisableCreaRuolo"
+            (onClick)="creaRuolo()">
+          </risca-default-button>
+        </div>
+        <div class="col-auto">
+          <!-- CREA REPORT -->
+          <risca-button
+            [dataConfig]="C_C.BTN_CREA_REPORT"
+            [cssConfig]="C_C.CSS_CREA_REPORT"
+            [disable]="!checkFiltriSDMorosita"
+            (onClick)="creaReport()">
+          </risca-button>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+
+</div>

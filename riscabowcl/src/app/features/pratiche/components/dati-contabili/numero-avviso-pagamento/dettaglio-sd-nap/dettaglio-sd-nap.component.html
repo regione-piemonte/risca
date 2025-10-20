@@ -1,0 +1,34 @@
+<div class="">
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      {{ statoDebitorio | json }}
+    </div>
+  </div>
+
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+  
+  <!-- BOTTONI -->
+  <div class="row">
+    <div class="col">
+      <!-- TORNA INDIETRO -->
+      <risca-default-button 
+        [dataConfig]="{ label: 'Torna a stati debitori NAP' }"
+        (onClick)="tornaAStatiDebitoriNAP()">
+      </risca-default-button>
+    </div>
+  </div>
+    
+  <!-- ALERT -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+</div>

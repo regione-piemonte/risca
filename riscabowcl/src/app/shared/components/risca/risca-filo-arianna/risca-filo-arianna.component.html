@@ -1,0 +1,16 @@
+<ng-container *ngIf="checkFA">
+
+  <!-- CONTAINER PER IL NAVIGATOR -->
+  <div class="rfa-container"
+    [ngClass]="cssContainer | riscaCssHandler:C_C.CSS_TYPE_CLASS" 
+    [ngStyle]="cssContainer | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+  >
+    <!-- GESTIONE DEL FILO D'ARIANNA -->
+    <ng-container *ngFor="let livello of livelliFA; last as isLast">
+      <div class="rfa-step">{{ livello.label }}</div>
+      <div class="rfa-arrow" *ngIf="!isLast"> > </div>
+    </ng-container>
+  
+  </div>
+
+</ng-container>

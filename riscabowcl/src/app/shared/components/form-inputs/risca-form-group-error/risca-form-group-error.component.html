@@ -1,0 +1,13 @@
+<!-- ERROR - CONTAINER CHE VIENE RIMOSSO PERMANENTEMENTE DAL DOM A SECONDA DELLA CONDIZIONE -->
+<ng-container *riscaRemove="!cssConfig.showErrorFG">
+  <!-- CONDIZIONI PER IL FORM GROUP ERROR -->
+  <ng-container *ngIf="(formGroup.invalid && hasFormErrors && (formSubmitted || formGroup.dirty || formGroup.touched))">
+    <small class="form-text text-muted risca-text-error ellipsis"
+      *ngIf="(formGroup | riscaFormError:mappaErroriFG:formErrors) as message"
+      [title]="message"
+      [innerHTML]="message"
+      [ngClass]="cssConfig.customError | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.customError | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    ></small>
+  </ng-container>
+</ng-container>

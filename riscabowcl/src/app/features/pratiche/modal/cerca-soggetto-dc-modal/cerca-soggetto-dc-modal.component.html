@@ -1,0 +1,31 @@
+<!--HEADER-->
+<risca-modal-header [title]="titleModal" (onClickClose)="modalDismiss()"></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+
+  <!--FORM DI MODIFICA DI QUALE SOGGETTO CREDITORE VA ASSOCIATO A QUESTO RIMBORSO -->
+  <cerca-soggetto-dc #cercaSoggetto
+    [configs]="configsRicercaSoggetto"
+    (onRicercaResult)="onRicercaResult($event)"
+    (soggettoSelezionato)="onCambiaCreditore($event)"
+  ></cerca-soggetto-dc>
+</div>
+
+<!--FOOTER-->
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="resetRicerca()"
+  ></risca-button>
+  
+  <!-- CONFERMA -->
+  <risca-primary-button 
+    *ngIf="soggettoTrovato"
+    [dataConfig]="btnConferma"
+    (onClick)="inserisciSoggetto()">
+  </risca-primary-button>
+</div>

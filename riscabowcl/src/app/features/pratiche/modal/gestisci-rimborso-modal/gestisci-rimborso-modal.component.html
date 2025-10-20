@@ -1,0 +1,84 @@
+<!-- TESTATA -->
+<risca-modal-header
+  [title]="modalTitle"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+  <div class="container-fluid r-plr--0">
+
+    <div class="row r-mb--30" *ngIf="alertConfigsCheck">
+      <div class="col">
+        <risca-alert
+          [alertConfigs]="alertConfigs"
+          (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+        ></risca-alert>
+      </div>
+    </div>
+    
+    <!-- FORM DEL RIMBORSO -->
+    <div class="row">
+      <div class="col">
+        <risca-rimborso #riscaRimborso
+          [rimborso]="rimborso"
+          [modalita]="modalita"
+          (onFormSubmit)="aggiungiRimborso($event)"
+          (onCercaCreditore)="onCercaCreditore()"
+        ></risca-rimborso>
+      </div>
+    </div>
+
+    <!-- SEZIONE PER RICERCA CREDITORE -->
+    <ng-container *ngIf="showCambiaCreditore">
+      <!-- SEPARATORE -->
+      <risca-separator></risca-separator>
+
+      <div class="row">
+        <div class="col">
+          <!--MODIFICA DI QUALE SOGGETTO CREDITORE VA ASSOCIATO A QUESTO RIMBORSO -->
+          <cerca-soggetto-dc #cambiaCreditore
+            [configs]="configsCambiaCreditore"
+            (onRicercaResult)="onRicercaResult($event)"
+            (soggettoSelezionato)="onCambiaCreditore($event)"
+          ></cerca-soggetto-dc>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</div>
+
+<!-- GESTIONE DEL RIMBORSO -->
+<div class="modal-footer risca-model-footer" *ngIf="!showCambiaCreditore">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="onAnnullaRimborso()"
+  ></risca-button>
+
+  <!-- CONFERMA -->
+  <risca-primary-button
+    [dataConfig]="btnConferma"
+    (onClick)="onConfermaRimborso()">
+  </risca-primary-button>
+</div>
+
+<!-- RICERCA CREDITORE -->
+<div class="modal-footer risca-model-footer" *ngIf="showCambiaCreditore">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="onAnnullaCambiaCreditore()"
+  ></risca-button>
+
+  <!-- CONFERMA -->
+  <risca-primary-button *ngIf="creditoreTrovato"
+    [dataConfig]="btnCambiaCreditore"
+    (onClick)="onCambiaCreditore()">
+  </risca-primary-button>
+</div>

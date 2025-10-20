@@ -1,0 +1,22 @@
+[
+	{
+		"id_ruolo_compilante": 1,
+		"cod_ruolo_compilante": "TIT",
+		"des_ruolo_compilante": "Titolare"
+	},
+	{
+		"id_ruolo_compilante": 4,
+		"cod_ruolo_compilante": "LEG",
+		"des_ruolo_compilante": "Legale Rappresentante"
+	},
+	{
+		"id_ruolo_compilante": 2,
+		"cod_ruolo_compilante": "DEL",
+		"des_ruolo_compilante": "Delegato Legale Rappresentante"
+	},
+	{
+		"id_ruolo_compilante": 3,
+		"cod_ruolo_compilante": "PRO",
+		"des_ruolo_compilante": "Procuratore ai sensi del d.p.r. 160/2010"
+	}
+]

@@ -1,0 +1,28 @@
+<!-- TESTATA -->
+<risca-modal-header
+  [title]="modalTitle"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+  <div class="container-fluid r-plr--0">
+    <!-- TABELLA STATI DEBITORI COLLEGATI -->
+    <div class="row r-m-intL">
+      <div class="col" *ngIf="checkSdCollegatiTable">
+        <risca-table
+          [cssConfig]="sdCollegatiTable.cssConfig"
+          [dataConfig]="sdCollegatiTable.dataConfig"
+          [source]="sdCollegatiTable.source"
+        ></risca-table>
+      </div>
+      <div class="col" *ngIf="!checkSdCollegatiTable">
+        Non sono stati trovati stati debitori collegati per lo stato debitorio selezionato.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<!-- <div class="modal-footer risca-model-footer"></div> -->

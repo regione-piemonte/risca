@@ -1,0 +1,113 @@
+<div class="container-fluid r-plr--0">
+  <!-- FORM DATI CREDITORE -->
+  <div class="row">
+    <div class="col">
+
+      <!-- RECAPITO FORM -->
+      <form [formGroup]="mainForm">
+
+        <!-- RIGA 1 -->
+        <div class="d-flex flex-row">
+          <div class="r-mr--40">
+            <!-- CODICE FISCALE -->
+            <risca-text [formControlName]="RMB_C.CODICE_FISCALE"
+              [cssConfig]="formInputs.codiceFiscaleConfig.css"
+              [dataConfig]="formInputs.codiceFiscaleConfig.data"
+              [idFormControl]="RMB_C.CODICE_FISCALE"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+          </div>
+          <div class="r-mr--66">
+            <!-- RAGIONE SOCIALE -->
+            <risca-text [formControlName]="RMB_C.RAGIONE_SOCIALE"
+              [cssConfig]="formInputs.ragioneSocialeConfig.css"
+              [dataConfig]="formInputs.ragioneSocialeConfig.data"
+              [idFormControl]="RMB_C.RAGIONE_SOCIALE"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+          </div>
+          <div class="r-mt--20">
+            <!-- BOTTONE CAMBIA/CERCA CREDITORE -->
+            <risca-primary-button
+              [disable]="disableCercaCreditore"
+              [dataConfig]="{ label: 'CERCA CREDITORE' }"
+              (onClick)="cercaCreditore()">
+            </risca-primary-button>
+          </div>
+        </div>
+
+        <!-- RIGA 2 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- SELECT ATTIVITA TIPO RIMBORSO -->
+            <risca-select [formControlName]="RMB_C.TIPO_RIMBORSO"
+              [cssConfig]="formInputs.attivitaTipoRimborsoConfig.css"
+              [dataConfig]="formInputs.attivitaTipoRimborsoConfig.data"
+              [idFormControl]="RMB_C.TIPO_RIMBORSO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaTipiRimborsi"
+              [propertyToShow]="RMB_C.PROPERTY_TIPO_ATTIVITA_RIMBORSO"
+            ></risca-select>
+          </div>
+          <div class="r-mr--40">
+            <!-- N° PROVVEDIMENTO -->
+            <risca-text [formControlName]="RMB_C.NUMERO_PROVVEDIMENTO"
+              [cssConfig]="formInputs.numeroProvvedimentoConfig.css"
+              [dataConfig]="formInputs.numeroProvvedimentoConfig.data"
+              [idFormControl]="RMB_C.NUMERO_PROVVEDIMENTO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+          </div>
+          <div class="">
+            <!-- DATA PROVVEDIMENTO -->
+            <risca-datepicker [formControlName]="RMB_C.DATA_PROVVEDIMENTO"
+              [cssConfig]="formInputs.dataProvvedimentoConfig.css"
+              [dataConfig]="formInputs.dataProvvedimentoConfig.data"
+              [idFormControl]="RMB_C.DATA_PROVVEDIMENTO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+        </div>
+
+        <!-- RIGA 3 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40 rim-w-452">
+            <!-- CAUSALE RIMBORSO -->
+            <risca-text [formControlName]="RMB_C.CAUSALE_RIMBORSO"
+              [cssConfig]="formInputs.causaleRimborsoConfig.css"
+              [dataConfig]="formInputs.causaleRimborsoConfig.data"
+              [idFormControl]="RMB_C.CAUSALE_RIMBORSO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+          </div>
+          <div class="">
+            <!-- IMPORTO ECCEDENTE -->
+            <risca-number [formControlName]="RMB_C.IMPORTO_ECCEDENTE"
+              [cssConfig]="formInputs.importoEccedenteConfig.css"
+              [dataConfig]="formInputs.importoEccedenteConfig.data"
+              [idFormControl]="RMB_C.IMPORTO_ECCEDENTE"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-number>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>

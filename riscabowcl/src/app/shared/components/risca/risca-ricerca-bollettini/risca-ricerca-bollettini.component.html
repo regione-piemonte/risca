@@ -1,0 +1,73 @@
+<form [formGroup]="mainForm">
+
+    <div class="row">
+        <div class="col">
+            <div class="d-flex flex-row">
+
+                <div class="r-mr--40">
+                    <!-- TIPO -->
+                    <risca-select [formControlName]="RRB_C.TIPO"
+                        [idFormControl]="RRB_C.TIPO"
+                        [formGroup]="mainForm"
+                        [cssConfig]="formInputs.tipoConfig.css"
+                        [dataConfig]="formInputs.tipoConfig.data"
+                        [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                        [formSubmitted]="mainFormSubmitted"
+                        [dataSource]="listaTipi"
+                        [propertyToShow]="RRB_C.PROPERTY_TIPO"
+                        [listenToRefreshData]="true"
+                    ></risca-select>
+                </div>
+
+                <div class="r-mr--40">
+                    <!-- STATO -->
+                    <risca-select [formControlName]="RRB_C.STATO"
+                        [idFormControl]="RRB_C.STATO"
+                        [formGroup]="mainForm"
+                        [cssConfig]="formInputs.statoConfig.css"
+                        [dataConfig]="formInputs.statoConfig.data"
+                        [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                        [formSubmitted]="mainFormSubmitted"
+                        [dataSource]="listaStati"
+                        [propertyToShow]="RRB_C.PROPERTY_STATO"
+                        [listenToRefreshData]="true"
+                    ></risca-select>
+                </div>
+
+                <div class="r-mr--40">
+                    <!-- DATA RICHIESTA INIZIO -->
+                    <risca-datepicker [formControlName]="RRB_C.DATA_RICHIESTA_INIZIO"
+                        [idFormControl]="RRB_C.DATA_RICHIESTA_INIZIO"
+                        [cssConfig]="formInputs.dataElaborazioneInizioConfig.css"
+                        [dataConfig]="formInputs.dataElaborazioneInizioConfig.data"
+                        [formGroup]="mainForm"
+                        [formSubmitted]="mainFormSubmitted"
+                        [errMapFormGroup]="EM.MAP_DATA_INIZIO_DATA_FINE_INVALID"
+                    ></risca-datepicker>
+                </div>
+
+                <div class="r-mr--40">
+                    <!-- DATA RICHIESTA FINE -->
+                    <risca-datepicker [formControlName]="RRB_C.DATA_RICHIESTA_FINE"
+                        [idFormControl]="RRB_C.DATA_RICHIESTA_FINE"
+                        [cssConfig]="formInputs.dataElaborazioneFineConfig.css"
+                        [dataConfig]="formInputs.dataElaborazioneFineConfig.data"
+                        [formGroup]="mainForm"
+                        [formSubmitted]="mainFormSubmitted"
+                        [errMapFormGroup]="EM.MAP_DATA_INIZIO_DATA_FINE_INVALID"
+                    ></risca-datepicker>
+                </div>
+
+                
+                <div class="r-mr--40 rrb-mt-22">
+                    <!-- DATA RICHIESTA FINE -->
+                    <risca-primary-button 
+                        [dataConfig]="{ label: 'Filtra' }"
+                        (onClick)="avviaRicerca()">
+                    </risca-primary-button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

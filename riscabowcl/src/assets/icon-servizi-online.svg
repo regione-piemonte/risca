@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176.203" height="25" viewBox="0 0 176.203 25">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.614" y1="0.609" x2="-0.365" y2="-0.348" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g id="Raggruppa_20726" data-name="Raggruppa 20726" transform="translate(-104.025 -2242.058)">
+    <text id="Servizionline" transform="translate(126.228 2261.058)" fill="#fff" font-size="25" font-family="Helvetica-Bold, Helvetica" font-weight="700" letter-spacing="0.02em"><tspan x="0" y="0">Servizi</tspan><tspan y="0" font-family="Helvetica-Light, Helvetica" font-weight="300">online</tspan></text>
+    <circle id="Ellisse_2535" data-name="Ellisse 2535" cx="2.196" cy="2.196" r="2.196" transform="translate(115.003 2250.167) rotate(90)" fill="url(#linear-gradient)"/>
+    <circle id="Ellisse_2541" data-name="Ellisse 2541" cx="2.196" cy="2.196" r="2.196" transform="translate(115.003 2256.754) rotate(90)" fill="url(#linear-gradient)"/>
+    <circle id="Ellisse_2536" data-name="Ellisse 2536" cx="2.196" cy="2.196" r="2.196" transform="translate(121.59 2250.167) rotate(90)" fill="url(#linear-gradient)"/>
+    <circle id="Ellisse_2540" data-name="Ellisse 2540" cx="2.196" cy="2.196" r="2.196" transform="translate(121.59 2256.754) rotate(90)" fill="url(#linear-gradient)"/>
+    <circle id="Ellisse_2538" data-name="Ellisse 2538" cx="2.196" cy="2.196" r="2.196" transform="translate(121.59 2243.58) rotate(90)" fill="url(#linear-gradient)"/>
+    <circle id="Ellisse_2542" data-name="Ellisse 2542" cx="2.196" cy="2.196" r="2.196" transform="translate(108.416 2256.754) rotate(90)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

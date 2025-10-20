@@ -1,0 +1,46 @@
+<div class="modal-header risca-modal-header">
+  <h4
+    class="modal-title risca-modal-title"
+    [innerHTML]="'Elenco Allegati'"
+  ></h4>
+  <risca-button
+    [cssConfig]="{ customButton: 'risca-btn-x close', typeButton: '' }"
+    [dataConfig]="{ label: '&times;' }"
+    (onClick)="modalDismiss()"
+  >
+  </risca-button>
+</div>
+
+<div class="modal-body risca-modal-body">
+  <div class="r-mt--10 r-mb--10 lista-allegati">
+    <!-- LISTA ALLEGATI -->
+    <div *ngFor="let allegato of allegati" class="r-mb--20">
+      <!-- Elemento allegato cliccabile-->
+      <a *ngIf="allegato.rappresentazione_digitale" href="" [innerHtml]="allegato.descrizione" (click)="$event.preventDefault(); clickAllegato(allegato);"></a>
+      <!-- Elemento allegato non cliccabile-->
+      <a *ngIf="!allegato.rappresentazione_digitale" [innerHtml]="allegato.descrizione"></a>
+    </div>
+  </div>
+
+  <!--ALERT-->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <!-- GESTIONE DEGLI ERRORI -->
+      <risca-alert
+        [alertConfigs]="alertConfigs" (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer risca-model-footer">
+  <div style="width: 100%">
+    <!-- BOTTONE DISMISS -->
+    <risca-primary-button
+      class="right"
+      [dataConfig]="{ label: 'Chiudi' }"
+      (onClick)="modalDismiss()"
+    >
+    </risca-primary-button>
+  </div>
+</div>

@@ -1,0 +1,238 @@
+<!-- HEADER STANDARD PER LA MODALE -->
+<risca-modal-header
+  [title]="DRUM_C.MODAL_TITLE"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<!-- CORPO DELLA MODALE -->
+<div class="modal-body risca-modal-body">
+
+  <div class="workaround-checkbox">
+    <button autofocus></button>
+  </div>
+
+  <!-- DESCRIZIONE -->
+  <div class="row">
+    <div class="col-auto">
+      <div class="risca-common-label">
+        {{ DRUM_C.USO_PRINCIPALE }}
+      </div>
+    </div>
+    <div class="col">
+      <div class="risca-head-section-label">
+        {{ usoPrincipale }}
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENITORE PRINCIPALE DEGLI ACCORDION -->  
+  <div class="row r-m-intL-t">
+
+    <!-- ACCORDION SINITRO -->
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <div class="risca-accordion-container">
+
+            <!-- ACCORDION USI EFFETTIVI -->
+            <div class="row">
+              <div class="col-auto">
+      
+                <!-- ACCORDION LABEL -->
+                <risca-accordion-switch
+                  [label]="DRUM_C.ACCORDION_USI_EFFETTIVI"
+                  [accordionAperto]="usiEffettiviApriChiudi"
+                  (onAccordionClick)="toggleUsiEffettivi($event)"
+                ></risca-accordion-switch>
+      
+              </div>
+            </div>
+
+            <!-- CONTAINER GESTITO DALL'ACCORDION -->
+            <div riscaDisplay [showOn]="usiEffettiviApriChiudi">
+
+              <!-- DEVONO ESISTERE USI EFFETTIVI -->
+              <ng-container *ngIf="checkUsiEffettivi">
+                <!-- LISTA USI EFFETTIVI -->
+                <ul class="risca-ul">
+                  <!-- DESCRIZIONE --> 
+                  <li *ngFor="let uso of usiEffettivi">
+                    {{ uso?.des_tipo_uso }}
+                  </li>
+                </ul>
+              </ng-container>
+              
+              <!-- SE NON ESISTONO USI EFFETTIVI VISUALIZZO UN MESSAGGIO DI NOTIFICA -->
+              <ng-container *ngIf="!checkUsiEffettivi">
+                <div class="row">
+                  <div class="col">
+                    {{ riscaNotifyCodes.I041 | riscaMessage }}
+                  </div>
+                </div>
+              </ng-container>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCORDION DESTRO -->
+    <div class="col" *riscaRemove="modalitaCanoneMinimo">
+      <div class="row">
+        <div class="col">
+          <div class="risca-accordion-container">
+
+            <!-- ACCORDION LEGENDA -->
+            <div class="row">
+              <div class="col-auto">
+      
+                <!-- ACCORDION LABEL -->
+                <risca-accordion-switch
+                  [label]="DRUM_C.ACCORDION_LEGENDA"
+                  [accordionAperto]="legendaApriChiudi"
+                  (onAccordionClick)="toggleLegenda($event)"
+                ></risca-accordion-switch>
+      
+              </div>
+            </div>
+
+            <!-- CONTAINER GESTITO DALL'ACCORDION -->
+            <div riscaDisplay [showOn]="legendaApriChiudi">
+              <!-- LEGENDA - GESTITA COME CODICE HTML -->
+              <div [innerHTML]="legendaMinimi"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DESCRIZIONE MODALITA' -->
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="risca-head-section-label">
+        Uso per canone
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="risca-obbligatorio-label">
+        {{ labelCampiObbligatori }}
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM - CANONE MINIMO -->
+  <ng-container *riscaMaintain="modalitaCanoneMinimo">
+    
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <regola-canone-minimo-form #regolaCanoneMinimoFormComp
+          [regolaUso]="regolaUso"
+          [modalita]="appActions.modifica"
+          [disableForm]="disableForm"
+          (onFormSubmit)="onRegolaCanoneMinimoSubmit($event)"
+        ></regola-canone-minimo-form>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- FORM - SOGLIA -->
+  <ng-container *riscaMaintain="modalitaSoglia">
+
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <regola-soglia-form #regolaSogliaFormComp
+          [regolaUso]="regolaUso"
+          [modalita]="appActions.modifica"
+          [disableForm]="disableForm"
+          (onFormSubmit)="onRegolaSogliaSubmit($event)"
+        ></regola-soglia-form>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- FORM - RANGES -->
+  <ng-container *riscaMaintain="modalitaRanges">
+
+    <div class="row">
+      <div class="col">
+        <json-regola-form #jsonRegolaFormComp
+          [jsonRegola]="jsonRegola"
+          [modalita]="appActions.modifica"
+          [rowMinimoPrincipale]="rowMinimoPrincipale"
+          [disableForm]="disableForm"
+          (onFormSubmit)="onJsonRegolaSubmit($event)"
+        ></json-regola-form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <regola-range-form #regolaRangeFormComp
+          [modalita]="appActions.modifica"
+          [rowMinimoPrincipale]="rowMinimoPrincipale"
+          [disableForm]="disableForm"
+          (onFormSubmit)="onRegolaRangeSubmit($event)"
+        ></regola-range-form>
+      </div>
+    </div>
+    
+    <!-- SEPARATORE -->
+    <ng-container *ngIf="checkRegoleUsoRangeTable">
+      <risca-separator></risca-separator>
+    </ng-container>
+    
+    <div class="row" *ngIf="checkRegoleUsoRangeTable">
+      <div class="col">
+        <risca-table
+          [tableId]="RURT_C.TABLE_ID"
+          [dataConfig]="regoleUsoRangeTable.dataConfig"
+          [cssConfig]="regoleUsoRangeTable.cssConfig"
+          [source]="regoleUsoRangeTable.source"
+          (onRowDelete)="onDeleteRange($event)"
+        ></risca-table>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- ALERT -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER DELLA MODALE -->
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    [disable]="disableForm"
+    (onClick)="annullaModificaRegolaUso()"
+  ></risca-button>
+
+  <!-- SALVA -->
+  <risca-button
+    [dataConfig]="C_C.BTN_SALVA_MODIFICHE"
+    [cssConfig]="C_C.CSS_SALVA_MODIFICHE"
+    [disable]="disableForm"
+    (onClick)="salvaRegolaUso()"
+  ></risca-button>
+</div>

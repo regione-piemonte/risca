@@ -1,0 +1,87 @@
+<div class="card-box card-box-internal">
+
+  <!-- FORM DI RICERCA -->
+  <div class="row" *riscaRemove="true">
+    <div class="col risca-common-label">
+      <div class="d-flex flex-row">
+        <div class="r-mtb--a r-m-intL-t">
+          Puoi filtrare per numero di Protocollo regionale, del Mittente e/o
+          per Descrizione
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row r-m-intL-t" *riscaRemove="true">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <!-- GESTIONE DEI MESSAGGI -->
+        <input type="text" id="filtroRicerca"
+          [(ngModel)]="filtroRicerca"
+          [placeholder]="'Cerca...'"
+          class="form-control risca-input-border risca-input-content-standard r-mr--40 r-mtb--4"
+        />
+        <!-- BOTTONE AVVIO RICERCA -->
+        <risca-primary-button
+          [dataConfig]="labelBottoneRicerca"
+          (onClick)="avviaRicercaDocumentiAllegati()"
+        ></risca-primary-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEZIONE TEST PER GESTIRE DATI DIFFERENTI RISPETTO AL CONSTESTO DELLA PRATICA -->
+  <!-- <div class="row r-m-intL-t">
+
+    <div class="col-4">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">
+            idPratica
+          </span>
+        </div>
+        <input type="number" class="form-control" [(ngModel)]="test_idPratica">
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">
+            dbKeyClassificazione
+          </span>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="_test_dbKeyClassificazione">
+      </div>
+    </div>
+
+    <div class="col-2">
+      <button type="button" class="btn btn-primary" (click)="avviaRicercaDocumentiAllegati()">
+        Cerca
+      </button>
+    </div>
+
+  </div> -->
+
+  <!-- TABELLA DOCUMENTI ALLEGATI -->
+  <div class="row" *ngIf="checkDocAllTable">
+    <div class="col">
+      <risca-table
+        [cssConfig]="documentiAllegatiTable.cssConfig"
+        [dataConfig]="documentiAllegatiTable.dataConfig"
+        [source]="documentiAllegatiTable.source"
+        [isFETable]="false"
+        (onRowCustomAction)="customActionRATable($event)"
+        (onCambioPagina)="cambiaPaginaDocAll($event)"
+      ></risca-table>
+    </div>
+  </div>
+  <!--ALERT-->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <!-- GESTIONE DEGLI ERRORI -->
+      <risca-alert
+        [alertConfigs]="alertConfigs" (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+</div>

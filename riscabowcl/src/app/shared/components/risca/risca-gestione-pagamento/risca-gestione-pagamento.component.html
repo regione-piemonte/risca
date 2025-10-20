@@ -1,0 +1,64 @@
+<div class="r-m-intL-t" *ngIf="standAlone">
+  <!-- FILO ARIANNA -->
+  <risca-filo-arianna></risca-filo-arianna>
+</div>
+
+<!-- CARD-BOX -->
+<div class="card-box-external" [ngClass]="[ standAlone ? 'card-box card-box-internal' : '' ]" *ngIf="pagamento">
+
+  <!-- PAGAMENTO DA VISIONARE E GESTIONE -->
+  <div class="row">
+    <div class="col">
+      <risca-pagamento-bollettazione #riscaPagamentoBollettazione
+        [pagamento]="pagamento"
+        [modalita]="modalita"
+        [dettagliPagamento]="dettagliPagamento"
+        (clearData)="onClearData()"
+        (onFormSubmit)="onPagamentoSubmit($event)"
+        (onFormErrors)="onPagamentoErrors($event)"
+        (onVerificaImporti)="onVerificaImporti($event)"
+        (onVerificaImportiError)="onVerificaImportiError($event)"
+      ></risca-pagamento-bollettazione>
+    </div>
+  </div>
+  
+</div>
+
+<!-- ALERT -->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      [allowAlertClose]="true"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- BOTTONI PER LA GESTIONE DELLE ISTANZE -->
+<div class="row r-m-intL-t">
+
+  <div class="col">
+    <!-- INDIETRO -->
+    <risca-link-button
+      class="r-mr--15"
+      [dataConfig]="C_C.BTN_INDIETRO"
+      (onClick)="tornaIndietro()">
+    </risca-link-button>
+
+    <!-- ANNULLA -->
+    <risca-link-button
+      class="r-mr--15"
+      [dataConfig]="C_C.BTN_ANNULLA"
+      (onClick)="resetPagamento()">
+    </risca-link-button>
+    
+    <!--PULSANTI A DESTRA-->
+    <!-- CONFERMA -->
+    <risca-primary-button class="float-right"
+      [dataConfig]="C_C.BTN_SALVA"
+      (onClick)="aggiornaPagamento()">
+    </risca-primary-button>
+  </div>
+
+</div>

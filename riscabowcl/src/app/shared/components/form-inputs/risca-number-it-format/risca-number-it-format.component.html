@@ -1,0 +1,147 @@
+<!-- FORM GROUP -->
+<div class="form-group risca-form-group" 
+  [ngClass]="cssConfig.customForm | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+  [ngStyle]="cssConfig.customForm | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+>
+
+  <!-- LABEL -->
+  <risca-input-label
+    [cssConfig]="cssConfig"
+    [dataConfig]="dataConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [idDOM]="idDOM"
+    [disableRequiredCheck]="disableRequired"
+  ></risca-input-label>
+
+  <!-- CONTENITORE PER LA INPUT -->
+  <div class="row r-m--0 r-p--0">
+
+    <!-- COLONNA LABEL DI SINISTRA -->
+    <div class="col-auto r-m--0 r-mr--15 r-p--0" *riscaMaintain="labelLeftTmpl"
+      [ngClass]="cssConfig.labelColLeft | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.labelColLeft | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+      <risca-input-label
+        [cssConfig]="cssConfig"
+        [dataConfig]="dataConfig"
+        [idFormControl]="idFC"
+        [formGroup]="formGroup"
+        [idDOM]="idDOM"
+        [disableRequiredCheck]="disableRequired"
+        [position]="labelLeft"
+      ></risca-input-label>
+    </div>
+
+    <!-- COLONNA DELLA INPUT -->
+    <div class="col r-m--0 r-p--0">
+
+      <ng-container *riscaMaintain="checkAppendix && checkAppendixLeft">
+        <!-- TEMPLATE INPUT CON PREPEND -->
+        <div class="input-group">
+          <!-- TEMPLATE APPENDICE -->
+          <ng-container *ngTemplateOutlet="riscaAppendixTmpl"></ng-container>
+          <!-- TEMPLATE INPUT NORMALE -->
+          <ng-container *ngTemplateOutlet="riscaNumberItFormatTmpl"></ng-container>
+        </div>
+      </ng-container>
+      
+      <ng-container *riscaMaintain="checkAppendix && checkAppendixRight">
+        <!-- TEMPLATE INPUT CON APPENDICE DESTRA -->
+        <div class="input-group">
+          <!-- TEMPLATE INPUT NORMALE -->
+          <ng-container *ngTemplateOutlet="riscaNumberItFormatTmpl"></ng-container>
+          <!-- TEMPLATE APPENDICE -->
+          <ng-container *ngTemplateOutlet="riscaAppendixTmpl"></ng-container>
+        </div>
+      </ng-container>
+
+      <ng-container *riscaMaintain="!checkAppendix">
+        <!-- TEMPLATE INPUT NORMALE -->
+        <ng-container *ngTemplateOutlet="riscaNumberItFormatTmpl"></ng-container>
+      </ng-container>
+
+    </div>
+
+    <!-- COLONNA LABEL DI DESTRA -->
+    <div class="col-auto r-m--0 r-ml--15 r-p--0" *riscaMaintain="labelRightTmpl"
+      [ngClass]="cssConfig.labelColRight | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.labelColRight | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+      <risca-input-label
+        [cssConfig]="cssConfig"
+        [dataConfig]="dataConfig"
+        [idFormControl]="idFC"
+        [formGroup]="formGroup"
+        [idDOM]="idDOM"
+        [disableRequiredCheck]="disableRequired"
+        [position]="labelRight"
+      ></risca-input-label>
+    </div>
+
+  </div>
+
+  <!-- FORM CONTROL - GESTIONE ERRORI -->
+  <risca-form-control-error
+    [cssConfig]="cssConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [errMapFormControl]="mappaErroriFC"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-control-error>
+  <!-- FORM GROUP - GESTIONE ERRORI -->
+  <risca-form-group-error
+    [cssConfig]="cssConfig"
+    [formGroup]="formGroup"
+    [errMapFormGroup]="mappaErroriFG"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-group-error>
+
+</div>
+
+<ng-template #riscaNumberItFormatTmpl>
+  <!-- INPUT -->
+  <input type="string" class="form-control risca-input-border" 
+    [attr.aria-describedby]="idDOM + 'appendix'"
+
+    #riscaNumberItFormatInput
+    [id]="idDOM"
+    [name]="idFC"
+    [(ngModel)]="_value"
+    [disabled]="disabled"
+    [placeholder]="dataConfig?.placeholder || ''"
+    [title]="vauleAsTitle"
+    
+    [ngClass]="[
+      cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_CLASS,
+      (cssConfig.showErrorFC && formControl.invalid && (formSubmitted || formControl.dirty || formControl.touched))
+      ||
+      (cssConfig.showErrorFG && formGroup.invalid && formErrors && (formSubmitted || formGroup.dirty || formGroup.touched))
+      ? 'risca-input-border-error' : '',
+      conditionalClass
+    ]"
+    [ngStyle]="cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    [attr.maxlength]="dataConfig.maxLength"
+    [attr.min]="dataConfig.min || null"
+    [attr.max]="dataConfig.max || null"
+    [attr.step]="dataConfig.step || null"
+    (blur)="onInputBlur()"
+    (keydown.enter)="onKeydownEnter($event, riscaNumberItFormatInput)"
+
+    NumbersOnly
+      [numberItFormat]="true"
+      [allowDecimals]="dataConfig.useDecimal"
+      [allowThousandsSeparator]="allowThousandsSeparator"
+      [allowSign]="dataConfig.useSign"
+      [thousandSeparator]="C_C.SEPARATORE_MIGLIAIA"
+      [ignoreValidator]="true"
+  >
+</ng-template>
+
+<ng-template #riscaAppendixTmpl>
+  <div class="input-group-append">
+    <span class="input-group-text risca-appendix" [id]="idDOM + 'appendix'">
+      {{ appendix.text }}
+    </span>
+  </div>
+</ng-template>

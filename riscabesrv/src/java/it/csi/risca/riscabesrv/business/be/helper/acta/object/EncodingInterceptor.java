@@ -46,8 +46,6 @@ public class EncodingInterceptor extends AbstractPhaseInterceptor<Message> {
             String encoding = (String) message.get(Message.ENCODING);
 
             if (encoding == null || !encoding.equals("ISO-8859-1")) {
-                System.out.println(this.getClass().getSimpleName() + " - encoding: " + encoding);
-                System.out.println(this.getClass().getSimpleName() + " - modifica encoding a ISO-8859-1");
                 message.put(Message.ENCODING, "ISO-8859-1");
             }
         }

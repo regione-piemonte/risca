@@ -1,0 +1,61 @@
+<div class="container-fluid r-plr--0">
+  <div class="row">
+    <div class="col">
+
+      <!-- DATI TECNICI FORM -->
+      <form id="cercaSoggettoForm" #mainForm="ngForm" [formGroup]="cercaSoggettoForm">
+
+        <div class="d-flex flex-row">
+          <div class="r-mr--40">
+            <!-- SELECT PER TIPO SOGGETTO -->
+            <risca-select #selectTipoSoggetto 
+              [formControlName]="FCS_C.TIPO_SOGGETTO"
+              [cssConfig]="tipoSoggettoConfig.css"
+              [dataConfig]="tipoSoggettoConfig.data"
+              [idFormControl]="FCS_C.TIPO_SOGGETTO"
+              [formGroup]="cercaSoggettoForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="cercaSoggettoSubmitted"
+              [dataSource]="listaTipiSoggetto"
+              [propertyToShow]="FCS_C.PROPERTY_TIPO_SOGGETTO"
+            ></risca-select>
+          </div>
+          <div class="r-mr--40">
+            <!-- CODICE FISCALE -->
+            <risca-text [formControlName]="FCS_C.CODICE_FISCALE"
+              [cssConfig]="codiceFiscaleConfig.css"
+              [dataConfig]="codiceFiscaleConfig.data"
+              [idFormControl]="FCS_C.CODICE_FISCALE"
+              [formGroup]="cercaSoggettoForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_COD_FISC_TIPO_SOGG"
+              [formSubmitted]="cercaSoggettoSubmitted"
+              [toUpperCase]="true"
+              [invio]="true"
+              (onInvio)="cercaSoggettoSubmit()"
+            ></risca-text>
+          </div>
+          <div class="row-risca-text-button">
+            <button form="cercaSoggettoForm" type="button" class="btn btn-primary"
+              [disabled]="AEA_gruppo_CSDisabled"
+              (click)="cercaSoggettoSubmit()"
+            >
+              Cerca
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+        <div class="col">
+          <!-- GESTIONE DEGLI ERRORI -->
+          <risca-alert
+            [alertConfigs]="alertConfigs" (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+          ></risca-alert>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

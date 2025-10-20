@@ -1,0 +1,97 @@
+<div class="card-box">
+
+  <ul ngbNav #inserisciPraticaNav="ngbNav" class="nav r-ngb-nav-3"
+    [(activeId)]="istanzaRicercaAvanzata"
+    [destroyOnHide]="true"
+    (navChange)="onNavRicercaChange($event)"
+  >
+    <ng-container *ngFor="let nav of istanzaRicercaAvanzataNav.navs">
+      <li class="nav-item" [ngbNavItem]="nav.ngbNavItem">
+        <a ngbNavLink class="nav-link" [id]="nav.ngbNavItem">
+          <div>{{ nav.label }}</div>
+        </a>
+        <ng-template ngbNavContent>
+        </ng-template>
+      </li>
+    </ng-container>
+  </ul>
+
+  <!-- TAB CONTENT CONTAINER -->
+  <div class="tab-content" id="tabIstanzePratica" [ngbNavOutlet]="inserisciPraticaNav"></div>
+
+  <!-- CONTENITORE FORM RICERCA E RISULTATI -->
+  <div class="card-box-internal">
+
+    <!--Form ricerca pratica avanzata-->
+    <form-ricerca-avanzata-pratiche-sd #refFRAPSD
+      [ricerca]="ricercaPA"
+      [modalitaRicerca]="modalitaRicerca"
+      (onFormSubmit)="onRicercaAvanzataSubmit($event)"
+      (onFormErrors)="onRicercaAvanzataError($event)"
+    ></form-ricerca-avanzata-pratiche-sd>
+
+    <!-- SEPARATORE DAI DATI DELLA RICERCA -->
+    <risca-separator *ngIf="checkRAPraticheTable"></risca-separator>
+    
+    <!-- TITOLO TABELLA RISULTATI RICERCA -->
+    <div class="d-flex flex-row" *ngIf="checkRAPraticheTable">
+      <div class="risca-head-section-label">
+        Risultati ricerca
+      </div>
+    </div>
+
+    <!-- TABELLA RISULTATI RICERCA -->
+    <div class="row r-m-intL-t" *ngIf="checkRAPraticheTable">
+      <div class="col">
+        <risca-table
+          [cssConfig]="raPraticheTable.cssConfig"
+          [dataConfig]="raPraticheTable.dataConfig"
+          [source]="raPraticheTable.source"
+          [isFETable]="false"
+          (onRowDetail)="modificaPratica($event)"
+          (onCambioPagina)="cambiaPagina($event)"
+        ></risca-table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- GESTIONE DEGLI ERRORI -->
+<div class="r-m-intL-t" *ngIf="alertConfigsCheck">
+  <risca-alert 
+    [alertConfigs]="alertConfigs"
+    (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+  ></risca-alert>
+</div>
+
+<!-- BOTTONI PER AVVIO RICERCA -->
+<div class="button-group r-m-intL-t">
+  <!-- CONTAINER -->
+  <div class="row">
+    <div class="col-auto">
+      <!-- ANNULLA -->
+      <risca-link-button
+        [dataConfig]="C_C.BTN_ANNULLA"
+        (onClick)="annullaRicercaAvanzata()">
+      </risca-link-button>
+    </div>
+    <div class="col"></div>
+    <div class="col-auto" *ngIf="checkRAPraticheTable">
+      <!-- CREA REPORT -->
+      <risca-button 
+        [dataConfig]="C_C.BTN_CREA_REPORT"
+        [cssConfig]="C_C.CSS_CREA_REPORT"
+        (onClick)="creaReport()">
+      </risca-button>
+    </div>
+    <div class="col-auto">
+      <!-- CONFERMA -->
+      <risca-primary-button 
+        [dataConfig]="{ label: 'CERCA PRATICA' }"
+        (onClick)="ricercaAvanzata()">
+      </risca-primary-button>
+    </div>
+  </div>
+</div>

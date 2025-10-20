@@ -1,0 +1,98 @@
+<!-- TABELLA STATI DEBITORI -->
+<div class="row">
+  <div class="col" *ngIf="checkStatiDebitoriTable">
+    <risca-table
+      [cssConfig]="statiDebitoriTable.cssConfig"
+      [dataConfig]="statiDebitoriTable.dataConfig"
+      [source]="statiDebitoriTable.source"
+      [isFETable]="false"
+      (onRadioClick)="statoDebitorioSelezionato($event)"
+      (onCambioPagina)="cambiaPagina($event)"
+    ></risca-table>
+  </div>
+  <div class="col" *ngIf="!checkStatiDebitoriTable">
+    Non sono stati trovati stati debitori per la pratica corrente.
+  </div>
+</div>
+
+<!-- BOTTONI -->
+<div class="row r-m-intL-t" *ngIf="showActions">
+  <div class="col">
+    <!-- PULSANTE VERSAMENTI -->
+    <risca-default-button
+      class="r-mr--10"
+      [cssConfig]="btnVersamenti.cssConfig"
+      [dataConfig]="btnVersamenti.dataConfig"
+      [disable]="statoDebitorio | disableBtnSD:sezioneVersamenti"
+      (onClick)="clickVersamenti()">
+    </risca-default-button>
+
+    <!-- PULSANTE RIMBORSI -->
+    <risca-default-button
+      class="r-mr--10"
+      [cssConfig]="btnRimborsi.cssConfig"
+      [dataConfig]="btnRimborsi.dataConfig"
+      [disable]="statoDebitorio | disableBtnSD:sezioneRimborsi"
+      (onClick)="clickRimborsi()">
+    </risca-default-button>
+
+    <!-- PULSANTE ACCERTAMENTI -->
+    <risca-default-button
+      class="r-mr--10"
+      [cssConfig]="btnAccertamenti.cssConfig"
+      [dataConfig]="btnAccertamenti.dataConfig"
+      [disable]="statoDebitorio | disableBtnSD:sezioneAccertamenti"
+      (onClick)="clickAccertamenti()">
+    </risca-default-button>
+
+    <!-- PULSANTE STATO DEBITORIO -->
+    <risca-default-button
+      class="r-mr--10"
+      [cssConfig]="btnStDebitorio.cssConfig"
+      [dataConfig]="btnStDebitorio.dataConfig"
+      [disable]="statoDebitorio | disableBtnSD:sezioneStDebitorio"
+      (onClick)="clickStatoDebitorio()">
+    </risca-default-button>
+
+    <!-- PULSANTE INSERIMENTO STATO DEBITORIO -->
+    <risca-default-button
+      class="r-mr--10"
+      [cssConfig]="btnStDebitorioIns.cssConfig"
+      [dataConfig]="btnStDebitorioIns.dataConfig"
+      [disable]="statoDebitorio | disableBtnSD:sezioneStDebitorioIns"
+      (onClick)="clickInserimentoStatoDebitorio()">
+    </risca-default-button>
+
+    <!-- PULSANTE NAP -->
+    <risca-default-button
+      class="r-mr--10"
+      [cssConfig]="btnNAP.cssConfig"
+      [dataConfig]="btnNAP.dataConfig"
+      [disable]="statoDebitorio | disableBtnSD:sezioneNAP"
+      (onClick)="clickNap()">
+    </risca-default-button>
+
+    <!-- PULSANTE CALCOLA INTERESSI -->
+    <risca-default-button
+      class="r-mr--10"
+      [cssConfig]="btnCalcInteressi.cssConfig"
+      [dataConfig]="btnCalcInteressi.dataConfig"
+      [disable]="statoDebitorio | disableBtnSD:sezioneCalcInteressi"
+      (onClick)="clickCalcolaInteressi()">
+    </risca-default-button>
+  </div>
+</div>
+
+<!-- SEPARATORE -->
+<risca-separator *ngIf="alertConfigsCheck"></risca-separator>
+
+<!--ALERT-->
+<div class="row" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <!-- GESTIONE DEGLI ERRORI -->
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>

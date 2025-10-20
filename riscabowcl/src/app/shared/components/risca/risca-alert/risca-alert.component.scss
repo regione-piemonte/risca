@@ -1,0 +1,69 @@
+.risca-alert {
+  margin-bottom: 0px !important;
+}
+
+.alert-container,
+.alert-container-compact {
+  position: relative;
+  color: #000;
+  border-radius: 0;
+  border-width: 0 0 0 5px;
+}
+
+.alert-container {
+  padding: 30px 30px 30px 80px;
+}
+
+.alert-container-compact {
+  padding: 5px;
+}
+
+.alert-icon {
+  color: #000;
+  position: absolute;
+  font-size: 3em;
+  left: 20px;
+  top: 18px;
+}
+
+.alert-danger {
+  background: #f1ddde;
+  border-left-color: #e2352e;
+}
+
+.alert-info {
+  background: #daeef6;
+  border-left-color: #01b5ea;
+}
+
+.alert-success {
+  background: #dff1d9;
+  border-left-color: #5cb875;
+}
+
+.alert-warning {
+  background: #fdfae7;
+  border-left-color: #fff057;
+}
+
+.row-icon {
+  padding: 0px 15px 0px 15px;
+}
+
+.col-icon {
+  flex: 0 0 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.r-a-img {
+  width: 30px;
+  height: 30px;
+}
+
+.buttonX {
+  position: absolute;
+  right: 1rem;
+  z-index: 1;
+  top: 1rem;
+}

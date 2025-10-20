@@ -1,0 +1,39 @@
+<div>
+    <!-- DATI TECNICI AMBIENTE FORM -->
+    <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+  
+      <div class="row">
+        <div class="col">
+          <div class="d-flex flex-row">
+  
+            <div class="dttsdr-mr-77">
+             <!-- POPOLAZIONE -->
+             <risca-text
+                [formControlName]="DTT_C.POPOLAZIONE"
+                [idFormControl]="DTT_C.POPOLAZIONE"
+                [formGroup]="mainForm"
+                [cssConfig]="formInputs.popolazioneConfig.css"
+                [dataConfig]="formInputs.popolazioneConfig.data"
+                [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+            </div>
+  
+            <div class="dttsdr-mr-77">
+               <!-- USO DI LEGGE -->
+               <risca-text
+                [formControlName]="DTT_C.USO"
+                [idFormControl]="DTT_C.USO"
+                [formGroup]="mainForm"
+                [cssConfig]="formInputs.usoConfig.css"
+                [dataConfig]="formInputs.usoConfig.data"
+                [formSubmitted]="mainFormSubmitted"
+                ></risca-text>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      
+    </form>
+  
+  </div>

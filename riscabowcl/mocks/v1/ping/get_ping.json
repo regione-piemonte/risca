@@ -1,0 +1,10 @@
+[
+  {
+    "label": "database",
+    "status": "OK"
+  },
+  {
+    "label": "protocollo",
+    "status": "KO"
+  }
+]

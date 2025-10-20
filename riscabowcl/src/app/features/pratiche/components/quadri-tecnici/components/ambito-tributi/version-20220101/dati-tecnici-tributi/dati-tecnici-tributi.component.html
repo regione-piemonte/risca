@@ -1,0 +1,60 @@
+<div class="">
+  <div class="card-main-content">
+    <!-- DATI TECNICI FORM -->
+    <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+      <!-- PRIMA PARTE - LABEL DI TESTATA -->
+      <div class="row r-mt--30">
+        <div class="col">
+          <div class="risca-head-section-label">Dati tecnici Tributi</div>
+        </div>
+      </div>
+
+      <div class="row r-mt--20">
+        <div class="col">
+          <div class="d-flex flex-row">
+            <div class="r-mr--40">
+              <!-- POPOLAZIONE -->
+              <risca-number
+                [formControlName]="DTT_C.POPOLAZIONE"
+                [idFormControl]="DTT_C.POPOLAZIONE"
+                [formGroup]="mainForm"
+                [cssConfig]="formInputs.popolazioneConfig.css"
+                [dataConfig]="formInputs.popolazioneConfig.data"
+                [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                [formSubmitted]="mainFormSubmitted"
+              ></risca-number>
+            </div>
+
+            <div class="r-mr--40">
+              <!-- USO DI LEGGE -->
+              <risca-select
+                [formControlName]="DTT_C.USO"
+                [idFormControl]="DTT_C.USO"
+                [cssConfig]="formInputs.usoConfig.css"
+                [dataConfig]="formInputs.usoConfig.data"
+                [formGroup]="mainForm"
+                [formSubmitted]="mainFormSubmitted"
+                [dataSource]="listaUsiDiLegge"
+                [propertyToShow]="DTT_C.PROPERTY_USO_DI_LEGGE"
+                [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                [listenToRefreshData]="true"
+              ></risca-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- GESTIONE CANONE -->
+    <div class="row r-m-intL-t">
+      <div class="col macro-section-labels">Canone</div>
+    </div>
+
+    <!-- CALCOLO E VISUALIZZAZIONE CANONE -->
+    <div class="row r-mt--20">
+      <div class="col">
+        <dt-canone-pratica #canoneRef></dt-canone-pratica>
+      </div>
+    </div>
+  </div>
+</div>

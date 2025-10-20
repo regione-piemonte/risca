@@ -1,0 +1,184 @@
+<div class="r-m-intL-t">
+  <!-- FILO ARIANNA -->
+  <risca-filo-arianna></risca-filo-arianna>
+</div>
+
+<div class="card-box card-box-internal card-box-external">
+
+  <!-- LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col risca-head-section-label">
+      {{ titolo }}
+    </div>
+  </div>
+
+  <!-- CONTENITORE DEI DATI DEL GRUPPO -->
+  <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+
+    <div class="row">
+      <div class="col">
+        <div class="risca-obbligatorio-label">
+          E' possibile creare o modificare un solo Gruppo.
+        </div>
+      </div>
+    </div>
+
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <!-- NOME GRUPPO -->
+        <risca-text [formControlName]="G_C.NOME_GRUPPO"
+          [idFormControl]="G_C.NOME_GRUPPO"
+          [cssConfig]="nomeGruppoConfig.css"
+          [dataConfig]="nomeGruppoConfig.data"
+          [formGroup]="mainForm"
+          [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+          [formSubmitted]="mainFormSubmitted"
+          [disableRequiredCheck]="false"
+        ></risca-text>
+      </div>
+    </div>
+
+  </form>
+
+  <risca-separator></risca-separator>
+
+  <div class="row">
+    <div class="col risca-common-label">
+      Aggiungi componente
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <form-cerca-soggetto #resFormCercaSoggetto
+        [gruppoCSDisabled]="AEA_GRDisabled || !isGestioneAbilitata"
+        (onSoggettoCercato)="onSoggettoCercato($event)"
+      ></form-cerca-soggetto>
+    </div>
+  </div>
+
+  <!-- GESTIONE DEL WARNING E AGGIUNTA DI UN NUOVO SOGGETTO -->
+  <ng-container  *ngIf="ricerca && !checkRicerca">
+    <!-- ALERT NEL CASO IN CUI NON VENGANO TROVATI DATI  -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <!-- GESTIONE DEI MESSAGGI -->
+        <risca-alert [alertConfigs]="alertRicercaConfigs" (onAlertHidden)="onAlertHidden($event, alertConfigs)"></risca-alert>
+      </div>
+    </div>
+    <!-- ALERT NEL CASO IN CUI NON VENGANO TROVATI DATI  -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <!-- RESET FORM -->
+        <risca-link-button
+          [dataConfig]="{ label: 'ANNULLA' }"
+          (onClick)="resetRicercaSoggetto()">
+        </risca-link-button>
+      </div>
+      <div class="col">
+        <!-- INSERISCI GRUPPO -->
+        <risca-primary-button
+          class="float-right"
+          [dataConfig]="{ label: 'INSERISCI COMPONENTE' }"
+          (onClick)="richiestaInserimentoSoggetto()">
+        </risca-primary-button>
+      </div>
+    </div>
+  </ng-container>
+  
+  <!-- GESTIONE DELLA TABELLA SOGGETTO TROVATO E DEI PULSANTI DI GESTIONE DEL DATO -->
+  <ng-container *ngIf="checkRicerca && checkTableSR">
+    <!-- SOGGETTO - COMPONENTE TABELLA CHE GESTISCE I RISULTATI DELLA RICERCA SOGGETTO -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-table
+          [cssConfig]="tableSoggettiRicerca.cssConfig"
+          [dataConfig]="tableSoggettiRicerca.dataConfig"
+          [source]="tableSoggettiRicerca.source"
+        ></risca-table>
+      </div>
+    </div>
+
+    <!-- ALERT NEL CASO IN CUI NON VENGANO TROVATI DATI  -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <!-- RESET FORM -->
+        <risca-link-button
+          [dataConfig]="{ label: 'ANNULLA' }"
+          (onClick)="resetRicercaSoggetto()">
+        </risca-link-button>
+      </div>
+      <div class="col">
+        <!-- AGGIUNGI COMPONENTE -->
+        <risca-primary-button
+          class="float-right"
+          [dataConfig]="{ label: 'AGGIUNGI COMPONENTE' }"
+          (onClick)="aggiungiComponente()">
+        </risca-primary-button>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- GESTIONE DELLA TABELLA COMPONENTI GRUPPO -->
+  <ng-container *ngIf="checkTableCG">
+    
+    <!-- SEPARATORE PER MIGLIORARE LA VIBILITA DATI -->
+    <risca-separator></risca-separator>
+
+    <!-- COMPONENTI GRUPPO - COMPONENTE TABELLA CHE GESTISCE I DATI DEI SOGGETTI COME COMPONENTI GRUPPO -->
+    <div class="row">
+      <div class="col">
+        <risca-table
+          [cssConfig]="tableComponentiGruppo.cssConfig"
+          [dataConfig]="tableComponentiGruppo.dataConfig"
+          [source]="tableComponentiGruppo.source"
+          (onRadioClick)="modificaCapogruppo($event)"
+          (onRowDetail)="dettaglioComponenteGruppo($event)"
+          (onRowDelete)="eliminaComponenteGruppo($event)"
+          (onRowCustomAction)="customCGTable($event)"
+          (onSubRowCustomAction)="customCGTable($event)"
+        ></risca-table>
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+
+<!-- GESTIONE DEI MESSAGGI -->
+<div class="r-m-intL-t" *ngIf="alertConfigsCheck">
+  <risca-alert
+    [alertConfigs]="alertConfigs"
+    (onAlertHidden)="onAlertHidden($event, alertConfigs)">
+  </risca-alert>
+</div>
+
+<!-- BOTTONI PER LE AZIONI DELLA PAGINA -->
+<div class="row r-m-intL-t">
+  <div class="col">
+    <!-- INDIETRO -->
+    <risca-link-button class="r-mr--15"
+      [dataConfig]="C_C.BTN_INDIETRO"
+      (onClick)="tornaIndietro()">
+    </risca-link-button>
+    <!-- ANNULLA -->
+    <risca-link-button class="r-mr--15"
+      [dataConfig]="{ label: 'ANNULLA', codeAEA: AEAK_C.ANNULLA_GRUPPO }"
+      [disable]="!isGestioneAbilitata"
+      (onClick)="annullaForm()">
+    </risca-link-button>
+    <!-- ELIMINAZIONE -->
+    <ng-container *riscaMaintain="eliminazionePossibile">
+      <risca-default-button class="r-mr--15"
+        [dataConfig]="{ label: 'ELIMINA GRUPPO', codeAEA: AEAK_C.ELIMINA_GRUPPO }"
+        [disable]="!eliminazioneAttiva"
+        (onClick)="eliminaGruppoBtn()">
+      </risca-default-button>
+    </ng-container>
+    <!-- SALVA -->
+    <risca-primary-button class="float-right"
+      [dataConfig]="configBtnSalva"
+      [disable]="!isGestioneAbilitata"
+      (onClick)="onFormSubmit()">
+    </risca-primary-button>
+  </div>
+</div>

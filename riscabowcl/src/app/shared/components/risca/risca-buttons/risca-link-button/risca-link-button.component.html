@@ -1,0 +1,27 @@
+<!-- PULSANTE CON DIRETTIVA ACCESSOELEMENTOAPP -->
+<ng-container *riscaMaintain="attivaAEA">
+  <!-- PULSANTE -->
+  <button type="button" class="btn"
+    accessoElementoApp
+    [codiceUtilizzo]="dataConfig?.codeAEA"
+    [otherDisabled]="disabled"
+    [ngClass]="[(cssConfig?.customButton | riscaCssHandler:C_C.CSS_TYPE_CLASS), riscaButtonTypes.link]"
+    [ngStyle]="cssConfig?.customButton | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    (click)="onClick.emit()"
+  >
+    {{ dataConfig?.label || '' }}
+  </button>
+</ng-container>
+
+<!-- PULSANTE NORMALE -->
+<ng-container *riscaMaintain="!attivaAEA">
+  <!-- PULSANTE -->
+  <button type="button" class="btn"
+    [disabled]="disabled"
+    [ngClass]="[(cssConfig?.customButton | riscaCssHandler:C_C.CSS_TYPE_CLASS), riscaButtonTypes.link]"
+    [ngStyle]="cssConfig?.customButton | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    (click)="onClick.emit()"
+  >
+    {{ dataConfig?.label || '' }}
+  </button>
+</ng-container>

@@ -1,0 +1,93 @@
+<div class="container-fluid r-plr--0">
+  <div class="row">
+    <div class="col">
+
+      <!-- RECAPITO FORM -->
+      <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+
+        <!-- RIGA 1 -->
+        <div class="d-flex flex-row">
+          <div class="r-mr--40">
+            <!-- SELECT TIPO INVIO -->
+            <risca-select [formControlName]="RC_C.TIPO_INVIO"
+              [cssConfig]="tipoInvioConfig.css"
+              [dataConfig]="tipoInvioConfig.data"
+              [idFormControl]="RC_C.TIPO_INVIO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaTipiInvio"
+              [propertyToShow]="RC_C.PROPERTY_TIPO_INVIO"
+              [disableRequiredCheck]="false"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.TIPO_INVIO"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+          <div class="r-mr--40">
+            <!-- PEC -->
+            <risca-email [formControlName]="RC_C.PEC"
+              [cssConfig]="pecConfig.css"
+              [dataConfig]="pecConfig.data"
+              [idFormControl]="RC_C.PEC"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_REQUIRE_PEC"
+              [formSubmitted]="mainFormSubmitted"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.PEC"
+              [disableRequiredCheck]="false"
+            ></risca-email>
+          </div>
+          <div class="">
+            <!-- EMAIL -->
+            <risca-email [formControlName]="RC_C.EMAIL"
+              [cssConfig]="emailConfig.css"
+              [dataConfig]="emailConfig.data"
+              [idFormControl]="RC_C.EMAIL"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_REQUIRE_EMAIL"
+              [formSubmitted]="mainFormSubmitted"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.EMAIL"
+              [disableRequiredCheck]="false"
+            ></risca-email>
+          </div>
+        </div>
+
+        <!-- RIGA 2 -->
+        <div class="d-flex flex-row r-m-intL-t">
+          <div class="r-mr--40">
+            <!-- TELEFONO -->
+            <risca-text
+              [formControlName]="RC_C.TELEFONO"
+              [cssConfig]="telefonoConfig.css"
+              [dataConfig]="telefonoConfig.data"
+              [idFormControl]="RC_C.TELEFONO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.TELEFONO"
+              [disableRequiredCheck]="false"
+              [sanitize]="sanitizeNumeroTelefono"
+            ></risca-text>
+          </div>
+          <div class="r-mr--40">
+            <!-- CELLULARE -->
+            <risca-text
+              [formControlName]="RC_C.CELLULARE"
+              [cssConfig]="cellulareConfig.css"
+              [dataConfig]="cellulareConfig.data"
+              [idFormControl]="RC_C.CELLULARE"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [aggiornatoDallaFonte]="fonteConfigs | riscaAggiornatoFonte:DA_C.CELLULARE"
+              [sanitize]="sanitizeNumeroTelefono"
+            ></risca-text>
+          </div>
+          
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

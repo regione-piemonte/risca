@@ -1,0 +1,27 @@
+<!-- CALCOLO E VISUALIZZAZIONE CANONE -->
+<div class="row">
+  <div class="col col-canone-input">
+    <label for="canoneCalcolato" class="risca-input-label-standard">
+      Canone calcolato
+    </label>
+    <input disabled type="text" id="canoneCalcolato" [ngModel]="canoneCalcolato"
+      class="form-control risca-input-border risca-input-content-small risca-input-small">
+  </div>
+  <div class="col col-canone-button r-mt--a">
+    <risca-primary-button 
+      [dataConfig]="{ label: 'Calcola', codeAEA: AEAK_C.PAGINA_DATI_TECNICI }"
+      [disable]="disabledCalcolaCanone"
+      (onClick)="calcolaCanone()">
+    </risca-primary-button>
+  </div>
+</div>
+
+<!-- GESTIONE DEGLI ERRORI -->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck && showAlert">
+  <div class="col">
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"  
+    ></risca-alert>
+  </div>
+</div>

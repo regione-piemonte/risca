@@ -108,9 +108,6 @@ public class DocumentiAllegatiApiServiceImpl extends BaseApiServiceImpl implemen
 	private static final String IDENTITY = "identity";
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
-//	
-//    @Autowired
-//    private DocumentiAllegatiDAO docAllegatiDAO;
     
     @Autowired
     private RiscossioneDAO  riscossioneDAO;
@@ -830,7 +827,6 @@ public class DocumentiAllegatiApiServiceImpl extends BaseApiServiceImpl implemen
 					    }
 					}
 
-//		            it.doqui.acta.actasrv.dto.acaris.type.common.ObjectResponseType[] obj = response.getObjects();
 		            if(obj.length == 0) { 
 		            	if(fruitore != null && fruitore.equals(Constants.RISCA_FO)) {
 		            		MessaggiDTO messaggiDTO = messaggiDAO.loadMessaggiByCodMessaggio(Constants.I034);
@@ -1036,8 +1032,6 @@ public class DocumentiAllegatiApiServiceImpl extends BaseApiServiceImpl implemen
     
     public static byte[] getContentAsByteArray(DataHandler handler) throws IOException {
         byte[] bytes = null;
-//        final InputStream in = handler.getInputStream();
-//        byte[] byteArray=org.apache.commons.io.IOUtils.toByteArray(in);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         handler.writeTo(bos);
         bos.flush();
@@ -1052,13 +1046,11 @@ public class DocumentiAllegatiApiServiceImpl extends BaseApiServiceImpl implemen
 	 it.csi.risca.riscabesrv.util.actanavigation.ObjectIdType repositoryId = new it.csi.risca.riscabesrv.util.actanavigation.ObjectIdType(this.repositoryIdentificato.getValue());
 	 it.csi.risca.riscabesrv.util.actanavigation.PrincipalIdType principalId = new it.csi.risca.riscabesrv.util.actanavigation.PrincipalIdType(this.principalId.getValue());
 	 it.csi.risca.riscabesrv.util.actanavigation.PropertyFilterType filter = new  it.csi.risca.riscabesrv.util.actanavigation.PropertyFilterType(Constants.FILTER_TYPE_ALL, null);
-//	 it.csi.risca.riscabesrv.util.actanavigation.PropertyFilterType filter = this.getFilterNavigation("DocumentoSemplicePropertiesType", new String[]{"objectId"}); 
-//	 filter.setFilterType(idClassificazione);
+
 	 LOGGER.debug("[DocumentiAllegatiApiServiceImpl::getObjectIdContentStream] repo Id --> "+repositoryId.getValue());
 		LOGGER.debug("[DocumentiAllegatiApiServiceImpl::getObjectIdContentStream] principal Id --> "+principalId.getValue());
 		LOGGER.debug("[DocumentiAllegatiApiServiceImpl::getObjectIdContentStream folderId --> "+folderId.getValue());
 
-//		DocumentoSemplicePropertiesType
 		
 	 try {
 		it.csi.risca.riscabesrv.util.actanavigation.PagingResponseType reponseObjectId = actaNavigationServiceHelper.getChildren(repositoryId,  folderId,  principalId,  filter,  null,  null) ;
@@ -1338,7 +1330,6 @@ public class DocumentiAllegatiApiServiceImpl extends BaseApiServiceImpl implemen
     public it.csi.risca.riscabesrv.util.actarepository.ObjectIdType getRepository(String repositoryName) throws Exception {
     	LOGGER.debug((Object)"[AcarisProtocolloClient::getRepository] BEGIN");
     	LOGGER.debug("getRepository");
-//        if (this.repositoryIdentificato == null) {
             AcarisRepositoryEntryType[] elencoRepository = null;
             LOGGER.debug("prima della chiamata");
             elencoRepository = actaRepositoryServiceHelper.getRepositories();
@@ -1348,7 +1339,6 @@ public class DocumentiAllegatiApiServiceImpl extends BaseApiServiceImpl implemen
                     this.repositoryIdentificato = repository.getRepositoryId();
                 }
             }
-//        }
         LOGGER.debug((Object)"getRepository - END");
         return this.repositoryIdentificato;
     }
@@ -1382,14 +1372,6 @@ public class DocumentiAllegatiApiServiceImpl extends BaseApiServiceImpl implemen
         	return arrPrincipal;
         	
         }
-//        catch (it.doqui.acta.acaris.objectservice.AcarisException acEx) {
-//            System.err.println("acEx.getMessage(): " + acEx.getMessage());
-//            System.err.println("acEx.getFaultInfo().getErrorCode(): " + acEx.getFaultInfo().getErrorCode());
-//            System.err.println("acEx.getFaultInfo().getPropertyName(): " + acEx.getFaultInfo().getPropertyName());
-//            System.err.println("acEx.getFaultInfo().getObjectId(): " + acEx.getFaultInfo().getObjectId());
-//            System.err.println("acEx.getFaultInfo().getExceptionType(): " + acEx.getFaultInfo().getExceptionType());
-//            System.err.println("acEx.getFaultInfo().getClassName(): " + acEx.getFaultInfo().getClassName());
-//		} 
         catch (Exception e) {
 			  LOGGER.error("[DocumentiAllegatiApiServiceImpl::getPrincipalExt] ERROR " , e);
 		}

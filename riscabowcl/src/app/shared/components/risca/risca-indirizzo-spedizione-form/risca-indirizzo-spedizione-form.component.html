@@ -1,0 +1,129 @@
+<div class="container-fluid r-plr--0">
+  <!-- FORM DATI -->
+  <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+    <!-- RIGA DELLA FORM -->
+    <div class="row">
+      <div class="col">
+        <div class="d-flex flex-row">
+          <div class="r-mr--10">
+            <!-- DESTINATARIO -->
+            <risca-text
+              [formControlName]="ISF_C.DESTINATARIO"
+              [idFormControl]="ISF_C.DESTINATARIO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="errorsMap.MAP_IS_DESTINATARIO"
+              [cssConfig]="formInputs.destinatarioConfig.css"
+              [dataConfig]="formInputs.destinatarioConfig.data"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+            ></risca-text>
+          </div>
+        
+          <div>
+            <!-- PRESSO -->
+            <risca-text
+              [formControlName]="ISF_C.PRESSO"
+              [idFormControl]="ISF_C.PRESSO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="errorsMap.MAP_IS_PRESSO"
+              [cssConfig]="formInputs.pressoConfig.css"
+              [dataConfig]="formInputs.pressoConfig.data"
+              [toUpperCase]="true"
+            ></risca-text>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGA DELLA FORM -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <div class="d-flex flex-row">
+          <div class="r-mr--40">
+            <!-- INDIRIZZO -->
+            <risca-text
+              [formControlName]="ISF_C.INDIRIZZO"
+              [idFormControl]="ISF_C.INDIRIZZO"
+              [errMapFormControl]="errorsMap.MAP_IS_INDIRIZZO"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.indirizzoConfig.css"
+              [dataConfig]="formInputs.indirizzoConfig.data"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+            ></risca-text>
+          </div>
+        
+          <div class="r-mr--10">
+            <!-- COMUNE CITTA -->
+            <risca-text
+              [formControlName]="ISF_C.COMUNE_CITTA"
+              [idFormControl]="ISF_C.COMUNE_CITTA"
+              [errMapFormControl]="errorsMap.MAP_IS_COMUNE_CITTA"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.cittaConfig.css"
+              [dataConfig]="formInputs.cittaConfig.data"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+            ></risca-text>
+          </div>
+        
+          <div class="risf-mr-12-5">
+            <!-- PROVINCIA -->
+            <risca-text
+              [formControlName]="ISF_C.PROVINCIA"
+              [idFormControl]="ISF_C.PROVINCIA"
+              [errMapFormControl]="errorsMap.MAP_IS_PROVINCIA"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.provinciaConfig.css"
+              [dataConfig]="formInputs.provinciaConfig.data"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+            ></risca-text>
+          </div>
+        
+          <div class="r-mr--40">
+            <!-- CAP -->
+            <risca-text
+              [formControlName]="ISF_C.CAP"
+              [idFormControl]="ISF_C.CAP"
+              [errMapFormControl]="errorsMap.MAP_IS_CAP"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.capConfig.css"
+              [dataConfig]="formInputs.capConfig.data"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+            ></risca-text>
+          </div>
+
+          <div class="risf-mr-12-5">
+            <!-- FRAZIONE -->
+            <risca-text
+              [formControlName]="ISF_C.FRAZIONE"
+              [idFormControl]="ISF_C.FRAZIONE"
+              [errMapFormControl]="errorsMap.MAP_IS_FRAZIONE"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.frazioneConfig.css"
+              [dataConfig]="formInputs.frazioneConfig.data"
+              [toUpperCase]="true"
+            ></risca-text>
+          </div>
+      
+          <div>
+            <!-- NAZIONE -->
+            <risca-text
+              [formControlName]="ISF_C.NAZIONE"
+              [idFormControl]="ISF_C.NAZIONE"
+              [errMapFormControl]="errorsMap.MAP_IS_NAZIONE"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.nazioneConfig.css"
+              [dataConfig]="formInputs.nazioneConfig.data"
+              [disableRequiredCheck]="false"
+              [toUpperCase]="true"
+            ></risca-text>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

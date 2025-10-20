@@ -1,0 +1,61 @@
+<div class="stepper-header row">
+  <div
+    *ngFor="let step of steps; let i = index"
+    class="step-item col"
+    [ngClass]="{ active: selectedIndex === i }"
+    (click)="selectedIndex = i"
+  >
+    <div class="line">
+      <div></div>
+    </div>
+    <ng-container
+      *ngIf="step.stepLabel; else showLabelText"
+      [ngTemplateOutlet]="step.stepLabel.template"
+    >
+    </ng-container>
+
+    <ng-template #showLabelText>
+      <span
+        class="circle-shade"
+        [ngClass]="{
+          'circle-full': step.completed === true || selectedIndex === i
+        }"
+      >
+        {{ i + 1 }}
+      </span>
+      <div class="label-text" [ngClass]="{'label-selected': selectedIndex === i}">
+        {{ step.label }}
+      </div>
+    </ng-template>
+    <div class="line">
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<div class="stepper-content">
+  <ng-container
+    [ngTemplateOutlet]="selected ? selected.content : null"
+  ></ng-container>
+
+  <!-- <div class="buttons-container">
+    <div class="next">
+      <button
+        class="btn btn-success"
+        *ngIf="selected.completed"
+        (click)="onAvanti(selectedIndex)"
+      >
+        AVANTI
+      </button>
+    </div>
+    <div class="previous">
+      <button
+        class="btn btn-link"
+        *ngIf="selectedIndex !== 0"
+        cdkStepperPrevious
+      >
+        INDIETRO
+      </button>
+    </div>
+  </div> -->
+</div>

@@ -1,0 +1,25 @@
+<!-- {{ navExists }}
+<div *ngIf="navExists">
+  <ul ngbNav #ngbNavList="ngbNav" class="nav"
+    [(activeId)]="tabActive"
+    [destroyOnHide]="destroyOnHide"
+  >
+    <ng-container *ngFor="let nav of riscaNav.navs; let i = index">
+      <li class="nav-item" [ngbNavItem]="nav.ngbNavItem" [disabled]="nav.disabled">
+        <a ngbNavLink class="nav-link" [id]="nav.idLink"
+          [ngClass]="[(i | riscaNavLinkClass:riscaNav:navClass)]"
+          (click)="cambiaNav(nav.ngbNavItem)">
+          <div>{{ nav.label }}</div>
+        </a>
+        <ng-template ngbNavContent>
+          <div class="tab-pane fade show" [id]="nav.idContent">
+          </div>
+        </ng-template>
+      </li>
+    </ng-container>
+  </ul>
+-->
+
+  <!-- TAB CONTENT CONTAINER -->
+<!--  <div class="tab-content" id="tab-risca-helper" [ngbNavOutlet]="ngbNavList"></div>
+</div> -->

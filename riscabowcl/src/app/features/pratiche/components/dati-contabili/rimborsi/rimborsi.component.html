@@ -1,0 +1,147 @@
+<!-- LABEL DI TESTATA -->
+<div class="row">
+  <div class="col risca-head-section-label">
+    Dettaglio rimborsi
+  </div>
+</div>
+
+<!-- TABELLA STATO DEBITORIO -->
+<div class="row r-m-intL-t" *ngIf="checkRimborsiTable">
+  <div class="col">
+    <risca-table
+      [cssConfig]="riepilogoSDRimborsiTable.cssConfig"
+      [dataConfig]="riepilogoSDRimborsiTable.dataConfig"
+      [source]="riepilogoSDRimborsiTable.source"
+    ></risca-table>
+  </div>
+</div>
+
+<!-- TITOLO TIPI ATTIVITA RIMBORSO -->
+<div class="row r-m-intL-t">
+  <div class="col risca-head-section-label">Attività di rimborso sullo stato debitorio</div>
+</div>
+
+<!-- SELECT TIPO ATTIVITA RIMBORSO -->
+<div class="row r-mt--10">
+  <div class="col">
+    <form [formGroup]="mainForm">          
+      <!-- SELECT TIPO ATTIVITA RIMBORSO -->
+      <risca-select [formControlName]="RMB_C.TIPO_ATTIVITA"
+        [idFormControl]="RMB_C.TIPO_ATTIVITA"
+        [formGroup]="mainForm"
+        [cssConfig]="formInputs.tipoRimborsoConfig.css"
+        [dataConfig]="formInputs.tipoRimborsoConfig.data"
+        [formSubmitted]="mainFormSubmitted"
+        [dataSource]="tipiAttivitaRimborso"
+        [propertyToShow]="RMB_C.PROPERTY_DES_ATTIVITA_STATO_DEB"
+      ></risca-select>
+    </form>
+  </div>
+</div>
+
+<!-- SEPARATORE -->
+<risca-separator></risca-separator>
+
+<!-- ATTIVITA RIMBORSO -->
+<div class="row">
+  <!-- SEZIONE RIMBORSI -->
+  <div class="col col-title-rimborsi r-mt--a r-mr--70">
+    <!-- TITOLO -->
+    <div class="risca-head-section-label">Rimborsi</div>
+  </div>
+  <!-- NUOVO RIMBORSO -->
+  <div class="col">
+    <risca-accordion-switch
+      [label]="RMB_C.LABEL_NUOVO_RIMBORSO"
+      [accordionAperto]="showNuoviRimborsi"
+      [disabled]="disableUserInputs"
+      (onAccordionClick)="toggleNuoviRimborsi($event)"
+    ></risca-accordion-switch>
+  </div>
+</div>
+
+<!-- ACCORDION CON FORM PER INSERIMENTO NUOVO RIMBORSO -->
+<div class="row r-m-intL-t" *ngIf="showNuoviRimborsi">
+  <!-- TOGGLE NUOVO RIMBORSO -->
+  <div class="col">
+    <div class="risca-accordion-container">
+      <!-- FORM -->
+      <div class="row">
+        <div class="col">
+          <risca-rimborso #riscaRimborso
+            [modalita]="C_C.INSERIMENTO"
+            [soggettoDefault]="soggettoSD"
+            [idGruppoDefault]="statoDebitorio?.id_gruppo_soggetto"
+            (onFormSubmit)="aggiungiRimborso($event)"
+            (onCercaCreditore)="onCercaCreditore()"
+          ></risca-rimborso>
+        </div>
+      </div>
+      <!-- AGGIUNGI NUOVO RIMBORSO -->
+      <div class="row row-aggiungi" *ngIf="showNuoviRimborsi">
+        <div class="col r-ml--664">
+          <!-- BOTTONE CONFERMA -->
+          <risca-primary-button
+            [dataConfig]="{ label: 'Aggiungi' }"
+            [disable]="disableUserInputs"
+            (click)="aggiungiAttivitaRimborso()">
+          </risca-primary-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABELLA ATTIVITA' RIMBORSI -->
+<div class="row r-m-intL-t">
+  <div class="col" *ngIf="checkAttivitaRimborsiTable">
+    <risca-table #riscaAttivitaRimborsiTable
+      [cssConfig]="attivitaRimborsiTable.cssConfig"
+      [dataConfig]="attivitaRimborsiTable.dataConfig"
+      [source]="attivitaRimborsiTable.source"
+      (onRowDelete)="rimuoviAttivitaRimborso($event)"
+      (onRowModify)="modificaAttivitaRimborso($event)"
+      (onRowCustomAction)="visualizzaStatiDebitoriCollegati($event)"
+    ></risca-table>
+  </div>
+  <div class="col" *ngIf="!checkAttivitaRimborsiTable">
+    Non sono stati trovati rimborsi per lo stato debitorio corrente.
+  </div>
+</div>
+
+<!--ALERT-->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <!-- GESTIONE DEGLI ERRORI -->
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- SEPARATORE -->
+<risca-separator></risca-separator>
+
+<!-- BOTTONI -->
+<div class="row">
+  <div class="col">
+    <!-- TORNA INDIETRO -->
+    <ng-container *riscaMaintain="showIndietro">
+      <risca-button
+        [dataConfig]="C_C.BTN_INDIETRO"
+        [cssConfig]="C_C.CSS_INDIETRO"
+        (onClick)="tornaIndietro()">
+      </risca-button>
+    </ng-container>
+    <!-- TORNA A STATI DEBITORI -->
+    <ng-container *riscaMaintain="showTASD">
+      <torna-a-stati-debitori></torna-a-stati-debitori>
+    </ng-container>
+    <!-- SALVA MODIFICHE -->
+    <pulsante-salva-modifiche class="float-right"
+      [disable]="disableUserInputs"
+      (salvaModifiche)="onFormSubmit()"
+    ></pulsante-salva-modifiche>
+  </div>
+</div>

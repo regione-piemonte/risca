@@ -1,0 +1,44 @@
+<div class="card-box r-m-intL-b" *ngIf="visibile">
+  <div class="r-p-intLC">
+    <div class="row">
+      <div class="col">
+        <div class="risca-head-section-label">
+          Dati generali e di sintesi
+        </div>
+      </div>
+    </div>
+
+    <div class="row r-mt--20">
+      <div class="col">
+        <div class="risca-common-label">
+          Codice utenza: <strong>{{ codiceUtenza | async }}</strong>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="risca-common-label">
+          Numero pratica: <strong>{{ numeroPratica }}</strong>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="risca-common-label">
+          Tipologia pratica: <strong>{{ tipologiaPratica | async }}</strong>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="risca-common-label">
+          Stato: <strong>{{ stato }}</strong>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="risca-common-label">
+          Procedimento: <strong>{{ procedimento }}</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

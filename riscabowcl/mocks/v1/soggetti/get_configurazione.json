@@ -1,0 +1,36 @@
+[
+	{
+		"id_soggetto": 3,
+		"tipo_soggetto": {
+			"id_tipo_soggetto": 1,
+			"cod_tipo_soggetto": "PF",
+			"des_tipo_soggetto": "Persona Fisica"
+		},
+		"tipo_natura_giuridica": {},
+		"comune_residenza": {
+			"idComune": 7556,
+			"codiceIstatComune": "092009",
+			"toponimo": "CAGLIARI",
+			"capComune": "09100",
+			"provincia": "CAGLIARI"
+		},
+		"comune_nascita": {
+			"idComune": 7556,
+			"codiceIstatComune": "092009",
+			"toponimo": "CAGLIARI",
+			"capComune": "09100",
+			"provincia": "CAGLIARI"
+		},
+		"comune_sede_legale": {},
+		"nome": "ANTONIO",
+		"cognome": "GRUSSU",
+		"indirizzo_soggetto": "Via Roma",
+		"des_email": "agrussu@email.it",
+		"des_pec": "agrussu@pec.it",
+		"cf_soggetto": "GRSNTN80A01B354W",
+		"num_civico_indirizzo": "1",
+		"num_telefono": "070102030",
+		"den_anno_cciaa": 0,
+		"data_nascita_soggetto": "1980-01-01"
+	}
+]

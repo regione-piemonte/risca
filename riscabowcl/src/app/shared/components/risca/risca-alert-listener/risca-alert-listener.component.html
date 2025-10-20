@@ -1,0 +1,9 @@
+<ng-container *ngIf="alertConfigsCheck">
+  <risca-alert 
+    [alertConfigs]="alertConfigs"
+    [allowAlertClose]="allowAlertClose"
+    (onAlertHidden)="onAlertHidden$.emit($event, alertConfigs)"
+    (onConfirm)="onConfirm$.emit($event)"
+    (onCancel)="onCancel$.emit($event)"
+  ></risca-alert>
+</ng-container>

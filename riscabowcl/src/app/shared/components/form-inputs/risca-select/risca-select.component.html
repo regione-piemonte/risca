@@ -1,0 +1,151 @@
+<!-- FORM GROUP -->
+<div class="form-group risca-form-group" 
+  [ngClass]="cssConfig.customForm | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+  [ngStyle]="cssConfig.customForm | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+>
+  
+  <!-- LABEL -->
+  <risca-input-label
+    [cssConfig]="cssConfig"
+    [dataConfig]="dataConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [idDOM]="idDOM"
+    [disableRequiredCheck]="disableRequired"
+  ></risca-input-label>
+  
+  <!-- CONTENITORE PER LA INPUT -->
+  <div class="row r-m--0 r-p--0">
+
+    <!-- COLONNA LABEL DI SINISTRA -->
+    <div class="col-auto r-m--0 r-mr--15 r-p--0" *riscaMaintain="labelLeftTmpl"
+      [ngClass]="cssConfig.labelColLeft | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.labelColLeft | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+      <risca-input-label
+        [cssConfig]="cssConfig"
+        [dataConfig]="dataConfig"
+        [idFormControl]="idFC"
+        [formGroup]="formGroup"
+        [idDOM]="idDOM"
+        [disableRequiredCheck]="disableRequired"
+        [position]="labelLeft"
+      ></risca-input-label>
+    </div>
+
+    <!-- COLONNA DELLA INPUT -->
+    <div class="col r-m--0 r-p--0">
+      <!-- CONTAINER PER IL REFRESH DEL DOM -->
+      <ng-container *ngIf="refreshDOM">
+        <ng-container *ngTemplateOutlet="riscaSelectTmpl"></ng-container>
+        <ng-container *ngTemplateOutlet="riscaSelectMultipleTmpl"></ng-container>
+      </ng-container>
+    </div>
+
+    <!-- COLONNA LABEL DI DESTRA -->
+    <div class="col-auto r-m--0 r-ml--15 r-p--0" *riscaMaintain="labelRightTmpl"
+      [ngClass]="cssConfig.labelColRight | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.labelColRight | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+      <risca-input-label
+        [cssConfig]="cssConfig"
+        [dataConfig]="dataConfig"
+        [idFormControl]="idFC"
+        [formGroup]="formGroup"
+        [idDOM]="idDOM"
+        [disableRequiredCheck]="disableRequired"
+        [position]="labelRight"
+      ></risca-input-label>
+    </div>
+
+  </div>
+  
+  <!-- FORM CONTROL - GESTIONE ERRORI -->
+  <risca-form-control-error
+    [cssConfig]="cssConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [errMapFormControl]="mappaErroriFC"
+    [formSubmitted]="formSubmitted"
+    [ignoreDefault]="ignoreDefault"
+  ></risca-form-control-error>
+  <!-- FORM GROUP - GESTIONE ERRORI -->
+  <risca-form-group-error
+    [cssConfig]="cssConfig"
+    [formGroup]="formGroup"
+    [errMapFormGroup]="mappaErroriFG"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-group-error>
+
+</div>
+
+<!-- TEMPLATE SELECT -->
+<ng-template #riscaSelectTmpl>
+  <!-- SELECT -->
+  <div *riscaRemove="dataConfig.multiple">
+    <select [id]="idDOM" [name]="idFC" [(ngModel)]="_value" [disabled]="disabled"
+      #riscaSelectRef
+      class="custom-select risca-input-border ellipsis"
+
+      [ngClass]="[
+        cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_CLASS,
+        checkValidation &&
+        (
+          (cssConfig.showErrorFC && formControl.invalid && (formSubmitted || formControl.dirty || formControl.touched))
+          ||
+          (cssConfig.showErrorFG && formGroup.invalid && formErrors && (formSubmitted || formGroup.dirty || formGroup.touched))
+        )
+        ? 'risca-input-border-error' : '',
+        conditionalClass
+      ]"
+      [ngStyle]="cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+      (change)="onSelectChange(); riscaSelectRef.blur();"
+    >
+      <option *ngFor="let element of source"
+        class="ellipsis"
+        [ngValue]="element"
+        [title]="element | riscaOptionValue:propertyToShow:dataConfig.customOption"
+        [disabled]="element.__disabled"
+        [selected]="element.__selected"
+        [ngClass]="(dataConfig.customOptionClass | riscaExecute:element) || []"
+        [ngStyle]="(dataConfig.customOptionStyle | riscaExecute:element) || {}"
+      >
+        {{ element | riscaOptionValue:propertyToShow:dataConfig.customOption }}
+      </option>
+    </select>
+  </div>
+</ng-template>
+
+<!-- TEMPLATE SELECT MULTIPLA -->
+<ng-template #riscaSelectMultipleTmpl>
+  <!-- MULTI SELECT -->
+  <div *riscaMaintain="dataConfig.multiple">
+    <select multiple [id]="idDOM" [name]="idFC" [(ngModel)]="_value" [disabled]="disabled"
+      #riscaSelectRef
+      class="custom-select risca-input-border"
+      [ngClass]="[
+        cssConfig.customInput !== undefined ? cssConfig.customInput : '',
+        checkValidation &&
+        (
+        (cssConfig.showErrorFC && formControl.invalid && (formSubmitted || formControl.dirty || formControl.touched))
+          ||
+          (cssConfig.showErrorFG && formGroup.invalid && formErrors && (formSubmitted || formGroup.dirty || formGroup.touched))
+        ) ? 'risca-input-border-error' : '',
+        conditionalClass
+      ]"
+      (change)="onSelectChange()"
+    >
+      <option *ngFor="let element of source"
+        class="ellipsis"
+        [ngValue]="element"
+        [title]="element | riscaOptionValue:propertyToShow:dataConfig.customOption"
+        [disabled]="element.__disabled"
+        [selected]="element.__selected"
+        [ngClass]="(dataConfig.customOptionClass | riscaExecute:element) || []"
+        [ngStyle]="(dataConfig.customOptionStyle | riscaExecute:element) || {}"
+      >
+        {{ element | riscaOptionValue:propertyToShow:dataConfig.customOption }}
+      </option>
+    </select>
+  </div>
+</ng-template>

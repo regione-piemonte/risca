@@ -1,0 +1,1 @@
+export const RISCA_USER_SESSION_STORAGE = 'risca_user_session_storage';

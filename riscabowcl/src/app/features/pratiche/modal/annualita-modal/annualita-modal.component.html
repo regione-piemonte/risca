@@ -1,0 +1,73 @@
+<!-- TESTATA -->
+<risca-modal-header
+  [title]="modalTitle"
+  (onClickClose)="modalCancel()"
+></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+  <div class="container-fluid r-plr--0">
+    
+    <!--DATI TECNICI-->
+    <div class="row">
+      <div class="col">
+        
+        <!-- COMPONENTE QUADRO TECNICO PER LA DINAMICITA' DEI DATI TECNICI -->
+        <quadri-tecnici-sd #appQuadriTecniciSD
+          [parentFormKey]="AI_C.FORM_KEY_PARENT"
+          [childFormKey]="AI_C.FORM_KEY_CHILD_DTSD"
+          [modalita]="modalita"
+          [praticaEDatiTecnici]="praticaEDatiTecnici"
+          [dataInserimentoPratica]="dataInserimentoPratica"
+          [statoDebitorio]="statoDebitorio"
+          [annualitaDT]="annualita"
+          [idComponenteDt]="idComponenteDt"
+          [rateoPrimaAnnualita]="rateoPrimaAnnualita"
+          (onUsoAnnualitaJRM)="onUsoAnnualitaJRM($event)"
+          (onUsiAnnualitaJRM)="onUsiAnnualitaJRM($event)"
+          (onCanoneAnnualitaJRM)="onCanoneAnnualitaJRM($event)"
+          (onClean)="onClean($event)"
+        ></quadri-tecnici-sd>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GESTIONE DELL'ALERT -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+</div>
+
+<!-- GESTIONE DEL RIMBORSO -->
+<div class="modal-footer risca-model-footer">
+  <!-- INDIETRO -->
+  <risca-link-button class="r-m-intC-r"
+    [dataConfig]="AI_C.BTN_MODAL_INDIETRO"
+    (onClick)="modalCancel()"
+  ></risca-link-button>
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    [disable]="disableUserInputs"
+    (onClick)="onAnnulla()"
+  ></risca-button>
+
+  <!-- CONFERMA -->
+  <risca-primary-button
+    [dataConfig]="AI_C.BTN_MODAL_CONFERMA"
+    [disable]="disableUserInputs"
+    (onClick)="onConferma()"
+  ></risca-primary-button>
+
+</div>

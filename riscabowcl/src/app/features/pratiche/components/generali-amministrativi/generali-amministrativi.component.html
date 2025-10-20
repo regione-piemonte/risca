@@ -1,0 +1,593 @@
+<div class="card-box card-box-internal">
+
+  <!-- DATI GENERALI AMMINISTRATIVI FORM -->
+  <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+
+    <!-- SEZIONE FORM GENERALI -->
+    <div class="row">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="r-mr--40">
+            <!-- TIPOLOGIA PRATICA -->
+            <risca-select 
+              [formControlName]="GA_C.TIPOLOGIA_PRATICA"
+              [idFormControl]="GA_C.TIPOLOGIA_PRATICA"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.tipologiaPraticaConfig.css"
+              [dataConfig]="formInputs.tipologiaPraticaConfig.data"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaTipologiePratica"
+              [propertyToShow]="GA_C.PROPERTY_TIPOLOGIA_PRATICA"
+              [listenToRefreshData]="true"
+              [ignoreDBDefault]="false"
+            ></risca-select>
+          </div>
+
+          <div class="r-mr--40">
+            <!-- CODICE UTENZA -->
+            <risca-select [formControlName]="GA_C.CODICE_UTENZA"
+              [idFormControl]="GA_C.CODICE_UTENZA"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.codiceUtenzaConfig.css"
+              [dataConfig]="formInputs.codiceUtenzaConfig.data"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaCodiciUtenza"
+              [propertyToShow]="GA_C.PROPERTY_CODICE_UTENZA"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+
+          <div class="r-mr--40">
+            <!-- PROGRESSIVO UTENZA -->
+            <risca-text [formControlName]="GA_C.PROGRESSIVO_UTENZA"
+              [idFormControl]="GA_C.PROGRESSIVO_UTENZA"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.progressivoUtenzaConfig.css"
+              [dataConfig]="formInputs.progressivoUtenzaConfig.data"
+              [errMapFormGroup]="EM.MAP_PRATICA_PROGRESSIVO_UTENZA"
+              [errMapFormControl]="EM.MAP_PATTERN_NUMBER"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+          </div>
+
+          <div>
+            <!-- NUMERO PRATICA -->
+            <risca-text [formControlName]="GA_C.NUMERO_PRATICA"
+              [idFormControl]="GA_C.NUMERO_PRATICA"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.numeroPraticaConfig.css"
+              [dataConfig]="formInputs.numeroPraticaConfig.data"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SEZIONE FORM GENERALI -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="r-mr--40" *ngIf="isAmbitoPraticaOperePubbliche">
+            <!-- TIPO TRIBUTO UTENZA -->
+            <risca-select [formControlName]="GA_C.TIPO_TRIBUTO_UTENZA"
+              [idFormControl]="GA_C.TIPO_TRIBUTO_UTENZA"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.tipoTributoUtenzaConfig.css"
+              [dataConfig]="formInputs.tipoTributoUtenzaConfig.data"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaTipiTributiUtenza"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+
+          <div class="r-mr--40">
+            <!-- PROCEDIMENTO -->
+            <risca-select [formControlName]="GA_C.PROCEDIMENTO"
+              [idFormControl]="GA_C.PROCEDIMENTO"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.procedimentoConfig.css"
+              [dataConfig]="formInputs.procedimentoConfig.data"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+              [dataSource]="listaProcedimenti"
+              [propertyToShow]="GA_C.PROPERTY_PROCEDIMENTO"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+
+          <div class="r-mr--40">
+            <!-- STATO PRATICA -->
+            <risca-select [formControlName]="GA_C.STATO_PRATICA"
+              [idFormControl]="GA_C.STATO_PRATICA"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.statoPraticaConfig.css"
+              [dataConfig]="formInputs.statoPraticaConfig.data"
+              [dataSource]="listaStatiPratica"
+              [errMapFormGroup]="EM.MAP_STATO_RISCOSSIONE"
+              [propertyToShow]="GA_C.PROPERTY_STATO_PRATICA"
+              [listenToRefreshData]="true"
+            ></risca-select>
+          </div>
+
+          <div class="r-mr--40" *ngIf="isStatoPratica_RIN_REV">
+            <!-- DATA RINUNCIA/REVOCA -->
+            <risca-datepicker [formControlName]="GA_C.DATA_RINUNCIA_REVOCA"
+              [idFormControl]="GA_C.DATA_RINUNCIA_REVOCA"
+              [cssConfig]="formInputs.dataRinunciaRevocaConfig.css"
+              [dataConfig]="formInputs.dataRinunciaRevocaConfig.data"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [errMapFormGroup]="EM.MAP_FORM_GROUP_REQUIRED"
+              [disableRequiredCheck]="false"
+            ></risca-datepicker>
+          </div>
+
+          <div class="r-mr--40 ga-mt-38">
+            <!-- STATO DEBITORIO -->
+            <risca-checkbox *ngIf="sdInvioSpeciale"
+              [formControlName]="GA_C.STATO_DEBITORIO_INVIO_SPECIALE"
+              [idFormControl]="GA_C.STATO_DEBITORIO_INVIO_SPECIALE"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.statoDebitorioConfig.css"
+              [dataConfig]="formInputs.statoDebitorioConfig.data"
+              [dataSource]="formInputs.statoDebitorioConfig.source"
+              [onlyLastValue]="true"
+            ></risca-checkbox>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- SEZIONE FORM GENERALI -->
+    <div class="row r-m-intL-t">
+      <div class="col col-prenotata ga-mt-51-5">
+        <!-- PRENOTATA -->
+        <risca-checkbox [formControlName]="GA_C.PRENOTATA"
+          [idFormControl]="GA_C.PRENOTATA"
+          [formGroup]="mainForm"
+          [cssConfig]="formInputs.prenotataConfig.css"
+          [dataConfig]="formInputs.prenotataConfig.data"
+          [dataSource]="formInputs.prenotataConfig.source"
+          [onlyLastValue]="true"
+        ></risca-checkbox>
+      </div>
+      <div class="col r-ml---5">
+        <!-- MOTIVAZIONE -->
+        <risca-textarea [formControlName]="GA_C.MOTIVAZIONE"
+          [idFormControl]="GA_C.MOTIVAZIONE"
+          [formGroup]="mainForm"
+          [cssConfig]="formInputs.motivazioneConfig.css"
+          [dataConfig]="formInputs.motivazioneConfig.data"
+          [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+          [formSubmitted]="mainFormSubmitted"
+          [disableRequiredCheck]="false"
+        ></risca-textarea>
+      </div>
+    </div>
+
+    <!-- SEZIONE FORM GENERALI -->
+    <div class="row r-mt--10">
+      <div class="col col-prenotata">
+        <!-- SPACING PER ALLINEAMENTO -->
+      </div>
+      <div class="col">
+        <!-- NOTE -->
+        <risca-textarea [formControlName]="GA_C.NOTE"
+          [idFormControl]="GA_C.NOTE"
+          [formGroup]="mainForm"
+          [cssConfig]="formInputs.noteConfig.css"
+          [dataConfig]="formInputs.noteConfig.data"
+        ></risca-textarea>
+      </div>
+    </div>
+
+    <!-- DIVISORE -->
+    <risca-separator></risca-separator>
+
+    <!-- EZIONE DATE CONCESSIONE, SOSPENSIONE -->
+    <div class="row">
+      <div class="col col-date-concessione-sospensione ga-mr-209">
+        <div class="risca-common-label">
+          Concessione
+        </div>          
+      </div>
+      <div class="col col-date-concessione-sospensione r-pl--0">
+        <div class="risca-common-label">
+          Sospensione
+        </div>
+      </div>
+    </div>
+
+    <!-- DATE CONCESSIONE, SOSPENSIONE -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="r-mr--40">
+            <!-- DATA INIZIO CONCESSIONE -->
+            <risca-datepicker [formControlName]="GA_C.DATA_INIZIO_CONCESSIONE"
+              [idFormControl]="GA_C.DATA_INIZIO_CONCESSIONE"
+              [cssConfig]="formInputs.dataInizioConcessioneConfig.css"
+              [dataConfig]="formInputs.dataInizioConcessioneConfig.data"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+      
+          <div class="ga-mr-209">
+            <!-- DATA SCADENZA CONCESSIONE -->
+            <risca-datepicker [formControlName]="GA_C.DATA_FINE_CONCESSIONE"
+              [idFormControl]="GA_C.DATA_FINE_CONCESSIONE"
+              [cssConfig]="formInputs.dataFineConcessioneConfig.css"
+              [dataConfig]="formInputs.dataFineConcessioneConfig.data"
+              [errMapFormGroup]="EM.MAP_CALENDARIO_CONCESSIONE"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+      
+          <div class="r-mr--40">
+            <!-- DATA INIZIO SOSPENSIONE -->
+            <risca-datepicker [formControlName]="GA_C.DATA_INIZIO_SOSPENSIONE"
+              [idFormControl]="GA_C.DATA_INIZIO_SOSPENSIONE"
+              [cssConfig]="formInputs.dataInizioSospensioneConfig.css"
+              [dataConfig]="formInputs.dataInizioSospensioneConfig.data"
+              [formGroup]="mainForm"
+              [errMapFormGroup]="EM.MAP_CALENDARIO_SOSPENSIONE"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+      
+          <div>
+            <!-- DATA SCADENZA SOSPENSIONE -->
+            <risca-datepicker [formControlName]="GA_C.DATA_FINE_SOSPENSIONE"
+              [idFormControl]="GA_C.DATA_FINE_SOSPENSIONE"
+              [cssConfig]="formInputs.dataFineSospensioneConfig.css"
+              [dataConfig]="formInputs.dataFineSospensioneConfig.data"
+              [formGroup]="mainForm"
+              [errMapFormGroup]="EM.MAP_CALENDARIO_SOSPENSIONE_REQ"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- GESTIONE ACCORDION NUOVA ISTANZA E NUOVO PROVVEDIMENTO -->
+    <div class="row r-m-intL-t">
+      <div class="col col-istanze-provvedimenti r-mr--70">
+
+        <div class="row">
+          <div class="col">
+            <div class="risca-common-label">
+              Istanze e Provvedimenti
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="risca-common-label">
+              È possibile inserire uno o più istanze e uno o più provvedimenti
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col col-accordion-istanza ga-mr-115 r-mt--a">
+
+        <!-- ACCORDION LABEL NUOVA ISTANZA -->
+        <risca-accordion-switch
+          [label]="GA_C.ACCORDION_NUOVA_ISTANZA"
+          [accordionAperto]="istanzaApriChiudi"
+          [disabled]="disableUserInputs"
+          (onAccordionClick)="toggleNuovaIstanza($event)"
+        ></risca-accordion-switch>
+
+      </div>
+      <div class="col col-accordion-provvedimento r-mt--a">
+
+        <!-- ACCORDION LABEL NUOVO PROVVEDIMENTO -->
+        <risca-accordion-switch
+          [label]="GA_C.ACCORDION_NUOVO_PROVVEDIMENTO"
+          [accordionAperto]="provvedimentoApriChiudi"
+          [disabled]="disableUserInputs"
+          (onAccordionClick)="toggleNuovoProvvedimento($event)"
+        ></risca-accordion-switch>
+
+      </div>
+    </div>
+
+    <!-- SOTTOFORM NUOVA ISTANZA -->
+    <div class="row r-m-intL-t" *ngIf="istanzaApriChiudi">
+      <div class="col">
+        <!-- CONTAINER ACCORDION -->
+        <div class="container-fluid container-accordion r-plr--0">
+
+          <!-- ACCORDION | TESTATA -->
+          <div class="row risca-row-head-accordion">
+            <div class="col risca-col-standard r-mr--40">
+              <div class="risca-head-accordion-label">
+                {{ GA_C.LABEL_TIPOLOGIA_ISTANZA }}
+              </div>
+            </div>
+            <div class="col risca-col-small r-mr--40">
+              <div class="risca-head-accordion-label">
+                {{ GA_C.LABEL_NUMERO_ISTANZA }}
+              </div>
+            </div>
+            <div class="col risca-col-small">
+              <div class="risca-head-accordion-label">
+                {{ GA_C.LABEL_DATA_ISTANZA }}
+              </div>
+            </div>
+          </div>
+
+          <form #subNuovaIstanzaForm="ngForm" [formGroup]="nuovaIstanzaForm" (ngSubmit)="nuovaIstanzaSubmit()">
+            <!-- ACCORDION | CORPO -->
+            <div class="container-fluid risca-body-container-accordion">
+              <!-- RIGA | CORPO -->
+              <div class="row row-body-accordion">
+                
+                <!-- COLONNA | CORPO -->
+                <div class="col">
+                  <div class="d-flex flex-row">
+                    
+                    <div class="r-mr--40">
+                      <!-- TIPOLOGIA ISTANZA-->
+                      <risca-select
+                        [formControlName]="GA_C.TIPOLOGIA_ISTANZA"
+                        [idFormControl]="GA_C.TIPOLOGIA_ISTANZA"
+                        [formGroup]="nuovaIstanzaForm"
+                        [cssConfig]="formInputs.tipologiaIstanzaConfig.css"
+                        [dataConfig]="formInputs.tipologiaIstanzaConfig.data"
+                        [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                        [formSubmitted]="nuovaIstanzaSubmitted"
+                        [dataSource]="listaTipologieIstanza"
+                        [propertyToShow]="GA_C.PROPERTY_TIPOLOGIA_ISTANZA"
+                        [listenToRefreshData]="true"
+                        [nullToDefault]="true"
+                        [manualListener]="true"
+                        (manualEmitter)="onManualEmitterIstanza($event, GA_C.TIPOLOGIA_ISTANZA)"
+                      ></risca-select>
+                    </div>
+
+                    <div class="r-mr--40">
+                      <!-- NUMERO ISTANZA -->
+                      <risca-text [formControlName]="GA_C.NUMERO_ISTANZA"
+                        [idFormControl]="GA_C.NUMERO_ISTANZA"
+                        [formGroup]="nuovaIstanzaForm"
+                        [cssConfig]="formInputs.numeroIstanzaConfig.css"
+                        [dataConfig]="formInputs.numeroIstanzaConfig.data"
+                      ></risca-text>
+                    </div>
+                    
+                    <div class="r-mr--40">
+                      <!-- DATA ISTANZA -->
+                      <risca-datepicker [formControlName]="GA_C.DATA_ISTANZA"
+                        [idFormControl]="GA_C.DATA_ISTANZA"
+                        [formGroup]="nuovaIstanzaForm"
+                        [cssConfig]="formInputs.dataIstanzaConfig.css"
+                        [dataConfig]="formInputs.dataIstanzaConfig.data"
+                        [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                        [formSubmitted]="nuovaIstanzaSubmitted"
+                      ></risca-datepicker>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ACCORDION | CORPO -->
+              <div class="row row-body-accordion r-m-intL-t">
+
+                <!-- NOTE ISTANZA -->
+                <div class="col">
+                  <div class="d-flex flex-row">
+                  
+                    <div class="r-mr--40">
+                      <risca-textarea [formControlName]="GA_C.NOTE_ISTANZA"
+                        [idFormControl]="GA_C.NOTE_ISTANZA"
+                        [formGroup]="nuovaIstanzaForm"
+                        [cssConfig]="formInputs.noteIstanzaConfig.css"
+                        [dataConfig]="formInputs.noteIstanzaConfig.data"
+                      ></risca-textarea>
+                    </div>
+
+                    <!-- SUBMIT FORM -->
+                    <div class="r-mt--a">
+                      <button form="nuovaIstanzaForm" type="submit" class="btn btn-primary"
+                        [disabled]="disableUserInputs"
+                        (click)="emitNuovaIstanzaSubmit()"
+                      >
+                        Aggiungi
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SOTTOFORM NUOVO PROVVEDIMENT -->
+    <div class="row r-m-intL-t" *ngIf="provvedimentoApriChiudi">
+      <div class="col">
+        <!-- CONTAINER ACCORDION -->
+        <div class="container-fluid container-accordion r-plr--0">
+
+          <!-- ACCORDION | TESTATA -->
+          <div class="row risca-row-head-accordion">
+            <div class="col risca-col-standard r-mr--40">
+              <div class="risca-head-accordion-label">
+                {{ GA_C.LABEL_TIPOLOGIA_PROVVEDIMENTO }}
+              </div>
+            </div>
+            <div class="col risca-col-standard r-mr--40">
+              <div class="risca-head-accordion-label">
+                {{ GA_C.LABEL_TIPO_TITOLO }}
+              </div>
+            </div>
+            <div class="col risca-col-standard r-mr--40">
+              <div class="risca-head-accordion-label">
+                {{ GA_C.LABEL_NUMERO_PROVVEDIMENTO }}
+              </div>
+            </div>
+            <div class="col risca-col-small">
+              <div class="risca-head-accordion-label">
+                {{ GA_C.LABEL_DATA_PROVVEDIMENTO }}
+              </div>
+            </div>
+          </div>
+
+          <form #subNuovoProvvedimentoForm="ngForm" [formGroup]="nuovoProvvedimentoForm" (ngSubmit)="nuovoProvvedimentoSubmit()">
+            <!-- ACCORDION | CORPO -->
+            <div class="container-fluid risca-body-container-accordion">
+              <!-- RIGA | CORPO -->
+              <div class="row row-body-accordion">
+                
+                <!-- COLONNA | CORPO -->
+                <div class="col">
+                  <div class="d-flex flex-row">
+                    
+                    <div class="r-mr--40">
+                      <!-- TIPOLOGIA PROVVEDIMENTO -->
+                      <risca-select
+                        [formControlName]="GA_C.TIPOLOGIA_PROVVEDIMENTO"
+                        [idFormControl]="GA_C.TIPOLOGIA_PROVVEDIMENTO"
+                        [formGroup]="nuovoProvvedimentoForm"
+                        [cssConfig]="formInputs.tipologiaProvvedimentoConfig.css"
+                        [dataConfig]="formInputs.tipologiaProvvedimentoConfig.data"
+                        [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                        [formSubmitted]="nuovoProvvedimentoSubmitted"
+                        [dataSource]="listaTipologieProvvedimento"
+                        [propertyToShow]="GA_C.PROPERTY_TIPOLOGIA_PROVVEDIMENTO"
+                        [listenToRefreshData]="true"
+                        [nullToDefault]="true"
+                        [manualListener]="true"
+                        (manualEmitter)="onManualEmitterProvvedimento($event, GA_C.TIPOLOGIA_PROVVEDIMENTO)"
+                      ></risca-select>
+                    </div>
+
+                    <div class="r-mr--40">
+                      <!-- TIPO TITOLO PROVVEDIMENTO -->
+                      <risca-select
+                        [formControlName]="GA_C.TIPO_TITOLO"
+                        [idFormControl]="GA_C.TIPO_TITOLO"
+                        [formGroup]="nuovoProvvedimentoForm"
+                        [cssConfig]="formInputs.tipoTitoloConfig.css"
+                        [dataConfig]="formInputs.tipoTitoloConfig.data"
+                        [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                        [formSubmitted]="nuovoProvvedimentoSubmitted"
+                        [dataSource]="listaTipiTitolo"
+                        [propertyToShow]="GA_C.PROPERTY_TIPO_TITOLO"
+                        [listenToRefreshData]="true"
+                        [nullToDefault]="true"
+                        [manualListener]="true"
+                        (manualEmitter)="onManualEmitterProvvedimento($event, GA_C.TIPO_TITOLO)"
+                      ></risca-select>
+                    </div>
+
+                    <div class="r-mr--40">
+                      <!-- NUMERO PROVVEDIMENTO -->
+                      <risca-text [formControlName]="GA_C.NUMERO_PROVVEDIMENTO"
+                        [idFormControl]="GA_C.NUMERO_PROVVEDIMENTO"
+                        [formGroup]="nuovoProvvedimentoForm"
+                        [cssConfig]="formInputs.numeroProvvedimentoConfig.css"
+                        [dataConfig]="formInputs.numeroProvvedimentoConfig.data"
+                        [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                        [formSubmitted]="nuovoProvvedimentoSubmitted"
+                      ></risca-text>
+                    </div>
+
+                    <div class="r-mr--40">
+                      <!-- DATA PROVVEDIMENTO -->
+                      <risca-datepicker [formControlName]="GA_C.DATA_PROVVEDIMENTO"
+                        [idFormControl]="GA_C.DATA_PROVVEDIMENTO"
+                        [formGroup]="nuovoProvvedimentoForm"
+                        [cssConfig]="formInputs.dataProvvedimentoConfig.css"
+                        [dataConfig]="formInputs.dataProvvedimentoConfig.data"
+                        [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                        [formSubmitted]="nuovoProvvedimentoSubmitted"
+                      ></risca-datepicker>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ACCORDION | CORPO -->
+              <div class="row row-body-accordion r-m-intL-t">
+                
+                <!-- COLONNA | CORPO -->
+                <div class="col">
+                  <div class="d-flex flex-row">
+
+                    <div class="r-mr--40">
+                      <!-- NOTE PROVVEDIMENTO -->
+                      <risca-textarea [formControlName]="GA_C.NOTE_PROVVEDIMENTO"
+                        [idFormControl]="GA_C.NOTE_PROVVEDIMENTO"
+                        [formGroup]="nuovoProvvedimentoForm"
+                        [cssConfig]="formInputs.noteProvvedimentoConfig.css"
+                        [dataConfig]="formInputs.noteProvvedimentoConfig.data"
+                      ></risca-textarea>
+                    </div>
+
+                    <!-- BUTTON SUBMIT -->
+                    <div class="r-mt--a">
+                      <button form="nuovoProvvedimentoForm" type="submit" class="btn btn-primary"
+                        [disabled]="disableUserInputs"
+                        (click)="emitNuovoProvvedimentoSubmit()"
+                      >
+                        Aggiungi
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TABELLA ISTANZE PROVVEDIMENTI -->
+    <div class="row r-m-intL-t" *ngIf="istanzeProvvedimentiTable && istanzeProvvedimentiTable.source?.length > 0">
+      <div class="col">
+        <!-- CONTAINER TABELLA -->
+        <div class="container-fluid container-table-ip">
+          
+          <risca-table #ipTable
+            [cssConfig]="istanzeProvvedimentiTable.cssConfig"
+            [dataConfig]="istanzeProvvedimentiTable.dataConfig"
+            [source]="istanzeProvvedimentiTable.source"
+            (onRowDelete)="eliminaIstanzaProvvedimento($event)"
+          ></risca-table>
+        
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</div>

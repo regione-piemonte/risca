@@ -1,0 +1,59 @@
+<div>
+  <!-- DATI TECNICI AMBIENTE FORM -->
+  <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+
+    <div class="row">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="dtasdr-mr-77">
+            <!-- CORPO IDRICO CAPTAZIONE -->
+            <risca-text [formControlName]="DTA_C.CORPO_IDRICO_CAPTAZIONE"
+              [idFormControl]="DTA_C.CORPO_IDRICO_CAPTAZIONE"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.corpoIdricoCaptazioneConfig.css"
+              [dataConfig]="formInputs.corpoIdricoCaptazioneConfig.data"
+            ></risca-text>
+          </div>
+
+          <div class="dtasdr-mr-77">
+            <!-- COMUNE -->
+            <risca-text [formControlName]="DTA_C.COMUNE"
+              [idFormControl]="DTA_C.COMUNE"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.comuneConfig.css"
+              [dataConfig]="formInputs.comuneConfig.data"
+            ></risca-text>
+          </div>
+
+          <div>
+            <!-- IMPIANTO IDROELETTRICO -->
+            <risca-text [formControlName]="DTA_C.NOME_IMPIANTO_IDROELETTRICO"
+              [idFormControl]="DTA_C.NOME_IMPIANTO_IDROELETTRICO"
+              [formGroup]="mainForm"
+              [cssConfig]="formInputs.nomeImpiantoIdroElettricoConfig.css"
+              [dataConfig]="formInputs.nomeImpiantoIdroElettricoConfig.data"
+            ></risca-text>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+    <div class="row r-mt--20">
+      <div class="col dtasdr-w-1213">
+
+        <!-- RIEPILOGO USI -->
+        <risca-text [formControlName]="DTA_C.USI_RIEPILOGO"
+          [idFormControl]="DTA_C.USI_RIEPILOGO"
+          [formGroup]="mainForm"
+          [cssConfig]="formInputs.usiRiepilogoConfig.css"
+          [dataConfig]="formInputs.usiRiepilogoConfig.data"
+        ></risca-text>
+
+      </div>
+    </div>
+    
+  </form>
+
+</div>

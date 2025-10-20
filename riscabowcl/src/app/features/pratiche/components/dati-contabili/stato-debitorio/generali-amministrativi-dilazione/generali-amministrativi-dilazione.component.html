@@ -1,0 +1,506 @@
+<!-- DATI GENERALI AMMINISTRATIVI DILAZIONE FORM -->
+<form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+  
+  <!-- DATI GENERALI E SINTESI -->
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <!-- ACCORDION -->
+        <risca-accordion-switch
+          [label]="GAD_C.ACCORDION_DATI_GENERALI_SINTESI"
+          [accordionAperto]="generaliSintesiApriChiudi"
+          (onAccordionClick)="toggleGeneraliSintesi($event)"
+        ></risca-accordion-switch>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEZIONE FORM DATI GENERALI E DI SINTESI  -->
+  <div class="row r-m-intL-t" *ngIf="generaliSintesiApriChiudi">
+    <div class="col">
+      <!-- CONTAINER ACCORDION -->
+      <div class="container-fluid risca-accordion-container">
+
+        <!-- ACCORDION | CORPO -->
+        <div class="row">
+          <div class="col">
+
+            <div class="d-flex flex-row">
+              <!-- <div class="gad-input-container-small r-mr--20"> -->
+                <!-- CODICE UTENZA -->
+                <!-- <risca-text-fake
+                  [formControlName]="GAD_C.CODICE_UTENZA"
+                  [idFormControl]="GAD_C.CODICE_UTENZA"
+                  [cssConfig]="formInputs.codiceUtenzaConfig.css"
+                  [dataConfig]="formInputs.codiceUtenzaConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-text-fake> -->
+              <!-- </div> -->
+    
+              <div class="gad-input-container-small r-mr--20">
+                <!-- NUMERO PROTOCOLLO RICHIESTA -->
+                <risca-text
+                  [formControlName]="GAD_C.NUM_RICHIESTA_PROTOCOLLO"
+                  [idFormControl]="GAD_C.NUM_RICHIESTA_PROTOCOLLO"
+                  [cssConfig]="formInputs.numRichiestaProtocolloConfig.css"
+                  [dataConfig]="formInputs.numRichiestaProtocolloConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-text>
+              </div>
+    
+              <div class="gad-input-container-small r-mr--20">
+                <!-- DATA RICHIESTA PROTOCOLLO -->
+                <risca-datepicker
+                  [formControlName]="GAD_C.DATA_RICHIESTA_PROTOCOLLO"
+                  [idFormControl]="GAD_C.DATA_RICHIESTA_PROTOCOLLO"
+                  [cssConfig]="formInputs.dataRichiestaProtocolloConfig.css"
+                  [dataConfig]="formInputs.dataRichiestaProtocolloConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-datepicker>
+              </div>
+    
+              <div class="gad-input-container-small r-mr--20 r-mt--35">
+                <!-- RESTITUITO AL MITTENTE -->
+                <risca-checkbox
+                  [formControlName]="GAD_C.RESTITUITO_MITTENTE"
+                  [idFormControl]="GAD_C.RESTITUITO_MITTENTE"
+                  [cssConfig]="formInputs.restituitoMittenteConfig.css"
+                  [dataConfig]="formInputs.restituitoMittenteConfig.data"
+                  [dataSource]="formInputs.restituitoMittenteConfig.source"
+                  [formGroup]="mainForm"
+                  [onlyLastValue]="true"
+                ></risca-checkbox>
+              </div>
+    
+              <div class="gad-input-container-small r-mr--20">
+                <!-- DATA ULTIMA MODIFICA -->
+                <risca-text-fake
+                  [formControlName]="GAD_C.DATA_ULTIMA_MODIFICA"
+                  [idFormControl]="GAD_C.DATA_ULTIMA_MODIFICA"
+                  [cssConfig]="formInputs.dataUltimaModificaConfig.css"
+                  [dataConfig]="formInputs.dataUltimaModificaConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-text-fake>
+              </div>
+    
+              <div class="risca-input-full">
+                <div class="row">
+                  <div class="col col-gad-isp">
+                    <!-- ANNULLATO -->
+                    <risca-checkbox
+                      [formControlName]="GAD_C.ANNULLATO"
+                      [idFormControl]="GAD_C.ANNULLATO"
+                      [cssConfig]="formInputs.annullatoConfig.css"
+                      [dataConfig]="formInputs.annullatoConfig.data"
+                      [dataSource]="formInputs.annullatoConfig.source"
+                      [formGroup]="mainForm"
+                      [onlyLastValue]="true"
+                    ></risca-checkbox>
+                  </div>
+                  <div class="col">
+                    {{ labelMotivazione }}
+                  </div>
+                </div>
+                <div class="row gad-mt-3">
+                  <div class="col">
+                    <!-- MOTIVAZIONE -->
+                    <risca-textarea
+                      [formControlName]="GAD_C.MOTIVAZIONE"
+                      [idFormControl]="GAD_C.MOTIVAZIONE"
+                      [cssConfig]="formInputs.motivazioneConfig.css"
+                      [dataConfig]="formInputs.motivazioneConfig.data"
+                      [formGroup]="mainForm"
+                      [formSubmitted]="mainFormSubmitted"
+                      [errMapFormGroup]="EM.FLAG_ANNULLATO_E_MOTIVAZIONE"
+                    ></risca-textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row r-m-intL-t">
+          <div class="col">
+
+            <div class="d-flex flex-row">
+              <div class="gad-input-container-small r-mr--20">
+                <!-- PERIODO DI PAGAMENTO -->
+                <risca-text
+                  [formControlName]="GAD_C.PERIODO_PAGAMENTO"
+                  [idFormControl]="GAD_C.PERIODO_PAGAMENTO"
+                  [cssConfig]="formInputs.periodoPagamentoConfig.css"
+                  [dataConfig]="formInputs.periodoPagamentoConfig.data"
+                  [formGroup]="mainForm"
+                  [formSubmitted]="mainFormSubmitted"
+                  [errMapFormGroup]="EM.MAP_FORM_GROUP_REQUIRED"
+                  [errMapFormControl]="EM.MAP_FORM_GROUP_REQUIRED"
+                  [disableRequiredCheck]="false"
+                ></risca-text>
+              </div>
+    
+              <div class="gad-input-container-small r-mr--20">
+                <!-- SCADENZA PAGAMENTO -->
+                <risca-datepicker
+                  [formControlName]="GAD_C.SCADENZA_PAGAMENTO"
+                  [idFormControl]="GAD_C.SCADENZA_PAGAMENTO"
+                  [cssConfig]="formInputs.scadenzaPagamentoConfig.css"
+                  [dataConfig]="formInputs.scadenzaPagamentoConfig.data"
+                  [formGroup]="mainForm"
+                  [formSubmitted]="mainFormSubmitted"
+                  [errMapFormGroup]="EM.MAP_FORM_GROUP_REQUIRED"
+                  [errMapFormControl]="EM.MAP_FORM_GROUP_REQUIRED"
+                  [disableRequiredCheck]="false"
+                ></risca-datepicker>
+              </div>
+    
+              <div class="gad-input-container-small r-mr--20 r-mt--35">
+                <!-- INVIO SPECIALE POSTEL -->
+                <risca-checkbox
+                  [formControlName]="GAD_C.INVIO_SPECIALE_POSTEL"
+                  [idFormControl]="GAD_C.INVIO_SPECIALE_POSTEL"
+                  [cssConfig]="formInputs.invioSpecialePostelConfig.css"
+                  [dataConfig]="formInputs.invioSpecialePostelConfig.data"
+                  [dataSource]="formInputs.invioSpecialePostelConfig.source"
+                  [formGroup]="mainForm"
+                  [onlyLastValue]="true"
+                ></risca-checkbox>
+              </div>
+    
+              <div class="gad-input-container-small r-mr--20">
+                <!-- CODICE AVVISO -->
+                <risca-text
+                  [formControlName]="GAD_C.CODICE_AVVISO"
+                  [idFormControl]="GAD_C.CODICE_AVVISO"
+                  [cssConfig]="formInputs.codiceAvvisoConfig.css"
+                  [dataConfig]="formInputs.codiceAvvisoConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-text>
+              </div>
+    
+              <div class="gad-input-container-small r-mr--20">
+                <!-- STATO -->
+                <risca-text
+                  [formControlName]="GAD_C.STATO"
+                  [idFormControl]="GAD_C.STATO"
+                  [cssConfig]="formInputs.statoConfig.css"
+                  [dataConfig]="formInputs.statoConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-text>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+
+  <!-- RECUPERO CANONE -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-head-section-label">Canone</div>
+    </div>
+  </div>
+
+  <!-- SEZIONE FORM RECUPERO CANONE -->
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <div class="gad-input-container-small r-mr--20">
+          <!-- CANONE ANNUALITA' CORRENTE -->
+          <risca-number-formatted
+            [formControlName]="GAD_C.CANONE_ANNUALITA_CORRENTE"
+            [idFormControl]="GAD_C.CANONE_ANNUALITA_CORRENTE"
+            [cssConfig]="formInputs.canoneAnnualitaCorrenteConfig.css"
+            [dataConfig]="formInputs.canoneAnnualitaCorrenteConfig.data"
+            [formGroup]="mainForm"
+          ></risca-number-formatted>
+        </div>
+
+        <div class="gad-input-container-small r-mr--20">
+          <!-- ANNUALITA' PRECEDENTE -->
+          <risca-number
+            [formControlName]="GAD_C.ANNUALITA_PRECEDENTE"
+            [idFormControl]="GAD_C.ANNUALITA_PRECEDENTE"
+            [cssConfig]="formInputs.annualitaPrecedenteConfig.css"
+            [dataConfig]="formInputs.annualitaPrecedenteConfig.data"
+            [formGroup]="mainForm"
+          ></risca-number>
+        </div>
+
+        <div class="gad-input-container-small r-mr--20">
+          <!-- CANONE DOVUTO -->
+          <risca-number-formatted
+            [formControlName]="GAD_C.CANONE_DOVUTO"
+            [idFormControl]="GAD_C.CANONE_DOVUTO"
+            [cssConfig]="formInputs.canoneDovutoConfig.css"
+            [dataConfig]="formInputs.canoneDovutoConfig.data"
+            [formGroup]="mainForm"
+          ></risca-number-formatted>
+        </div>
+
+        <div class="gad-input-container-small r-mr--20 r-mt--35">
+          <!-- ADDEBITO ANNO SUCCESSIVO -->
+          <risca-checkbox
+            [formControlName]="GAD_C.ADDEBITO_ANNO_SUCCESSIVO"
+            [idFormControl]="GAD_C.ADDEBITO_ANNO_SUCCESSIVO"
+            [cssConfig]="formInputs.addebitoAnnoSuccessivoConfig.css"
+            [dataConfig]="formInputs.addebitoAnnoSuccessivoConfig.data"
+            [dataSource]="formInputs.addebitoAnnoSuccessivoConfig.source"
+            [formGroup]="mainForm"
+            [onlyLastValue]="true"
+          ></risca-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEZIONE FORM RECUPERO CANONE  -->
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <div class="gad-input-container-small r-mr--20">
+          <!-- INTERESSI MATURATI -->
+          <risca-number
+            [formControlName]="GAD_C.INTERESSI_MATURATI"
+            [idFormControl]="GAD_C.INTERESSI_MATURATI"
+            [cssConfig]="formInputs.interessiMaturatiConfig.css"
+            [dataConfig]="formInputs.interessiMaturatiConfig.data"
+            [formGroup]="mainForm"
+          ></risca-number>
+        </div>
+
+        <div class="gad-input-container-small r-mr--20">
+          <!-- SPESE DI NOTIFICA -->
+          <risca-number
+            [formControlName]="GAD_C.SPESE_NOTIFICA"
+            [idFormControl]="GAD_C.SPESE_NOTIFICA"
+            [cssConfig]="formInputs.speseNotificaConfig.css"
+            [dataConfig]="formInputs.speseNotificaConfig.data"
+            [formGroup]="mainForm"
+          ></risca-number>
+        </div>
+
+        <div class="gad-input-container-small r-mr--20">
+          <!-- IMPORTO DA COMPENSAZIONE -->
+          <risca-number
+            [formControlName]="GAD_C.IMPORTO_COMPENSAZIONE"
+            [idFormControl]="GAD_C.IMPORTO_COMPENSAZIONE"
+            [cssConfig]="formInputs.importoCompensazioneConfig.css"
+            [dataConfig]="formInputs.importoCompensazioneConfig.data"
+            [formGroup]="mainForm"
+          ></risca-number>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEZIONE FORM RECUPERO CANONE  -->
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <div class="gad-input-container-small r-mr--20 r-mt--10">
+          <!-- FLAG DILAZIONE -->
+          <risca-checkbox
+            [formControlName]="GAD_C.DILAZIONE"
+            [idFormControl]="GAD_C.DILAZIONE"
+            [cssConfig]="formInputs.dilazioneConfig.css"
+            [dataConfig]="formInputs.dilazioneConfig.data"
+            [dataSource]="formInputs.dilazioneConfig.source"
+            [formGroup]="mainForm"
+            [onlyLastValue]="true"
+          ></risca-checkbox>
+        </div>
+
+        <div>
+          <!-- DETTAGLIO DILAZIONE -->
+          <risca-default-button
+            [dataConfig]="{ label: 'Dettaglio dilazione' }"
+            [disable]="inserimento"
+            (onClick)="dettaglioDilazione()"
+          >
+          </risca-default-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+
+  <!-- DATI AMMINISTRATIVI E TECNICI -->
+  <div class="row">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <!-- ACCORDION -->
+        <risca-accordion-switch
+          [label]="GAD_C.ACCORDION_AMMINISTRATIVI_TECNICI"
+          [accordionAperto]="amministrativiTecniciApriChiudi"
+          (onAccordionClick)="toggleAmministrativiTecnici($event)"
+        ></risca-accordion-switch>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEZIONE FORM DATI AMMINISTRATIVI E TECNICI -->
+  <div class="row r-m-intL-t" *ngIf="amministrativiTecniciApriChiudi">
+    <div class="col">
+      <!-- CONTAINER ACCORDION -->
+      <div class="container-fluid risca-accordion-container">
+
+        <!-- ACCORDION | CORPO -->
+        <div class="row">
+          <div class="col">
+
+            <!-- QUADRI-TECNICI-SD -->
+            <quadri-tecnici-sd-riepilogo
+              [parentFormKey]="GAD_C.FORM_KEY_PARENT"
+              [childFormKey]="GAD_C.FORM_KEY_CHILD_DT"
+              [datiTecnici]="datiTecniciConfigs"
+              [idComponenteDt]="idComponenteDtP"
+              [statoDebitorio]="statoDebitorio"
+              [modalita]="MODALITA_SD_RIEPILOGO"
+              (notifyParent)="notificationFromChild($event)"
+            ></quadri-tecnici-sd-riepilogo>
+
+          </div>
+        </div>
+
+        <!-- SEZIONE FORM DATI AMMINISTRATIVI E TECNICI -->
+        <div class="row r-m-intL-t">
+          <div class="col">
+
+            <div class="d-flex flex-row">
+              <div class="gad-input-container-standard gad-mr-77">
+                <!-- TIPO TITOLO -->
+                <risca-text
+                  [formControlName]="GAD_C.TIPO_TITOLO"
+                  [idFormControl]="GAD_C.TIPO_TITOLO"
+                  [cssConfig]="formInputs.tipoTitoloConfig.css"
+                  [dataConfig]="formInputs.tipoTitoloConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-text>
+              </div>
+
+              <div class="gad-input-container-standard gad-mr-77">
+                <!-- NUMERO TITOLO -->
+                <risca-text
+                  [formControlName]="GAD_C.NUMERO_TITOLO"
+                  [idFormControl]="GAD_C.NUMERO_TITOLO"
+                  [cssConfig]="formInputs.numeroTitoloConfig.css"
+                  [dataConfig]="formInputs.numeroTitoloConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-text>
+              </div>
+
+              <div class="gad-input-container-small r-mr--20">
+                <!-- DATA TITOLO -->
+                <risca-datepicker
+                  [formControlName]="GAD_C.DATA_TITOLO"
+                  [idFormControl]="GAD_C.DATA_TITOLO"
+                  [cssConfig]="formInputs.dataTitoloConfig.css"
+                  [dataConfig]="formInputs.dataTitoloConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-datepicker>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <!-- SEZIONE FORM DATI AMMINISTRATIVI E TECNICI -->
+        <div class="row r-m-intL-t">
+          <div class="col">
+
+            <div class="d-flex flex-row">
+              <div class="gad-input-container-small r-mr--20">
+                <!-- INIZIO CONCESSIONE -->
+                <risca-datepicker
+                  [formControlName]="GAD_C.INIZIO_CONCESSIONE"
+                  [idFormControl]="GAD_C.INIZIO_CONCESSIONE"
+                  [cssConfig]="formInputs.inizioConcessioneConfig.css"
+                  [dataConfig]="formInputs.inizioConcessioneConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-datepicker>
+              </div>
+
+              <div class="gad-input-container-small r-mr--20">
+                <!-- SCADENZA CONCESSIONE -->
+                <risca-datepicker
+                  [formControlName]="GAD_C.SCADENZA_CONCESSIONE"
+                  [idFormControl]="GAD_C.SCADENZA_CONCESSIONE"
+                  [cssConfig]="formInputs.scadenzaConcessioneConfig.css"
+                  [dataConfig]="formInputs.scadenzaConcessioneConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-datepicker>
+              </div>
+
+              <div class="gad-input-container-standard r-mr--20" *ngIf="!hideIstanzaDiRinnovo">
+                <!-- ISTANZA DI RINNOVO -->
+                <risca-text-fake
+                  [formControlName]="GAD_C.ISTANZA_RINNOVO"
+                  [idFormControl]="GAD_C.ISTANZA_RINNOVO"
+                  [cssConfig]="formInputs.istanzaRinnovoConfig.css"
+                  [dataConfig]="formInputs.istanzaRinnovoConfig.data"
+                  [formGroup]="mainForm"
+                ></risca-text-fake>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTE SD -->
+  <div class="row r-m-intL-t">
+    <div class="col dtasdr-w-1213">
+      <!-- NOTE SD-->
+      <risca-textarea
+        [formControlName]="GAD_C.NOTE_SD"
+        [idFormControl]="GAD_C.NOTE_SD"
+        [cssConfig]="formInputs.noteSDConfig.css"
+        [dataConfig]="formInputs.noteSDConfig.data"
+        [formGroup]="mainForm"
+        [formSubmitted]="mainFormSubmitted"
+      ></risca-textarea>
+    </div>
+  </div>
+
+  <!-- UTENZE DA COMPENSAZIONE -->
+  <div class="row r-m-intL-t">
+    <div class="col dtasdr-w-1213">
+      <!-- UTENZE DA COMPENSAZIONE-->
+      <risca-text
+        [formControlName]="GAD_C.UTENZE_COMPENSAZIONE"
+        [idFormControl]="GAD_C.UTENZE_COMPENSAZIONE"
+        [cssConfig]="formInputs.utenzeCompensazioneConfig.css"
+        [dataConfig]="formInputs.utenzeCompensazioneConfig.data"
+        [formGroup]="mainForm"
+      ></risca-text>
+    </div>
+  </div>
+</form>
+
+<!-- SEPARATORE -->
+<risca-separator></risca-separator>
+
+<!-- BOTTONI -->
+<div class="row">
+  <div class="col">
+    <!-- TORNA A STATI DEBITORI -->
+    <torna-a-stati-debitori></torna-a-stati-debitori>
+    <!-- SALVA MODIFICHE -->
+    <pulsante-salva-modifiche class="float-right"
+      [disable]="disableUserInputs"
+      (salvaModifiche)="onFormSubmit()"
+    ></pulsante-salva-modifiche>
+  </div>
+</div>

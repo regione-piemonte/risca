@@ -1,0 +1,110 @@
+.box {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid gray;
+}
+
+.card {
+  padding: 32px 24px;
+  box-shadow: 1px 2px 8px 0 #eaeaea;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  overflow-x: hidden;
+
+  &:hover,
+  &:active {
+    box-shadow: 1px 2px 8px 0 #cecbcb;
+    border: 1px solid #cecbcb;
+  }
+
+  i {
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  .wizard-header {
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    color: #707070;
+  }
+
+  .title {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title-text:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .type-box {
+    font-size: 0.625rem;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #bfddf2;
+    border-radius: 5px;
+
+    .type-content {
+      margin: 0 10px;
+    }
+  }
+
+  .content {
+    font-size: 0.875rem;
+    height: 2.625rem;
+    overflow: hidden;
+  }
+
+  .date {
+    font-size: 0.625rem;
+    margin-top: 10px;
+  }
+
+  .wizard-date {
+    font-size: 0.75rem;
+    color: #707070;
+  }
+}
+
+.h-mt-21 {
+  margin-top: 21px;
+}
+
+.h-mt-8 {
+  margin-top: 8px;
+}
+
+.col-ricerca-avanzata {
+  flex: 0 0 235px;
+}
+
+.col-nuova-pratica {
+  flex: 0 0 240px;
+  margin-right: 40px;
+}
+
+.col-nuovo-gruppo {
+  flex: 0 0 230px;
+  margin-right: 40px;
+}
+
+.row-alert-SGForm {
+  width: 1071px;
+}
+
+.absolute-bottom {
+  position: absolute;
+  bottom: 0px;
+}
+
+.padding-search-buttons {
+  margin-bottom: -18px;
+}
+
+.r-l--30 {
+  left: 30px;
+}

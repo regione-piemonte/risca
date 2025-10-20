@@ -1,0 +1,22 @@
+.card-main-content {
+  padding: 0px 20px 0px 20px;
+  margin-bottom: 0;
+  background-color: #ffffff;
+  border: 0px;
+}
+
+.r-ml--664 {
+  margin-left: 664px;
+}
+
+.col-title-rimborsi {
+  flex: 0 0 97px !important;
+}
+
+/** 
+ * Per non complicarsi la vita: la gestione del pulsante è esterna all'ultima riga del form.
+ * Mettiamo un margin negativo così da allineare la grafica.
+ */
+.row-aggiungi {
+  margin-top: -42px;
+}

@@ -1,0 +1,76 @@
+
+<div class="card-box card-box-internal">
+    
+  <ul ngbNav #datiContabiliNav="ngbNav" [(activeId)]="sezioneDatiContabili" [destroyOnHide]="true" class="nav nav-tabs dati-contabili-nav">
+    <ng-container *ngFor="let nav of datiContabiliNavConfigs.navs">
+      <li class="nav-item" [ngbNavItem]="nav.ngbNavItem" [disabled]="nav.disabled">
+        <a ngbNavLink class="risca-nav-link nav-link" [id]="nav.ngbNavItem"
+          (click)="cambiaSezioneDatiContabili(nav.ngbNavItem)"
+        >
+          <div>{{ nav.label }}</div>
+        </a>
+        <ng-template ngbNavContent>
+          <div class="tab-pane fade show" [id]="nav.ngbNavItem">
+            
+            <!-- ST_DEBITORI -->
+            <ng-container *riscaMaintain="nav.component === datiContabiliNavConfigs.ST_DEBITORI_COMPONENT">
+              <stati-debitori
+                [modalita]="modalita"
+                [isDatiContabiliActive]="isDatiContabiliActive"
+              ></stati-debitori>
+            </ng-container>
+
+            <!-- PAGAMENTI SD -->
+            <ng-container *riscaMaintain="nav.component === datiContabiliNavConfigs.PAGAMENTI_SD_COMPONENT">
+              <pagamenti-sd></pagamenti-sd>
+            </ng-container>
+
+            <!-- RIMBORSI -->
+            <ng-container *riscaMaintain="nav.component === datiContabiliNavConfigs.RIMBORSI_COMPONENT">
+              <rimborsi></rimborsi>
+            </ng-container>
+
+            <!-- ACCERTAMENTI -->
+            <ng-container *riscaMaintain="nav.component === datiContabiliNavConfigs.ACCERTAMENTI_COMPONENT">
+              <accertamenti></accertamenti>
+            </ng-container>
+
+            <!-- ST_DEBITORIO -->
+            <ng-container *riscaMaintain="nav.component === datiContabiliNavConfigs.ST_DEBITORIO_COMPONENT">
+              <stato-debitorio
+                [modalita]="APP_ACTIONS.modifica"
+              ></stato-debitorio>
+            </ng-container>
+
+            <!-- INS_ST_DEBITORIO -->
+            <ng-container *riscaMaintain="nav.component === datiContabiliNavConfigs.INS_ST_DEBITORIO_COMPONENT">
+              <stato-debitorio
+                [modalita]="APP_ACTIONS.inserimento"
+              ></stato-debitorio>
+            </ng-container>
+
+            <!-- NAP -->
+            <ng-container *riscaMaintain="nav.component === datiContabiliNavConfigs.NAP_COMPONENT">
+              <numero-avviso-pagamento></numero-avviso-pagamento>
+            </ng-container>
+            
+          </div>
+        </ng-template>
+      </li>
+    </ng-container>
+  </ul>
+
+  <!-- TAB CONTENT CONTAINER -->
+  <div class="tab-content" id="sezioneDatiContabiliTab" [ngbNavOutlet]="datiContabiliNav"></div>
+  
+  <!-- ALERT DEGLI ERRORI -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert 
+        [alertConfigs]="alertConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+</div>

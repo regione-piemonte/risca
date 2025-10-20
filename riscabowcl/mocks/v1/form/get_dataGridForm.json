@@ -1,0 +1,101 @@
+{
+  "display": "form",
+  "components": [
+    {
+      "autofocus": false,
+      "input": true,
+      "tree": true,
+      "tableView": false,
+      "label": "Lista utenti",
+      "key": "listaUtenti",
+      "persistent": true,
+      "type": "datagrid",
+      "addAnotherPosition": "bottom",
+      "hover": true,
+      "bordered": true,
+      "striped": true,
+      "components": [
+        {
+          "input": true,
+          "tableView": true,
+          "inputType": "text",
+          "label": "Cognome",
+          "key": "cognome",
+          "placeholder": "Inserisci cognome",
+          "multiple": false,
+          "defaultValue": "",
+          "persistent": true,
+          "validate": {
+            "required": false,
+            "minLength": "",
+            "maxLength": "",
+            "pattern": "",
+            "custom": "",
+            "customPrivate": false
+          },
+          "type": "textfield",
+          "inDataGrid": true,
+          "labelPosition": "top",
+          "inputFormat": "plain"
+        },
+        {
+          "input": true,
+          "tableView": true,
+          "inputType": "text",
+          "label": "Nome",
+          "key": "nome",
+          "placeholder": "Inserisci nome",
+          "multiple": false,
+          "defaultValue": "",
+          "persistent": true,
+          "validate": {
+            "required": false,
+            "minLength": "",
+            "maxLength": "",
+            "pattern": "",
+            "custom": "",
+            "customPrivate": false
+          },
+          "type": "textfield",
+          "inDataGrid": true,
+          "labelPosition": "top",
+          "inputFormat": "plain"
+        },
+        {
+          "input": true,
+          "tableView": true,
+          "inputType": "text",
+          "label": "Indirizzo",
+          "key": "indirizzo",
+          "placeholder": "Inserisci indirizzo",
+          "multiple": false,
+          "defaultValue": "",
+          "persistent": true,
+          "validate": {
+            "required": false,
+            "minLength": "",
+            "maxLength": "",
+            "pattern": "",
+            "custom": "",
+            "customPrivate": false
+          },
+          "type": "textfield",
+          "inDataGrid": true,
+          "labelPosition": "top",
+          "inputFormat": "plain"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "theme": "primary",
+      "disableOnInvalid": true,
+      "action": "submit",
+      "size": "md",
+      "key": "submit",
+      "tableView": false,
+      "label": "Submit",
+      "input": true
+    }
+  ]
+}

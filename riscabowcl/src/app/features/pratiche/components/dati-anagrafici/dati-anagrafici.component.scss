@@ -1,0 +1,20 @@
+.col-recapito-alternativo {
+  flex: 0 0 490px;
+}
+
+.col-recapito-alternativo-accordion {
+  flex: 0 0 255px;
+}
+
+.row-cerca-titolare {
+  margin-top: -42px;
+}
+
+/**
+ * NOTA BENE:
+ * Essendo che "row-cerca-titolare" è stata forzata per allinearsi con gli elementi di un altro componente, bisogna mettere lo z-index della col a -1.
+ * Questo perché altrimenti la col si posizione al di sopra delle input, tipo celofan, andando a bloccare il click come input (perché risulta sul col e non sugli elementi).
+ */
+.col-cerca-titolare {
+  z-index: -1;
+}

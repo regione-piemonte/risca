@@ -1,0 +1,1717 @@
+/* You can add global styles to this file, and also import other style files */
+// @import '~bootstrap/scss/bootstrap.scss';
+$fa-font-path: '../node_modules/font-awesome/fonts';
+@import '~font-awesome/scss/font-awesome';
+
+// ngx-datatable style
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+@import 'assets/css/risca.css';
+
+.ngx-datatable {
+  &.material {
+    .datatable-footer {
+      .page-count {
+        display: none;
+      }
+    }
+  }
+}
+
+// font Open Sans
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+textarea {
+  resize: none;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.grey-filter {
+  filter: grayscale(100%);
+}
+
+// Messages style
+.alert-box {
+  display: flex;
+  align-items: flex-start;
+  opacity: 1;
+  transition: opacity 5s cubic-bezier(0.98, 0.01, 1, 0.38);
+  padding: 24px 46px;
+
+  i.icon-big {
+    font-size: 2rem !important;
+    // margin: 12px;
+  }
+
+  span {
+    margin-left: 20px;
+
+    p:last-of-type {
+      margin: 0;
+    }
+
+    p.text-only {
+      margin-top: 4px;
+    }
+  }
+
+  &.success {
+    background-color: #dff0d9;
+    border-left: 8px solid #61b87a;
+
+    i {
+      color: #61b87a;
+    }
+  }
+
+  &.error {
+    background-color: #fee7e8;
+    border-left: 8px solid #f41622;
+
+    i {
+      color: #f41622;
+    }
+  }
+
+  &.info {
+    background-color: #dbeef7;
+    border-left: 8px solid #006cb4;
+
+    i {
+      color: #006cb4;
+    }
+  }
+
+  &.warning {
+    background-color: #fdf9e5;
+    border-left: 8px solid #f8e60d;
+
+    i {
+      color: #f8e60d;
+    }
+  }
+}
+
+// Sovrascrivo la classe di bootstrap
+textarea.form-control {
+  height: calc(1.5em + 0.75rem + 2px);
+}
+
+/** Override classe bootstrap dell'header modale */
+.modal-header {
+  padding: 10px 1rem !important;
+}
+
+// color constants
+$primary-color: #006cb4;
+$success-color: #28a745;
+$error-color: #de3a33;
+$disabled-color: #6c757d;
+$disabled-bg: #9fa5aa;
+$disabled-bg-input: #e9ecef;
+$color-white: #fff;
+$default-color: #016cb4;
+$hover-color: #1f3366;
+
+// Variabile che definisce la dimensione per interlinea e intercolonna dell'applicazione
+$risca-interlinea: 10px;
+$risca-intercolonna: 10px;
+
+/**
+ * ######################################
+ * INTERLINEA E INTERCOLONNA APPLICAZIONE
+ * ######################################
+ */
+
+// Margin interlinea top
+.r-m-intLC,
+.r-m-intL,
+.r-m-intL-t {
+  margin-top: $risca-interlinea;
+}
+
+// Margin interlinea bottom
+.r-m-intLC,
+.r-m-intL,
+.r-m-intL-b {
+  margin-bottom: $risca-interlinea;
+}
+
+// Margin intercolonna left
+.r-m-intLC,
+.r-m-intC,
+.r-m-intC-l {
+  margin-left: $risca-intercolonna;
+}
+
+// Margin intercolonna right
+.r-m-intLC,
+.r-m-intC,
+.r-m-intC-r {
+  margin-right: $risca-intercolonna;
+}
+
+// Padding interlinea top
+.r-p-intLC,
+.r-p-intL,
+.r-p-intL-t {
+  padding-top: $risca-interlinea;
+}
+
+// Padding interlinea bottom
+.r-p-intLC,
+.r-p-intL,
+.r-p-intL-b {
+  padding-bottom: $risca-interlinea;
+}
+
+// Padding intercolonna left
+.r-p-intLC,
+.r-p-intC,
+.r-p-intC-l {
+  padding-left: $risca-intercolonna;
+}
+
+// Padding intercolonna right
+.r-p-intLC,
+.r-p-intC,
+.r-p-intC-r {
+  padding-right: $risca-intercolonna;
+}
+
+.card-box {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 1px 2px 8px #c4c4c4;
+}
+
+.card-box-external {
+  margin-top: $risca-interlinea;
+  margin-bottom: $risca-intercolonna;
+}
+
+.card-box-internal {
+  padding: $risca-interlinea $risca-intercolonna;
+}
+
+/**
+ * ##############################
+ * GESTIONE DELLE NAV APPLICATIVE
+ * ##############################
+ */
+
+// ##############
+// # 1° LIVELLO #
+// ##############
+
+.r-ngb-nav-1 {
+  border-bottom: none;
+}
+
+.r-ngb-nav-1 > li {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 20px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0;
+  opacity: 1;
+}
+
+.r-ngb-nav-1 > li > a {
+  width: 175px;
+  color: #000000;
+  text-align: center !important;
+  padding-top: $risca-interlinea !important;
+  padding-bottom: $risca-interlinea !important;
+  border-bottom: 1px solid #d1d1d1;
+  background: #f0f3f8;
+}
+
+.r-ngb-nav-1 > li > a.active {
+  color: #006cb4 !important;
+  border-bottom: 5px solid #006cb4;
+}
+
+// ##############
+// # 2° LIVELLO #
+// ##############
+
+.r-ngb-nav-2 {
+  border: none;
+  background-color: transparent;
+  padding-top: $risca-interlinea;
+  padding-bottom: $risca-interlinea;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.r-ngb-nav-2 > li > a {
+  border: none;
+  border-bottom: none;
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  padding: 0px;
+
+  &:hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+}
+
+.r-ngb-nav-2 > li > a.active {
+  background-color: transparent;
+  color: #006cb4;
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.r-ngb-nav-2 > li > a.disabled {
+  color: $disabled-color !important;
+}
+
+.r-ngb-nav-2 > li > a > div {
+  text-align: center !important;
+}
+
+.r-nav-link-first {
+  margin-left: 0px;
+  margin-right: 20px;
+}
+
+.r-nav-link-center {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.r-nav-link-last {
+  margin-left: 20px;
+  margin-right: 0px;
+}
+
+// ##############
+// # 3° LIVELLO #
+// ##############
+
+.r-ngb-nav-3 {
+  background: #eeeeee 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.r-ngb-nav-3 > li {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 20px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0;
+  opacity: 1;
+}
+
+.r-ngb-nav-3 > li > a {
+  color: $primary-color;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  background: #eeeeee 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: $risca-interlinea $risca-intercolonna;
+}
+
+.r-ngb-nav-3 > li > a > div {
+  text-align: center !important;
+}
+
+.r-ngb-nav-3 > li > a:hover {
+  text-decoration: underline;
+}
+
+.r-ngb-nav-3 > li > a.active {
+  color: #495057;
+  background: #ffffff 0% 0% no-repeat padding-box;
+}
+
+.r-ngb-nav-3 > li > a.active:hover {
+  text-decoration: none;
+}
+
+/**
+ * #######################################
+ * COLORI RISCA E GESTIONI COMPONENTI FORM
+ * #######################################
+ */
+
+.risca-disabled {
+  color: $disabled-color !important;
+}
+
+/** Questa classe va ad aggiustare le appendici per le input. */
+.risca-appendix {
+  padding: 0px 10px !important;
+}
+
+// bootstrap-style-override
+.btn {
+  font-weight: bold;
+}
+
+.btn-outline-primary {
+  color: $primary-color;
+  border-color: $primary-color;
+
+  &:hover {
+    color: $color-white;
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+}
+
+/**
+ * #########################################
+ * CLASSI DI STILE PER LINK BUTTON DELLA NAV
+ * #########################################
+ */
+
+.risca-nav-link {
+  color: #006cb4;
+}
+
+.risca-nav-link:hover {
+  text-decoration: underline;
+}
+
+/**
+ * ################################################
+ * CLASSI DI STILE PER I PULSANTI CON GRAFICA RISCA
+ * ################################################
+ */
+
+.btn-primary,
+.btn-default,
+.btn-link {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  // SVG compatibilies
+  stroke: currentColor;
+
+  &:active {
+    // SVG compatibilies
+    stroke: currentColor;
+  }
+
+  &:focus {
+    // SVG compatibilies
+    stroke: currentColor;
+  }
+
+  &:hover {
+    // SVG compatibilies
+    stroke: currentColor;
+  }
+}
+
+.btn-primary,
+.btn-default {
+  padding: 9px 20px;
+
+  &:active {
+    color: $color-white;
+    background-color: $hover-color;
+    border-color: $hover-color;
+  }
+
+  &:focus {
+    color: $color-white;
+    background-color: $hover-color;
+    border-color: $hover-color;
+  }
+
+  &:focus-within {
+    color: $color-white;
+    background-color: $hover-color;
+    border-color: $hover-color;
+  }
+
+  &:disabled {
+    color: $color-white;
+    background-color: $disabled-bg;
+    border-color: $disabled-color;
+  }
+
+  &:hover:disabled {
+    color: $color-white;
+    background-color: $disabled-color;
+    border-color: $disabled-color;
+  }
+}
+
+.btn-primary {
+  color: $color-white;
+  background-color: $primary-color;
+  border-color: $primary-color;
+
+  &:hover {
+    color: $hover-color;
+    background-color: $color-white;
+    border-color: $hover-color;
+    // SVG compatibilies
+    stroke: currentColor;
+  }
+}
+
+.btn-default {
+  color: $primary-color;
+  background-color: $color-white;
+  border-color: $primary-color;
+
+  &:hover {
+    color: $color-white;
+    background-color: $hover-color;
+    border-color: $hover-color;
+  }
+}
+
+.btn-link {
+  color: $primary-color;
+
+  &:hover {
+    color: $hover-color;
+  }
+
+  &:active {
+    color: $primary-color;
+  }
+}
+
+.btn-success {
+  color: $success-color;
+  background-color: $color-white;
+  border-color: $success-color;
+
+  &:hover {
+    color: $color-white;
+    background-color: $success-color;
+    border-color: $success-color;
+  }
+
+  &:focus {
+    color: $color-white;
+    background-color: $success-color;
+    border-color: $success-color;
+  }
+
+  &:focus-within {
+    color: $color-white;
+    background-color: $success-color;
+    border-color: $success-color;
+  }
+
+  &:focus-visible {
+    color: $success-color;
+    background-color: $color-white;
+    border-color: $success-color;
+  }
+}
+
+.btn-error {
+  color: $error-color;
+  background-color: $color-white;
+  border-color: $error-color;
+
+  &:hover {
+    color: $color-white;
+    background-color: $error-color;
+    border-color: $error-color;
+  }
+
+  &:focus {
+    color: $color-white;
+    background-color: $error-color;
+    border-color: $error-color;
+  }
+
+  &:focus-within {
+    color: $color-white;
+    background-color: $error-color;
+    border-color: $error-color;
+  }
+
+  &:focus-visible {
+    color: $error-color;
+    background-color: $color-white;
+    border-color: $error-color;
+  }
+}
+
+/**
+ * ###################################################
+ * CLASSI DI STILE PER SVG DINAMICHE CON GRAFICA RISCA
+ * ###################################################
+ */
+
+.btn-primary-svg {
+  stroke: $color-white;
+
+  &:hover {
+    stroke: $hover-color;
+  }
+}
+
+.btn-default-svg {
+  stroke: $primary-color;
+
+  &:hover {
+    stroke: $color-white;
+  }
+}
+
+.btn-link-svg {
+  stroke: $primary-color;
+
+  &:hover {
+    stroke: $hover-color;
+  }
+}
+
+.btn-success-svg {
+  stroke: $success-color;
+
+  &:hover {
+    stroke: $color-white;
+  }
+}
+
+/** ################################################ */
+
+.bg-primary {
+  background-color: $primary-color !important;
+}
+
+.mandatoryMark {
+  color: #c4c4c4;
+}
+
+.risca-input-border {
+  border-color: #dee2e6;
+}
+
+.risca-input-border-error {
+  border-color: red !important;
+}
+
+.risca-input-calendario-readonly {
+  cursor: pointer;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  background-color: #ffffff !important;
+  border-right: 0px;
+}
+
+.risca-input-aggiornato-fonte {
+  background-color: #daeef6 !important;
+}
+
+.risca-appendice-icona-calendario {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #dee2e6;
+  border-left: 0px;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.risca-appendice-icona-calendario:focus,
+.risca-appendice-icona-calendario:focus-visible {
+  outline: 0px;
+}
+
+.risca-form-group {
+  margin-bottom: 0px;
+}
+
+.risca-link {
+  color: #006cb4;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: #1f3366;
+    text-decoration: underline;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-main-content {
+  padding: 0px 20px;
+  margin-bottom: 0;
+  background-color: #ffffff;
+  border: 0px;
+}
+
+/**
+ * #########################
+ * CLASSI PER COLORARE ICONE
+ * #########################
+ */
+
+.risca-green {
+  color: #61b87a;
+}
+
+.risca-blue {
+  color: $primary-color;
+}
+
+.risca-blue-i {
+  color: $primary-color !important;
+}
+
+.risca-ul {
+  margin-bottom: 0px;
+  padding-left: 20px;
+}
+
+/**
+ * #################################
+ * CUSTOMIZZAZIONE PER TABELLA RISCA
+ * #################################
+ */
+
+.risca-table-container {
+  padding: 10px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 1px 2px 8px #c4c4c4;
+  opacity: 1;
+}
+
+.risca-table-container .row .col .risca-table-wrapper,
+.risca-table-clean .row .col .risca-table-wrapper {
+  overflow-x: auto;
+  margin: -6px;
+  padding: 6px;
+}
+
+.risca-table {
+  min-width: 1200px;
+  width: 100%;
+  box-shadow: 1px 3px 6px #c4c4c4;
+  -webkit-box-shadow: 1px 3px 6px #c4c4c4;
+  -moz-box-shadow: 1px 3px 6px #c4c4c4;
+}
+
+.risca-table-trace-selector {
+  min-width: 1200px;
+  width: 100%;
+}
+
+.risca-table thead tr {
+  background: #eeeeee 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.risca-table-trace-selector thead tr {
+  opacity: 1;
+}
+
+.risca-table thead tr th,
+.risca-table tbody tr td {
+  vertical-align: middle;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  border: 0px;
+  padding: 10px;
+}
+
+.risca-table-trace-selector thead tr th,
+.risca-table-trace-selector tbody tr td {
+  vertical-align: middle;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  border: 0px;
+  padding: 5px 0px;
+}
+
+.risca-table thead tr th,
+.risca-table-trace-selector thead tr th {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+
+.risca-table tbody tr:not(:first-child),
+.risca-table-trace-selector tbody tr:not(:first-child) {
+  border-top: 1px solid #aaaaaa;
+  opacity: 1;
+}
+
+.risca-table tbody tr td {
+  font-size: 14px;
+  line-height: 19px;
+  font-family: 'Open Sans';
+
+  background-color: #ffffff;
+}
+
+.risca-table-trace-selector tbody tr td {
+  font-size: 14px;
+  line-height: 19px;
+  font-family: 'Open Sans';
+}
+
+.risca-table-action {
+  display: inline;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border: 0px;
+  height: 20px;
+  width: 16px;
+  margin-right: 10px;
+}
+
+.risca-table-action:active {
+  color: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.risca-table-action:focus {
+  box-shadow: none !important;
+}
+
+.risca-table-action:focus,
+.risca-table-action:focus-visible {
+  outline: none !important;
+}
+
+.risca-table-action-label-radio {
+  margin-bottom: 0px !important;
+}
+
+.risca-table-action-icon {
+  display: inline;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border: 0px;
+  font-size: 20px;
+  color: $primary-color;
+  margin-right: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.risca-table-action-icon:active {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.risca-table-action-icon:focus {
+  box-shadow: none !important;
+}
+
+.risca-table-action-icon:focus,
+.risca-table-action-icon:focus-visible {
+  outline: none !important;
+}
+
+.risca-table-action-icon-label-radio {
+  margin-bottom: 0px !important;
+}
+
+// Setta il testo nelle cell della tabella il testo in grigio per indicare un record "inattivo"
+.risca-tr-disabled > td {
+  color: #c4c4c4 !important;
+}
+
+/**###########################**/
+/**           ICONE           **/
+/**###########################**/
+
+.ri-enable-logout {
+  background-image: url(src/assets/icon-logout.svg);
+}
+
+.ri-disable-logout {
+  background-image: url(src/assets/icon-logout-disabled.svg);
+}
+
+.ri-enable-confirm-elements {
+  background-image: url(src/assets/icon-confirm-elements.svg);
+}
+
+.ri-disable-confirm-elements {
+  background-image: url(src/assets/icon-confirm-elements-disabled.svg);
+}
+
+.ri-enable-download-file {
+  background-image: url(src/assets/icon-download-file.svg);
+}
+.ri-disable-download-file {
+  background-image: url(src/assets/icon-download-file-disabled.svg);
+}
+
+.ri-enable-download-allegato {
+  background-image: url(src/assets/icon-download-allegato-enabled.svg);
+}
+.ri-disable-download-allegato {
+  background-image: url(src/assets/icon-download-allegato-disabled.svg);
+}
+
+.ri-enable-reload {
+  background-image: url(src/assets/icon-reload.svg);
+}
+
+.ri-disable-reload {
+  background-image: url(src/assets/icon-reload-disabled.svg);
+}
+
+/**###########################**/
+/** ICONE DEFAULT RISCA-TABLE **/
+/**###########################**/
+
+.rta-enable-delete {
+  background-image: url(src/assets/icon-cestino.svg);
+}
+
+.rta-disable-delete {
+  background-image: url(src/assets/icon-cestino-disabled.svg);
+}
+
+.rta-enable-modify {
+  background-image: url(src/assets/icon-modifica.svg);
+}
+
+.rta-disable-modify {
+  background-image: url(src/assets/icon-modifica-disabled.svg);
+}
+
+.rta-enable-detail {
+  background-image: url(src/assets/icon-dettaglio.svg);
+}
+
+.rta-disable-detail {
+  background-image: url(src/assets/icon-dettaglio-disabled.svg);
+}
+
+/**##########################**/
+/** ICONE CUSTOM RISCA-TABLE **/
+/**##########################**/
+
+.rta-enable-pratiche-collegate {
+  background-image: url(src/assets/icon-pratiche-collegate.svg);
+}
+
+.rta-disable-pratiche-collegate {
+  background-image: url(src/assets/icon-pratiche-collegate-disabled.svg);
+}
+
+.rta-enable-nuova-pratica {
+  background-image: url(src/assets/icon-nuova-pratica.svg);
+}
+
+.rta-disable-nuova-pratica {
+  background-image: url(src/assets/icon-nuova-pratica-disabled.svg);
+}
+
+.rta-enabled-postel-error {
+  background-image: url(src/assets/icon-postel-error-enable.svg);
+}
+
+.rta-disabled-postel-error {
+  background-image: url(src/assets/icon-postel-error-disable.svg);
+}
+
+.rta-enable-postel-success {
+  background-image: url(src/assets/icon-postel-success-enable.svg);
+}
+
+.rta-disabled-postel-success {
+  background-image: url(src/assets/icon-postel-success-disable.svg);
+}
+
+.stati-debitori-collegati-enable {
+  background-image: url(src/assets/icon-sdc-enable.svg);
+}
+
+.stati-debitori-collegati-disable {
+  background-image: url(src/assets/icon-sdc-disable.svg);
+}
+
+.icon-pagamento-enable {
+  background-image: url(src/assets/icon-pagamento-enable.svg);
+}
+
+.icon-pagamento-disable {
+  background-image: url(src/assets/icon-pagamento-disable.svg);
+}
+
+.icon-stampa {
+  background-image: url(src/assets/icon-stampa.svg);
+}
+
+.icon-stampa-disabled {
+  background-image: url(src/assets/icon-stampa-disabled.svg);
+}
+
+.icon-pdf {
+  background-image: url(src/assets/icon-pdf.svg);
+  height: 25px;
+}
+
+.icon-pdf-disabled {
+  background-image: url(src/assets/icon-pdf-disabled.svg);
+  height: 25px;
+}
+
+.icon-info {
+  background-image: url(src/assets/icon-info.svg);
+  height: 22.5px;
+  width: 22.5px;
+}
+
+// .icon-info-disabled {
+//   background-image: url(src/assets/icon-info-disabled.svg);
+//   height: 25px;
+// }
+
+/**
+ * #####################
+ * CUSTOMIZZAZIONE MODAL
+ * #####################
+ */
+
+.risca-modal-conferma .modal-dialog {
+  max-width: none;
+  width: 600px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-calcola-interessi .modal-dialog {
+  max-width: none;
+  width: 750px;
+
+  @media (max-width: 750px) {
+    width: 100%;
+  }
+}
+
+.cerca-titolare-modal .modal-dialog,
+.cerca-soggetto-dc-modal .modal-dialog {
+  max-width: none;
+  width: 1200px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-modifica-contatto-alternativo .modal-dialog {
+  max-width: none;
+  width: 1200px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-nuova-prenotazione .modal-dialog,
+.r-mdl-sd-collegati .modal-dialog,
+.r-mdl-modifica-accertamento .modal-dialog,
+.r-mdl-modifica-rimborso .modal-dialog {
+  max-width: none;
+  width: 1020px;
+
+  @media (max-width: 1020px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-indirizzi-spedizione .modal-dialog,
+.r-mdl-annualita .modal-dialog {
+  max-width: none;
+  width: 1725px;
+
+  @media (max-width: 1725px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-dilazione-sd .modal-dialog {
+  max-width: none;
+  width: 1450px;
+
+  @media (max-width: 1450px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-dettaglio-regola-uso .modal-dialog {
+  max-width: none;
+  width: 1200px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-modifica-interesse-legale .modal-dialog {
+  max-width: none;
+  width: 1000px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-modifica-interesse-di-mora .modal-dialog {
+  max-width: none;
+  width: 650px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-sd-per-pagamento .modal-dialog {
+  max-width: none;
+  width: 1725px;
+
+  @media (max-width: 1725px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-modifica-pagamento-sd .modal-dialog {
+  max-width: none;
+  width: 1600px;
+
+  @media (max-width: 1600px) {
+    width: 100%;
+  }
+}
+
+.r-mdl-crea-regola-uso .modal-dialog {
+  max-width: none;
+  width: 600px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.risca-modal-header,
+.risca-modal-body {
+  padding-left: 10px !important;
+}
+
+.risca-modal-title {
+  font-size: 20px !important;
+}
+
+.risca-btn-x {
+  color: $disabled-color;
+}
+
+.risca-btn-x {
+  color: #383838;
+}
+
+.risca-btn-x:focus {
+  outline: none !important;
+}
+
+.risca-model-footer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.risca-text-error {
+  color: red !important;
+}
+
+/* 
+ * Viene considerato un margin di 40px per ogni x<SIZE> calcolato come: <SIZE - 1>
+ * Quindi: quantità 40px per x2 = x(2 - 1) = 1
+ * Quindi: quantità 40px per x3 = x(3 - 1) = 2
+ * etc...
+ */
+$risca-size-small: 133px;
+$risca-size-small-x2: 306px;
+$risca-size-small-x3: 479px;
+$risca-size-standard: 279px;
+$risca-size-standard-x2: 598px;
+$risca-size-standard-x3: 917px;
+
+$risca-double-date-input: 376px;
+
+$sizes: (
+  a: auto,
+  -15: -15px,
+  -5: -5px,
+  0: 0px,
+  5: 5px,
+  6: 6px,
+  10: 10px,
+  12: 12px,
+  13: 13px,
+  15: 15px,
+  20: 20px,
+  23: 23px,
+  30: 30px,
+  35: 35px,
+  40: 40px,
+  45: 45px,
+  50: 50px,
+  60: 60px,
+  65: 65px,
+  70: 70px,
+  80: 80px,
+  input-standard: $risca-size-standard,
+);
+
+/**
+ * #####################
+ * COMMON MARGIN SPACING
+ * #####################
+ */
+
+@each $sizeValue, $size in $sizes {
+  /** Margini normali */
+  .r-m--#{$sizeValue} {
+    margin: $size;
+  }
+
+  .r-mt--#{$sizeValue} {
+    margin-top: $size;
+  }
+
+  .r-mr--#{$sizeValue} {
+    margin-right: $size;
+  }
+
+  .r-mb--#{$sizeValue} {
+    margin-bottom: $size;
+  }
+
+  .r-ml--#{$sizeValue} {
+    margin-left: $size;
+  }
+
+  .r-mtb--#{$sizeValue} {
+    margin-top: $size;
+    margin-bottom: $size;
+  }
+
+  .r-mlr--#{$sizeValue} {
+    margin-left: $size;
+    margin-right: $size;
+  }
+
+  /** Margini important */
+  .r-mi--#{$sizeValue} {
+    margin: $size !important;
+  }
+
+  .r-mti--#{$sizeValue} {
+    margin-top: $size !important;
+  }
+
+  .r-mri--#{$sizeValue} {
+    margin-right: $size !important;
+  }
+
+  .r-mbi--#{$sizeValue} {
+    margin-bottom: $size !important;
+  }
+
+  .r-mli--#{$sizeValue} {
+    margin-left: $size !important;
+  }
+
+  .r-mtbi--#{$sizeValue} {
+    margin-top: $size !important;
+    margin-bottom: $size !important;
+  }
+
+  .r-mlri--#{$sizeValue} {
+    margin-left: $size !important;
+    margin-right: $size !important;
+  }
+}
+
+/**
+ * ######################
+ * COMMON PADDING SPACING
+ * ######################
+ */
+
+@each $sizeValue, $size in $sizes {
+  .r-p--#{$sizeValue} {
+    padding: $size;
+  }
+
+  .r-pt--#{$sizeValue} {
+    padding-top: $size;
+  }
+
+  .r-pr--#{$sizeValue} {
+    padding-right: $size;
+  }
+
+  .r-pb--#{$sizeValue} {
+    padding-bottom: $size;
+  }
+
+  .r-pl--#{$sizeValue} {
+    padding-left: $size;
+  }
+
+  .r-ptb--#{$sizeValue} {
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+
+  .r-plr--#{$sizeValue} {
+    padding-left: $size;
+    padding-right: $size;
+  }
+}
+
+/**
+ * #############
+ * CUSTOM WIDTHS
+ * #############
+ */
+
+$risca-widths: (
+  180: 180px,
+);
+
+/**
+ * ############
+ * CLASS WIDTHS
+ * ############
+ */
+
+@each $widthValue, $width in $risca-widths {
+  .r-w--#{$widthValue} {
+    width: $width;
+  }
+}
+
+/**
+ * ###############
+ * CUSTOM WIDTHS %
+ * ###############
+ */
+
+$risca-widths-perc: (
+  100: 100%,
+);
+
+/**
+ * ############
+ * CLASS WIDTHS
+ * ############
+ */
+
+@each $widthValue, $width in $risca-widths-perc {
+  .r-wp--#{$widthValue} {
+    width: $width;
+  }
+}
+
+/**
+ * #############################
+ * FORM AND COMPONENT COMMON CSS
+ * #############################
+ */
+
+.risca-input-datepicker-sm {
+  width: 96px;
+  max-width: 96px;
+}
+
+.risca-input-small {
+  width: $risca-size-small;
+}
+
+.risca-col-small {
+  flex: 0 0 $risca-size-small;
+}
+
+.risca-input-small-x2 {
+  width: $risca-size-small-x2;
+}
+
+.risca-input-small-x3 {
+  width: $risca-size-small-x3;
+}
+
+.risca-container-standard,
+.risca-input-standard {
+  width: $risca-size-standard;
+}
+
+.risca-col-standard {
+  flex: 0 0 $risca-size-standard;
+}
+
+.risca-input-standard-x2 {
+  width: $risca-size-standard-x2;
+}
+
+.risca-col-standard-x2 {
+  flex: 0 0 $risca-size-standard-x2;
+}
+
+.risca-container-standard-x3,
+.risca-input-standard-x3 {
+  width: $risca-size-standard-x3;
+}
+
+.risca-col-standard-x3 {
+  flex: 0 0 $risca-size-standard-x3;
+}
+
+.risca-input-full {
+  width: 100%;
+}
+
+.risca-suggerimento-container {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.risca-head-section-label {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Open Sans';
+}
+
+.risca-obbligatorio-label {
+  font-size: 10px;
+  line-height: 24px;
+  font-family: 'Open Sans';
+}
+
+.risca-suggerimento-label {
+  font-size: 9px;
+  line-height: 0px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  color: #000000de;
+  opacity: 1;
+}
+
+.risca-common-label {
+  font-size: 14px;
+  line-height: 24px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  color: #000000de;
+  opacity: 1;
+}
+
+.risca-input-label-standard,
+.risca-input-label-small,
+.risca-checkbox-label-standard {
+  font-size: 14px;
+  line-height: 19px;
+  font-family: 'Open Sans';
+
+  letter-spacing: -0.07px;
+  color: #212529;
+}
+
+.risca-input-content-standard,
+.risca-input-content-small,
+.risca-input-datepicker-sm {
+  font-size: 13px;
+  line-height: 19px;
+  font-family: 'Open Sans';
+
+  letter-spacing: -0.06px;
+  color: #212529;
+  opacity: 1;
+}
+
+.risca-input-label-checkbox,
+.risca-input-label-radio {
+  font-size: 14px;
+  line-height: 19px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0.16px;
+  color: #000000;
+  opacity: 1;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: none !important;
+  outline: none !important;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+
+  &:focus-visible {
+    outline: none !important;
+  }
+}
+
+.risca-input-label-checkbox-v,
+.risca-input-label-radio-v {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.risca-input-label-checkbox-v div,
+.risca-input-label-radio-v div {
+  margin-left: 30px;
+}
+
+.risca-input-textarea-standard {
+  height: 68px !important;
+}
+
+.risca-checkbox,
+.risca-radio {
+  width: 20px;
+  height: 20px;
+}
+
+.risca-checkbox-v,
+.risca-radio-v {
+  margin-top: 0px !important;
+  margin-left: 0px !important;
+}
+
+.risca-head-accordion-label,
+.risca-head-table-label {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+
+.risca-double-date-container {
+  width: $risca-double-date-input;
+}
+
+/**
+ * ###############
+ * RISCA ACCORDION
+ * ###############
+ */
+
+.risca-accordion-switch {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: 'Open Sans';
+
+  letter-spacing: 0px;
+  color: #006cb4;
+  opacity: 1;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+.risca-accordion-switch-arrow {
+  width: 15px;
+  height: 15px;
+  background: transparent 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.risca-accordion-switch-arrow-down {
+  padding-bottom: 2.5px;
+  margin-bottom: 2.5px;
+}
+
+.risca-accordion-switch-arrow-up {
+  padding-top: 2.5px;
+  margin-top: 2.5px;
+}
+
+.risca-accordion-container {
+  background: #f7f7f7 0% 0% no-repeat padding-box;
+  -webkit-box-shadow: 1px 3px 6px #c4c4c4;
+  -moz-box-shadow: 1px 3px 6px #c4c4c4;
+  box-shadow: 1px 3px 6px #c4c4c4;
+  padding: $risca-interlinea $risca-intercolonna;
+  border-radius: 0.25rem;
+}
+
+.risca-body-container-accordion {
+  padding: $risca-interlinea $risca-intercolonna;
+}
+
+.risca-row-head-accordion,
+.risca-row-body-accordion {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.risca-row-head-accordion .col,
+.risca-row-body-accordion .col {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.risca-row-head-accordion {
+  padding: $risca-interlinea $risca-intercolonna;
+  background: #eeeeee 0% 0% no-repeat padding-box;
+}
+
+/**
+ * #############################################
+ * STILE RISCA PER DISATTIVARE INPUT TRAMITE CSS
+ * #############################################
+ */
+
+.r-input-disabled {
+  pointer-events: none !important;
+  background-color: $disabled-bg-input !important;
+  cursor: default !important;
+}
+
+/**
+ * ########################################################
+ * STILI GLOBALI PER LA GESTIONE DEI COMPONENTI APPLICATIVI
+ * ########################################################
+ */
+
+.gad-input-content-small {
+  width: 133px !important;
+  min-width: 133px !important;
+  max-width: 133px !important;
+}
+
+.gad-input-content-standard {
+  width: 343px !important;
+  min-width: 343px !important;
+  max-width: 133px !important;
+}
+
+/**
+ * #################################
+ * STILI PER I POPOVER DELLE TABELLE
+ * #################################
+ */
+
+.popover-risca {
+  max-width: 100% !important;
+}
+
+.popover-risca > .popover-header {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Open Sans';
+}
+
+.popover-risca > .popover-body {
+  font-size: 14px;
+  line-height: 19px;
+  font-family: 'Open Sans';
+  letter-spacing: -0.07px;
+  color: #212529;
+}
+
+/**
+ * ############################################
+ * STILI PER LA TABELLA CONFIGURAZIONI - CANONI
+ * ############################################
+ */
+
+.legenda-minimi > tbody > tr {
+  border: none !important;
+}
+
+.legenda-minimi > tbody > tr > td {
+  padding-top: 1.5px !important;
+  padding-bottom: 1.5px !important;
+  padding-left: 1.5px !important;
+  padding-right: 8.5px !important;
+}
+
+/**
+ * #################################
+ * STILI PER PAGAMENTO BOLLETTAZIONE
+ * #################################
+ */
+
+.risca-input-target-ricerca {
+  width: 266px;
+}

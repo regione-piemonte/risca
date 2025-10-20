@@ -1,0 +1,176 @@
+<!-- CONTENITORE DEI DATI DEL REFERENTE -->
+<ng-container *ngIf="showDatiAnagrafici"><!--showDatiAnagrafici non va tolto da qui. Fa aggiornare le componenti reistanziandole.-->
+  <div class="row">
+    <div class="col risca-common-label" [innerHTML]="titleDatiAnagrafici"></div>
+  </div>
+  
+  <div class="row r-m-intL-t" *ngIf="gruppoSD">
+    <div class="col risca-common-label">
+      {{ DA_C.TESTO_TESTATA_CON_GRUPPO_DETTAGLIO }}
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col" *ngIf="soggettoSD">
+      <risca-dati-soggetto #riscaDatiSoggetto
+        [parentFormKey]="DA_C.FORM_KEY_PARENT_DA"
+        [childFormKey]="DA_C.FORM_KEY_CHILD_DA_DATI_SOGGETTO"
+        [datiAnagrafici]="soggettoSD"
+        [modalita]="C_C.MODIFICA"
+        [fonteConfigs]="fonteConfigs"
+        [praticaSoggettoDisabled]="true"
+      ></risca-dati-soggetto>
+    </div>
+  </div>
+  <!-- CERCA TITOLARE IN TESTATA -->
+  <div class="row row-cerca-titolare">
+    <div class="col risca-col-standard-x3 r-mr--40">
+      <!-- COL VUOTA COME SPAZIATORE -->
+    </div>
+    <div class="col">
+      <risca-primary-button
+        [dataConfig]="labelPulsanteTitolare"
+        [disable]="disableUserInputs"
+        (onClick)="apriCercaTitolare()"
+      ></risca-primary-button>
+    </div>
+  </div>
+  
+  <!-- DIVISORE -->
+  <risca-separator></risca-separator>
+
+  <div class="row">
+    <div class="col risca-common-label">Contatti</div>
+  </div>
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <risca-contatti #riscaContatti
+        [parentFormKey]="DA_C.FORM_KEY_PARENT_DA"
+        [childFormKey]="DA_C.FORM_KEY_CHILD_DA_CONTATTI"
+        [datiAnagrafici]="soggettoSD"
+        [idRecapito]="idRecapitoP"
+        [modalita]="C_C.MODIFICA"
+        [fonteConfigs]="fonteConfigs"
+        [praticaSoggettoDisabled]="true"
+      ></risca-contatti>
+    </div>
+  </div>
+
+  <!-- DIVISORE -->
+  <risca-separator></risca-separator>
+
+  <div class="row">
+    <div class="col risca-common-label">Recapito principale</div>
+  </div>
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <risca-recapito #riscaRecapito
+        [parentFormKey]="DA_C.FORM_KEY_PARENT_DA"
+        [childFormKey]="DA_C.FORM_KEY_CHILD_DA_RECAPITO"
+        [datiAnagrafici]="soggettoSD"
+        [idRecapito]="idRecapitoP"
+        [gruppoIS]="gruppoSD"
+        [modalita]="C_C.MODIFICA"
+        [fonteConfigs]="fonteConfigs"
+        [praticaSoggettoDisabled]="true"
+      ></risca-recapito>
+    </div>
+  </div>
+
+  <!-- DIVISORE -->
+  <risca-separator></risca-separator>
+  
+  <div class="row">
+    <div class="col risca-common-label">Recapito alternativo</div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="risca-common-label">
+        &egrave; possibile inserire un solo Recapito Alternativo
+        associato allo stato debitorio.
+      </div>
+    </div>
+  </div>
+
+  <!-- TABELLA RECAPITI ALTERNATIVI -->
+  <div class="row r-m-intL-t" *ngIf="checkRecapitiA">
+    <div class="col">
+      <risca-table #riscaTRecapitiAlt
+        [cssConfig]="recapitiAlternativiTable.cssConfig"
+        [dataConfig]="recapitiAlternativiTable.dataConfig"
+        [source]="recapitiAlternativiTable.source"
+        (onRadioClick)="onRecapitoAlternativoSelezionato($event)"
+      ></risca-table>
+    </div>
+  </div>
+
+  <!-- PULSANTE DI DESELEZIONE DEI RADIO BUTTON PER LA TABELLA DEI RECAPITI ALTERNATIVI -->
+  <div class="row r-m-intL-t" *ngIf="checkRecapitiA">
+    <div class="col">
+      <!-- CONFERMA -->
+      <risca-primary-button
+        [dataConfig]="{ label: 'Deseleziona' }"
+        (onClick)="onRecapitiAlternativiScollegati()"
+      ></risca-primary-button>
+    </div>
+  </div>
+
+  <!-- GESTIONE DELLA SEZIONE PER GRUPPO E COMPONENTI GRUPPO -->
+  <ng-container *riscaMaintain="gruppoIsAbilitato">
+    <!-- DIVISORE -->
+    <risca-separator></risca-separator>
+
+    <!-- TITLE DEI GRUPPI -->
+    <div class="row">
+      <div class="col col-componenti-gruppo">
+        <div class="risca-common-label">Componenti Gruppo</div>
+      </div>
+    </div>
+    
+    <!-- VERIFICO SE E' STATO DEFINITO UN GRUPPO -->
+    <ng-container *ngIf="gruppoSD; else noGruppoSelected">
+      <!-- GESTIONE DELLA TABELLA COMPONENTI GRUPPO -->
+      <ng-container *ngIf="checkTableCG">
+        <!-- COMPONENTI GRUPPO - COMPONENTE TABELLA CHE GESTISCE I DATI DEI SOGGETTI COME COMPONENTI GRUPPO -->
+        <div class="row r-m-intL-t">
+          <div class="col">
+            <risca-table
+              [cssConfig]="componentiGruppoTable.cssConfig"
+              [dataConfig]="componentiGruppoTable.dataConfig"
+              [source]="componentiGruppoTable.source"
+            ></risca-table>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- MESSAGGIO STATICO QUANDO NON VIENE SELEZIONATO UN GRUPPO O NON VIENE DEFINITO DA CONFIGURAZIONE -->
+    <ng-template #noGruppoSelected>
+      <!-- COMPONENTI GRUPPI -->
+      <div class="row r-m-intL-t">
+        <div class="col">
+          <div class="risca-common-label">
+            <strong>Lo stato debitorio non è associato a nessun gruppo.</strong>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+  </ng-container>
+</ng-container>
+
+<!-- SEPARATORE -->
+<risca-separator></risca-separator>
+
+<!-- BOTTONI -->
+<div class="row">
+  <div class="col">
+    <!-- TORNA A STATI DEBITORI -->
+    <torna-a-stati-debitori></torna-a-stati-debitori>
+    <!-- SALVA MODIFICHE -->
+    <pulsante-salva-modifiche class="float-right"
+      [disable]="disableUserInputs"
+      (salvaModifiche)="salvaModifiche()"
+    ></pulsante-salva-modifiche>
+  </div>
+</div>

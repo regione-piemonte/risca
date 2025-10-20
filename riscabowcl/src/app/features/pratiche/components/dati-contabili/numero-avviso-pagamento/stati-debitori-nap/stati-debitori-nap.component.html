@@ -1,0 +1,71 @@
+<!-- LABEL DI TESTATA -->
+<div class="row">
+  <div class="col risca-head-section-label">
+    {{ SD_NAP_C.DETTAGLIO_NAP }}
+  </div>
+</div>
+
+<!-- INFORMAZIONI SUL NAP -->
+<div class="row r-m-intL-t">
+  <div class="col-2">
+    {{ SD_NAP_C.NUMERO_AVVISO_PAGAMENTO }}
+  </div>
+  <div class="col-2">
+    <strong>{{ statoDebitorio?.nap }}</strong>
+  </div>
+</div>
+<div class="row">
+  <div class="col-2">
+    {{ SD_NAP_C.NUMERO_UTENZE }}
+  </div>
+  <div class="col-2">
+    <strong>{{ numeroUtenze }}</strong>
+  </div>
+</div>
+<div class="row">
+  <div class="col-2">
+    {{ SD_NAP_C.CANONE_DOVUTO }}
+  </div>
+  <div class="col-2">
+    <strong>{{ canoneDovuto }}</strong>
+  </div>
+</div>
+
+<!-- TABELLA NAP -->
+<div class="row r-m-intL-t">
+  <div class="col" *ngIf="checkNAPTable">
+    <risca-table
+      [cssConfig]="sdByNAPTable.cssConfig"
+      [dataConfig]="sdByNAPTable.dataConfig"
+      [source]="sdByNAPTable.source"
+      [isFETable]="false"
+      (onCambioPagina)="cambiaPagina($event)"
+      (onRowCustomAction)="onTabNAPCustomAction($event)"
+    ></risca-table>
+  </div>
+  <div class="col" *ngIf="!checkNAPTable">
+    Non sono stati trovati dati del NAP per lo stato debitorio.
+  </div>
+</div>
+  
+<!-- SEPARATORE -->
+<risca-separator></risca-separator>
+
+<!-- BOTTONI -->
+<div class="row">
+  <div class="col">
+    <!-- TORNA A STATI DEBITORI -->
+    <torna-a-stati-debitori></torna-a-stati-debitori>
+  </div>
+</div>
+  
+<!-- ALERT -->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      [allowAlertClose]="true"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>

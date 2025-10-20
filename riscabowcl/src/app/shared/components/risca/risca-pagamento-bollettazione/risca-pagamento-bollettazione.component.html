@@ -1,0 +1,434 @@
+<div class="container-fluid r-plr--0">
+
+  <!-- LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-head-section-label">
+        Dettaglio pagamento
+      </div>
+    </div>
+  </div>
+  <!--SEPARATORE-->
+  <risca-separator></risca-separator>
+
+  <!-- LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-head-section-label">
+        Dati versante
+      </div>
+    </div>
+  </div>
+    
+  <!--DATI SOLA LETTURA-->
+  <div class="container-fluid r-m-intL-t r-mlr--0 r-plr--0">
+    <div class="row">
+
+      <!-- PRIMA PARTE DELLA RIGA: COLONNA DATI -->
+      <div class="col rpb-col-blocco-dati">
+        <div class="container-fluid risca-input-label-standard r-mlr--0 r-plr--0">
+          <!-- RIGA 1 -->
+          <div class="row rpb-row-dati-lettura">
+            <!-- MODALITA PAGAMENTO -->
+            <div class="col">
+              Modalità di pagamento
+            </div>
+            <!-- DATA OPERAZIONE VALIDITA' -->
+            <div class="col">
+              Data op validità
+            </div>
+          </div>
+
+          <!-- RIGA 2 -->
+          <div class="row rpb-row-dati-lettura">
+            <!-- MODALITA PAGAMENTO -->
+            <div class="col rpb-dati-lettura">
+              {{ des_modalita_pag }}
+            </div>
+            <!-- DATA OPERAZIONE VALIDITA' -->
+            <div class="col rpb-dati-lettura">
+              {{ data_op_val }}
+            </div>
+          </div>
+
+          <!-- RIGA 3-->
+          <div class="row rpb-row-dati-lettura">
+            <!-- IMPORTO VERSATO -->
+            <div class="col">
+              Importo
+            </div>
+            <!-- QUINTO CAMPO -->
+            <div class="col">
+              Quinto campo
+            </div>
+          </div>
+
+          <!-- RIGA 4 -->
+          <div class="row rpb-row-dati-lettura">
+            <!-- IMPORTO VERSATO -->
+            <div class="col rpb-dati-lettura">
+              {{ importo_versato | formatoImportoITA }}
+            </div>
+            <!-- QUINTO CAMPO -->
+            <div class="col rpb-dati-lettura">
+              {{ quinto_campo }}
+            </div>
+          </div>
+          
+          <!-- RIGA 5 -->
+          <div class="row rpb-row-dati-lettura">
+            <!-- CRO -->
+            <div class="col">
+              CRO
+            </div>
+            <!-- CAUSALE -->
+            <div class="col">
+              Causale
+            </div>
+          </div>
+          
+          <!-- RIGA 6 -->
+          <div class="row rpb-row-dati-lettura">
+            <!-- CRO -->
+            <div class="col rpb-dati-lettura">
+              {{ cro }}
+            </div>
+            <!-- CAUSALE -->
+            <div class="col rpb-dati-lettura">
+              {{ causale }}
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- SECONDA PARTE DELLA RIGA: BOLLETTINO -->
+      <div class="col" [ngClass]="{ 'invisible': !imgBollettino }">
+        <div class="container-fluid r-mlr--0">
+          <img #bollettinoImg 
+            class="rpb-img-bollettino"
+            title="Ingrandisci"
+            alt="Bollettino"
+            [ngClass]="{ 'rpb-mini-img': !imgBollettino }"
+            (click)="onBollettinoImgClick()"
+          />
+        </div>
+      </div>
+    
+    </div>
+
+  </div>
+
+  <!-- FORM DATI CREDITORE -->
+  <form [formGroup]="mainForm">
+
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="">
+            <!-- SOGGETTO VERSAMENTO -->
+            <risca-text
+              [formControlName]="RPB_C.SOGGETTO_VERSAMENTO"
+              [idFormControl]="RPB_C.SOGGETTO_VERSAMENTO"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [cssConfig]="formInputs.soggettoVersamentoConfig.css"
+              [dataConfig]="formInputs.soggettoVersamentoConfig.data"
+              [errMapFormControl]="EM.MAP_SOGGETTO_PAGAMENTO"
+              [disableRequiredCheck]="false"
+            ></risca-text>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <!--SEPARATORE-->
+    <risca-separator></risca-separator>
+
+    <!-- RICERCA STATI DEBITORI PER SOLA SEZIONE PAGAMENTI -->
+    <ng-container *riscaMaintain="ricercaAttiva">
+
+      <div class="container-fluid risca-accordion-container">
+        <div class="row">
+          <div class="col">
+
+            <!-- RICERCA STATI DEBITORI -->
+            <div class="row">
+              <div class="col risca-head-section-label">
+                Ricerca stati debitori
+              </div>
+            </div>
+
+            <!--FORM DI RICERCA-->
+            <div class="row r-m-intL-t">
+
+              <!-- SELETTORE RICERCA CAMPI PRINCIPALI: NAP, CODICE UTENZA, NUMERO PRATICA -->
+              <div class="col col-label-ricerca-puntuale">
+                <div class="risca-input-label-standard">
+                  Cerca per:
+                </div>
+              </div>
+              <div class="col col-ricerca-puntuale r-m-intC-r">
+                <risca-radio 
+                  [formControlName]="RPB_C.TARGET_RICERCA_STATI_DEBITORI"
+                  [idFormControl]="RPB_C.TARGET_RICERCA_STATI_DEBITORI"
+                  [formGroup]="mainForm"
+                  [cssConfig]="formInputs.targetRicercaStatiDebitoriConfig.css"
+                  [dataConfig]="formInputs.targetRicercaStatiDebitoriConfig.data"
+                  [dataSource]="formInputs.targetRicercaStatiDebitoriConfig.source"
+                ></risca-radio>
+              </div>
+
+              <!-- SELETTORE RICERCA TITOLARE: PRATICA, STATO DEBITORIO -->
+              <div class="col col-label-ricerca-titolare">
+                <div class="risca-input-label-standard">
+                  Titolare:
+                </div>
+              </div>
+              <div class="col col-ricerca-titolare">
+                <risca-radio 
+                  [formControlName]="RPB_C.TARGET_RICERCA_TITOLARE"
+                  [idFormControl]="RPB_C.TARGET_RICERCA_TITOLARE"
+                  [formGroup]="mainForm"
+                  [cssConfig]="formInputs.targetRicercaTitolareConfig.css"
+                  [dataConfig]="formInputs.targetRicercaTitolareConfig.data"
+                  [dataSource]="formInputs.targetRicercaTitolareConfig.source"
+                ></risca-radio>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <!-- CAMPO LIBERO PER LA RICERCA -->
+              <div class="col col-label-ricerca-puntuale">
+                <!-- DISTANZIATORE PER ALLINEAMENTO VERTICALE -->
+              </div>
+              <div class="col col-ricerca-puntuale r-m-intC-r">
+                <risca-text 
+                  [formControlName]="RPB_C.RICERCA_PUNTUALE"
+                  [idFormControl]="RPB_C.RICERCA_PUNTUALE"
+                  [formGroup]="mainForm"
+                  [cssConfig]="formInputs.ricercaPuntualeConfig.css"
+                  [dataConfig]="formInputs.ricercaPuntualeConfig.data"
+                  [updateOn]="riscaFormHooks.change"
+                  [invio]="true"
+                  (onInvio)="avviaRicercaSD()"
+                ></risca-text>
+              </div>
+
+              <!-- TITOLARE -->
+              <div class="col col-label-ricerca-titolare">
+                <!-- DISTANZIATORE PER ALLINEAMENTO VERTICALE -->
+              </div>
+              <div class="col col-ricerca-titolare">
+                <risca-text 
+                  [formControlName]="RPB_C.RICERCA_TITOLARE"
+                  [idFormControl]="RPB_C.RICERCA_TITOLARE"
+                  [formGroup]="mainForm"
+                  [cssConfig]="formInputs.ricercaTitolareConfig.css"
+                  [dataConfig]="formInputs.ricercaTitolareConfig.data"
+                  [updateOn]="riscaFormHooks.change"
+                  [invio]="true"
+                  (onInvio)="avviaRicercaSD()"
+                ></risca-text>
+              </div>
+              
+            </div>
+
+            <div class="row r-m-intL-t">
+              <div class="col">
+                <div class="d-flex flex-row">
+
+                  <div class="r-mr--40">
+                    <!-- IMPORTO DA -->
+                    <risca-number-it-format
+                      [formControlName]="RPB_C.IMPORTO_DA"
+                      [idFormControl]="RPB_C.IMPORTO_DA"
+                      [cssConfig]="formInputs.importoDaConfig.css"
+                      [dataConfig]="formInputs.importoDaConfig.data"
+                      [errMapFormGroup]="EM.MAP_RIC_PAG_RANGE_IMPORTI"
+                      [formGroup]="mainForm"
+                      [formSubmitted]="mainFormSubmitted"
+                    ></risca-number-it-format>
+                  </div>
+                  
+                  <div class="r-mr--40">
+                    <!-- IMPORTO A -->
+                    <risca-number-it-format
+                      [formControlName]="RPB_C.IMPORTO_A"
+                      [idFormControl]="RPB_C.IMPORTO_A"
+                      [cssConfig]="formInputs.importoAConfig.css"
+                      [dataConfig]="formInputs.importoAConfig.data"
+                      [errMapFormGroup]="EM.MAP_RIC_PAG_RANGE_IMPORTI"
+                      [formGroup]="mainForm"
+                      [formSubmitted]="mainFormSubmitted"
+                    ></risca-number-it-format>
+                  </div>
+                  
+                  <div class="r-mr--40 rpb-mt-22 rpb-ml-183">
+                    <risca-button
+                      [dataConfig]="C_C.BTN_CERCA"
+                      [cssConfig]="C_C.CSS_CERCA"
+                      [disable]="!ricercaStatiDebitoriAttiva"
+                      (onClick)="avviaRicercaSD()"
+                    ></risca-button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+      <!-- TABELLA STATI DEBITORI SELEZIONATI -->
+      <div class="row r-m-intL-t">
+        <div class="col" *ngIf="checkStatiDebitoriSelezionati">
+          <risca-table #sdSelezionatoTableRef
+            [tableId]="RPB_C.SD_SELEZIONATI_TABLE_ID"
+            [cssConfig]="statiDebitoriSelezionatiTable.cssConfig"
+            [dataConfig]="statiDebitoriSelezionatiTable.dataConfig"
+            [source]="statiDebitoriSelezionatiTable.source"
+            [isFETable]="false"
+            (onRowDelete)="rimuoviStatoDebitorioSelezionato($event)"
+          ></risca-table>
+        </div>
+        <div class="col" *ngIf="!checkStatiDebitoriSelezionati">
+          Nessun stato debitorio selezionato.
+        </div>
+      </div>
+
+    </ng-container>
+
+    <!-- DETTAGLI PAGAMENTO -->
+    <ng-container *riscaMaintain="!pagamentiDaVisionare">
+      
+      <!-- LABEL -->
+      <div class="row r-m-intL-t">
+        <div class="col risca-head-section-label">
+          Dettagli pagamento
+        </div>
+      </div>
+      
+      <!-- TABELLA DETTAGLI PAGAMENTO -->
+      <div class="row r-m-intL-t">
+        <div class="col" *ngIf="checkDettagliPagamento">
+          <risca-table
+            [cssConfig]="dettagliPagamentoTable.cssConfig"
+            [dataConfig]="dettagliPagamentoTable.dataConfig"
+            [source]="dettagliPagamentoTable.source"
+            (onRowDelete)="rimuoviDettaglioPagamento($event)"
+          ></risca-table>
+        </div>
+        <div class="col" *ngIf="!checkDettagliPagamento">
+          Non sono presenti dettagli per il pagamento corrente.
+        </div>
+      </div>
+
+    </ng-container>
+
+    <!--SEPARATORE-->
+    <risca-separator></risca-separator>
+
+    <div class="row">
+      <div class="col">
+        <div class="d-flex flex-row">
+          
+          <div class="r-mr--40">
+            <!-- IMPORTO NON IDENTIFICATO -->
+            <risca-number-it-format
+              [formControlName]="RPB_C.IMPORTO_NON_IDENTIFICATO"
+              [idFormControl]="RPB_C.IMPORTO_NON_IDENTIFICATO"
+              [cssConfig]="formInputs.nonIdentificatoConfigs.css"
+              [dataConfig]="formInputs.nonIdentificatoConfigs.data"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_IMPORTO_NON_PROPRIO_0"
+            ></risca-number-it-format>
+          </div>
+
+          <div class="r-mr--40">
+            <!-- IMPORTO NON DI COMPETENZA -->
+            <risca-number-it-format
+              [formControlName]="RPB_C.IMPORTO_NON_DI_COMPETENZA"
+              [idFormControl]="RPB_C.IMPORTO_NON_DI_COMPETENZA"
+              [cssConfig]="formInputs.nonDiCompetenzaConfigs.css"
+              [dataConfig]="formInputs.nonDiCompetenzaConfigs.data"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_IMPORTO_NON_PROPRIO_0"
+            ></risca-number-it-format>
+          </div>
+
+          <div class="rpb-mr-270">
+            <!-- IMPORTO DA RIMBORSARE -->
+            <risca-number-it-format
+              [formControlName]="RPB_C.IMPORTO_DA_RIMBORSARE"
+              [idFormControl]="RPB_C.IMPORTO_DA_RIMBORSARE"
+              [cssConfig]="formInputs.daRimborsareConfigs.css"
+              [dataConfig]="formInputs.daRimborsareConfigs.data"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_IMPORTO_NON_PROPRIO_0"
+            ></risca-number-it-format>
+          </div>
+          
+          <div class="r-mr--40">
+            <!-- IMPORTO DA ASSEGNARE -->
+            <risca-number-it-format
+              [formControlName]="RPB_C.IMPORTO_DA_ASSEGNARE"
+              [idFormControl]="RPB_C.IMPORTO_DA_ASSEGNARE"
+              [cssConfig]="formInputs.importoDaAssegnareConfigs.css"
+              [dataConfig]="formInputs.importoDaAssegnareConfigs.data"
+              [formGroup]="mainForm"
+            ></risca-number-it-format>
+          </div>
+          
+          <div class="r-mr--40 r-mt--a">
+            <!-- VERIFICA IMPORTI -->
+            <risca-primary-button
+              [dataConfig]="{ label: RPB_C.LABEL_VERIFICA_IMPORTI }"
+              (onClick)="verificaImporti()"
+            ></risca-primary-button>
+          </div>
+
+          <div class="r-mt--a">
+            <!-- FLAG RIMBORSATO -->
+            <risca-checkbox
+              [formControlName]="RPB_C.RIMBORSATO"
+              [idFormControl]="RPB_C.RIMBORSATO"
+              [cssConfig]="formInputs.rimborsatoConfigs.css"
+              [dataConfig]="formInputs.rimborsatoConfigs.data"
+              [dataSource]="formInputs.rimborsatoConfigs.source"
+              [formGroup]="mainForm"
+              [onlyLastValue]="true"
+            ></risca-checkbox>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="">
+            <!-- NOTE -->
+            <risca-textarea
+              [formControlName]="RPB_C.NOTE"
+              [idFormControl]="RPB_C.NOTE"
+              [cssConfig]="formInputs.noteConfig.css"
+              [dataConfig]="formInputs.noteConfig.data"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_MAX_LENGTH"
+            ></risca-textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</div>

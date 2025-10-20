@@ -1,0 +1,74 @@
+<!-- LABEL DI TESTATA -->
+<div class="row">
+  <div class="col">
+    <div class="risca-head-section-label">
+      {{ statoDebitorioTitle }}
+    </div>
+  </div>
+</div>
+
+<!-- UL DI STRUTTURA -->
+<ul ngbNav #statoDebitorioNav="ngbNav" class="nav r-ngb-nav-2"
+  [(activeId)]="sezioneStatoDebitorio"
+  [destroyOnHide]="true"
+  (navChange)="onSezioneSDChange($event)"
+>
+  <!-- CONTAINER PER IL CICLO DELLE TAB -->
+  <ng-container *ngFor="let nav of statoDebitorioNavConfigs.navs; let i = index">
+    <!-- LI PER LA TAB -->
+    <li class="nav-item"
+      [ngbNavItem]="nav.ngbNavItem"
+      [disabled]="nav.disabled"
+      [ngClass]="[(i | riscaNavLinkClass:statoDebitorioNavConfigs:nav2ndLvlClass)]"
+    >
+      <!-- LINK PER LA SELEZIONE DEL TAB -->
+      <a ngbNavLink [id]="nav.ngbNavItem" (click)="cambiaSezioneStatoDebitorio(nav.ngbNavItem)">
+        <div>{{ nav.label }}</div>
+      </a>
+      <ng-template ngbNavContent>
+        <div class="tab-pane fade show" [id]="nav.ngbNavItem">
+          
+          <!-- GEN_AMM_DIL_COMPONENT -->
+          <ng-container *riscaMaintain="nav.component === statoDebitorioNavConfigs.GEN_AMM_DIL_COMPONENT">
+            <generali-amministrativi-dilazione
+              [modalita]="modalita"
+              (onFormErrors)="onFormErrorsGAD($event)"
+            ></generali-amministrativi-dilazione>
+          </ng-container>
+
+          <!-- DATI_ANAG_COMPONENT -->
+          <ng-container *riscaMaintain="nav.component === statoDebitorioNavConfigs.DATI_ANAG_COMPONENT">
+            <dati-anagrafici-sd
+              [modalita]="modalita"
+              [idPratica]="idPratica"
+              [datiAnagrafici]="datiAnagraficiConfigs"
+            ></dati-anagrafici-sd>
+          </ng-container>
+
+          <!-- ANNUALITA_COMPONENT -->
+          <ng-container *riscaMaintain="nav.component === statoDebitorioNavConfigs.ANNUALITA_COMPONENT">
+            <annualita
+              [modalita]="modalita"
+              (onFormErrors)="onFormErrorsAnn($event)"
+            ></annualita>
+          </ng-container>
+          
+        </div>
+      </ng-template>
+    </li>
+  </ng-container>
+</ul>
+
+<!-- TAB CONTENT CONTAINER -->
+<div class="tab-content" id="sezioneStatoDebitorioTab" [ngbNavOutlet]="statoDebitorioNav"></div>
+
+<!-- ALERT -->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      [allowAlertClose]="true"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>

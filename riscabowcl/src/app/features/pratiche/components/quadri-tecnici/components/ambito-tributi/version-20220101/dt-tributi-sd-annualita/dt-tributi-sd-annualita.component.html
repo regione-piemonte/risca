@@ -1,0 +1,66 @@
+<div class="">
+  <div class="card-main-content">
+    <!-- DATI TECNICI FORM -->
+    <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+      <!-- PRIMA PARTE - LABEL DI TESTATA -->
+      <div class="row r-mt--30">
+        <div class="col">
+          <div class="risca-head-section-label">Dati tecnici Tributi</div>
+        </div>
+      </div>
+
+      <div class="row r-mt--20">
+        <div class="col">
+          <div class="d-flex flex-row">
+                  
+            <div class="r-mr--40">
+              <div>
+                <!--ANNUALITA'-->
+                <risca-select [formControlName]="DTT_C.ANNUALITA"
+                  [idFormControl]="DTT_C.ANNUALITA"
+                  [formGroup]="mainForm"
+                  [cssConfig]="formInputs.annoConfig.css"
+                  [dataConfig]="formInputs.annoConfig.data"
+                  [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                  [formSubmitted]="mainFormSubmitted"
+                  [dataSource]="listaAnni"
+                  [propertyToShow]="DTT_C.PROPERTY_ANNUALITA"
+                ></risca-select>
+              </div>
+            </div>
+            
+            <div class="r-mr--40">
+              <!-- POPOLAZIONE -->
+              <risca-number
+                [formControlName]="DTT_C.POPOLAZIONE"
+                [idFormControl]="DTT_C.POPOLAZIONE"
+                [formGroup]="mainForm"
+                [cssConfig]="formInputs.popolazioneConfig.css"
+                [dataConfig]="formInputs.popolazioneConfig.data"
+                [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                [formSubmitted]="mainFormSubmitted"
+              ></risca-number>
+            </div>
+
+            <div class="r-mr--40">
+              <!-- USO DI LEGGE -->
+              <risca-select
+                [formControlName]="DTT_C.USO"
+                [idFormControl]="DTT_C.USO"
+                [cssConfig]="formInputs.usoConfig.css"
+                [dataConfig]="formInputs.usoConfig.data"
+                [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                [formGroup]="mainForm"
+                [formSubmitted]="mainFormSubmitted"
+                [dataSource]="listaUsiDiLegge"
+                [propertyToShow]="DTT_C.PROPERTY_USO_DI_LEGGE"
+                [listenToRefreshData]="true"
+              ></risca-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<form [formGroup]="mainForm">
+  
+  <div class="row">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- STATO MOROSITA' -->
+          <risca-select 
+            [formControlName]="RRM_C.TIPO_RICERCA_MOROSITA"
+            [idFormControl]="RRM_C.TIPO_RICERCA_MOROSITA"
+            [cssConfig]="formInputs.tipoRicercaMorositaConfig.css"
+            [dataConfig]="formInputs.tipoRicercaMorositaConfig.data"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [errMapFormGroup]="EM.MAP_FORM_GROUP_REQUIRED"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaTRMorosita"
+            [propertyToShow]="RRM_C.PROPERTY_TIPO_RICERCA_MOROSITA"
+            [disableRequiredCheck]="false"
+          ></risca-select>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- ANNO -->
+          <risca-select 
+            [formControlName]="RRM_C.ANNO"
+            [idFormControl]="RRM_C.ANNO"
+            [cssConfig]="formInputs.annoConfig.css"
+            [dataConfig]="formInputs.annoConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaAnni"
+            [propertyToShow]="RRM_C.PROPERTY_ANNO"
+          ></risca-select>
+        </div>
+
+        <div class="rrm-checkboxes r-mr--40">
+          <!-- RESTITUITO AL MITTENTE -->
+          <risca-checkbox
+            [formControlName]="RRM_C.RESTITUITO_MITTENTE"
+            [idFormControl]="RRM_C.RESTITUITO_MITTENTE"
+            [cssConfig]="formInputs.restituitoMittenteConfig.css"
+            [dataConfig]="formInputs.restituitoMittenteConfig.data"
+            [dataSource]="formInputs.restituitoMittenteConfig.source"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [onlyLastValue]="true"
+          ></risca-checkbox>
+          <!-- ANNULLATO -->
+          <risca-checkbox
+            [formControlName]="RRM_C.ANNULLATO"
+            [idFormControl]="RRM_C.ANNULLATO"
+            [cssConfig]="formInputs.annullatoConfig.css"
+            [dataConfig]="formInputs.annullatoConfig.data"
+            [dataSource]="formInputs.annullatoConfig.source"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [onlyLastValue]="true"
+          ></risca-checkbox>
+        </div>
+
+        <div class="rrm-radios r-mr--40">
+          <!-- LIMITE PER INVIO ACCERTAMENTO -->
+          <div class="risca-input-label-standard">
+            {{ RRM_C.LABEL_LIMITE_INVIO_ACCERTAMENTO }}
+          </div>
+          <risca-radio
+            [formControlName]="RRM_C.LIMITE_INVIO_ACCERTAMENTO"
+            [idFormControl]="RRM_C.LIMITE_INVIO_ACCERTAMENTO"
+            [cssConfig]="formInputs.limiteInvioAccertamentoConfig.css"
+            [dataConfig]="formInputs.limiteInvioAccertamentoConfig.data"
+            [dataSource]="formInputs.limiteInvioAccertamentoConfig.source"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+          ></risca-radio>
+        </div>
+
+        <div class="rrm-search">
+          <!-- CONFERMA -->
+          <risca-primary-button 
+            [dataConfig]="C_C.BTN_CERCA"
+            (onClick)="onFormSubmit()">
+          </risca-primary-button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</form>

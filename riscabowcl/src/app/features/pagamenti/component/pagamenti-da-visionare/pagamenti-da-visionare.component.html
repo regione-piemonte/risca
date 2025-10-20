@@ -1,0 +1,78 @@
+<!-- Card box -->
+<div class="card-box card-box-internal">
+
+  <!-- CONTAINER PER LA GESTIONE DEI PAGAMENTI DA VISIONARE -->
+  <ng-container *ngIf="checkPagamentiDaVisionare">
+    
+    <!-- PAGAMENTO DA VISIONARE E GESTIONE -->
+    <div class="row">
+      <div class="col">
+        <risca-pagamento-bollettazione #riscaPagamentoBollettazione
+          [pagamento]="pagamentoDaVisionare"
+          [modalita]="modalita"
+          [pagamentiDaVisionare]="true"
+          (clearData)="onClearData()"
+          (onFormSubmit)="onPagamentoSubmit($event)"
+          (onFormErrors)="onPagamentoErrors($event)"
+          (onVerificaImporti)="onVerificaImporti($event)"
+          (onVerificaImportiError)="onVerificaImportiError($event)"
+        ></risca-pagamento-bollettazione>
+      </div>
+    </div>
+
+    <!-- PAGINATORE PER GLI ELEMENTI -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-table-paging
+          [paginazione]="paginazionePDV"
+          [mostraTotale]="true"
+          [mostraVaiA]="true"
+          (onCambioPagina)="cambioPDV($event)"
+        ></risca-table-paging>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- NESSUN PAGAMENTO DA VISIONARE -->
+  <div class="row" *ngIf="!checkPagamentiDaVisionare">
+    <div class="col">
+      Non sono presenti pagamenti da visionare.
+    </div>
+  </div>
+  
+</div>
+
+<!-- ALERT -->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      [allowAlertClose]="true"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- BOTTONI PER LA GESTIONE DELLE ISTANZE -->
+<div class="row r-m-intL-t">
+
+  <div class="col">
+    <!-- ANNULLA -->
+    <risca-link-button
+      class="r-mr--15"
+      [dataConfig]="{ label: 'ANNULLA' }"
+      [disable]="!checkPagamentiDaVisionare"
+      (onClick)="resetPagamento()">
+    </risca-link-button>
+    
+    <!--PULSANTI A DESTRA-->
+    <!-- CONFERMA -->
+    <risca-primary-button class="float-right"
+      [dataConfig]="{ label: 'SALVA' }"
+      [disable]="!checkPagamentiDaVisionare"
+      (onClick)="aggiornaPagamento()">
+    </risca-primary-button>
+  </div>
+
+</div>

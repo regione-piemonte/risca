@@ -1,0 +1,12 @@
+$disabled-border: #dee2e6;
+$disabled-bg: #e9ecef;
+
+.rid-disabled {
+  border-color: $disabled-border !important;
+  background-color: $disabled-bg !important;
+  cursor: default !important;
+}
+
+.risca-datepicker::placeholder {
+  font-size: 10.4px;
+}

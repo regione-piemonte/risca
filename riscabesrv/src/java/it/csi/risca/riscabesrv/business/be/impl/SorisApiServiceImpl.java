@@ -379,7 +379,6 @@ public class SorisApiServiceImpl extends BaseApiServiceImpl implements SorisApi 
 		try {
 			businessLogic.validatorDTO(ruoloSorisFr3, null, null);
 			ruoloSorisFr3.setGestAttoreUpd(fruitore);
-System.out.println("gest attore upd--> "+ruoloSorisFr3.getGestAttoreUpd());
 			ruoloSorisFr3DAO.updateRuoloSorisFr3(ruoloSorisFr3);
 			return Response.ok(ruoloSorisFr3).header(HttpHeaders.CONTENT_ENCODING, IDENTITY).build();
 

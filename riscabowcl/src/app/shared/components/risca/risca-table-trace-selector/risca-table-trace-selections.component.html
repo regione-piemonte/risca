@@ -1,0 +1,135 @@
+<!-- GESTIONE DEGLI STATI DEBITORI SELEZIONATI -->
+<ng-container *ngIf="checkSource">
+
+  <!-- CORPO TABELLA -->
+  <div class="row">
+    <div class="col">
+
+      <!-- CONTAINER PER GESTIRE L'OVERFLOW DELLA TABELLA -->
+      <div class="risca-table-wrapper">
+
+        <!-- TABLE -->
+        <table class="risca-table-trace-selector" 
+          [ngClass]="cssConfig.table | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+          [ngStyle]="cssConfig.table | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+        >
+
+          <!-- THEAD -->
+          <thead [ngClass]="cssConfig.thead">
+            <!-- TR -->
+            <tr [ngClass]="cssConfig.thead_tr">
+              <!-- ITERAZIONE SUI DATI DELLE COLONNE -->
+              <ng-container *ngFor="let colConfig of dataConfig.sourceMap">
+
+                <!-- TH CON GESTIONE DI LABEL E ORDINAMENTO -->
+                <ng-container *riscaRemove="colConfig?.header?.action | riscaTableHActions">
+                  <th class="" [ngClass]="[
+                      cssConfig.th,
+                      (colConfig.header?.cssCell | riscaCssHandler:C_C.CSS_TYPE_CLASS),
+                      (colConfig.header | riscaTableCssHSortable)
+                    ]"
+                    [ngStyle]="colConfig.header?.cssCell | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                  >
+                    <!-- LABEL DELLA COLONNA -->
+                    <div class="container-fluid r-plr--0"
+                      [ngClass]="colConfig.header?.cssLabel | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+                      [ngStyle]="colConfig.header?.cssLabel | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                    >
+                      <div class="row">
+                        <div class="col" [title]="colConfig.header?.label" [attr.aria-label]="colConfig.header?.label">
+                          {{ colConfig.header?.label }}
+                        </div>
+                        <!-- ICONA DI SORT -->
+                      </div>
+                    </div>
+                  </th>
+                </ng-container>
+
+              </ng-container>
+            </tr>
+          </thead>
+
+          <!-- TBODY -->
+          <tbody [ngClass]="cssConfig.tbody">
+            
+            <!-- ################################## -->
+            <!-- TR | RIGA CON STRUTTURA PRINCIPALE -->
+            <!-- ################################## -->
+            <ng-container *ngFor="let row of tableSource">
+              <tr [ngClass]="[cssConfig.tbody_tr, cssConfig.trDynamicClass | tableTrDynamicClass:row]">
+
+                <!-- ######################### -->
+                <!-- TD | COLONNA DI STRUTTURA -->
+                <!-- ######################### -->
+                <ng-container *ngFor="let colConfig of dataConfig.sourceMap">
+                  
+                  <td
+                    [ngClass]="[cssConfig.td, (colConfig?.body?.cssCell | riscaCssHandler:C_C.CSS_TYPE_CLASS)]"
+                    [ngStyle]="colConfig?.body?.cssCell | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                  >
+
+                    <!-- VISUALIZZAZIONE DATO DIRETTO -->
+                    <ng-container *riscaMaintain="colConfig?.body?.useSource">
+                      <!-- LABEL DELLA CELLA -->
+                      <div
+                        [ngClass]="colConfig.body | tableSourceCss:row:C_C.CSS_TYPE_CLASS"
+                        [ngStyle]="colConfig.body | tableSourceCss:row:C_C.CSS_TYPE_STYLE"
+                        [innerHTML]="row?.dataTable | riscaSourceOutput:colConfig:true:true"
+                        [title]="row | riscaRowTitle:colConfig"
+                        [attr.aria-label]="row | riscaRowTitle:colConfig"
+                      ></div>
+                    </ng-container>
+
+                    <!-- VISUALIZZAZIONE AZIONE SULLA RIGA DI TABELLA -->
+                    <ng-container *riscaMaintain="colConfig?.body?.useTabMethod">
+                      <!-- CICLO LE POSSIBILI AZIONI DELLA TABELLA -->
+                      <ng-container *ngFor="let actionConfig of colConfig.body.tabMethodData?.actions">
+                        <!-- VERIFICO LA CONDIZIONE DI VISIBILITA' DELL'ACTION -->
+                        <ng-container *riscaMaintain="actionConfig | visibleTableAction:row">
+                          <!-- VERIFICO LA TIPOLOGIA DI AZIONE RICHIESTA: DEFAULT ACTIONS -->
+                          <ng-container *riscaRemove="actionConfig.custom">
+
+                            <!-- A SECONDA DELL'AZIONE VISUALIZZO LA STRUTTURA DEL DOM -->
+                            <ng-container [ngSwitch]="actionConfig.action">
+                              
+                              <!-- CLOSE -->
+                              <ng-container *ngSwitchCase="RT_C.CLOSE">
+                                <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+                                <risca-button [cssConfig]="cssX" [dataConfig]="dataX"
+                                  (onClick)="eliminaRiga(row)"
+                                ></risca-button>
+                              </ng-container>
+
+                            </ng-container>
+                          
+                          </ng-container>
+
+                          <!-- VERIFICO LA TIPOLOGIA DI AZIONE RICHIESTA: CUSTOM ACTION -->
+                          <ng-container *riscaMaintain="actionConfig.custom">
+
+                            <!-- COMPONENTE PER LE AZIONE CUSTOM -->
+                            <risca-table-action
+                              [actionConfig]="actionConfig | riscaTableAction:row"
+                              (onActionClick)="azioneCustom($event)"
+                            ></risca-table-action>
+
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+
+                  </td>
+                </ng-container>
+              </tr>
+
+            </ng-container>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+
+</ng-container>

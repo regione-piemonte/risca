@@ -1,0 +1,12 @@
+[
+	{
+		"id_ruolo_soggetto": 1,
+		"cod_ruolo_soggetto": "TIT",
+		"des_ruolo_soggetto": "Titolare"
+	},
+	{
+		"id_ruolo_soggetto": 2,
+		"cod_ruolo_soggetto": "LEG",
+		"des_ruolo_soggetto": "Legale Rappresentante"
+	}
+]

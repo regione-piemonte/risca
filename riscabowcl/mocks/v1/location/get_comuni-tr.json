@@ -1,0 +1,23 @@
+[
+  {
+    "id_comune": 44444,
+    "codice_istat_comune": "044444",
+    "toponimo": "ORVIETO",
+    "cap_comune": "04000",
+    "provincia": "TERNI"
+  },
+  {
+    "id_comune": 55555,
+    "codice_istat_comune": "055555",
+    "toponimo": "BASCHI",
+    "cap_comune": "05000",
+    "provincia": "TERNI"
+  },
+  {
+    "id_comune": 66666,
+    "codice_istat_comune": "066666",
+    "toponimo": "CASTEL VISCARDO",
+    "cap_comune": "06000",
+    "provincia": "TERNI"
+  }
+]

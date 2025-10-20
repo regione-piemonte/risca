@@ -1,0 +1,464 @@
+<div class="container-fluid r-plr--0">
+  <div class="row">
+    <div class="col">
+
+      <!-- GESTIONE TEMPLATE TABELLA CON O SENZA CONTAINER -->
+      <ng-container *riscaMaintain="cssConfig.showContainer">
+        <div class="risca-table-container">
+          <!-- RICHIAMO IL TEMPLATE HTML DELLA TABELLA -->
+          <ng-container *ngTemplateOutlet="sistemaTabella"></ng-container>
+        </div>
+      </ng-container>
+      <ng-container *riscaRemove="cssConfig.showContainer">
+        <div class="risca-table-clean">
+          <!-- RICHIAMO IL TEMPLATE HTML DELLA TABELLA -->
+          <ng-container *ngTemplateOutlet="sistemaTabella"></ng-container>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE DEL SISTEMA COMPLETO DELLA TABELLA -->
+<ng-template #sistemaTabella>
+  <!-- TEMPLATE - TITOLO -->
+  <ng-container *ngTemplateOutlet="titoloTabella"></ng-container>
+  <!-- TEMPLATE - TOTALIZZATORE -->
+  <ng-container *ngTemplateOutlet="totalizzatore"></ng-container>
+  <!-- TEMPLATE - TABELLA -->
+  <ng-container *ngTemplateOutlet="tabella"></ng-container>
+  <!-- TEMPLATE - PAGINAZIONE -->
+  <ng-container *ngTemplateOutlet="paginazione"></ng-container>
+</ng-template>
+
+<!-- TEMPLATE PER IL TITOLO DELLA TABELLA -->
+<ng-template #titoloTabella>
+  <div class="row r-mb--10" *ngIf="cssConfig.titleContainer">
+    <div class="col">
+      <div class="risca-head-section-label" [ngClass]="cssConfig.titleCss">
+        {{ cssConfig.titleContainer }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- HEADER CON TOTALE ELEMENTI -->
+<ng-template #totalizzatore>
+  <div class="row r-mb--10" *riscaMaintain="dataConfig?.pagination?.showTotal">
+    <div class="col">
+      {{ dataConfig.pagination.total }} {{ dataConfig.pagination.label }}
+    </div>
+  </div>
+</ng-template>
+
+<!-- CORPO TABELLA -->
+<ng-template #tabella>
+  <div class="row">
+    <div class="col">
+
+      <!-- CONTAINER PER GESTIRE L'OVERFLOW DELLA TABELLA -->
+      <div class="risca-table-wrapper">
+
+        <!-- TABLE -->
+        <table class="risca-table" [attr.description]="tableDescription"
+          [ngClass]="cssConfig.table | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+          [ngStyle]="cssConfig.table | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+        >
+
+          <!-- THEAD -->
+          <thead [ngClass]="cssConfig.thead">
+            <!-- TR -->
+            <tr [ngClass]="cssConfig.thead_tr">
+              <!-- ITERAZIONE SUI DATI DELLE COLONNE -->
+              <ng-container *ngFor="let colConfig of dataConfig.sourceMap; let i = index;">
+
+                <!-- TH NON PUO' AVERE LA CONFIGURAZIONE COLSPAN -->
+                <ng-container *riscaRemove="colConfig?.header?.colspan">
+
+                  <!-- TH CON GESTIONE DI LABEL E ORDINAMENTO -->
+                  <ng-container *riscaRemove="colConfig?.header?.action | riscaTableHActions">
+                    <th [id]="orderColumnId + i" class=""
+                      [ngClass]="[
+                        cssConfig.th,
+                        (colConfig.header?.cssCell | riscaCssHandler:C_C.CSS_TYPE_CLASS),
+                        (colConfig.header | riscaTableCssHSortable)
+                      ]"
+                      [ngStyle]="colConfig.header?.cssCell | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                      [attr.colspan]="riscaTableTargetConfig.header | riscaTableColspan:dataConfig.sourceMap:i"
+                      (click)="onClickSortTable(colConfig.body?.sourceData?.property)"
+                    >
+                      <!-- LABEL DELLA COLONNA -->
+                      <div class="container-fluid r-plr--0"
+                        [ngClass]="colConfig.header?.cssLabel | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+                        [ngStyle]="colConfig.header?.cssLabel | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                      >
+                        <div class="row">
+                          <div class="col" [title]="colConfig.header?.label" [attr.aria-label]="colConfig.header?.label">
+                            {{ colConfig.header?.label }}
+                          </div>
+                          <!-- ICONA DI SORT -->
+                          <ng-container
+                            *ngIf="colConfig.header?.sortable && (currentSortStatus | riscaTableSortIcon:colConfig.body?.sourceData?.property) as sortIcon">
+                            <!-- RICHIAMO IL TEMPLATE DELL'ICONA DI SORT -->
+                            <ng-container *ngTemplateOutlet="sortIcona; context: { icona: sortIcon }"></ng-container>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </th>
+                  </ng-container>
+
+                  <!-- TH CON GESTIONE PER IL MULTI CHECK DELLE RIGHE -->
+                  <ng-container *riscaMaintain="colConfig?.header?.action | riscaTableHActions:headerActionCheckbox">
+                    <th [id]="multicheckId" class=""
+                      [ngClass]="[cssConfig.th, (colConfig.header.cssCell | riscaCssHandler:C_C.CSS_TYPE_CLASS)]"
+                      [ngStyle]="colConfig.header.cssCell | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                      [attr.colspan]="riscaTableTargetConfig.header | riscaTableColspan:dataConfig.sourceMap:i"
+                    >
+                      <!-- LABEL DELLA COLONNA -->
+                      <div class="container-fluid r-plr--0"
+                        [ngClass]="colConfig.header.cssLabel | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+                        [ngStyle]="colConfig.header.cssLabel | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                      >
+                        <div class="row">
+                          <div class="col">
+                            <!-- STRUTTURA DI GESTIONE DELLA CHECKBOX -->
+                            <div class="form-check">
+                              <!-- LABEL -->
+                              <label ngbButtonLabel class="risca-input-label-checkbox r-p--0">
+                                <!-- INPUT -->
+                                <input ngbButton type="checkbox" class="form-check-input risca-checkbox risca-input-border"
+                                  [(ngModel)]="allRowsSelectedFlag"
+                                  [disabled]="colConfig.header.action.checkbox.disable | riscaExecute"
+                                  [ngClass]="colConfig.header.action.checkbox.cssInput | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+                                  [ngStyle]="colConfig.header.action.checkbox.cssInput | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                                  (change)="updateAllCheckboxesByConfig(colConfig.header.action.checkbox)"
+                                >
+                                <!-- ETICHETTA DEL CHECKBOX -->
+                                <div class="r-ml--10"
+                                  [innerHtml]="colConfig.header.label"
+                                  [title]="colConfig.header.title"
+                                  [attr.aria-label]="colConfig.header.title"
+                                  [ngClass]="colConfig.header.cssLabel | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+                                  [ngStyle]="colConfig.header.cssLabel | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                                ></div>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                  </ng-container>
+                
+                </ng-container>
+
+              </ng-container>
+            </tr>
+          </thead>
+
+          <!-- TBODY -->
+          <tbody [ngClass]="cssConfig.tbody">
+            
+            <!-- ################################## -->
+            <!-- TR | RIGA CON STRUTTURA PRINCIPALE -->
+            <!-- ################################## -->
+            <ng-container *ngFor="let row of tableSource">
+              <tr [ngClass]="[cssConfig.tbody_tr, cssConfig.trDynamicClass | tableTrDynamicClass:row]" (click)="clickRiga(row)">
+
+                <!-- ######################### -->
+                <!-- TD | COLONNA DI STRUTTURA -->
+                <!-- ######################### -->
+                <ng-container *ngFor="let colConfig of dataConfig.sourceMap">
+                  
+                  <td
+                    [ngClass]="[cssConfig.td, (colConfig?.body?.cssCell | riscaCssHandler:C_C.CSS_TYPE_CLASS)]"
+                    [ngStyle]="colConfig?.body?.cssCell | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                  >
+
+                    <!-- VISUALIZZAZIONE DATO DIRETTO -->
+                    <ng-container *riscaMaintain="colConfig?.body?.useSource">
+                      <!-- LABEL DELLA CELLA -->
+                      <div
+                        [ngClass]="colConfig.body | tableSourceCss:row:C_C.CSS_TYPE_CLASS"
+                        [ngStyle]="colConfig.body | tableSourceCss:row:C_C.CSS_TYPE_STYLE"
+                        [innerHTML]="row?.dataTable | riscaSourceOutput:colConfig"
+                        [title]="row | riscaRowTitle:colConfig"
+                        [attr.aria-label]="row | riscaRowTitle:colConfig"
+                      ></div>
+                    </ng-container>
+
+                    <!-- VISUALIZZAZIONE INPUT -->
+                    <ng-container *riscaMaintain="colConfig?.body?.useInput">
+                      <!-- CELLA CON INPUT CONFIGURABILE -->
+                      <risca-table-input
+                        [inputConfig]="colConfig.body.inputData"
+                        [row]="row"
+                        [tableId]="tableId"
+                      ></risca-table-input>
+                    </ng-container>
+
+                    <!-- VISUALIZZAZIONE ICONA COMUNE ALLE RIGHE -->
+                    <ng-container *riscaMaintain="colConfig?.body?.useCommonIcon">
+                      <!-- LABEL DELLA CELLA -->
+                      <div
+                        [ngClass]="colConfig.body | tableSourceCss:row:C_C.CSS_TYPE_CLASS"
+                        [ngStyle]="colConfig.body | tableSourceCss:row:C_C.CSS_TYPE_STYLE"
+                      >
+                        <!-- ICONA DI FONT AWESOME -->
+                        <ng-container *riscaMaintain="colConfig?.body?.commonIconData?.fontAwesome">
+                          <em class="fas" [ngClass]="colConfig.body.commonIconData.fontAwesome"></em>
+                        </ng-container>
+                        <!-- ICONA DA SORGENTE APP INTERNA -->
+                        <ng-container *riscaMaintain="colConfig?.body?.commonIconData?.classImage">
+                          <div [ngClass]="colConfig.body.commonIconData.classImage"></div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+
+                    <!-- VISUALIZZAZIONE AZIONE SULLA RIGA DI TABELLA -->
+                    <ng-container *riscaMaintain="colConfig?.body?.useTabMethod">
+                      <!-- CICLO LE POSSIBILI AZIONI DELLA TABELLA -->
+                      <ng-container *ngFor="let actionConfig of colConfig.body.tabMethodData?.actions">
+                        <!-- VERIFICO LA CONDIZIONE DI VISIBILITA' DELL'ACTION -->
+                        <ng-container *riscaMaintain="actionConfig | visibleTableAction:row">
+                          <!-- VERIFICO LA TIPOLOGIA DI AZIONE RICHIESTA: DEFAULT ACTIONS -->
+                          <ng-container *riscaRemove="actionConfig.custom">
+
+                            <!-- A SECONDA DELL'AZIONE VISUALIZZO LA STRUTTURA DEL DOM -->
+                            <ng-container [ngSwitch]="actionConfig.action">
+                              
+                              <!-- DETAIL -->
+                              <ng-container *ngSwitchCase="RT_C.DETAIL">
+                                <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+                                <risca-table-action
+                                  [actionConfig]="RT_C.DETAIL_ACTION | riscaTableAction:row:actionConfig"
+                                  [sourcesSelected]="sourcesSelected"
+                                  (onDataEmit)="dettaglioRiga($event)">
+                                </risca-table-action>
+                              </ng-container>
+
+                              <!-- MODIFY -->
+                              <ng-container *ngSwitchCase="RT_C.MODIFY">
+                                <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+                                <risca-table-action
+                                  [actionConfig]="RT_C.MODIFY_ACTION | riscaTableAction:row:actionConfig"
+                                  [sourcesSelected]="sourcesSelected"
+                                  (onDataEmit)="modificaRiga($event)"
+                                ></risca-table-action>
+                              </ng-container>
+
+                              <!-- DELETE -->
+                              <ng-container *ngSwitchCase="RT_C.DELETE">
+                                <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+                                <risca-table-action
+                                  [actionConfig]="RT_C.DELETE_ACTION | riscaTableAction:row:actionConfig"
+                                  [sourcesSelected]="sourcesSelected"
+                                  (onDataEmit)="eliminaRiga($event)"
+                                ></risca-table-action>
+                              </ng-container>
+
+                              <!-- CHECK -->
+                              <ng-container *ngSwitchCase="RT_C.CHECK">
+                                <!-- GESTIONE DEL CHECKBOX -->
+                                <risca-table-action
+                                  [actionConfig]="RT_C.CHECK_ACTION | riscaTableAction:row:actionConfig"
+                                  [sourcesSelected]="sourcesSelected"
+                                  [isCheckbox]="true"
+                                  (onCheckboxChange)="changedCheckbox($event)"
+                                ></risca-table-action>
+                              </ng-container>
+
+                              <!-- RADIO -->
+                              <ng-container *ngSwitchCase="RT_C.RADIO">
+                                <!-- GESTIONE RADIO BUTTON -->
+                                <div class="form-check form-check-inline" ngbRadioGroup [(ngModel)]="radioValue">
+                                  <!-- LABEL -->
+                                  <label ngbButtonLabel class="risca-input-label-radio risca-table-action-label-radio r-p--0"
+                                    [ngClass]="actionConfig.class"
+                                    [ngStyle]="actionConfig.style"
+                                  >
+                                    <!-- INPUT -->
+                                    <input ngbButton type="radio" class="form-check-input risca-radio risca-input-border"
+                                      [name]="radioGroupName"
+                                      [value]="row"
+                                      [disabled]="actionConfig.disable | riscaExecute:row:sourcesSelected"
+                                      [ngClass]="actionConfig.class"
+                                      [ngStyle]="actionConfig.style"
+                                      (change)="clickRadio(row)"
+                                    >
+                                    <!-- ETICHETTA DEL RADIO -->
+                                    <div [innerHtml]="actionConfig.label" [title]="actionConfig.title"></div>
+                                  </label>
+                                </div>
+                              </ng-container>
+
+                            </ng-container>
+                          
+                          </ng-container>
+
+                          <!-- VERIFICO LA TIPOLOGIA DI AZIONE RICHIESTA: CUSTOM ACTION -->
+                          <ng-container *riscaMaintain="actionConfig.custom">
+
+                            <!-- COMPONENTE PER LE AZIONE CUSTOM -->
+                            <risca-table-action
+                              [actionConfig]="actionConfig | riscaTableAction:row"
+                              (onActionClick)="azioneCustom($event)"
+                            ></risca-table-action>
+
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+
+                  </td>
+                </ng-container>
+              </tr>
+
+              <!-- ######################################################### -->
+              <!-- GESTIONE DELLA SOTTO RIGA RISPETTO AD UNA RIGA PRINCIPALE -->
+              <!-- ######################################################### -->
+              
+              <!-- VERIFICO ESISTA LA CONFIGURAZIONE PER LE SOTTO RIGHE -->
+              <ng-container *riscaMaintain="row?.tableDataConfigSubs | checkSottorighe">
+                <!-- I DATI ESITONO, CICLO LE INFORMAZIONI PER LA RIGA -->
+                <ng-container *ngFor="let subRow of row.tableDataConfigSubs">
+                  <!-- VERIFICO ESISTA LA CONFIGURAZIONE PER LA SINGOLA RIGA -->
+                  <ng-container *riscaMaintain="subRow != undefined">
+
+                    <!-- TR | RIGA CON STRUTTURA SECONDARIA -->
+                    <tr [ngClass]="cssConfig.tbody_tr" (click)="clickSottoRiga(row, subRow)" class="risca-sub-row">
+                      <!-- ITERAZIONE SUI DATI DELLE COLONNE -->
+                      <ng-container *ngFor="let subColConfig of dataConfig.sourceMapSub">
+                        <!-- TD -->
+                        <td
+                          [ngClass]="[cssConfig.td, (subColConfig?.body?.cssCell | riscaCssHandler:C_C.CSS_TYPE_CLASS)]"
+                          [ngStyle]="subColConfig?.body?.cssCell | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                        >
+
+                          <!-- VISUALIZZAZIONE DATO DIRETTO -->
+                          <ng-container *riscaMaintain="subColConfig?.body?.useSource">
+                            <!-- LABEL DELLA CELLA -->
+                            <div
+                              [ngClass]="subColConfig.body.cssLabel | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+                              [ngStyle]="subColConfig.body.cssLabel | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+                              [innerHTML]="subRow.dataTable | riscaSourceOutput:subColConfig"
+                              [title]="row | riscaRowTitle:subColConfig"
+                              [attr.aria-label]="row | riscaRowTitle:subColConfig"
+                            ></div>
+                          </ng-container>
+
+                          <!-- VISUALIZZAZIONE ICONA COMUNE ALLE RIGHE -->
+                          <ng-container *riscaMaintain="subColConfig?.body?.useCommonIcon">
+                            <!-- LABEL DELLA CELLA -->
+                            <div
+                              [ngClass]="subColConfig.body.cssLabel | riscaCssHandler:C_C.CSS_TYPE_CLASS" 
+                              [ngStyle]="subColConfig.body.cssLabel | riscaCssHandler:C_C.CSS_TYPE_STYLE" 
+                            >
+                              <!-- ICONA DI FONT AWESOME -->
+                              <ng-container *riscaMaintain="subColConfig?.body?.commonIconData?.fontAwesome">
+                                <em class="fas" [ngClass]="subColConfig.body.commonIconData.fontAwesome"></em>
+                              </ng-container>
+                              <!-- ICONA DA SORGENTE APP INTERNA -->
+                              <ng-container *riscaMaintain="subColConfig?.body?.commonIconData?.classImage">
+                                <div [ngClass]="subColConfig.body.commonIconData.classImage"></div>
+                              </ng-container>
+                            </div>
+                          </ng-container>
+
+                          <!-- VISUALIZZAZIONE AZIONE SULLA RIGA DI TABELLA -->
+                          <ng-container *riscaMaintain="subColConfig?.body?.useTabMethod">
+                            <!-- CICLO LE POSSIBILI AZIONI DELLA TABELLA -->
+                            <ng-container *ngFor="let subActionConfig of subColConfig.body.tabMethodData?.actions">    
+                              <!-- VERIFICO LA CONDIZIONE DI VISIBILITA' DELL'ACTION -->
+                              <ng-container *riscaMaintain="subActionConfig | visibleTableAction:subRow">
+
+                                <!-- VERIFICO LA TIPOLOGIA DI AZIONE RICHIESTA: DEFAULT ACTIONS -->
+                                <ng-container *riscaRemove="subActionConfig.custom">
+
+                                  <!-- A SECONDA DELL'AZIONE VISUALIZZO LA STRUTTURA DEL DOM -->
+                                  <ng-container [ngSwitch]="subActionConfig.action">
+                                    
+                                    <!-- DETAIL -->
+                                    <ng-container *ngSwitchCase="RT_C.DETAIL">
+                                      <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+                                      <risca-table-action
+                                        [actionConfig]="RT_C.DETAIL_ACTION | riscaTableAction:subRow:subActionConfig"
+                                        [sourcesSelected]="sourcesSelected"
+                                        (onDataEmit)="dettaglioSottoRiga($event, row)"
+                                      ></risca-table-action>
+                                    </ng-container>
+
+                                    <!-- MODIFY -->
+                                    <ng-container *ngSwitchCase="RT_C.MODIFY">
+                                      <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+                                      <risca-table-action
+                                        [actionConfig]="RT_C.MODIFY_ACTION | riscaTableAction:subRow:subActionConfig"
+                                        [sourcesSelected]="sourcesSelected"
+                                        (onDataEmit)="modificaSottoRiga($event, row)"
+                                      ></risca-table-action>
+                                    </ng-container>
+
+                                    <!-- DELETE -->
+                                    <ng-container *ngSwitchCase="RT_C.DELETE">
+                                      <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+                                      <risca-table-action
+                                        [actionConfig]="RT_C.DELETE_ACTION | riscaTableAction:row:subActionConfig"
+                                        [sourcesSelected]="sourcesSelected"
+                                        (onDataEmit)="eliminaSottoRiga($event, row)"
+                                      ></risca-table-action>
+                                    </ng-container>
+
+                                  </ng-container>
+                                
+                                </ng-container>
+
+                                <!-- VERIFICO LA TIPOLOGIA DI AZIONE RICHIESTA: CUSTOM ACTION -->
+                                <ng-container *riscaMaintain="subActionConfig.custom">
+
+                                  <!-- COMPONENTE PER LE AZIONE CUSTOM -->
+                                  <risca-table-action
+                                    [actionConfig]="subActionConfig | riscaTableAction:subRow"
+                                    (onActionClick)="azioneCustomSottoRiga($event, row)"
+                                  ></risca-table-action>
+
+                                </ng-container>
+
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+
+                        </td>
+                      </ng-container>
+                    </tr>
+
+                  </ng-container>            
+                </ng-container>
+              </ng-container>
+
+            </ng-container>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+<!-- PAGINAZIONE -->
+<ng-template #paginazione>
+  <div class="r-m-intL-t">
+    <risca-table-paging
+      [paginazione]="paginazioneTabella"
+      (onCambioPagina)="cambioPagina($event)"
+    ></risca-table-paging>
+  </div>
+</ng-template>
+
+<!-- TEMPLATE PER L'ICONA DI SORT -->
+<ng-template #sortIcona let-icona="icona">
+  <div class="col col-icon r-pl--0 r-mtb--a">
+    <em class="fas" [ngClass]="icona"></em>
+  </div>
+</ng-template>

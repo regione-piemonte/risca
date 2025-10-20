@@ -1,0 +1,93 @@
+<!-- HEADER STANDARD PER LA MODALE -->
+<risca-modal-header
+  [title]="'Indirizzo di spedizione'"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<!-- CORPO DELLA MODALE -->
+<div class="modal-body risca-modal-body">
+
+  <!-- GESTIONE DEGLI ERRORI PER SINGOLO INDIRIZZO SPEDZIONE -->
+  <div class="row r-m-intL-b" *ngIf="alertTopConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertTopConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertTopConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+  <!-- ALERT DI NOTIFICA PER LA GESTIONE DELLE LOGICHE BASATE SUI GRUPPI DEL SOGGETTO -->
+  <div class="row r-m-intL-b" *ngIf="alertGruppiConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertGruppiConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertGruppiConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+  <!-- GESTIONE DELLE FORM PER GLI INDIRIZZI DI SPEDIZIONE -->
+  <ng-container *ngIf="checkIndirizziConfigs">
+    <ng-container *ngFor="let indirizzoConfig of indirizziConfigs; let i = index; let isFirst = first">
+
+      <div class="row">
+        <div class="col">
+          <div [innerHTML]="indirizzoConfig?.indirizzoSpedizione | titleIndirizzoSpedizione:recapiti:gruppi"></div>
+        </div>
+      </div>
+
+      <!-- RIGA CON IL RICHIAMO DEL COMPONENTE - L'ULTIMO COMPONENTE HA UN PADDING BOTTOM EXTRA -->
+      <!-- <div class="row" [ngClass]="{ 'r-m-intL-t' : !isFirst }"> -->
+      <div class="row r-m-intL-t">
+        <div class="col">
+          <risca-indirizzo-spedizione-form
+            [indirizzoSpedizione]="indirizzoConfig.indirizzoSpedizione"
+            [recapito]="indirizzoConfig.indirizzoSpedizione | recapitoPerIndSped: recapiti"
+            [parentFormKey]="indirizzoConfig.parentFormKey"
+            [childFormKey]="indirizzoConfig.childFormKey"
+            [modalita]="indirizzoConfig.modalita"
+            [isFormDisabilitato]="isFormDisabilitato"
+          ></risca-indirizzo-spedizione-form>
+        </div>
+      </div>
+
+      <!-- SEPARATORE - L'ULTIMO ELEMENTO NON AVRA' UN SEPARATORE-->
+      <risca-separator *ngIf="i < indirizziConfigs.length - 1"></risca-separator>
+
+    </ng-container>
+  </ng-container>
+
+  <!-- GESTIONE DEGLI ERRORI GENERICI SULLA X INDIRIZZI DI SPEDIZIONE -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER DELLA MODALE -->
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    [disable]="disableGestioneIS || isFormDisabilitato"
+    (onClick)="annullaIndirizzi()"
+  ></risca-button>
+
+  <!-- GESTIONE PULSANTE CONFERMA -->
+  <risca-primary-button
+    [dataConfig]="BTN_CONFERMA"
+    [disable]="disableGestioneIS || isFormDisabilitato"
+    (onClick)="confermaIndirizzi()"
+  ></risca-primary-button>
+</div>

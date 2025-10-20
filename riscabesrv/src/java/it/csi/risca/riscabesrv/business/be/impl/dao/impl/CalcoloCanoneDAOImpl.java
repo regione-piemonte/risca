@@ -248,7 +248,6 @@ public class CalcoloCanoneDAOImpl extends RiscaBeSrvGenericDAO<TipoUsoRegolaDTO>
 					Date dataRiferimentoParsificata = formatter.parse(dataRiferimento); 
 		            c.setTime(dataRiferimentoParsificata);  
 		            annoDataRiferimento = c.get(Calendar.YEAR);
-		            System.out.println("anno data riferimento :"+annoDataRiferimento);
 				}
             }
             if(dataFrazionamento != null) {
@@ -256,7 +255,6 @@ public class CalcoloCanoneDAOImpl extends RiscaBeSrvGenericDAO<TipoUsoRegolaDTO>
 					   Date dataFrazionamentoParsificata = formatter.parse(dataFrazionamento);  		           
 			            c.setTime(dataFrazionamentoParsificata);  
 			            annoDataFrazionamento = c.get(Calendar.YEAR);
-			            System.out.println("anno data frazionamento :"+annoDataFrazionamento);
 				}
             }          
             

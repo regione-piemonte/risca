@@ -1,0 +1,40 @@
+<div class="container-fluid r-plr--0">
+  <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+    <div class="row">
+
+      <div class="col-auto">
+        <!-- ANNUALITA -->
+        <risca-number
+          [formControlName]="CRUF_C.ANNUALITA"
+          [idFormControl]="CRUF_C.ANNUALITA"
+          [cssConfig]="formInputs.annualitaConfig.css"
+          [dataConfig]="formInputs.annualitaConfig.data"
+          [errMapFormControl]="EM.MAP_ANNUALITA_NUOVA_REGOLA"
+          [formGroup]="mainForm"
+          [formSubmitted]="mainFormSubmitted"
+          [disableRequiredCheck]="false"
+        ></risca-number>
+      </div>
+
+      <div class="col">
+        <!-- SPAZIATORE AUTOMATICO -->
+      </div>
+          
+      <div class="col-auto">
+        <!-- PERCENTUALE AGGIORNAMENTO CANONI -->
+        <risca-number-it-format
+          [formControlName]="CRUF_C.PERCENTUALE_AGGIORNAMENTO"
+          [idFormControl]="CRUF_C.PERCENTUALE_AGGIORNAMENTO"
+          [cssConfig]="formInputs.percentualeAggiornamentoConfig.css"
+          [dataConfig]="formInputs.percentualeAggiornamentoConfig.data"
+          [errMapFormControl]="EM.MAP_PERCENTUALE_NUOVA_REGOLA"
+          [formGroup]="mainForm"
+          [formSubmitted]="mainFormSubmitted"
+          [disableRequiredCheck]="false"
+          [truncate]="true"
+        ></risca-number-it-format>
+      </div>
+                        
+    </div>
+  </form>
+</div>

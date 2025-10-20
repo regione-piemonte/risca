@@ -1,0 +1,122 @@
+<!-- ######################### -->
+<!-- ######################### -->
+<!-- CONTAINER PER LA DROPDOWN -->
+<!-- ######################### -->
+<!-- ######################### -->
+<div ngbDropdown #riscaBtnDD="ngbDropdown" class="d-inline-block"
+  [autoClose]="ngbDDAutoClose"
+  [container]="ngbDDContainer"
+  [display]="ngbDDDisplay"
+  [open]="ngbDDOpen"
+  [placement]="ngbDDPlacement"
+  (openChange)="onOpenChange($event)"
+
+  [ngClass]="ngbDDCss | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+  [ngStyle]="ngbDDCss | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+>
+  <!-- ###################################################### -->
+  <!-- ###################################################### -->
+  <!-- PULSANTE DI GESTIONE DELLA DROPDOWN - CODEAEA PRESENTE -->
+  <!-- ###################################################### -->
+  <!-- ###################################################### -->
+  <ng-container *riscaMaintain="attivaAEA">
+    <button ngbDropdownAnchor type="button" class="btn r-btn-dropdown" [id]="idDOM"
+      accessoElementoApp
+      [codiceUtilizzo]="dataConfig?.codeAEA"
+      [otherDisabled]="disabled"
+      [ngClass]="[(cssConfig?.customButton | riscaCssHandler:C_C.CSS_TYPE_CLASS), typeButton]"
+      [ngStyle]="cssConfig?.customButton | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+      (click)="riscaBtnDD.toggle()"
+    >
+      <!-- CONTENUTO CON LABEL E FRECCETTA PER APERTURA/CHIUSURA DROPDOWN -->
+      <ng-container *ngTemplateOutlet="ngbDDA_label"></ng-container>
+    </button>
+  </ng-container>
+  <!-- ########################################################## -->
+  <!-- ########################################################## -->
+  <!-- PULSANTE DI GESTIONE DELLA DROPDOWN - CODEAEA NON PRESENTE -->
+  <!-- ########################################################## -->
+  <!-- ########################################################## -->
+  <ng-container *riscaMaintain="!attivaAEA">
+    <button ngbDropdownToggle type="button" class="btn r-btn-dropdown" [id]="idDOM"
+      [disabled]="disabled"
+      [ngClass]="[(cssConfig?.customButton | riscaCssHandler:C_C.CSS_TYPE_CLASS), typeButton]"
+      [ngStyle]="cssConfig?.customButton | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+      (click)="riscaBtnDD.toggle()"
+    >
+      <!-- CONTENUTO CON LABEL E FRECCETTA PER APERTURA/CHIUSURA DROPDOWN -->
+      <ng-container *ngTemplateOutlet="ngbDDA_label"></ng-container>
+    </button>
+  </ng-container>
+
+  <!-- LISTA DEI PULSANTI PER LA DROPDOWN -->
+  <div ngbDropdownMenu [attr.aria-labelledby]="idDOM">
+    <!-- ITERAZIONE DELLA LISTA DI ITEMS PER LA DROPDOWN -->
+    <ng-container *ngFor="let item of dataConfig?.dropdownItems">
+      <!-- BUTTON/ITEM DELLA DROPDOWN -->
+      <button ngbDropdownItem [id]="item.id" class="r-dropdown-item"
+        [disabled]="item.codeAEA | accessoElementoApp:item.disabled"
+        [ngClass]="[cssConfig.customItems | riscaCssHandler:C_C.CSS_TYPE_CLASS, item.itemCss | riscaCssHandler:C_C.CSS_TYPE_CLASS]"
+        [ngStyle]="cssConfig.customItems | riscaStylesHandler:item.itemCss"
+
+        (click)="itemClick(item)"
+      >
+
+        <!-- ICONA DI SINISTRA -->
+        <ng-container *riscaMaintain="item.useIcon && item.useIconLeft"
+          [ngTemplateOutlet]="ngbDDA_ICON"
+          [ngTemplateOutletContext]="{ icon: item.iconLeft }"
+        ></ng-container>
+
+        <!-- LABEL DEL PULSANTE -->
+        {{ item.label }}
+
+        <!-- ICONA DI DESTRA -->
+        <ng-container *riscaMaintain="item.useIcon && item.useIconRight" 
+          [ngTemplateOutlet]="ngbDDA_ICON"
+          [ngTemplateOutletContext]="{ icon: item.iconRight }"
+        ></ng-container>
+
+      </button>
+    </ng-container>
+  </div>
+</div>
+
+<!-- TEMPLATE PER IL CONTENUTO DEL PULSANTE PRINCIPALE DI DROPDOWN -->
+<ng-template #ngbDDA_label>
+  <!-- LABEL DEL PULSANTE DROPDOWN -->
+  {{ dataConfig?.label || '' }}
+  
+  <!-- CONTAINER PER L'ICONA DELLA DROPDOWN -->
+  <div class="r-dropdown-icon" [ngClass]="typeButtonSvg">
+    <!-- GESTIONE DELL'ICONA CHE DEFINISCE SE LA DROPDOWN E' APERTA O CHIUSA -->
+    <ng-container *ngIf="isOpen; then isCloseIcon else isOpenIcon"></ng-container>
+  </div>
+</ng-template>
+
+<!-- TEMPLATE CON LA CONFIGURAZIONE PER UNA RiscaIcon -->
+<ng-template #ngbDDA_ICON let-icon="icon">
+  <risca-icon
+    [classes]="icon.classes"
+    [icon]="icon.icon"
+    [iconStyles]="icon.iconStyles"
+    [iconTitle]="icon.iconTitle"
+    [disabled]="icon.disabled"
+    [useDefault]="icon.useDefault"
+  ></risca-icon>
+</ng-template>
+
+<!-- TEMPLATE CON LA CONFIGURAZIONE L'ICONA DELLA DROPDOWN APERTA -->
+<ng-template #isOpenIcon>
+  <svg xmlns="http://www.w3.org/2000/svg" id="rddb-icon-open" width="16.339" height="16.339" viewBox="0 0 16.339 16.339" fill="none" stroke="currentColor" stroke-width="2px">
+    <path d="M10.395,10.712H0V0" transform="translate(0.707 7.35) rotate(-45)"/>
+  </svg>
+</ng-template>
+
+<!-- TEMPLATE CON LA CONFIGURAZIONE L'ICONA DELLA DROPDOWN CHIUSA -->
+<ng-template #isCloseIcon>
+  <svg xmlns="http://www.w3.org/2000/svg" id="rddb-icon-close" width="16.339" height="16.339" viewBox="0 0 16.339 16.339" fill="none" stroke="currentColor" stroke-width="2px">
+    <path d="M10.395,10.712H0V0" transform="translate(15.632 8.989) rotate(135)"/>
+  </svg>
+</ng-template>
+

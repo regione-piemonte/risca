@@ -1,0 +1,91 @@
+<div class="r-m-intL-t">
+  <!-- FILO ARIANNA -->
+  <risca-filo-arianna></risca-filo-arianna>
+</div>
+
+<div class="card-box card-box-internal card-box-external">
+
+  <!-- LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col risca-head-section-label">
+      Pratiche collegate a: {{ denominazione }}
+    </div>
+  </div>
+
+  <!-- VERIFICA DEL RUOLO DELL'UTENTE -->
+  <ng-container *riscaMaintain="checkTSoggetto">
+    <!-- TABELLA DEL SOGGETTO -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-table
+          [cssConfig]="tableSoggetto.cssConfig"
+          [dataConfig]="tableSoggetto.dataConfig"
+          [source]="tableSoggetto.source"
+          (onRowDetail)="dettaglioSoggetto($event)"
+        ></risca-table>
+      </div>
+    </div>
+  </ng-container>
+  
+  <!-- TABELLA DEI GRUPPI -->
+  <ng-container *riscaMaintain="checkTGruppo">
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-table
+          [cssConfig]="tableGruppo.cssConfig"
+          [dataConfig]="tableGruppo.dataConfig"
+          [source]="tableGruppo.source"
+          (onRowDetail)="dettaglioGruppo($event)"
+        ></risca-table>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- TABELLA DELLE PRATICHE -->
+  <ng-container *riscaMaintain="checkTPartiche">
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-table
+          [cssConfig]="tablePraticheCollegate.cssConfig"
+          [dataConfig]="tablePraticheCollegate.dataConfig"
+          [source]="tablePraticheCollegate.source"
+          (onRowDetail)="dettaglioPratica($event)"
+        ></risca-table>
+      </div>
+    </div>
+  </ng-container>
+  <!-- TABELLA - NON CI SONO DATI, VISUALIZZO UN MESSAGGIO -->
+  <ng-container *riscaRemove="checkTPartiche">
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <div class="risca-common-label">
+          Non sono state trovate pratiche per il {{ noPratiche.targetPratiche }}: <strong>{{ noPratiche.denominazione }}</strong>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+    
+</div>
+
+<!-- ALERT DI GESTIONE -->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <!-- GESTIONE DEI MESSAGGI -->
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigsCheck)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- BOTTONI PER LE AZIONI DELLA PAGINA -->
+<div class="row r-m-intL-t row-soggetto-azioni">
+  <div class="col">
+    <!-- INDIETRO -->
+    <risca-link-button
+      class="r-mr--15"
+      [dataConfig]="C_C.BTN_INDIETRO"
+      (onClick)="tornaIndietro()">
+    </risca-link-button>
+  </div>
+</div>

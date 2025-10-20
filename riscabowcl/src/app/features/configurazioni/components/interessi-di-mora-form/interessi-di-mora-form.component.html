@@ -1,0 +1,67 @@
+<div class="container-fluid r-plr--0">
+  <div class="row">
+    <div class="col">
+
+      <!-- RECAPITO FORM -->
+      <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+        <div class="d-flex flex-row r-m-intL-t">
+          
+          <div class="r-mr--40">
+            <!-- PERCENTUALE -->
+            <risca-number-it-format
+              [formControlName]="IDMF_C.PERCENTUALE"
+              [idFormControl]="IDMF_C.PERCENTUALE"
+              [cssConfig]="formInputs.percentuale.css"
+              [dataConfig]="formInputs.percentuale.data"
+              [errMapFormControl]="EM.MAP_PERCENTUALE_TASSI_DI_INTERESSE"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false">
+          </risca-number-it-format>
+          </div>
+
+          <div class="r-mr--40">
+            <!-- DATA INIZIO -->
+            <risca-datepicker
+              [formControlName]="IDMF_C.DATA_INIZIO"
+              [idFormControl]="IDMF_C.DATA_INIZIO" 
+              [cssConfig]="formInputs.dataInizio.css"
+              [dataConfig]="formInputs.dataInizio.data"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="false">
+            </risca-datepicker>
+          </div>
+
+          <div class="r-mr--40" *ngIf="showFieldDataFine">
+             <!-- DATA FINE --> 
+            <risca-datepicker
+              [formControlName]="IDMF_C.DATA_FINE"
+              [idFormControl]="IDMF_C.DATA_FINE" 
+              [cssConfig]="formInputs.dataFine.css"
+              [dataConfig]="formInputs.dataFine.data"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [disableRequiredCheck]="true">
+            </risca-datepicker>
+          </div>
+        
+          <div class="cf-mt-22" *ngIf="showButtonAggiungi">
+            <!-- SUBMIT -->
+            <risca-button
+              [dataConfig]="C_C.BTN_AGGIUNGI"
+              [cssConfig]="C_C.CSS_AGGIUNGI"
+              [disable]="AEADisabled"
+              (onClick)="onFormSubmit()">
+            </risca-button>
+          </div>
+        
+        </div>
+                
+      </form>
+    </div>
+  
+  </div>
+</div>

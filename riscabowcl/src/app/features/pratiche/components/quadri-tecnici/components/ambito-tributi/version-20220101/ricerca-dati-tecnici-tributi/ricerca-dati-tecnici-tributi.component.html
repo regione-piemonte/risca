@@ -1,0 +1,45 @@
+<!-- DATI TECNICI FORM -->
+<form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+
+  <!-- PRIMA PARTE - LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-head-section-label">
+        Dati tecnici
+      </div>
+    </div>
+  </div>
+
+  <div class="row r-mt--20">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- POPOLAZIONE -->
+          <risca-number [formControlName]="RDTT_C.POPOLAZIONE"
+            [idFormControl]="RDTT_C.POPOLAZIONE"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.popolazioneConfig.css"
+            [dataConfig]="formInputs.popolazioneConfig.data"
+            [formSubmitted]="mainFormSubmitted"
+          ></risca-number>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- USO DI LEGGE -->
+          <risca-select [formControlName]="RDTT_C.USO"
+            [idFormControl]="RDTT_C.USO"
+            [cssConfig]="formInputs.usoConfig.css"
+            [dataConfig]="formInputs.usoConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaUsiDiLegge"
+            [propertyToShow]="RDTT_C.PROPERTY_USO_DI_LEGGE"
+            [listenToRefreshData]="true"
+          ></risca-select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>

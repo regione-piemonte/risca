@@ -1,0 +1,262 @@
+$header-height: 62px;
+$footer-height: 179.1px;
+$inner-page-height: calc(100vh - #{$header-height} - #{$footer-height});
+
+body {
+  background-color: #f1f3f8;
+}
+
+.container-fluid {
+  @media screen and (max-width: 800px) {
+    padding: 0;
+  }
+
+  @media screen and (min-width: 801px) {
+    padding: 0 80px 0 75px;
+  }
+}
+
+header .container-fluid {
+  @media screen and (max-width: 800px) {
+    padding: 0 15px;
+
+    a {
+      font-size: 0.875rem;
+      font-weight: bold;
+    }
+  }
+
+  @media screen and (min-width: 801px) {
+    padding: 0 104px;
+
+    a {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+}
+
+footer .container-fluid {
+  @media screen and (max-width: 800px) {
+    padding: 0 15px;
+  }
+
+  @media screen and (min-width: 801px) {
+    padding: 0 104px;
+  }
+}
+
+header {
+  nav {
+    &.navbar {
+      padding: 0.5rem 0;
+    }
+
+    @media screen and (max-width: 800px) {
+      .menu-button {
+        display: block;
+      }
+    }
+
+    @media screen and (min-width: 801px) {
+      .menu-button {
+        display: none;
+      }
+    }
+
+    .menu-button {
+      padding: 0 1rem 0 0;
+
+      i {
+        font-size: 1.5em;
+        color: white;
+      }
+    }
+
+    .navbar-brand {
+      letter-spacing: 0.48px;
+      margin: 0 10px;
+      white-space: normal;
+    }
+
+    .nav-button-group {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.user-circle {
+  background-color: white;
+  color: #006cb4;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+.page-content {
+  background-color: #f1f3f8;
+}
+
+main {
+  @media screen and (max-width: 800px) {
+    padding: 0 15px;
+  }
+
+  @media screen and (min-width: 801px) {
+    padding: 0 0.75rem;
+  }
+
+  min-height: $inner-page-height;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem 0 !important;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  // to adapt once final svg are available:
+  .logo-left {
+    max-width: 174px;
+  }
+
+  .logo-center {
+    max-width: 214px;
+  }
+
+  .logo-right {
+    max-width: 171px;
+  }
+}
+
+.bg-second-blue {
+  background-color: #213366;
+}
+
+.footer-link-group {
+  padding: 1.375rem 0;
+
+  div {
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    margin-right: 20px;
+    padding: 0 15px;
+    cursor: pointer;
+
+    @media screen and (max-width: 800px) {
+      font-size: 0.625rem;
+    }
+
+    @media screen and (min-width: 801px) {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+/* Sidebar */
+
+::ng-deep .ng-sidebar__content {
+  position: relative !important;
+}
+
+.card {
+  padding-left: 6px;
+  border: 0;
+  max-width: 250px;
+  height: 100%;
+
+  margin-right: 12px;
+  margin-left: 5px;
+  box-shadow: 3px 3px 8px 0 #00000048;
+}
+
+.mobile-bar {
+  margin: 0;
+  border-radius: 0;
+}
+
+.sidebar-item {
+  color: #016cb4;
+  font-weight: bold;
+  font-size: 0.875rem;
+  min-height: 47px;
+  margin: 4px 0;
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 20px;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.selected {
+  background-color: #178cd633;
+}
+
+.selected::before {
+  content: '';
+  display: block;
+  position: relative;
+  margin-left: -6px;
+  width: 6px;
+  height: 47px;
+  background-color: #b91818;
+}
+
+.sidebar-icon {
+  width: 20px;
+  margin-right: 8px;
+  margin-left: 26px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-nav>li {
+  float: left;
+  position: relative;
+}
+
+.main-menu {
+  top: 149px;
+  left: 862px;
+  width: 77px;
+  height: 30px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 30px;
+  font-family: 'Open Sans';
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  margin-left: 60px;
+}

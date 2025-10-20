@@ -1,0 +1,85 @@
+<ng-container *riscaMaintain="isButton && !popover">
+  <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+  <button type="button"
+    [disabled]="(disable | riscaExecute:config?.data:sourcesSelected) || (disableDynamic | riscaExecute:config?.data:sourcesSelected)"
+    [title]="config?.action?.title"
+    [ngClass]="[
+      config?.action?.class || '',
+      (config | riscaTableCAIcon:sourcesSelected)
+    ]"
+    [ngStyle]="config?.action?.style || {}"
+    (click)="click()"
+  ></button>
+</ng-container>
+
+<ng-container *riscaMaintain="isButton && popover">
+  <!-- LA DEFINIZIONE DELL'ICONA E DEGLI STILI E TUTTO TRAMITE CSS -->
+  <button type="button"
+    [disabled]="(disable | riscaExecute:config?.data:sourcesSelected) || (disableDynamic | riscaExecute:config?.data:sourcesSelected)"
+    [title]="config?.action?.title"
+    [ngClass]="[
+      config?.action?.class || '',
+      (config | riscaTableCAIcon:sourcesSelected)
+    ]"
+    [ngStyle]="config?.action?.style || {}"
+    (click)="click()"
+
+    [ngbPopover]="popoverContent"
+    [popoverTitle]="popoverTitle"
+    [placement]="popover.placement"
+    [autoClose]="popover.autoClose"
+    [closeDelay]="popover.closeDelay"
+    [disablePopover]="popover.disablePopover || (disable | riscaExecute:config?.data:sourcesSelected) || (disableDynamic | riscaExecute:config?.data:sourcesSelected)"
+    [openDelay]="popover.openDelay"
+    [placement]="popover.placement"
+    [popoverClass]="popover.popoverClass"
+    [triggers]="popover.triggers"
+  ></button>
+
+  <!-- TEMPLATE POPOVER -->
+  <ng-template #popoverTitle>
+    <div [innerHTML]="popover.popoverTitle | riscaExecute:config?.data?.original"></div>
+  </ng-template>
+  <ng-template #popoverContent>
+    <div [innerHTML]="popover.ngbPopover | riscaExecute:config?.data?.original"></div>
+  </ng-template>
+
+</ng-container>
+
+<ng-container *riscaMaintain="isCheckboxRow">
+  <!-- STRUTTURA DI GESTIONE DELLA CHECKBOX -->
+  <div class="form-check">
+    <!-- LABEL -->
+    <label ngbButtonLabel class="risca-input-label-checkbox r-p--0">
+      <!-- INPUT -->
+      <input ngbButton type="checkbox" class="form-check-input risca-checkbox risca-input-border"
+        [(ngModel)]="config.data.selected"
+        [disabled]="(disable | riscaExecute:config?.data:sourcesSelected) || (disableDynamic | riscaExecute:config?.data:sourcesSelected)"
+        [ngClass]="[config?.action?.class || '']"
+        [ngStyle]="config?.action?.style || {}"
+        (change)="checkboxChange(config.data)"
+      >
+      <!-- ETICHETTA DEL CHECKBOX -->
+      <div [innerHtml]="config?.action?.label" [title]="config?.action?.title"></div>
+    </label>
+  </div>
+</ng-container>
+
+<ng-container *riscaMaintain="isCheckboxData">
+  <!-- STRUTTURA DI GESTIONE DELLA CHECKBOX -->
+  <div class="form-check">
+    <!-- LABEL -->
+    <label ngbButtonLabel class="risca-input-label-checkbox r-p--0">
+      <!-- INPUT -->
+      <input ngbButton type="checkbox" class="form-check-input risca-checkbox risca-input-border"
+        [attr.id]="config?.action?.checkboxConfigs?.dataTableProperty"
+        [ngModel]="config | riscaTableCACheckboxData"
+        [disabled]="true"
+        [ngClass]="[config?.action?.class || '']"
+        [ngStyle]="config?.action?.style || {}"
+      >
+      <!-- ETICHETTA DEL CHECKBOX -->
+      <div [innerHtml]="config?.action?.label" [title]="config?.action?.title"></div>
+    </label>
+  </div>
+</ng-container>

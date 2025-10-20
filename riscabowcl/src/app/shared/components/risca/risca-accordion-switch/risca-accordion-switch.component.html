@@ -1,0 +1,21 @@
+<ng-container *ngIf="!disabled">
+  <div class="risca-accordion-switch unselectable" (click)="accordionClick()">
+    {{ label }}
+    <img class="risca-accordion-switch-arrow" alt="Apri/Chiudi accordion"
+      [src]="accordionAperto ? 'assets/icon-accordion-close.svg' : 'assets/icon-accordion-open.svg'"
+      [ngClass]="{ 
+        'risca-accordion-switch-arrow-up': accordionAperto,
+        'risca-accordion-switch-arrow-down': !accordionAperto
+      }" />
+  </div>
+</ng-container>
+
+<ng-container *ngIf="disabled">
+  <div class="risca-accordion-switch risca-disabled cursor-default unselectable">
+    {{ label }}
+    <img alt="Apri/Chiudi accordion" 
+      class="risca-accordion-switch-arrow risca-accordion-switch-arrow-down grey-filter"
+      [src]="'assets/icon-accordion-open.svg'"
+    />
+  </div>
+</ng-container>

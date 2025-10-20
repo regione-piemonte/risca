@@ -1,0 +1,21 @@
+<div class="container-fluid r-plr--0">
+  <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+    <div class="row">
+
+      <div class="col-auto">
+        <!-- CANONE MINIMO -->
+        <risca-number-it-format
+          [formControlName]="RCMF_C.CANONE_MINIMO"
+          [idFormControl]="RCMF_C.CANONE_MINIMO"
+          [cssConfig]="formInputs.canoneMinimoConfig.css"
+          [dataConfig]="formInputs.canoneMinimoConfig.data"
+          [errMapFormControl]="EM.MAP_REGOLA_CANONE_MINIMO_UNITARIO_PERCENTUALE"
+          [formGroup]="mainForm"
+          [formSubmitted]="mainFormSubmitted"
+          [disableRequiredCheck]="false"
+        ></risca-number-it-format>
+      </div>
+                        
+    </div>
+  </form>
+</div>

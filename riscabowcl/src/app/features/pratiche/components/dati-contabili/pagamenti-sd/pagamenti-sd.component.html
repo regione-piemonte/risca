@@ -1,0 +1,87 @@
+<!-- CONTAINER DETTAGLI PAGAMENTI -->
+<ng-container *ngIf="!visualizzaDettaglio">
+
+  <!-- LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col risca-head-section-label">Dettaglio pagamenti</div>
+  </div>
+
+  <!-- GESTIONE ACCORDION NUOVO VERSAMENTO -->
+  <div class="row r-m-intL-t">
+    <div class="col col-accordion-versamento r-mt--a">
+      <!-- ACCORDION LABEL NUOVO VERSAMENTO -->
+      <risca-accordion-switch
+        [label]="PSD_C.ACCORDION_NUOVO_VERSAMENTO"
+        [accordionAperto]="pagamentoApriChiudi"
+        [disabled]="disableUserInputs"
+        (onAccordionClick)="toggleNuovoPagamento($event)"
+      ></risca-accordion-switch>
+    </div>
+  </div>
+
+  <!-- ACCORDION CON FORM PER INSERIMENTO NUOVO VERSAMENTO -->
+  <div class="row r-m-intL-t" *ngIf="pagamentoApriChiudi">
+    <div class="col">
+      <div class="risca-accordion-container">
+        <div class="row">
+          <div class="col">
+            <risca-pagamento-manuale #riscaInsVersamento
+              [parentFormKey]="PSD_C.FORM_KEY_PARENT_SD_VERSAMENTI"
+              [childFormKey]="PSD_C.FORM_KEY_CHILD_SD_VERSAMENTI"
+              [modalita]="C_C.INSERIMENTO"
+              (onFormSubmit)="aggiungiPagamento($event)"
+            ></risca-pagamento-manuale>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABELLA VERSAMENTI -->
+  <div class="row r-m-intL-t">
+    <div class="col" *ngIf="checkVersamentiTable">
+      <risca-table
+        [cssConfig]="dettPagExtraTable.cssConfig"
+        [dataConfig]="dettPagExtraTable.dataConfig"
+        [source]="dettPagExtraTable.source"
+        (onRowModify)="modificaPagamento($event)"
+        (onRowDelete)="eliminaPagamento($event)"
+      ></risca-table>
+    </div>
+    <div class="col" *ngIf="!checkVersamentiTable">
+      Non sono stati trovati versamenti per lo stato debitorio.
+    </div>
+  </div>
+
+  <!--ALERT-->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <!-- GESTIONE DEGLI ERRORI -->
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+
+  <!-- BOTTONI -->
+  <div class="row">
+    <div class="col">
+      <!-- TORNA A STATI DEBITORI -->
+      <torna-a-stati-debitori></torna-a-stati-debitori>
+    </div>
+  </div>
+
+</ng-container>
+
+<!-- CONTAINER SCHEDA DI GESTIONE PAGAMENTO -->
+<ng-container *ngIf="visualizzaDettaglio">
+  <!-- SCHEDA DI GESTIONE PAGAMENTO -->
+  <risca-gestione-pagamento
+    (onPagamentoAggiornato)="onPagamentoAggiornato($event)"
+    (onIndietro)="chiudiDettaglioPagamento()"
+  ></risca-gestione-pagamento>
+</ng-container>

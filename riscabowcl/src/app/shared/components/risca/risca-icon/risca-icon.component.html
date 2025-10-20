@@ -1,0 +1,19 @@
+<ng-container *ngIf="iconPath">
+  <img 
+    [attr.alt]="iconTitle"
+    [src]="iconPath"
+    [title]="iconTitle || ''"
+    [ngClass]="iconClasses || []"
+    [ngStyle]="iconStyles || {}"
+    (click)="iconClick()"
+  />
+</ng-container>
+<ng-container *ngIf="!iconPath">
+  <i 
+    [attr.alt]="iconTitle"
+    [title]="iconTitle || ''"
+    [ngClass]="iconClasses || []"
+    [ngStyle]="iconStyles || {}"
+    (click)="iconClick()"
+  ></i>
+</ng-container>

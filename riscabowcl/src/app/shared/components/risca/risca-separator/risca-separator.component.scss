@@ -1,0 +1,9 @@
+$risca-interlinea: 10px;
+$risca-intercolonna: 0px;
+
+.separator {
+  width: 100%;
+  border-top: 1px solid #AAAAAA;
+  opacity: 1;
+  margin: $risca-interlinea $risca-intercolonna;
+}

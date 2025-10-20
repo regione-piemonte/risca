@@ -1,0 +1,170 @@
+<form [formGroup]="mainForm">
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="risca-double-date-container r-mr--40">
+          <!-- STATO PAGAMENTO -->
+          <risca-select 
+            [formControlName]="RRP_C.STATO_PAGAMENTO"
+            [idFormControl]="RRP_C.STATO_PAGAMENTO"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.statoPagamentoConfig.css"
+            [dataConfig]="formInputs.statoPagamentoConfig.data"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaTRPagamenti"
+            [propertyToShow]="RRP_C.PROPERTY_STATO_PAGAMENTO"
+            [disableRequiredCheck]="false"
+            [errMapFormGroup]="EM.MAP_RICERCA_PAGAMENTI_FILTRI_VALORIZZATI"
+          ></risca-select>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- MODALITA PAGAMENTO -->
+          <risca-select 
+            [formControlName]="RRP_C.MODALITA_PAGAMENTO"
+            [idFormControl]="RRP_C.MODALITA_PAGAMENTO"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.modalitaPagamentoConfig.css"
+            [dataConfig]="formInputs.modalitaPagamentoConfig.data"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaModalitaPagamenti"
+            [propertyToShow]="RRP_C.PROPERTY_MODALITA_PAGAMENTO"
+            [errMapFormGroup]="EM.MAP_RICERCA_PAGAMENTI_FILTRI_VALORIZZATI"
+          ></risca-select>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- DATA OPERAZIONE VALUTA DA -->
+          <risca-datepicker
+            [formControlName]="RRP_C.DATA_OP_VALUTA_DA"
+            [idFormControl]="RRP_C.DATA_OP_VALUTA_DA" 
+            [cssConfig]="formInputs.dataOperazioneValutaDaConfig.css"
+            [dataConfig]="formInputs.dataOperazioneValutaDaConfig.data"
+            [errMapFormGroup]="EM.MAP_RIC_PAG_RANGE_DATA_OP"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+          ></risca-datepicker>
+        </div>
+
+        <div>
+          <!-- DATA OPERAZIONE VALUTA A -->
+          <risca-datepicker
+            [formControlName]="RRP_C.DATA_OP_VALUTA_A"
+            [idFormControl]="RRP_C.DATA_OP_VALUTA_A" 
+            [cssConfig]="formInputs.dataOperazioneValutaAConfig.css"
+            [dataConfig]="formInputs.dataOperazioneValutaAConfig.data"
+            [errMapFormGroup]="EM.MAP_RIC_PAG_RANGE_DATA_OP"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+          ></risca-datepicker>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="risca-double-date-container r-mr--40">
+          <!-- QUINTO CAMPO -->
+          <risca-text
+            [formControlName]="RRP_C.QUINTO_CAMPO"
+            [idFormControl]="RRP_C.QUINTO_CAMPO"
+            [cssConfig]="formInputs.quintoCampoConfig.css"
+            [dataConfig]="formInputs.quintoCampoConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [errMapFormGroup]="EM.MAP_RICERCA_PAGAMENTI_FILTRI_VALORIZZATI"
+          ></risca-text>          
+        </div>
+
+        <div class="r-mr--40">
+          <!-- CODICE AVVISO -->
+          <risca-text
+            [formControlName]="RRP_C.CODICE_AVVISO"
+            [idFormControl]="RRP_C.CODICE_AVVISO"
+            [cssConfig]="formInputs.codiceAvvisoConfig.css"
+            [dataConfig]="formInputs.codiceAvvisoConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [errMapFormGroup]="EM.MAP_RICERCA_PAGAMENTI_FILTRI_VALORIZZATI"
+          ></risca-text>
+        </div>
+
+        <div>
+          <!-- CRO - CODICE RIFERIMENTO OPERAZIONE -->
+          <risca-text
+            [formControlName]="RRP_C.CODICE_RIFERIMENTO_OPERAZIONE"
+            [idFormControl]="RRP_C.CODICE_RIFERIMENTO_OPERAZIONE"
+            [cssConfig]="formInputs.codiceRiferimentoOperazioneConfig.css"
+            [dataConfig]="formInputs.codiceRiferimentoOperazioneConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [errMapFormGroup]="EM.MAP_RICERCA_PAGAMENTI_FILTRI_VALORIZZATI"
+          ></risca-text>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- IMPORTO DA -->
+          <risca-number
+            [formControlName]="RRP_C.IMPORTO_DA"
+            [idFormControl]="RRP_C.IMPORTO_DA"
+            [cssConfig]="formInputs.importoDaConfig.css"
+            [dataConfig]="formInputs.importoDaConfig.data"
+            [errMapFormGroup]="EM.MAP_RIC_PAG_RANGE_IMPORTI"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+          ></risca-number>
+        </div>
+        
+        <div class="r-mr--40">
+          <!-- IMPORTO A -->
+          <risca-number
+            [formControlName]="RRP_C.IMPORTO_A"
+            [idFormControl]="RRP_C.IMPORTO_A"
+            [cssConfig]="formInputs.importoAConfig.css"
+            [dataConfig]="formInputs.importoAConfig.data"
+            [errMapFormGroup]="EM.MAP_RIC_PAG_RANGE_IMPORTI"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+          ></risca-number>
+        </div>
+
+        <div [ngClass]="[showSubmit ? 'r-mr--40' : '']">
+          <!-- SOGGETTO -->
+          <risca-text
+            [formControlName]="RRP_C.SOGGETTO"
+            [idFormControl]="RRP_C.SOGGETTO"
+            [cssConfig]="formInputs.soggettoConfig.css"
+            [dataConfig]="formInputs.soggettoConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [errMapFormGroup]="EM.MAP_RICERCA_PAGAMENTI_FILTRI_VALORIZZATI"
+          ></risca-text>
+        </div>
+        
+        <div *ngIf="showSubmit" class="rrp-pt-22">
+          <!-- CONFERMA -->
+          <risca-primary-button 
+            [dataConfig]="C_C.BTN_CERCA"
+            (onClick)="avviaRicerca()">
+          </risca-primary-button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</form>

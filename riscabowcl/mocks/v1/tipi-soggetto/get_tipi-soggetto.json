@@ -1,0 +1,12 @@
+[
+    {
+        "id_tipo_soggetto": 1,
+        "cod_tipo_soggetto": "PF",
+        "des_tipo_soggetto": "Persona Fisica"
+    },
+    {
+        "id_tipo_soggetto": 2,
+        "cod_tipo_soggetto": "PG",
+        "des_tipo_soggetto": "Persona Giuridica"
+    }
+]

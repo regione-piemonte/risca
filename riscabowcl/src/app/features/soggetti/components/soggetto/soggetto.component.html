@@ -1,0 +1,232 @@
+<div class="r-m-intL-t">
+  <!-- FILO ARIANNA -->
+  <risca-filo-arianna></risca-filo-arianna>
+</div>
+
+<div class="card-box card-box-internal card-box-external">
+
+  <!-- LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col risca-head-section-label">
+      Inserisci soggetto
+    </div>
+  </div>
+
+  <!-- ALERT PER LA COMUNICAZIONE UTENTE DI POSSIBILI EVENTI -->
+  <div class="row r-m-intL-t r-mb--10" *ngIf="alertCEConfigscheck">
+    <div class="col">
+      <!-- GESTIONE DEI MESSAGGI -->
+      <risca-alert
+        [alertConfigs]="alertCEConfigs"
+        (onAlertHidden)="onAlertHidden($event, alertCEConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+  <!-- DATI PRINCIPALI DEL SOGGETTO -->
+  <div class="row r-m-intL-t">
+    <div class="col risca-head-section-label">
+      Dati anagrafici
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <risca-dati-soggetto #riscaDatiSoggetto
+        [parentFormKey]="S_C.FORM_KEY_PARENT_SOGGETTO"
+        [childFormKey]="S_C.FORM_KEY_CHILD_DATI_SOGGETTO"
+        [datiAnagrafici]="soggettoDAConfigs"
+        [modalita]="modalita"
+        [fonteConfigs]="fonteConfigs"
+        [insModSoggettoDisabled]="AEA_ins_mod_DADisabled"
+      ></risca-dati-soggetto>
+    </div>
+  </div>
+
+  <!-- DIVISORE -->
+  <risca-separator></risca-separator>
+
+  <!-- CONTATTI DEL SOGGETTO -->
+  <div class="row">
+    <div class="col risca-common-label">
+      Contatti
+    </div>
+  </div>
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <risca-contatti #riscaContatti
+        [parentFormKey]="S_C.FORM_KEY_PARENT_SOGGETTO"
+        [childFormKey]="S_C.FORM_KEY_CHILD_CONTATTI"
+        [datiAnagrafici]="soggettoDAConfigs"
+        [idRecapito]="idRecapitoP"
+        [modalita]="modalita"
+        [fonteConfigs]="fonteConfigs"
+        [insModSoggettoDisabled]="AEA_ins_mod_DADisabled"
+      ></risca-contatti>
+    </div>
+  </div>
+  
+  <!-- DIVISORE -->
+  <risca-separator></risca-separator>
+  
+  <!-- RECAPITO PRINCIPALE -->
+  <div class="row">
+    <div class="col risca-common-label">
+      Recapito principale
+    </div>
+  </div>
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <risca-recapito #riscaRecapito
+        [parentFormKey]="S_C.FORM_KEY_PARENT_SOGGETTO"
+        [childFormKey]="S_C.FORM_KEY_CHILD_RECAPITO"
+        [datiAnagrafici]="soggettoDAConfigs"
+        [idRecapito]="idRecapitoP"
+        [modalita]="modalita"
+        [fonteConfigs]="fonteConfigs"
+        [insModSoggettoDisabled]="AEA_ins_mod_DADisabled"
+        (updateDA)="aggiornaSoggettoDaRR($event)"
+      ></risca-recapito>
+    </div>
+  </div>
+
+  <!-- DIVISORE -->
+  <risca-separator></risca-separator>
+
+  <!-- RECAPITI ALTERNATIVI -->
+  <div class="row">
+    <div class="col col-recapito-alternativo r-mr--50">
+      <div class="row">
+        <div class="col risca-common-label">
+          Recapiti Alternativi
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="risca-obbligatorio-label">
+            &egrave; possibile inserire uno o più Recapiti Alternativi.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-recapito-alternativo-accordion r-mt--a" *riscaMaintain="abilitaSoggetto">
+      <div class="row">
+        <div class="col">
+          <risca-accordion-switch
+            [label]="S_C.ACC_NUO_REC_ALT"
+            [accordionAperto]="showNuoviRecapitiAlternativi"
+            (onAccordionClick)="toggleNuoviRecapitiAlternativi($event)"
+          ></risca-accordion-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCORDION CON FORM PER INSERIMENTO NUOVO RECAPITO ALTERNATIVO -->
+  <div class="row r-m-intL-t" *ngIf="showNuoviRecapitiAlternativi">
+    <div class="col">
+      <div class="risca-accordion-container">
+
+        <div class="row">
+          <div class="col">
+            <risca-recapito #riscaRecapitoAlt
+              [parentFormKey]="S_C.FORM_KEY_PARENT_SOGGETTO_RECAPITI_ALTERNATIVI"
+              [childFormKey]="S_C.FORM_KEY_CHILD_RECAPITO_ALTERNATIVO"
+              [modalita]="C_C.INSERIMENTO"
+              [insModSoggettoDisabled]="AEA_ins_mod_DADisabled"
+            ></risca-recapito>
+          </div>
+        </div>
+        
+        <!-- DIVISORE -->
+        <risca-separator></risca-separator>
+  
+        <div class="row">
+          <div class="col risca-common-label">
+            Contatti
+          </div>
+        </div>
+        <div class="row r-m-intL-t">
+          <div class="col">
+            <risca-contatti #riscaContattiAlt
+              [parentFormKey]="S_C.FORM_KEY_PARENT_SOGGETTO_RECAPITI_ALTERNATIVI"
+              [childFormKey]="S_C.FORM_KEY_CHILD_CONTATTI_ALTERNATIVO"
+              [modalita]="C_C.INSERIMENTO"
+              [insModSoggettoDisabled]="AEA_ins_mod_DADisabled"
+            ></risca-contatti>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row">
+          <div class="risca-container-standard-x3">
+            <!-- CONFERMA -->
+            <risca-primary-button
+              class="float-right"
+              [dataConfig]="{ label: 'Aggiungi' }"
+              [disable]="AEA_ins_mod_DADisabled"
+              (onClick)="aggiungiRecapitiAlternativi()">
+            </risca-primary-button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TABELLA RECAPITI ALTERNATIVI -->
+  <div class="row r-m-intL-t" *ngIf="tableRecapitiAlternativi?.source?.length > 0">
+    <div class="col">
+      <risca-table
+        [cssConfig]="tableRecapitiAlternativi.cssConfig"
+        [dataConfig]="tableRecapitiAlternativi.dataConfig"
+        [source]="tableRecapitiAlternativi.source"
+        (onRowDelete)="rimuoviRecapitoAlternativo($event)"
+        (onRowModify)="modificaRecapitoAlternativo($event)"
+        (onRowCustomAction)="customActionRATable($event)"
+      ></risca-table>
+    </div>
+  </div>
+
+</div>
+    
+<!-- GESTIONE DEI MESSAGGI -->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- BOTTONI PER LE AZIONI DELLA PAGINA -->
+<div class="row r-m-intL-t">
+  <div class="col">
+    <!-- INDIETRO -->
+    <risca-link-button class="r-mr--15"
+      [dataConfig]="C_C.BTN_INDIETRO"
+      (onClick)="tornaIndietro()">
+    </risca-link-button>
+    <!-- ANNULLA -->
+    <risca-link-button class="r-mr--15"
+      [dataConfig]="{ label: 'ANNULLA', codeAEA: AEAK_C.ANNULLA_SOGGETTO }"
+      [disable]="annullaDisabled"
+      (onClick)="resetFormSoggettoBtn()">
+    </risca-link-button>
+    <!-- ELIMINAZIONE -->
+    <ng-container *riscaMaintain="eliminazionePossibile">
+      <risca-default-button class=" r-mr--15"
+        [dataConfig]="{ label: 'ELIMINA SOGGETTO', codeEAE: AEAK_C.ELIMINA_SOGGETTO }"
+        [disable]="(AEA_ins_mod_DADisabled || !eliminazioneAttiva)"
+        (onClick)="eliminaSoggettoBtn()">
+      </risca-default-button>
+    </ng-container>
+    <!-- CONFERMA -->
+    <risca-primary-button
+      class="float-right"
+      [dataConfig]="dataConfigSalva"
+      [disable]="salvaDisabled"
+      (onClick)="salvaSoggettoBtn()">
+    </risca-primary-button>
+  </div>
+</div>

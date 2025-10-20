@@ -1,0 +1,66 @@
+<!-- LABEL DI TESTATA -->
+<div class="row">
+  <div class="col">
+    <div class="risca-head-section-label">
+      Elenco annualità
+    </div>
+  </div>
+</div>
+
+<!-- TABELLA ANNUALITA'  -->
+<div class="row r-m-intL-t">
+
+  <div class="col annualita-table" *ngIf="checkAnnualitaTable">
+    <risca-table #riscaTAnnualita
+      [cssConfig]="annualitaTable.cssConfig"
+      [dataConfig]="annualitaTable.dataConfig"
+      [source]="annualitaTable.source"
+      (onRowDelete)="rimuoviAnnualita($event)"
+      (onRowModify)="modificaAnnualita($event)"
+    ></risca-table>
+  </div>
+  
+  <div class="col">
+    <div class="risca-common-label" *ngIf="!checkAnnualitaTable">
+      Non sono state trovate annualità per lo stato debitorio corrente.
+    </div>
+  </div>
+
+</div>
+
+<div class="row r-m-intL-t">
+  <div class="col">
+    <risca-default-button
+      [dataConfig]="{ label: 'Aggiungi nuova annualità' }"
+      [disable]="disableUserInputs"
+      (onClick)="aggiungiAnnualita()">
+    </risca-default-button>
+  </div>
+</div>
+
+<!-- ALERT PER LA COMUNICAZIONE UTENTE DI POSSIBILI EVENTI -->
+<div class="row r-m-intL-t" *ngIf="alertConfigscheck">
+  <div class="col">
+    <!-- GESTIONE DEI MESSAGGI -->
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- SEPARATORE -->
+<risca-separator></risca-separator>
+
+<!-- BOTTONI -->
+<div class="row">
+  <div class="col">
+    <!-- TORNA A STATI DEBITORI -->
+    <torna-a-stati-debitori></torna-a-stati-debitori>
+    <!-- SALVA MODIFICHE -->
+    <pulsante-salva-modifiche class="float-right"
+      [disable]="disableUserInputs"
+      (salvaModifiche)="salvaModifiche()"
+    ></pulsante-salva-modifiche>
+  </div>
+</div>

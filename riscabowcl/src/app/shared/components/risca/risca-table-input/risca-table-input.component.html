@@ -1,0 +1,63 @@
+<!-- FORM GROUP -->
+<div [formGroup]="formGroup" *ngIf="showForm">
+
+  <!-- INPUT TEXT -->
+  <ng-container *riscaMaintain="isInputText">
+    <risca-text
+      [formGroup]="formGroup"
+      [formSubmitted]="formGroupSubmitted"
+      [formControlName]="formControlName"
+      [idFormControl]="idFormControl"
+      [cssConfig]="cssConfig"
+      [dataConfig]="dataConfig"
+      [errMapFormControl]="errMapFormControl"
+      [errMapFormGroup]="errMapFormGroup"
+      [disableRequiredCheck]="false"
+    ></risca-text>
+  </ng-container>
+
+  <!-- INPUT NUMBER -->
+  <ng-container *riscaMaintain="isInputNumber">
+    <risca-number
+      [formGroup]="formGroup"
+      [formSubmitted]="formGroupSubmitted"
+      [formControlName]="formControlName"
+      [idFormControl]="idFormControl"
+      [cssConfig]="cssConfig"
+      [dataConfig]="dataConfig"
+      [errMapFormControl]="errMapFormControl"
+      [errMapFormGroup]="errMapFormGroup"
+      [disableRequiredCheck]="false"
+    ></risca-number>
+  </ng-container>
+
+  <ng-container *riscaMaintain="isInputNumberItFormat">
+    <risca-number-it-format
+      [formGroup]="formGroup"
+      [formSubmitted]="formGroupSubmitted"
+      [formControlName]="formControlName"
+      [idFormControl]="idFormControl"
+      [cssConfig]="cssConfig"
+      [dataConfig]="dataConfig"
+      [errMapFormControl]="errMapFormControl"
+      [errMapFormGroup]="errMapFormGroup"
+      [disableRequiredCheck]="false"
+    ></risca-number-it-format>
+  </ng-container>
+
+  <!-- INPUT EMAIL -->
+  <ng-container *riscaMaintain="isInputEmail">
+    <risca-email
+      [formGroup]="formGroup"
+      [formSubmitted]="formGroupSubmitted"
+      [formControlName]="formControlName"
+      [idFormControl]="idFormControl"
+      [cssConfig]="cssConfig"
+      [dataConfig]="dataConfig"
+      [errMapFormControl]="errMapFormControl"
+      [errMapFormGroup]="errMapFormGroup"
+      [disableRequiredCheck]="false"
+    ></risca-email>
+  </ng-container>
+
+</div>

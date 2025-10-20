@@ -1,0 +1,131 @@
+<ng-container *ngIf="paginazioneVisibile">
+
+  <div class="container-fluid container-rtp">
+    <div class="row">
+
+      <!-- DOM CHE PERMETTE DI SPOSTARE TUTTI GLI ELEMENTI SULLA DESTRA DELLA RIGA -->
+      <div class="col" *riscaMaintain="right"></div>
+
+      <!-- DESCRIZIONE CON STATO PAGINATORE -->
+      <div class="col-auto col-mostra-totale" *riscaMaintain="mostraTotale">
+        <div class="">
+          {{ paginazione | riscaTPMostraTotale }}
+        </div>
+      </div>
+
+      <!-- PAGINATORE -->
+      <div class="col-auto">
+        <!-- Bottone per tornare alla prima pagina -->
+        <button type="button" class="btn"
+          [title]="RTP_C.INIZIO"
+          [attr.aria-label]="RTP_C.INIZIO"
+          [disabled]="isPrimaPagina"
+          (click)="vaiAPagina(1)"
+        >
+          <div class="col col-icon">
+            <img [src]="start" class="r-a-img" [attr.alt]="RTP_C.INIZIO" />
+          </div>
+        </button>
+
+        <!-- Bottone per tornare indietro di una pagina -->
+        <button type="button"
+          class="btn"
+          [title]="RTP_C.INDIETRO"
+          [attr.aria-label]="RTP_C.INDIETRO"
+          [disabled]="isPrimaPagina"
+          (click)="vaiAPagina(paginaCorrente - 1)"
+        >
+          <div class="col col-icon">
+            <img [src]="backward" class="r-a-img" [attr.alt]="RTP_C.INDIETRO" />
+          </div>
+        </button>
+
+        <!--Puntini per overflow a sinistra-->
+        <div *ngIf="showDotsLeft" class="dots">
+          <div class="col col-icon">
+            <span [title]="RTP_C.ALTRO" [attr.aria-label]="RTP_C.ALTRO">...</span>
+          </div>
+        </div>
+
+        <!--Lista di bottoni numerici per le pagine-->
+        <div *ngFor="let numeroPagina of pagine;" style="display: inline-block;">
+          <!--Bottone per andare alla pagina numeroPagina-->
+          <button type="button" class="btn"
+            [title]="RTP_C.PAGINA + ' ' + numeroPagina"
+            [attr.aria-label]="RTP_C.PAGINA + ' ' + numeroPagina"
+            [ngClass]="[paginaCorrente == numeroPagina ? 'btn-primary' : '']"
+            (click)="vaiAPagina(numeroPagina)">
+            {{ numeroPagina }}
+          </button>
+        </div>
+
+        <!--Puntini per overflow a destra-->
+        <div *ngIf="showDotsRight" class="dots">
+          <div class="col col-icon">
+            <span [title]="RTP_C.ALTRO" [attr.aria-label]="RTP_C.ALTRO">...</span>
+          </div>
+        </div>
+
+        <!-- Bottone andare avanti di una pagina -->
+        <button type="button" class="btn"
+          [title]="RTP_C.AVANTI"
+          [attr.aria-label]="RTP_C.AVANTI"
+          [disabled]="isUltimaPagina"
+          (click)="vaiAPagina(paginaCorrente + 1)"
+        >
+          <div class="col col-icon">
+            <img [src]="forward" class="r-a-img" [attr.alt]="RTP_C.AVANTI" />
+          </div>
+        </button>
+
+        <!-- Bottone per andare all'ultima pagina -->
+        <button type="button" class="btn"
+          [title]="RTP_C.FINE"
+          [attr.aria-label]="RTP_C.FINE"
+          [disabled]="isUltimaPagina"
+          (click)="vaiAPagina(totalePagineRicerca)"
+        >
+          <div class="col col-icon">
+            <img [src]="end" class="r-a-img" [attr.alt]="RTP_C.FINE"/>
+          </div>
+        </button>
+      </div>
+
+      <!-- INPUT VAI A CON PULSANTE -->
+      <ng-container *riscaMaintain="mostraVaiA">
+
+        <!-- INPUT -->
+        <div class="col col-mostra-vaiA-input">
+          <input type="number" lang="it" class="form-control risca-input-border risca-input-small"
+            [(ngModel)]="vaiA"
+            [placeholder]="paginazione?.currentPage + '/' + paginazione?.total"
+            [title]="vaiA ? vaiA : ''"
+            
+            [ngClass]="[]"
+            [ngStyle]=""
+            [attr.min]="1 || null"
+            [attr.max]="paginazione?.total || null"
+            [attr.step]="1 || null"
+            
+            NumbersOnly
+              [allowDecimals]="false"
+              [allowSign]="false"
+
+            (blur)="checkVaiA()"
+          >
+        </div>
+        <!-- PULSANTE -->
+        <div class="col col-mostra-vaiA-btn">
+          <risca-default-button 
+            [dataConfig]="RTP_C.BTN_VAI_A"
+            [disable]="!checkVaiAInRange"
+            (onClick)="vaiAPagina(vaiA)">
+          </risca-default-button>
+        </div>
+
+      </ng-container>
+
+    </div>
+  </div>
+
+</ng-container>

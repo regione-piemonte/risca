@@ -1,0 +1,74 @@
+<!-- HEADER STANDARD PER LA MODALE -->
+<risca-modal-header
+  [title]="IDMM_C.MODAL_TITLE"
+  (onClickClose)="modalDismiss()">
+</risca-modal-header>
+
+<!-- CORPO DELLA MODALE -->
+<div class="modal-body risca-modal-body">
+
+    <!-- SOTTOTITOLO -->
+    <div class="row">
+      <div class="col-auto">
+        <div class="risca-common-label">
+          {{IDMM_C.MODAL_SOTTOTITOLO}} 
+        </div>
+      </div>
+    </div>
+  
+  <!-- TESTATA -->
+  <div class="d-flex flex-row">
+    <div class="risca-obbligatorio-label">
+      *campi obbligatori
+    </div>
+  </div>
+
+
+  <!-- FORM DI INSERIMENTO -->
+  <div class="row">
+    <div class="col">
+      <interessi-di-mora-form #interessiDiMoraFormComp
+        [interessiDiMoraForm]="interessiDiMoraForm"
+        [showButtonAggiungi]="IDMM_C.SHOW_BUTTON_AGGIUNGI"
+        [disabledDataInizio]="IDMM_C.DISABLED_DATA_INIZIO"
+        [showFieldDataFine]="IDMM_C.SHOW_FIELD_DATA_FINE"
+        [showFieldGiorni]="IDMM_C.SHOW_FIELD_GIORNI"
+        [AEADisabled]="AEA_TDIDisabled"
+        [modalita]="modalitaModifica"
+        (onFormSubmit)="onFormSubmitInteressiDiMora($event)"
+      ></interessi-di-mora-form>
+    </div>
+    
+  </div>
+</div>
+
+<!-- FOOTER DELLA MODALE -->
+<div class="modal-footer risca-model-footer">
+  <!-- GESTIONE PULSANTI -->
+  <ng-container *ngIf="!AEA_TDIDisabled && !readOnly">
+    <!-- ANNULLA -->
+    <risca-button
+      class="r-mri--a"
+      [dataConfig]="C_C.BTN_ANNULLA"
+      [cssConfig]="C_C.CSS_ANNULLA"
+      (onClick)="annullaModificaInteresseDiMora()">
+    </risca-button>
+  </ng-container>
+  <ng-container *ngIf="AEA_TDIDisabled || readOnly">
+    <!-- INDIETRO -->
+    <risca-button
+      class="r-mri--a"
+      [dataConfig]="C_C.BTN_INDIETRO"
+      [cssConfig]="C_C.CSS_INDIETRO"
+      (onClick)="indietroModificaInteresseDiMora()">
+    </risca-button>
+  </ng-container>
+
+  <!-- SALVA MODIFICHE -->
+  <risca-button
+    [dataConfig]="C_C.BTN_SALVA_MODIFICHE"
+    [cssConfig]="C_C.CSS_SALVA_MODIFICHE"
+    [disable]="AEA_TDIDisabled || readOnly"
+    (onClick)="confermaModificaInteresseDiMora()">
+  </risca-button>
+</div>

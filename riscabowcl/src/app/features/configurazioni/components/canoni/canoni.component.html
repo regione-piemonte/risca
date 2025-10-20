@@ -1,0 +1,85 @@
+<div class="card-box card-box-internal">
+
+  <!-- TITOLO -->
+  <div class="d-flex flex-row">
+    <div class="risca-head-section-label">
+      Ricerca canoni ufficiali
+    </div>
+  </div>
+  <div class="d-flex flex-row">
+    <div class="risca-obbligatorio-label">
+      Seleziona l'anno di riferimento.
+    </div>
+  </div>
+
+  <!-- FORM DI RICERCA -->
+  <div class="row">
+    <div class="col">
+      <canoni-form #canoniForm
+        (onChildServiziError)="onServiziError($event)"
+        (onFormSubmit)="onCanoniFormSubmit($event)"
+        (onFormErrors)="onCanoniFormError($event)"
+      ></canoni-form>
+    </div>
+  </div>
+  
+  <!-- CREA REGOLA ANNUALITA' -->
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <risca-button
+        [dataConfig]="CAN_C.BTN_CREA_ANNUALITA"
+        [cssConfig]="CAN_C.CSS_CREA_ANNUALITA"
+        [disable]="disableCreaAnnualita"
+        (onClick)="creaRegolaAnnualita()"
+      ></risca-button>
+    </div>
+  </div>
+
+  <div class="row r-m-intL-t" *ngIf="checkJsonRegoleTable">
+    <div class="col">
+      <risca-table
+        [tableId]="CAN_C.JSON_REGOLE_TABLE_ID"
+        [cssConfig]="regolaUsiTable.cssConfig"
+        [dataConfig]="regolaUsiTable.dataConfig"
+        [source]="regolaUsiTable.source"
+        [isFETable]="false"
+        (onRowDetail)="onDettaglioRegolaUso($event)"
+        (onCambioPagina)="onCambioPagina($event)"
+      ></risca-table>
+    </div>
+  </div>
+
+</div>
+
+<!-- GESTIONE DEGLI ERRORI -->
+<div class="row r-m-intL" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert 
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- BOTTONI PER AVVIO RICERCA -->
+<div class="button-group r-m-intL-t" *ngIf="checkJsonRegoleTable">
+  <!-- CONTAINER -->
+  <div class="row">
+    <div class="col">
+      <!-- ANNULLA -->
+      <risca-link-button
+        [dataConfig]="C_C.BTN_ANNULLA"
+        [disable]="disablePaginaCanoni"
+        (onClick)="resetTabRegoleUsi()"
+      ></risca-link-button>
+    </div>
+    <div class="col text-right">
+      <!-- CONFERMA -->
+      <risca-primary-button 
+        [dataConfig]="CAN_C.BTN_SALVA_MODIFICHE"
+        [disable]="disablePaginaCanoni"
+        (onClick)="aggiornaRegoleUsiAttuali()"
+      ></risca-primary-button>
+    </div>
+  </div>
+</div>

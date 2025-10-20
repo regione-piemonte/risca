@@ -1,0 +1,14 @@
+<!-- ERROR - CONTAINER CHE VIENE RIMOSSO PERMANENTEMENTE DAL DOM A SECONDA DELLA CONDIZIONE -->
+<ng-container *riscaRemove="!cssConfig.showErrorFC">
+  <!-- CONDIZIONI PER IL FORM CONTORL ERROR -->
+  <ng-container *ngIf="checkValidationData || checkValidationBlur">
+    <small class="form-text text-muted risca-text-error ellipsis"
+      *ngIf="(formControl | riscaFormError:mappaErroriFC:manualUpdateMsg) as message"
+      [title]="message"
+      [innerHTML]="message"
+      [ngClass]="cssConfig.customError | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.customError | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+    </small>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,306 @@
+<div class="card-box card-box-external card-box-internal">
+
+  <ng-container *riscaMaintain="showNotifiche">
+    <div class="row r-m-intL-b">
+      <div class="col-xl-4 col-md-6" *ngFor="let notifica of listaNotifiche.slice(0, 3)">
+        <div class="card">
+          <span class="title">
+            <span class="title-text">{{ notifica.titolo }}</span>
+            <em class="fa fa-times" aria-hidden="true"></em>
+          </span>
+          <span class="type-box">
+            <span class="type-content">Notifiche</span>
+          </span>
+          <span class="content"> {{ notifica.testo }} </span>
+          <span class="date"> {{ notifica.data }} </span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- ACCORDION CON FORM PER INSERIMENTO NUOVO RECAPITO ALTERNATIVO -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-accordion-container">
+
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <div class="risca-head-section-label">
+                  Ricerca Pratiche
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="risca-common-label">
+                  Puoi fare una <strong>ricerca veloce</strong> oppure andare alla sezione <strong>Pratiche</strong> per una ricerca con più parametri: <strong>seleziona "Vai a ricerca avanzata".</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-ricerca-avanzata r-mt--a">
+            <risca-primary-button [dataConfig]="{ label: 'Vai a ricerca avanzata' }" (onClick)="goToRicercaAvanzata()"></risca-primary-button>
+          </div>
+        </div>
+
+        <div class="row">
+          <!--Form ricerca pratica semplice-->
+          <div class="col">
+            <risca-ricerca-semplice-pratiche #riscaRicercaSemplicePratiche
+              [ricerca]="ricercaPS?.ricerca"
+              (onFormSubmit)="avviaRicercaSemplice($event)"
+            ></risca-ricerca-semplice-pratiche>
+          </div>          
+        </div>
+        <!-- BOTTONI PER AVVIO RICERCA -->
+        <div class="row r-m-intL-t padding-search-buttons">
+          <div class="col">
+              <!-- CONTAINER -->
+              <div class="form-group row col-lg-12" style="display: flex; justify-content: space-between;">
+                <!-- ANNULLA -->
+                <div class="btn-group">
+                  <risca-link-button [dataConfig]="{ label: 'ANNULLA' }" (onClick)="annullaRicercaSemplice()"></risca-link-button>
+                </div>
+                <!-- CONFERMA -->
+                <div class="btn-group r-l--30">
+                  <risca-primary-button [dataConfig]="{ label: 'CERCA PRATICA' }" (onClick)="ricercaSemplice()"></risca-primary-button>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <!-- GESTIONE DEGLI ERRORI -->
+        <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+          <div class="col">
+            <risca-alert [alertConfigs]="alertRSConfigs"></risca-alert>
+          </div>
+        </div>
+
+        <!--Tabella risultati ricerca semplice Pratiche-->
+        <div class="row r-m-intL-t" *ngIf="tablePratiche?.source?.length > 0">
+          <div class="col">
+            <risca-table
+              [cssConfig]="tablePratiche.cssConfig"
+              [dataConfig]="tablePratiche.dataConfig"
+              [source]="tablePratiche.source"
+              [isFETable]="false"
+              (onRowDetail)="modificaPratica($event)"
+              (onCambioPagina)="cambiaPaginaPratiche($event)"
+            ></risca-table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+
+  <!-- INSERIMENTO NUOVA PRATICA/NUOVO GRUPPO -->
+  <div class="row">
+
+    <!-- INSERIMENTO NUOVA PRATICA -->
+    <div class="col">
+      <div class="row">
+        <div class="col col-nuova-pratica">
+          <div class="row">
+            <div class="col">
+              <div class="risca-head-section-label">
+                Nuova pratica
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="risca-common-label">
+                Devi inserire una nuova Pratica?
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col r-mt--a">
+          <risca-primary-button
+            [dataConfig]="{ label: 'Vai a nuova pratica', codeAEA: AEAK_C.NUOVA_PRATICA_HOME }"
+            (onClick)="goToInserimentoPratica()">
+          </risca-primary-button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- INSERIMENTO NUOVO GRUPPO -->
+    <div class="col" *riscaMaintain="isGruppoAbilitato">  
+      <div class="row">
+        <div class="col col-nuovo-gruppo">
+          <div class="row">
+            <div class="col">
+              <div class="risca-head-section-label">
+                Nuovo gruppo
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="risca-common-label">
+                Devi creare un nuovo gruppo?
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col r-mt--a">
+          <risca-primary-button
+            [dataConfig]="{ label: 'Vai a nuovo gruppo', codeAEA: AEAK_C.NUOVO_GRUPPO_HOME }"
+            [disable]="!isGestioneAbilitata"
+            (onClick)="goToInserimentoGruppo()">
+          </risca-primary-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <div class="risca-head-section-label">
+            <div [innerHTML]="testataSoggettiGruppi"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="risca-common-label">
+            <div [innerHTML]="descrizioneSoggettiGruppi"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form id="ricercaSGForm" [formGroup]="ricercaSGForm" (ngSubmit)="ricercaSGFormSubmitReset()">
+
+    <div class="row r-m-intL-t" *riscaMaintain="isGruppoAbilitato">
+      <div class="col">
+        <!-- SCELTA DELLE RADIO -->
+        <risca-radio 
+          [formControlName]="H_C.TARGET"
+          [idFormControl]="H_C.TARGET"
+          [formGroup]="ricercaSGForm"
+          [cssConfig]="formInputs.targetConfig.css"
+          [dataConfig]="formInputs.targetConfig.data"
+          [dataSource]="formInputs.targetConfig.source"
+          [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+          [formSubmitted]="ricercaSGSubmitted"
+        ></risca-radio>
+      </div>
+    </div>
+
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <div class="d-flex flex-row">
+
+          <div class="r-mr--40 h-mt-8">
+            <!-- CAMPO LIBERO PER LA RICERCA -->
+            <risca-text 
+              [formControlName]="H_C.CAMPO_LIBERO"
+              [idFormControl]="H_C.CAMPO_LIBERO"
+              [formGroup]="ricercaSGForm"
+              [cssConfig]="formInputs.campoLiberoConfig.css"
+              [dataConfig]="formInputs.campoLiberoConfig.data"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="ricercaSGSubmitted"
+              [invio]="true"
+              (onInvio)="ricercaSGFormSubmitReset()"
+            ></risca-text>
+          </div>
+
+          <div class="r-mb--a">
+            <!-- SUBMIT -->
+            <button form="ricercaSGForm" type="submit" class="btn btn-primary">
+              Cerca
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- VISUALIZZAZIONE DEL BLOCCO DELL'ALERT -->
+  <ng-controller *ngIf="alertSGFConfigsCheck">
+    <div class="row row-alert-SGForm r-m-intL-t r-mb--20">
+      <div class="col">
+        <!-- GESTIONE DEGLI ERRORI -->
+        <risca-alert [alertConfigs]="alertSGFConfigs"></risca-alert>
+      </div>
+    </div>
+    <div class="row row-alert-SGForm" *ngIf="nuovoGruppoBtn && isGestioneAbilitata">
+      <div class="col">
+        <!-- RESET FORM -->
+        <risca-link-button
+          [dataConfig]="{ label: 'ANNULLA' }"
+          (onClick)="resetSGForm(true)">
+        </risca-link-button>
+      </div>
+      <div class="col">
+        <!-- INSERISCI GRUPPO -->
+        <risca-primary-button
+          class="float-right"
+          [dataConfig]="{ label: 'Vai a nuovo gruppo', codeAEA: AEAK_C.NUOVO_GRUPPO_H_CERCA }"
+          (onClick)="goToInserimentoGruppo()">
+        </risca-primary-button>
+      </div>
+    </div>
+  </ng-controller>
+
+  <!-- TABELLA DEI SOGGETTI -->
+  <div class="row r-m-intL-t" *ngIf="dataRicercaSTable">
+    <div class="col">
+      <risca-table
+        [cssConfig]="ricercaSTable.cssConfig"
+        [dataConfig]="ricercaSTable.dataConfig"
+        [source]="ricercaSTable.source"
+        [isFETable]="false"
+        (onRowDetail)="dettaglioSTable($event)"
+        (onRowCustomAction)="customSTable($event)"
+        (onCambioPagina)="cambiaPaginaSoggetti($event)"
+      ></risca-table>
+    </div>
+  </div>
+
+  <!-- VERIFICA DEL RUOLO DELL'UTENTE -->
+  <ng-container *riscaMaintain="(C_C.ABILITA_DA_SEZIONE_GRUPPI | abilitazioneDA:C_C.ABILITA_DA_GRUPPI_IA)">
+    <!-- TABELLA DEI GRUPPI -->
+    <div class="row r-m-intL-t" *ngIf="dataRicercaGTable">
+      <div class="col">
+        <risca-table
+          [cssConfig]="ricercaGTable.cssConfig"
+          [dataConfig]="ricercaGTable.dataConfig"
+          [source]="ricercaGTable.source"
+          [isFETable]="false"
+          (onRowDetail)="dettaglioGTable($event)"
+          (onRowCustomAction)="customGTable($event)"
+          (onCambioPagina)="cambiaPaginaGruppi($event)"
+        ></risca-table>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="row r-m-intL-t" *ngIf="dataRicercaSTable || dataRicercaGTable">
+    <div class="col">
+      <!-- RESET FORM -->
+      <risca-link-button
+        [dataConfig]="{ label: 'ANNULLA' }"
+        (onClick)="resetSGForm()">
+      </risca-link-button>
+    </div>
+  </div>
+
+</div>

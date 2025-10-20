@@ -1,0 +1,70 @@
+Invalid Context= "Apps" line for icon theme:  "/usr/share/icons/Yaru/256x256@2x/apps/"
+Invalid Context= "Mimetypes" line for icon theme:  "/usr/share/icons/Yaru/256x256@2x/mimetypes/"
+Invalid Context= "Mimetypes" line for icon theme:  "/usr/share/icons/Yaru/scalable/mimetypes/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/8x8/legacy/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/16x16/legacy/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/22x22/legacy/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/24x24/legacy/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/32x32/legacy/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/48x48/legacy/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/256x256/legacy/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/512x512/legacy/"
+Invalid Context= "Legacy" line for icon theme:  "/usr/share/icons/Adwaita/scalable/legacy/"
+Invalid Context= "UI" line for icon theme:  "/usr/share/icons/Adwaita/scalable/ui/"
+QDBusConnection: name 'org.kde.kglobalaccel' had owner '' but we thought it was ':1.208'
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleTerminalActivity" : Pointers are not supported: Terminal*
+Skipped method "handleTerminalSilence" : Pointers are not supported: Terminal*
+Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 65 QPixmap in method "grab"
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleTerminalActivity" : Pointers are not supported: Terminal*
+Skipped method "handleTerminalSilence" : Pointers are not supported: Terminal*
+Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 65 QPixmap in method "grab"
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleTerminalActivity" : Pointers are not supported: Terminal*
+Skipped method "handleTerminalSilence" : Pointers are not supported: Terminal*
+Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 65 QPixmap in method "grab"
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleTerminalActivity" : Pointers are not supported: Terminal*
+Skipped method "handleTerminalSilence" : Pointers are not supported: Terminal*
+Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 65 QPixmap in method "grab"
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleTerminalActivity" : Pointers are not supported: Terminal*
+Skipped method "handleTerminalSilence" : Pointers are not supported: Terminal*
+Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 65 QPixmap in method "grab"
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleTerminalActivity" : Pointers are not supported: Terminal*
+Skipped method "handleTerminalSilence" : Pointers are not supported: Terminal*
+Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 65 QPixmap in method "grab"
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleContextDependentToggleAction" : Pointers are not supported: QAction*
+Skipped method "handleTerminalActivity" : Pointers are not supported: Terminal*
+Skipped method "handleTerminalSilence" : Pointers are not supported: Terminal*
+Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 65 QPixmap in method "grab"

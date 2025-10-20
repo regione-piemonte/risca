@@ -1,0 +1,31 @@
+.col-rsdncum-sd-selezionati {
+  flex: 0 0 220px;
+}
+
+.col-rsdncum-sd-codice-utenza {
+  flex: 0 0 185px;
+}
+
+.col-rsdncum-sd-nap {
+  flex: 0 0 185px;
+}
+
+.col-rsdncum-sd-anno {
+  flex: 0 0 115px;
+}
+
+.col-rsdncum-sd-elimina {
+  flex: 0 0 50px;
+}
+
+.col-table-sd-selezionati {
+  flex: 0 0 615px;
+}
+
+.workaround-checkbox {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: -9999;
+}

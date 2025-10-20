@@ -1,0 +1,61 @@
+<!-- TESTATA -->
+<risca-modal-header
+  [title]="modalTitle"
+  (onClickClose)="modalCancel()"
+></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+  <div class="container-fluid r-plr--0">
+    
+    <!-- ALERT PER GESTIRE LA MANCANZA DELLE RATE -->
+    <div class="row r-m-intL-b" *ngIf="alertConfigsCheck">
+      <div class="col">
+        <risca-alert 
+          [alertConfigs]="alertConfigs"
+          (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+        ></risca-alert>
+      </div>
+    </div>
+
+    <!-- FORM DEL RIMBORSO -->
+    <div class="row">
+      <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3" *ngIf="checkRateTable">
+        <!-- TABELLA RATE -->
+        <risca-table
+          [cssConfig]="rateTable.cssConfig"
+          [dataConfig]="rateTable.dataConfig"
+          [source]="rateTable.source"
+        ></risca-table>
+      </div>
+      <div class="col">
+
+        <!-- TABELLA CON DATI -->
+        <ng-container *ngIf="checkDilazioneTable">
+          <!-- TABELLA DILAZIONE -->
+          <risca-table
+            [cssConfig]="dilazioneTable.cssConfig"
+            [dataConfig]="dilazioneTable.dataConfig"
+            [source]="dilazioneTable.source"
+          ></risca-table>
+        </ng-container>
+
+        <!-- TABELLA SENZA DATI -->
+        <ng-container *ngIf="!checkDilazioneTable">
+          Non è stata trovata dilazione per lo stato debitorio corrente.
+        </ng-container>
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- GESTIONE DEL RIMBORSO -->
+<div class="modal-footer risca-model-footer">
+  <!-- CONFERMA -->
+  <risca-primary-button class="r-mli--a"
+    [dataConfig]="RUM_C.BTN_CHIUDI_CONFIG"
+    (onClick)="modalClose()">
+  </risca-primary-button>
+</div>

@@ -1,0 +1,19 @@
+[
+	{
+	"id_tipo_procedimento": 1,
+	"ambito": {
+		"id_ambito": 1,
+		"cod_ambito": "AMB",
+		"des_ambito": "Ambiente",
+		"des_estesa_ambito": "Descrizione estesa Ambiente"
+	},
+	"des_tipo_procedimento": "VIA",
+	"des_estesa_tipo_procedimento": "descrizione estesa VIA",
+	"numero_opera": "S",
+	"ordinamento_tipo_procedimento": 1,
+	"ind_numero_soggetto": "S",
+	"ind_tipo_soggetto": "GF",
+	"ind_numero_referente": "S",
+	"ind_numero_dichiarante": "S"
+	}
+]

@@ -1,0 +1,52 @@
+<!-- FORM GROUP -->
+<div ngbRadioGroup [(ngModel)]="_value" [id]="idDOM" [name]="idFC" [disabled]="disabled"
+  class="form-group risca-form-group"
+  [ngClass]="cssConfig.customForm"
+  (change)="onRadioChange()"
+>
+
+  <!-- FORM RADIO | CONFIGURABILE PER ORIZZONTALE O VERTICALE -->
+  <div class="form-check"
+    [ngClass]="[
+      cssConfig.customFormCheck,
+      dataConfig.orientation === C_C.HORIZONTAL ? 'form-check-inline' : 'form-check-vertical'
+    ]"
+    *ngFor="let radio of source"
+  >
+    <!-- LABEL -->
+    <label ngbButtonLabel class="" [ngClass]="cssConfig.customLabel">
+      <!-- INPUT -->
+      <input ngbButton [disabled]="radio.disabled || false" [value]="radio"
+        type="radio"
+        class="form-check-input risca-radio risca-input-border"
+        [ngClass]="[
+          cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_CLASS,
+          (cssConfig.showErrorFC && formControl.invalid && (formSubmitted || formControl.dirty || formControl.touched))
+          ||
+          (cssConfig.showErrorFG && formGroup.invalid && formErrors && (formSubmitted || formGroup.dirty || formGroup.touched))
+          ? 'risca-input-border-error' : ''
+        ]"
+        [ngStyle]="cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+      >
+      <!-- ETICHETTA DEL RADIO -->
+      <div [innerHtml]="radio[propertyToShow]"></div>
+    </label>
+  </div>
+
+  <!-- FORM CONTROL - GESTIONE ERRORI -->
+  <risca-form-control-error
+    [cssConfig]="cssConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [errMapFormControl]="mappaErroriFC"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-control-error>
+  <!-- FORM GROUP - GESTIONE ERRORI -->
+  <risca-form-group-error
+    [cssConfig]="cssConfig"
+    [formGroup]="formGroup"
+    [errMapFormGroup]="mappaErroriFG"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-group-error>
+
+</div>

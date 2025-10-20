@@ -1,0 +1,49 @@
+<!-- TESTATA -->
+<risca-modal-header
+  [title]="modalTitle"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<!-- BODY -->
+<div class="modal-body risca-modal-body">
+  <div class="container-fluid r-plr--0">
+
+    <div class="row r-mb--30" *ngIf="alertConfigsCheck">
+      <div class="col">
+        <risca-alert
+          [alertConfigs]="alertConfigs"
+          (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+        ></risca-alert>
+      </div>
+    </div>
+    
+    <!-- FORM DELL'ACCERTAMENTO -->
+    <div class="row">
+      <div class="col">
+        <risca-accertamento #riscaAccertamento
+          [accertamento]="accertamento"
+          [modalita]="modalita"
+          (onFormSubmit)="aggiungiAccertamento($event)"
+        ></risca-accertamento>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GESTIONE DELL'ACCERTAMENTO -->
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="onAnnullaAccertamento()"
+  ></risca-button>
+
+  <!-- CONFERMA -->
+  <risca-primary-button
+    [dataConfig]="btnConferma"
+    (onClick)="onConfermaAccertamento()">
+  </risca-primary-button>
+</div>

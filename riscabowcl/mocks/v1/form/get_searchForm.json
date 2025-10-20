@@ -1,0 +1,46 @@
+{
+  "components": [
+    {
+      "hideLabel": true,
+      "input": true,
+      "key": "codiceFiscale",
+      "label": "Codice Fiscale",
+      "placeholder": "Inserisci codice fiscale",
+      "tooltip": "Inserisci codice fiscale",
+      "type": "textfield"
+    },
+    {
+      "action": "event",
+      "event": "cercaConCF",
+      "hideLabel": true,
+      "input": true,
+      "key": "cerca",
+      "label": "Cerca",
+      "size": "md",
+      "theme": "primary",
+      "type": "button"
+    },
+    {
+      "hideLabel": true,
+      "input": true,
+      "key": "nome",
+      "label": "Nome",
+      "placeholder": "Inserisci nome",
+      "tooltip": "Inserisci nome",
+      "disabled": true,
+      "hidden": true,
+      "type": "textfield"
+    },
+    {
+      "hideLabel": true,
+      "input": true,
+      "key": "cognome",
+      "label": "Cognome",
+      "placeholder": "Inserisci cognome",
+      "tooltip": "Inserisci cognome",
+      "hidden": true,
+      "type": "textfield"
+    }
+  ],
+  "display": "form"
+}

@@ -1,0 +1,106 @@
+<form [formGroup]="mainForm">
+
+    <div class="row r-m-intL-t">
+        <div class="col">
+            <div class="d-flex flex-row">
+
+                <div class="r-mr--40">
+                    <!-- CODICE UTENZA -->
+                    <risca-text [formControlName]="RRSP_C.CODICE_UTENZA"
+                        [idFormControl]="RRSP_C.CODICE_UTENZA"
+                        [formGroup]="mainForm"
+                        [cssConfig]="formInputs.codiceUtenzaConfig.css"
+                        [dataConfig]="formInputs.codiceUtenzaConfig.data"
+                        [invio]="true"
+                        (onInvio)="onFormSubmit()"
+                    ></risca-text>
+                    </div>
+
+                    <div class="r-mr--40">
+                    <!-- NUMERO AVVISO PAGAMENTO -->
+                    <risca-text [formControlName]="RRSP_C.NUMERO_AVVISO_PAGAMENTO"
+                        [idFormControl]="RRSP_C.NUMERO_AVVISO_PAGAMENTO"
+                        [formGroup]="mainForm"
+                        [cssConfig]="formInputs.numeroAvvisoPagamentoConfig.css"
+                        [dataConfig]="formInputs.numeroAvvisoPagamentoConfig.data"
+                        [invio]="true"
+                        (onInvio)="onFormSubmit()"
+                    ></risca-text>
+                    </div>
+
+                    <div class="r-mr--40">
+                    <!-- NUMERO PRATICA -->
+                    <risca-text [formControlName]="RRSP_C.NUMERO_PRATICA"
+                        [idFormControl]="RRSP_C.NUMERO_PRATICA"
+                        [formGroup]="mainForm"
+                        [cssConfig]="formInputs.numeroPraticaConfig.css"
+                        [dataConfig]="formInputs.numeroPraticaConfig.data"
+                        [invio]="true"
+                        (onInvio)="onFormSubmit()"
+                    ></risca-text>
+                    </div>
+
+                    <div>
+                    <!-- CODICE FISCALE -->
+                    <risca-text [formControlName]="RRSP_C.CODICE_FISCALE"
+                        [idFormControl]="RRSP_C.CODICE_FISCALE"
+                        [formGroup]="mainForm"
+                        [cssConfig]="formInputs.codiceFiscaleConfig.css"
+                        [dataConfig]="formInputs.codiceFiscaleConfig.data"
+                        [errMapFormControl]="EM.MAP_PATTERN_COD_FISC"
+                        [formSubmitted]="ricercaPraticaSubmitted"
+                        [toUpperCase]="true"
+                        [invio]="true"
+                        (onInvio)="onFormSubmit()"
+                    ></risca-text>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row r-m-intL-t">
+        <div class="col">
+            <div class="d-flex flex-row">
+
+                <div class="r-mr--40">
+                    <!-- RAGIONE SOCIALE O COGNOME -->
+                    <risca-text [formControlName]="RRSP_C.RAGIONE_SOCIALE_COGNOME"
+                        [idFormControl]="RRSP_C.RAGIONE_SOCIALE_COGNOME"
+                        [formGroup]="mainForm"
+                        [cssConfig]="formInputs.ragioneSocialeOCognomeConfig.css"
+                        [dataConfig]="formInputs.ragioneSocialeOCognomeConfig.data"
+                        [invio]="true"
+                        (onInvio)="onFormSubmit()"
+                    ></risca-text>
+                </div>
+
+                <div class="r-mr--40">
+                    <!-- CODICE AVVISO -->
+                    <risca-text [formControlName]="RRSP_C.CODICE_AVVISO"
+                        [idFormControl]="RRSP_C.CODICE_AVVISO"
+                        [formGroup]="mainForm"
+                        [cssConfig]="formInputs.codiceAvvisoConfig.css"
+                        [dataConfig]="formInputs.codiceAvvisoConfig.data"
+                        [invio]="true"
+                        (onInvio)="onFormSubmit()"
+                    ></risca-text>
+                </div>
+
+                <!-- TEST -->
+                <!-- <div class="r-mr--40">
+                    <risca-number-it-format
+                      [formControlName]="RRSP_C.TEST"
+                      [idFormControl]="RRSP_C.TEST"
+                      [formGroup]="mainForm"
+                      [cssConfig]="formInputs.testConfig.css"
+                      [dataConfig]="formInputs.testConfig.data"
+                      [invio]="true"
+                      (onInvio)="onFormSubmit()"
+                    ></risca-number-it-format>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+</form>

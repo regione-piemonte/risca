@@ -1,0 +1,39 @@
+<div class="card-box card-box-internal">
+
+  <!-- TITOLO -->
+  <div class="d-flex flex-row">
+    <div class="risca-head-section-label">
+      Ricerca canoni ufficiali
+    </div>
+  </div>
+
+</div>
+
+<!-- GESTIONE DEGLI ERRORI -->
+<div class="row r-m-intL" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert 
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- BOTTONI PER AVVIO RICERCA -->
+<div class="button-group r-m-intL-t">
+  <!-- CONTAINER -->
+  <div class="row">
+    <div class="col">
+      <!-- ANNULLA -->
+      <risca-link-button
+        [dataConfig]="C_C.BTN_ANNULLA"
+      ></risca-link-button>
+    </div>
+    <div class="col text-right">
+      <!-- CONFERMA -->
+      <risca-primary-button 
+        [dataConfig]="C_C.BTN_CONFERMA"
+      ></risca-primary-button>
+    </div>
+  </div>
+</div>

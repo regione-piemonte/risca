@@ -1,0 +1,49 @@
+<!-- FORM GROUP -->
+<div class="form-group risca-form-group" [ngClass]="cssConfig.customForm">
+
+  <!-- FORM CHECK | CONFIGURABILE PER ORIZZONTALE O VERTICALE -->
+  <div class="form-check"
+    [ngClass]="[
+      cssConfig.customFormCheck,
+      dataConfig.orientation === C_C.HORIZONTAL ? 'form-check-inline' : ''
+    ]"
+    *ngFor="let checkbox of source"
+  >
+    <!-- LABEL -->
+    <label ngbButtonLabel class="" [ngClass]="cssConfig.customLabel">
+      <!-- INPUT -->
+      <input ngbButton [disabled]="disabled || checkbox.disabled" [(ngModel)]="checkbox.check"
+        type="checkbox"
+        class="form-check-input risca-checkbox risca-input-border"
+        [ngClass]="[
+          cssConfig.customInput !== undefined ? cssConfig.customInput : '',
+          (cssConfig.showErrorFC && formControl.invalid && (formSubmitted || formControl.dirty || formControl.touched))
+          ||
+          (cssConfig.showErrorFG && formGroup.invalid && formErrors && (formSubmitted || formGroup.dirty || formGroup.touched))
+          ? 'risca-input-border-error' : ''
+        ]"
+        (change)="onCheckboxChange(checkbox)"
+      >
+      <!-- ETICHETTA DEL CHECKBOX -->
+      <div [innerHtml]="checkbox[propertyToShow]"></div>
+    </label>
+
+  </div>
+
+  <!-- FORM CONTROL - GESTIONE ERRORI -->
+  <risca-form-control-error
+    [cssConfig]="cssConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [errMapFormControl]="mappaErroriFC"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-control-error>
+  <!-- FORM GROUP - GESTIONE ERRORI -->
+  <risca-form-group-error
+    [cssConfig]="cssConfig"
+    [formGroup]="formGroup"
+    [errMapFormGroup]="mappaErroriFG"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-group-error>
+
+</div>

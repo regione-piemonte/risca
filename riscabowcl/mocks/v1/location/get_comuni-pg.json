@@ -1,0 +1,23 @@
+[
+  {
+    "id_comune": 4902,
+    "codice_istat_comune": "054051",
+    "toponimo": "SPOLETO",
+    "cap_comune": "06049",
+    "provincia": "PERUGIA"
+  },
+  {
+    "id_comune": 4869,
+    "codice_istat_comune": "054018",
+    "toponimo": "FOLIGNO",
+    "cap_comune": "06034",
+    "provincia": "PERUGIA"
+  },
+  {
+    "id_comune": 4852,
+    "codice_istat_comune": "054001",
+    "toponimo": "ASSISI",
+    "cap_comune": "06081",
+    "provincia": "PERUGIA"
+  }
+]

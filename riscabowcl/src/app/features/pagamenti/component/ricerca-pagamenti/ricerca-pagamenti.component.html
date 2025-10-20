@@ -1,0 +1,84 @@
+<div class="card-box-internal">
+
+  <!-- TITOLO -->
+  <div class="d-flex flex-row">
+    <div class="risca-obbligatorio-label">
+      Indicare almeno un parametro di ricerca
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <!-- FORM DI RICERCA-->
+      <risca-ricerca-pagamenti #riscaRicercaPagamenti
+        [filtriIniziali]="filtriPagIniziali"
+        [showSubmit]="true"
+        (onFormSubmit)="onFiltriReady($event)"
+        (onFormErrors)="onFiltriErrors($event)"
+        (onEmitServiziError)="handleServiziError($event)"
+      ></risca-ricerca-pagamenti>
+    </div>
+  </div>
+
+  <!-- STRUTTURA DEL DOM NEL CASO IN CUI CI SONO RISULTATI PER LA RICERCA -->
+  <ng-container *ngIf="checkTableRicerca">
+    
+    <risca-separator></risca-separator>
+
+    <!--Tabella risultati ricerca avanzata Pratiche-->
+    <div class="d-flex flex-row">
+      <div class="risca-head-section-label">
+        Elenco pagamenti
+      </div>
+    </div>
+
+    <!--Tabella risultati ricerca semplice Pratiche-->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-table
+          [cssConfig]="ricercaPagamentiTable.cssConfig"
+          [dataConfig]="ricercaPagamentiTable.dataConfig"
+          [source]="ricercaPagamentiTable.source"
+          [isFETable]="false"
+          (onRowDetail)="onDettaglioPagamento($event)"
+          (onCambioPagina)="cambiaPagina($event)"
+        ></risca-table>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="checkTableRicerca">
+    <!-- SEPARATORE -->
+    <risca-separator></risca-separator>
+    
+    <!-- BOTTONI PER AVVIO RICERCA -->
+    <div class="button-group">
+      <!-- CONTAINER -->
+      <div class="row">
+        <div class="col">
+          <!-- ANNULLA -->
+          <risca-link-button
+            [dataConfig]="C_C.BTN_ANNULLA"
+            (onClick)="annullaRicerca()">
+          </risca-link-button>
+        </div>
+        <!-- <div class="col text-right">
+          <risca-primary-button 
+            [dataConfig]="C_C.BTN_CERCA"
+            (onClick)="avviaRicerca()">
+          </risca-primary-button>
+        </div> -->
+        <div class="col text-right">
+          <!-- CREA REPORT -->
+          <risca-button
+            [dataConfig]="C_C.BTN_CREA_REPORT"
+            [cssConfig]="C_C.CSS_CREA_REPORT"
+            (onClick)="creaReport()"
+          ></risca-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

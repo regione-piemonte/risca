@@ -1,0 +1,5 @@
+<!-- CONTAINER PER ASSICURARSI CHE ESISTA LA CONFIGURAZIONE DATI -->
+<ng-container *ngIf="showDt">
+  <!-- CARICAMENTO DINAMICO DEI COMPONENTI IN BASE ALLA CONFIGURAZIONE -->
+  <ng-container *ngComponentOutlet="dtComponent; injector: injectorDatiTecnici"></ng-container>
+</ng-container>

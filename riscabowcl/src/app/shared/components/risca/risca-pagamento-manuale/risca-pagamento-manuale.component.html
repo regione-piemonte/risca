@@ -1,0 +1,77 @@
+<div class="container-fluid r-plr--0">
+  <!-- FORM DATI CREDITORE -->
+  <div class="row">
+    <div class="col">
+      <!-- RECAPITO FORM -->
+      <form [formGroup]="mainForm">
+        <div class="d-flex flex-row">
+          <div class="r-mr--40">
+            <!-- DATA INIZIO CONCESSIONE -->
+            <risca-datepicker
+              [formControlName]="V_C.DATA_VERSAMENTO"
+              [idFormControl]="V_C.DATA_VERSAMENTO"
+              [cssConfig]="formInputs.dataVersamentoConfig.css"
+              [dataConfig]="formInputs.dataVersamentoConfig.data"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-datepicker>
+          </div>
+
+          <div class="r-mr--40">
+            <!-- IMPORTO VERSAMENTO -->
+            <risca-number
+              [formControlName]="V_C.IMPORTO_VERSAMENTO"
+              [cssConfig]="formInputs.importoVersamentoConfig.css"
+              [dataConfig]="formInputs.importoVersamentoConfig.data"
+              [idFormControl]="V_C.IMPORTO_VERSAMENTO"
+              [formGroup]="mainForm"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-number>
+          </div>
+
+          <div class="">
+            <!-- TIPO MODALITA PAGAMENTO -->
+            <risca-text
+              [formControlName]="V_C.TIPO_MODALITA_PAGAMENTO"
+              [cssConfig]="formInputs.modalitaPagamentoConfig.css"
+              [dataConfig]="formInputs.modalitaPagamentoConfig.data"
+              [idFormControl]="V_C.TIPO_MODALITA_PAGAMENTO"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+            ></risca-text>
+          </div>
+        </div>
+
+        <!-- NOTE -->
+        <div class="row r-m-intL-t">
+          <div class="col">
+            <!-- NOTE-->
+            <risca-textarea
+              [formControlName]="V_C.NOTE"
+              [idFormControl]="V_C.NOTE"
+              [cssConfig]="formInputs.noteConfig.css"
+              [dataConfig]="formInputs.noteConfig.data"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [errMapFormControl]="EM.MAP_MAX_LENGTH"
+            ></risca-textarea>
+          </div>
+
+          <div class="col r-mt--a" *ngIf="inserimento">
+            <!--PULSANTE AGGIUNTA VERSAMENTO-->
+            <div class="row-risca-text-button">
+              <risca-primary-button
+                [dataConfig]="{ label: 'Aggiungi' }"
+                (onClick)="aggiungiVersamento()"
+              >
+              </risca-primary-button>
+            </div>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>

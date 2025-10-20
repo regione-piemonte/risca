@@ -1,0 +1,133 @@
+<!-- GESTIONE DEGLI ERRORI -->
+<div class="r-m-intL-b" *ngIf="alertConfigsNoSuccess">
+  <risca-alert
+    [alertConfigs]="alertConfigs"
+    (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+  ></risca-alert>
+</div>
+
+<!-- Box dati di sintesi -->
+<dati-sintesi [pratica]="praticaEDatiTecnici" *ngIf="modifica"></dati-sintesi>
+
+<!-- Box navigazione dati pratica-->
+<div class="card-box" *ngIf="istanzaPraticaNav?.navs">
+
+  <ul ngbNav #inserisciPraticaNav="ngbNav" class="nav r-ngb-nav-3"
+    [(activeId)]="istanzaPratica"
+    [destroyOnHide]="false"
+    (navChange)="onNavPraticaChange($event)"
+  >
+    <ng-container *ngFor="let nav of istanzaPraticaNav.navs">
+      <li class="nav-item" [ngbNavItem]="nav.ngbNavItem" [disabled]="nav | disabilitaNavPratica:modifica">
+        <a ngbNavLink class="nav-link" [id]="nav.ngbNavItem">
+          <div>{{ nav.label }}</div>
+        </a>
+        <ng-template ngbNavContent>
+          <div class="tab-pane fade show" [id]="nav.ngbNavItem">
+            
+            <!-- GENERALI AMMINISTRATIVI -->
+            <ng-container *riscaMaintain="nav.component === istanzaPraticaNav.GEN_AMM_COMPONENT">
+              <generali-amministrativi #appGenAmm
+                [parentFormKey]="IP_C.FORM_KEY_PARENT"
+                [childFormKey]="IP_C.FORM_KEY_CHILD_DGA"
+                [idPratica]="idPratica"
+                [generaliAmministrativi]="datiGenAmmConfigs"
+                [modalita]="modalita"
+                (notifyParent)="notificationFromChild($event)"
+              ></generali-amministrativi>
+            </ng-container>
+
+            <!-- DATI ANAGRAFICI -->
+            <ng-container *riscaMaintain="nav.component === istanzaPraticaNav.DAT_ANA_COMPONENT">
+              <dati-anagrafici #appDatiAnagrafici
+                [parentFormKey]="IP_C.FORM_KEY_PARENT"
+                [childFormKey]="IP_C.FORM_KEY_CHILD_DA"
+                [idPratica]="idPratica"
+                [datiAnagrafici]="datiAnagraficiConfigs"
+                [comunicazioni]="datiAnagraficiMsgConfigs"
+                [modalita]="modalita"
+                (onJourneyNavigation)="richiestaNavigazioneDA($event)"
+                (notifyParent)="notificationFromChild($event)"
+              ></dati-anagrafici>
+            </ng-container>
+
+            <!-- DATI TECNICI -->
+            <ng-container *riscaMaintain="nav.component === istanzaPraticaNav.QUA_TEC_COMPONENT">
+              <quadri-tecnici-pratica #appQuadriTecnici
+                [parentFormKey]="IP_C.FORM_KEY_PARENT"
+                [childFormKey]="IP_C.FORM_KEY_CHILD_DT"
+                [datiTecnici]="datiTecniciConfigs"
+                [idComponenteDt]="idComponenteDt"
+                [modalita]="modalita"
+              ></quadri-tecnici-pratica>
+            </ng-container>
+
+            <!-- DATI CONTABILI -->
+            <ng-container *riscaMaintain="nav.component === istanzaPraticaNav.DAT_CON_COMPONENT">
+              <dati-contabili #appDatiContabili
+                [praticaEDT]="praticaEDatiTecnici"
+                [modalita]="modalita"
+              ></dati-contabili>
+            </ng-container>
+
+            <!-- DOCUMENTI ALLEGATI -->
+            <ng-container *riscaMaintain="nav.component === istanzaPraticaNav.DOC_COMPONENT">
+              <documenti-allegati
+                [idRiscossione]="idPratica"
+                [modalita]="modalita"
+              ></documenti-allegati>
+            </ng-container>
+
+          </div>
+        </ng-template>
+      </li>
+    </ng-container>
+  </ul>
+
+  <!-- TAB CONTENT CONTAINER -->
+  <div class="tab-content" id="tabIstanzePratica" [ngbNavOutlet]="inserisciPraticaNav"></div>
+  
+</div>
+
+<!-- GESTIONE DEGLI ERRORI -->
+<div class="r-m-intL-t" *ngIf="alertConfigsCheck">
+  <risca-alert
+    [alertConfigs]="alertConfigs"
+    (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+  ></risca-alert>
+</div>
+
+<!-- BOTTONI PER LA GESTIONE DELLE ISTANZE -->
+<div class="row r-m-intL-t">
+  <div class="col">
+
+    <!-- INDIETRO -->
+    <risca-link-button *ngIf="tornaIndietroEnabled"
+      class="r-mr--15"
+      [dataConfig]="C_C.BTN_INDIETRO"
+      (onClick)="tornaIndietro()">
+    </risca-link-button>
+
+    <!-- ANNULLA -->
+    <risca-link-button
+      class="r-mr--15"
+      [dataConfig]="{ label: 'ANNULLA', codeAEA: AEAK_C.ANNULLA_PRATICA }"
+      [disable]="!(istanzaPratica | abilitaPulsantiPratica)"
+      (onClick)="annullaIstanzaPratica()">
+    </risca-link-button>
+    
+    <!-- STAMPA -->
+    <risca-stampa-pratica-btn
+      (onStampaAvviata)="onStampaAvviata()"
+      (onStampaError)="onStampaError($event)"
+    ></risca-stampa-pratica-btn>
+
+    <!--PULSANTI A DESTRA-->
+    <!-- CONFERMA -->
+    <risca-primary-button class="float-right"
+      [dataConfig]="{ label: 'SALVA', codeAEA: AEAK_C.SALVA_PRATICA }"
+      [disable]="!(istanzaPratica | abilitaPulsantiPratica)"
+      (onClick)="salvaIstanzaPratica()">
+    </risca-primary-button>
+  </div>
+</div>

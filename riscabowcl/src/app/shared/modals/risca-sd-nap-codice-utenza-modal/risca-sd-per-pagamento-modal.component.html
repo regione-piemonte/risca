@@ -1,0 +1,117 @@
+<!-- HEADER STANDARD PER LA MODALE -->
+<risca-modal-header
+  [title]="title"
+  (onClickClose)="modalDismiss()"
+></risca-modal-header>
+
+<!-- CORPO DELLA MODALE -->
+<div class="modal-body risca-modal-body">
+  
+  <div class="workaround-checkbox">
+    <button autofocus></button>
+  </div>
+
+  <!-- TABELLA STATI DEBITORI -->
+  <div class="row">
+    <div class="col" *ngIf="checkStatiDebitoriTable">
+      <risca-table #sdTable
+        [isFETable]="false"
+        [cssConfig]="statiDebitoriTable.cssConfig"
+        [dataConfig]="statiDebitoriTable.dataConfig"
+        [source]="statiDebitoriTable.source"
+        [comparatorRows]="statiDebitoriTable.comparatorRows"
+        [comparatorOriginals]="statiDebitoriTable.comparatorOriginals"
+        [sourcesSelected]="statiDebitoriTable.sourceSelected"
+        [allSelectedDisableRowsCheck]="true"
+        [tutteLeRigheSelezionate]="statiDebitoriTable.tutteLeRigheSelezionate"
+        (onAllCheckboxesChange)="onTuttiSDSelezionati($event)"
+        (onCheckboxesChecked)="onStatiDebitoriSelezionati($event)"
+        (onCambioPagina)="cambiaPagina($event)"
+      ></risca-table>
+    </div>
+    <div class="col" *ngIf="!checkStatiDebitoriTable">
+      Non sono stati trovati stati debitori per il tipo di ricerca corrente.
+    </div>
+  </div>
+
+  <!-- GESTIONE DEGLI STATI DEBITORI SELEZIONATI -->
+  <div class="row r-m-intL-t" *ngIf="checkStatiDebitoriTable">
+    <div class="col col-table-sd-selezionati">
+      <div class="risca-accordion-container">
+
+        <!-- ACCORDION -->
+        <div class="row">
+          <div class="col-auto">
+  
+            <!-- ACCORDION STATI DEBITORI SELEZIONATI -->
+            <risca-accordion-switch
+              [label]="RSNCU_C.ACCORDION_SD_SELEZIONATI"
+              [accordionAperto]="sdSelezionatiApriChiudi"
+              (onAccordionClick)="toggleSDSelezionati($event)"
+            ></risca-accordion-switch>
+  
+          </div>
+        </div>
+
+        <!-- CONTENITORE DEGLI STATI DEBITORI SELEZIONATI -->
+        <div riscaDisplay [showOn]="sdSelezionatiApriChiudi">
+          
+          <!-- STATI DEBITORI SELEZIONATI MANUALMENTE CON DATI -->
+          <div class="row r-m-intL-t" *ngIf="!allSDSelezionati && checkTableTracciatore">
+            <div class="col">
+              <!-- TRACCIATORE DELLE SELEZIONI DEGLI STATI DEBITORI -->
+              <risca-table-trace-selections
+                [cssConfig]="sdSelezionatixPagamentoTable.cssConfig"
+                [dataConfig]="sdSelezionatixPagamentoTable.dataConfig"
+                [source]="sdSelezionatixPagamentoTable.source"
+                (onRowDelete)="rimuoviSDSelezionato($event)"
+              ></risca-table-trace-selections>
+            </div>
+          </div>
+          <!-- STATI DEBITORI SELEZIONATI MANUALMENTE SENZA DATI -->
+          <div class="row r-m-intL-t" *ngIf="!allSDSelezionati && !checkTableTracciatore">
+            <div class="col">
+              {{ RSNCU_C.LABEL_NESSUN_SD_SELEZIONATO }}
+            </div>
+          </div>
+          
+            <!-- TUTTI STATI DEBITORI SELEZIONATI DA CHECK IN TESTATA -->
+            <div class="row r-m-intL-t" *ngIf="allSDSelezionati">
+              <div class="col">
+                {{ RSNCU_C.LABEL_TUTTI_SD_SELEZIONATI }}
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERRORI GENERICI -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert
+        [alertConfigs]="alertConfigs"
+        [allowAlertClose]="true"
+        (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+      ></risca-alert>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER DELLA MODALE -->
+<div class="modal-footer risca-model-footer">
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="modalCancel()"
+  ></risca-button>
+  <!-- GESTIONE PULSANTE CONFERMA -->
+  <risca-primary-button
+    [dataConfig]="BTN_CONFERMA"
+    (onClick)="modalConfirm()"
+  ></risca-primary-button>
+</div>

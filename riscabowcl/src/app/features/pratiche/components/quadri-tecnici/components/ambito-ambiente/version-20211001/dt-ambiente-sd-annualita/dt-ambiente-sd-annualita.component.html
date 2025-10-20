@@ -1,0 +1,411 @@
+<div class="row r-m-intL-b" *ngIf="alertConfigscheck">
+  <div class="col">
+    <!-- GESTIONE DEI MESSAGGI -->
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<!-- DATI TECNICI AMBIENTE FORM -->
+<form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+  <!-- PRIMA PARTE - LABEL DI TESTATA -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-head-section-label">Dati annualità</div>
+    </div>
+  </div>
+  
+  <div class="row r-m-intL-t">
+    <div class="col r-mr--40 risca-col-standard">
+      <!-- 
+        NOTA BENE!
+        QUESTO E' WORKAROUND PER GESTIRE UN ERRORE NELLA LIBRERIA RIGUARDANTE NGBAUTOFOCUS E LA COSTRUZIONE INNESTATA DEI COMPONENTI
+        DELL'APPLICAZIONE RISCA. E' ALTAMENTE CONSIGLIATO NON RIMUOVERE QUESTA STRUTTURA, NON FA MALE A NESSUNO E NON FA NIENTE.
+        CONTATORE TENTATIVI DI FIX: 1;
+        ULTIMA REVISIONE: 17/10/2022;
+        RIFERIMENTI: https://github.com/angular/angular/issues/22910
+      -->
+      <div class="workaround-checkbox">
+        <button autofocus></button>
+      </div>
+    </div>
+    
+    <div class="col risca-col-standard">
+      <div>
+        <!-- RATEO PRIMA ANNUALITA' - CHECKBOX-->
+        <risca-checkbox
+          [formControlName]="DTA_SD_C.RATEO_PRIMA_ANNUALITA"
+          [idFormControl]="DTA_SD_C.RATEO_PRIMA_ANNUALITA"
+          [formGroup]="mainForm"
+          [cssConfig]="formInputs.rateoPrimaAnnuallitaConfig.css"
+          [dataConfig]="formInputs.rateoPrimaAnnuallitaConfig.data"
+          [dataSource]="formInputs.rateoPrimaAnnuallitaConfig.source"
+          [onlyLastValue]="true"
+        ></risca-checkbox>
+      </div>
+    </div>
+    
+    <div class="col">
+      <!-- SPAZIATORE -->
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col r-mr--40 risca-col-standard">
+      <div>
+        <!--ANNUALITA'-->
+        <risca-select [formControlName]="DTA_SD_C.ANNUALITA"
+          [idFormControl]="DTA_SD_C.ANNUALITA"
+          [formGroup]="mainForm"
+          [cssConfig]="formInputs.annoConfig.css"
+          [dataConfig]="formInputs.annoConfig.data"
+          [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+          [formSubmitted]="mainFormSubmitted"
+          [dataSource]="listaAnni"
+          [propertyToShow]="DTA_SD_C.PROPERTY_ANNUALITA"
+        ></risca-select>
+      </div>
+    </div>
+
+    <div class="col r-mr--40 risca-col-standard">
+      <div>
+        <!--DATA INIZIO-->
+        <risca-datepicker
+          [formControlName]="DTA_SD_C.DATA_INIZIO"
+          [idFormControl]="DTA_SD_C.DATA_INIZIO"
+          [cssConfig]="formInputs.dataInizioConfig.css"
+          [dataConfig]="formInputs.dataInizioConfig.data"
+          [formGroup]="mainForm"
+          [formSubmitted]="mainFormSubmitted"
+          [errMapFormControl]="EM.MAP_DATA_INIZIO_REQUIRED"
+          [errMapFormGroup]="EM.MAP_DATA_INIZIO_REQUIRED"
+          [disableRequiredCheck]="false"
+        ></risca-datepicker>
+      </div>
+    </div>
+
+    <div class="col r-mr--40 risca-col-standard">
+      <!--NUMERO MESI-->
+      <div>
+        <risca-number
+          [formControlName]="DTA_SD_C.NUMERO_MESI"
+          [idFormControl]="DTA_SD_C.NUMERO_MESI"
+          [cssConfig]="formInputs.numeroMesiEccedenteConfig.css"
+          [dataConfig]="formInputs.numeroMesiEccedenteConfig.data"
+          [formGroup]="mainForm"
+        ></risca-number>
+      </div>
+    </div>
+
+    <div class="col r-mr--40 dta-mt-22 risca-col-standard">
+      <!--NUMERO MESI-->
+      <div>
+        <risca-primary-button *ngIf="inserimento"
+          [dataConfig]="DTA_SD_C.BTN_CALCOLA"
+          [disable]="!accessibilityCalcola"
+          (onClick)="calcolaCanoneAnnualita()"
+        ></risca-primary-button>
+      </div>
+    </div>
+
+  </div>
+      
+  <!-- SEPARATORE -->
+  <risca-separator></risca-separator>
+
+  <div class="row">
+    <div class="col">
+      <div class="risca-head-section-label">
+        Dati tecnici
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+
+    <div class="col r-mr--10 risca-col-standard">
+      <!-- PORTATA DA ASSEGNARE -->
+      <risca-number
+        [formControlName]="DTA_SD_C.PORTATA_DA_ASSEGNARE"
+        [idFormControl]="DTA_SD_C.PORTATA_DA_ASSEGNARE"
+        [formGroup]="mainForm"
+        [cssConfig]="formInputs.portataDaAssegnareConfig.css"
+        [dataConfig]="formInputs.portataDaAssegnareConfig.data"
+        [errMapFormControl]="EM.MAP_FORMATO_NUMERO_6_INT_4_DEC"
+      ></risca-number>
+    </div>
+      
+    <div class="col r-mr--10 risca-col-standard">
+      <!-- CALCOLO E VISUALIZZAZIONE CANONE -->
+      <risca-number-it-format
+        [formControlName]="DTA_SD_C.CANONE_ANNUALITA"
+        [idFormControl]="DTA_SD_C.CANONE_ANNUALITA"
+        [formGroup]="mainForm"
+        [cssConfig]="formInputs.canoneAnnualitaConfig.css"
+        [dataConfig]="formInputs.canoneAnnualitaConfig.data"
+        [errMapFormControl]="EM.MAP_FORMATO_NUMERO_7_INT_2_DEC"
+        [truncate]="true"
+        [decimals]="2"
+      ></risca-number-it-format>
+    </div>
+
+  </div>
+
+  <!-- DIVISORE -->
+  <risca-separator></risca-separator>
+
+  <div class="row">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <div>
+          <!-- GESTIONE MANUALE -->
+          <risca-checkbox
+            [formControlName]="DTA_SD_C.GESTIONE_MANUALE"
+            [idFormControl]="DTA_SD_C.GESTIONE_MANUALE"
+            [formGroup]="mainForm"
+            [cssConfig]="formInputs.gestioneManualeConfig.css"
+            [dataConfig]="formInputs.gestioneManualeConfig.data"
+            [dataSource]="formInputs.gestioneManualeConfig.source"
+            [onlyLastValue]="true"
+          ></risca-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- ACCORDION CON FORM PER INSERIMENTO NUOVO USO DI LEGGE -->
+<div class="row r-m-intL-t">
+  <div class="col">
+    <div class="risca-accordion-container">
+      <!-- ACCORDION PER USI DI LEGGE -->
+      <div class="row">
+        <div class="col-auto">
+          <!-- ACCORDION LABEL USI DI LEGGE -->
+          <risca-accordion-switch
+            [label]="DTA_SD_C.ACCORDION_USI_DI_LEGGE"
+            [disabled]="!accessibilityAccordionUsi || disableUsi || disableUserInputs"
+            [accordionAperto]="formUsiDiLeggeOpen"
+            (onAccordionClick)="toggleUsiDiLegge($event)"
+          ></risca-accordion-switch>
+        </div>
+      </div>
+
+      <!-- CONTENITORE PER IL FORM USI DI LEGGE, GESTITO DALL'ACCORDION -->
+      <div riscaDisplay [showOn]="formUsiDiLeggeOpen">
+        <!-- FORM D'INSERIMENTO DATI USI DI LEGGE -->
+        <form id="usiForm" [formGroup]="usiForm">
+          <div class="row r-m-intL-t">
+            <div class="col">
+              <div class="d-flex flex-row">
+                <div class="r-mr--40">
+                  <!-- USO DI LEGGE -->
+                  <risca-select
+                    [formControlName]="DTA_SD_C.USO_DI_LEGGE"
+                    [idFormControl]="DTA_SD_C.USO_DI_LEGGE"
+                    [cssConfig]="formInputs.usoDiLeggeConfig.css"
+                    [dataConfig]="formInputs.usoDiLeggeConfig.data"
+                    [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+                    [formGroup]="usiForm"
+                    [formSubmitted]="usiFormSubmitted"
+                    [dataSource]="listaUsiDiLegge"
+                    [propertyToShow]="DTA_SD_C.PROPERTY_USO_DI_LEGGE"
+                    [listenToRefreshData]="true"
+                  ></risca-select>
+                </div>
+
+                <div class="r-mr--40">
+                  <!-- USI DI LEGGE SPECIFICI -->
+                  <risca-select
+                    [formControlName]="DTA_SD_C.USI_DI_LEGGE_SPECIFICI"
+                    [idFormControl]="DTA_SD_C.USI_DI_LEGGE_SPECIFICI"
+                    [cssConfig]="formInputs.usiDiLeggeSpecificiConfig.css"
+                    [dataConfig]="formInputs.usiDiLeggeSpecificiConfig.data"
+                    [formGroup]="usiForm"
+                    [formSubmitted]="usiFormSubmitted"
+                    [dataSource]="listaUsiDiLeggeSpecifici"
+                    [propertyToShow]="DTA_SD_C.PROPERTY_USI_DI_LEGGE_SPECIFICI"
+                  ></risca-select>
+                </div>
+
+                <div class="r-mr--40">
+                  <!-- UNITA DI MISURA -->
+                  <risca-text
+                    [formControlName]="DTA_SD_C.UNITA_DI_MISURA_DESC"
+                    [idFormControl]="DTA_SD_C.UNITA_DI_MISURA_DESC"
+                    [formGroup]="usiForm"
+                    [cssConfig]="formInputs.unitaMisuraDescConfig.css"
+                    [dataConfig]="formInputs.unitaMisuraDescConfig.data"
+                  ></risca-text>
+                </div>
+
+                <div>
+                  <!-- QUANTITA -->
+                  <risca-number
+                    [formControlName]="DTA_SD_C.QUANTITA"
+                    [idFormControl]="DTA_SD_C.QUANTITA"
+                    [cssConfig]="formInputs.quantitaConfig.css"
+                    [dataConfig]="formInputs.quantitaConfig.data"
+                    [formGroup]="usiForm"
+                    [formSubmitted]="usiFormSubmitted"
+                    [errMapFormControl]="EM.MAP_DTA_QUANTITA"
+                    [errMapFormGroup]="EM.MAP_DTA_QUANTITA"
+                  ></risca-number>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row r-m-intL-t">
+            <div class="col">
+              <div class="d-flex flex-row">
+                <div class="r-mr--40">
+                  <!-- QUANTITA FALDA PROFONDA -->
+                  <risca-number
+                    [formControlName]="DTA_SD_C.QUANTITA_FALDA_PROFONDA"
+                    [idFormControl]="DTA_SD_C.QUANTITA_FALDA_PROFONDA"
+                    [cssConfig]="formInputs.quantitaFaldaProfondaConfig.css"
+                    [dataConfig]="formInputs.quantitaFaldaProfondaConfig.data"
+                    [formGroup]="usiForm"
+                    [formSubmitted]="usiFormSubmitted"
+                    [errMapFormControl]="EM.MAP_DTA_QUANTITA_FALDA_PROFONDA"
+                    [errMapFormGroup]="EM.MAP_DTA_FORM_QUANTITA_FALDA_PROFONDA"
+                  ></risca-number>
+                </div>
+
+                <div class="r-mr--40">
+                  <!-- PERCENTUALE FALDA PROFONDA -->
+                  <risca-number-formatted
+                    [formControlName]="DTA_SD_C.PERC_FALDA_PROFONDA"
+                    [idFormControl]="DTA_SD_C.PERC_FALDA_PROFONDA"
+                    [formGroup]="usiForm"
+                    [cssConfig]="formInputs.percFaldaProfondaConfig.css"
+                    [dataConfig]="formInputs.percFaldaProfondaConfig.data"
+                  ></risca-number-formatted>
+                </div>
+
+                <div class="r-mr--40">
+                  <!-- QUANTITA FALDA SUPERFICIALE -->
+                  <risca-number-formatted
+                    [formControlName]="DTA_SD_C.QUANTITA_FALDA_SUPERFICIALE"
+                    [idFormControl]="DTA_SD_C.QUANTITA_FALDA_SUPERFICIALE"
+                    [formGroup]="usiForm"
+                    [cssConfig]="formInputs.quantitaFaldaSuperficialeConfig.css"
+                    [dataConfig]="formInputs.quantitaFaldaSuperficialeConfig.data"
+                    [decimals]="4"
+                  ></risca-number-formatted>
+                </div>
+
+                <div>
+                  <!-- PERCENTUALE FALDA SUPERFICIALE -->
+                  <risca-number-formatted
+                    [formControlName]="DTA_SD_C.PERC_FALDA_SUPERFICIALE"
+                    [idFormControl]="DTA_SD_C.PERC_FALDA_SUPERFICIALE"
+                    [formGroup]="usiForm"
+                    [cssConfig]="formInputs.percFaldaSuperficialeConfig.css"
+                    [dataConfig]="formInputs.percFaldaSuperficialeConfig.data"
+                  ></risca-number-formatted>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row r-m-intL-t">
+            <div class="col">
+              <div class="d-flex flex-row">
+                <div class="r-mr--40">
+                  <!-- PERCENTUALI DI RIDUZIONE MOTIVAZIONE -->
+                  <risca-select
+                    [formControlName]="DTA_SD_C.PERC_DI_RIDUZIONE_MOTIVAZIONE"
+                    [idFormControl]="DTA_SD_C.PERC_DI_RIDUZIONE_MOTIVAZIONE"
+                    [cssConfig]="formInputs.percRiduzioneConfig.css"
+                    [dataConfig]="formInputs.percRiduzioneConfig.data"
+                    [formGroup]="usiForm"
+                    [dataSource]="listaPercRiduzione"
+                  ></risca-select>
+                </div>
+
+                <div class="r-mr--40">
+                  <!-- PERCENTUALI DI AUMENTI MOTIVAZIONE -->
+                  <risca-select
+                    [formControlName]="DTA_SD_C.PERC_DI_AUMENTO_MOTIVAZIONE"
+                    [idFormControl]="DTA_SD_C.PERC_DI_AUMENTO_MOTIVAZIONE"
+                    [cssConfig]="formInputs.percAumentoConfig.css"
+                    [dataConfig]="formInputs.percAumentoConfig.data"
+                    [formGroup]="usiForm"
+                    [dataSource]="listaPercAumento"
+                  ></risca-select>
+                </div>
+
+                <div class="r-mr--40 dta-mt-57">
+                  <!-- DATA SCADENZA EMAS ISO -->
+                  <risca-datepicker [formControlName]="DTA_SD_C.DATA_SCADENZA_EMAS_ISO"
+                    [idFormControl]="DTA_SD_C.DATA_SCADENZA_EMAS_ISO"
+                    [formGroup]="usiForm"
+                    [cssConfig]="formInputs.dataScadenzaEmasIsoConfig.css"
+                    [dataConfig]="formInputs.dataScadenzaEmasIsoConfig.data"
+                    [errMapFormGroup]="EM.MAP_DTA_DATA_SCADENZA_EMAS_ISO"
+                  ></risca-datepicker>
+                </div>
+                
+                <div class="r-mr--40 dta-mt-57">
+                  <!-- CANONE USO -->
+                  <risca-number
+                    [formControlName]="DTA_SD_C.CANONE_USO"
+                    [idFormControl]="DTA_SD_C.CANONE_USO"
+                    [formGroup]="usiForm"
+                    [formSubmitted]="usiFormSubmitted"
+                    [cssConfig]="formInputs.canoneUsoConfig.css"
+                    [dataConfig]="formInputs.canoneUsoConfig.data"
+                    [errMapFormGroup]="EM.MAP_FORM_GROUP_CANONE_CANONE_USO"
+                  ></risca-number>
+                </div>
+                
+                <div class="r-mr--40 dta-mt-57">
+                  <!-- CANONE USO -->
+                  <risca-number
+                    [formControlName]="DTA_SD_C.CANONE_UNITARIO_USO"
+                    [idFormControl]="DTA_SD_C.CANONE_UNITARIO_USO"
+                    [formGroup]="usiForm"
+                    [formSubmitted]="usiFormSubmitted"
+                    [cssConfig]="formInputs.canoneUsoUnitarioConfig.css"
+                    [dataConfig]="formInputs.canoneUsoUnitarioConfig.data"
+                    [errMapFormGroup]="EM.MAP_FORM_GROUP_CANONE_CANONE_USO"
+                  ></risca-number>
+                </div>
+
+                <div class="dta-mt-78">
+                  <button form="usiForm" type="submit" class="btn btn-primary"
+                    [disabled]="disableAggiungiUso"
+                    (click)="usiSubmit()"
+                  >
+                    Aggiungi
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DIVISORE -->
+          <risca-separator *ngIf="existTableUsi"></risca-separator>
+        </form>
+      </div>
+
+      <!-- TABELLA USI DI LEGGE -->
+      <div class="row" *ngIf="existTableUsi" [ngClass]="{ 'r-m-intL-t': !formUsiDiLeggeOpen }">
+        <div class="col">
+          <risca-table
+            [cssConfig]="usiTable.cssConfig"
+            [dataConfig]="usiTable.dataConfig"
+            [source]="usiTable.source"
+            (onRowModify)="modificaUso($event)"
+            (onRowDelete)="eliminaUso($event)"
+          ></risca-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

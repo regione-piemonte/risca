@@ -1,0 +1,93 @@
+<!-- FORM GROUP -->
+<div class="form-group risca-form-group"
+  [ngClass]="cssConfig.customForm | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+  [ngStyle]="cssConfig.customForm | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+>
+
+  <!-- LABEL -->
+  <risca-input-label
+    [cssConfig]="cssConfig"
+    [dataConfig]="dataConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [idDOM]="idDOM"
+    [disableRequiredCheck]="disableRequired"
+  ></risca-input-label>
+
+  <!-- CONTENITORE PER LA INPUT -->
+  <div class="row r-m--0 r-p--0">
+
+    <!-- COLONNA LABEL DI SINISTRA -->
+    <div class="col-auto r-m--0 r-mr--15 r-p--0" *riscaMaintain="labelLeftTmpl"
+      [ngClass]="cssConfig.labelColLeft | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.labelColLeft | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+      <risca-input-label
+        [cssConfig]="cssConfig"
+        [dataConfig]="dataConfig"
+        [idFormControl]="idFC"
+        [formGroup]="formGroup"
+        [idDOM]="idDOM"
+        [disableRequiredCheck]="disableRequired"
+        [position]="labelLeft"
+      ></risca-input-label>
+    </div>
+
+    <!-- COLONNA DELLA INPUT -->
+    <div class="col r-m--0 r-p--0">
+      <ng-container *ngTemplateOutlet="riscaTextNormalTmpl"></ng-container>
+    </div>
+
+    <!-- COLONNA LABEL DI DESTRA -->
+    <div class="col-auto r-m--0 r-ml--15 r-p--0" *riscaMaintain="labelRightTmpl"
+      [ngClass]="cssConfig.labelColRight | riscaCssHandler:C_C.CSS_TYPE_CLASS"
+      [ngStyle]="cssConfig.labelColRight | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+      <risca-input-label
+        [cssConfig]="cssConfig"
+        [dataConfig]="dataConfig"
+        [idFormControl]="idFC"
+        [formGroup]="formGroup"
+        [idDOM]="idDOM"
+        [disableRequiredCheck]="disableRequired"
+        [position]="labelRight"
+      ></risca-input-label>
+    </div>
+  </div>
+
+  <!-- FORM CONTROL - GESTIONE ERRORI -->
+  <risca-form-control-error
+    [cssConfig]="cssConfig"
+    [idFormControl]="idFC"
+    [formGroup]="formGroup"
+    [errMapFormControl]="mappaErroriFC"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-control-error>
+  <!-- FORM GROUP - GESTIONE ERRORI -->
+  <risca-form-group-error
+    [cssConfig]="cssConfig"
+    [formGroup]="formGroup"
+    [errMapFormGroup]="mappaErroriFG"
+    [formSubmitted]="formSubmitted"
+  ></risca-form-group-error>
+
+</div>
+
+<!-- TEMPLATE TEXT NORMAL -->
+<ng-template #riscaTextNormalTmpl>
+  <!-- INPUT - TEXT STANDARD -->
+  <ng-container *riscaRemove="dataConfig.onlyNumber">
+    <input #riscaText type="text" class="form-control risca-input-border rtf-input" readonly
+      [id]="idDOM" [name]="idFC" [(ngModel)]="_value" [attr.title]="_value"
+      [ngClass]="[
+        cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_CLASS,
+        (cssConfig.showErrorFC && formControl.invalid && (formSubmitted || formControl.dirty || formControl.touched))
+        ||
+        (cssConfig.showErrorFG && formGroup.invalid && formErrors && (formSubmitted || formGroup.dirty || formGroup.touched))
+        ? 'risca-input-border-error' : '',
+        conditionalClass
+      ]"
+      [ngStyle]="cssConfig.customInput | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+    >
+  </ng-container>
+</ng-template>

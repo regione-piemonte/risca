@@ -1,0 +1,50 @@
+<form [formGroup]="mainForm">
+  
+  <div class="row">
+    <div class="col">
+      <div class="d-flex flex-row">
+
+        <div class="r-mr--40">
+          <!-- STATO RIMBORSI' -->
+          <risca-select 
+            [formControlName]="RRR_C.TIPO_RICERCA_RIMBORSI"
+            [idFormControl]="RRR_C.TIPO_RICERCA_RIMBORSI"
+            [cssConfig]="formInputs.tipoRicercaRimborsiConfig.css"
+            [dataConfig]="formInputs.tipoRicercaRimborsiConfig.data"
+            [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+            [errMapFormGroup]="EM.MAP_FORM_GROUP_REQUIRED"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaTRRimborsi"
+            [propertyToShow]="RRR_C.PROPERTY_TIPO_RICERCA_RIMBORSI"
+            [disableRequiredCheck]="false"
+          ></risca-select>
+        </div>
+
+        <div class="r-mr--40">
+          <!-- ANNO -->
+          <risca-select 
+            [formControlName]="RRR_C.ANNO"
+            [idFormControl]="RRR_C.ANNO"
+            [cssConfig]="formInputs.annoConfig.css"
+            [dataConfig]="formInputs.annoConfig.data"
+            [formGroup]="mainForm"
+            [formSubmitted]="mainFormSubmitted"
+            [dataSource]="listaAnni"
+            [propertyToShow]="RRR_C.PROPERTY_ANNO"
+          ></risca-select>
+        </div>
+
+        <div class="rrr-search">
+          <!-- CONFERMA -->
+          <risca-primary-button 
+            [dataConfig]="C_C.BTN_CERCA"
+            (onClick)="onFormSubmit()">
+          </risca-primary-button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</form>

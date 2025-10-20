@@ -1,0 +1,36 @@
+<!-- LABEL -->
+<label *riscaRemove="!checkLabel && !checkExtraLabelRight"
+  [attr.for]="idDOM"
+  [ngClass]="[cssConfig.customLabel | riscaCssHandler:C_C.CSS_TYPE_CLASS, (isLabelLeft || isLabelRight) ? 'r-irl-adjust' : '']"
+  [ngStyle]="cssConfig.customLabel | riscaCssHandler:C_C.CSS_TYPE_STYLE"
+  [title]="dataConfig.title"
+>
+  <!-- * PER CAMPO REQUIRE -->
+  <ng-container *riscaRemove="disableRequired">
+    <span *ngIf="require"
+      [ngStyle]="{ visibility: hideLabel ? 'hidden' : 'visible' }"
+      [innerHTML]="'*'"
+    ></span>
+  </ng-container>
+  <!-- LABEL -->
+  <ng-container *riscaMaintain="checkLabel">
+    <span
+      [innerHTML]="dataLabel"
+      [ngStyle]="{ visibility: hideLabel ? 'hidden' : 'visible' }"
+    ></span>
+  </ng-container>
+  <!-- TESTO DI AIUTO LATERALE -->
+  <ng-container *riscaMaintain="checkExtraLabelRight">
+    <span class="r-pl--5 risca-suggerimento-label ellipsis"
+      [innerHTML]="dataConfig.extraLabelRight"
+      [ngStyle]="{ visibility: hideLabel ? 'hidden' : 'visible' }"
+    ></span>
+  </ng-container>
+</label>
+<!-- TESTO DI AIUTO SOTTOSTANTE -->
+<div *riscaMaintain="checkExtraLabelSub"
+  class="risca-suggerimento-container risca-suggerimento-label"
+  [ngStyle]="{ visibility: hideLabel ? 'hidden' : 'visible' }"
+>
+  <span [innerHTML]="dataConfig.extraLabelSub"></span>
+</div>

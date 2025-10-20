@@ -1,0 +1,110 @@
+.stepper-header {
+  margin: 40px 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow-x: auto;
+  pointer-events: none !important;
+
+  .step-item {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    &:not(:first-of-type) {
+      padding-left: 0;
+    }
+    &:not(:last-of-type) {
+      padding-right: 0;
+    }
+
+    .line {
+      flex: 1;
+      height: 100%;
+      align-items: center;
+      display: flex;
+      min-width: 20px;
+
+      &:first-of-type {
+        padding-right: 10px;
+      }
+
+      &:last-of-type {
+        padding-left: 10px;
+      }
+
+      div {
+        height: 2px;
+        width: 100%;
+        background-color: #ddd;
+      }
+    }
+
+    &:first-of-type {
+      text-align: start;
+
+      .line:first-of-type {
+        display: none;
+      }
+    }
+    &:last-of-type {
+      text-align: end;
+      .line:last-of-type {
+        display: none;
+      }
+    }
+
+    .circle-shade {
+      background-color: #ccc;
+      color: white;
+      border-radius: 50%;
+      display: inline-block;
+      height: 33px;
+      width: 33px;
+      text-align: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+    .circle-full {
+      background-color: rgb(0, 108, 180);
+    }
+
+    .label-text {
+      font-size: 1.125rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20vw;
+      vertical-align: top;
+      color: #aaaaaa;
+    }
+
+    .label-selected {
+      color: #000000;
+    }
+
+    @media screen and (max-width: 992px) {
+      .label-text {
+        display: none;
+      }
+    }
+
+    .active {
+      font-weight: bold;
+    }
+  }
+}
+
+// .stepper-content {
+//   .buttons-container {
+//     display: flex;
+//     flex-direction: row-reverse;
+//     justify-content: space-between;
+//     margin: 30px 0;
+//   }
+// }

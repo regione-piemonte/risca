@@ -1,0 +1,110 @@
+<risca-modal-header [title]="'Cerca Titolare della Pratica'" (onClickClose)="modalDismiss()"></risca-modal-header>
+
+<!-- RIGA DI TESTATA CON DATI E CHECK -->
+<div class="modal-body risca-modal-body">
+  <div class="row">
+    <div class="col-8">
+      <!-- ETICHETTA DI TESTO -->
+      <div class="risca-common-label">
+        Indicare il codice fiscale del <strong>Titolare</strong>
+      </div>
+    </div>
+    <div class="col-4 r-mtb--a" *riscaMaintain="gestioneGruppiON">
+      <!-- CHECKBOX PER GESTIONE MANUALE -->
+      <div class="form-check form-check-inline float-right check-visualizza-gruppi">
+        <input class="form-check-input risca-input-border risca-checkbox" type="checkbox" id="visualizzaGruppi"
+          [(ngModel)]="visualizzaGruppi"
+          (click)="toggleVisualizzaGruppi()"
+        >
+        <label class="form-check-label risca-checkbox-label-standard" for="visualizzaGruppi">Visualizza gruppi</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENTE CHE GESTISCE LE INFORMAZIONI PER LA RICERCA -->
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <form-cerca-soggetto
+        (onSoggettoRicerca)="onSoggettoRicerca($event)"
+        (onSoggettoCercato)="onSoggettoCercato($event)"
+        (onSoggettoError)="onSoggettoError($event)"
+      ></form-cerca-soggetto>
+    </div>
+  </div>
+
+  <!-- SOGGETTO - COMPONENTE TABELLA CHE GESTISCE I RISULTATI DELLA RICERCA SOGGETTO -->
+  <div class="row r-m-intL-t" *ngIf="soggettoTrovato && tableSoggetti">
+    <div class="col">
+      <risca-table
+        [cssConfig]="tableSoggetti.cssConfig"
+        [dataConfig]="tableSoggetti.dataConfig"
+        [source]="tableSoggetti.source"
+      ></risca-table>
+    </div>
+  </div>
+
+  <!-- GRUPPI - COMPONENTE TABELLA CHE GESTISCE I RISULTATI DELLA RICERCA SOGGETTO -->
+  <ng-container *ngIf="mostraTabellaGruppi">
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <risca-table
+          [cssConfig]="tableGruppi.cssConfig"
+          [dataConfig]="tableGruppi.dataConfig"
+          [source]="tableGruppi.source"
+          (onRadioClick)="collegaGruppoAPratica($event)"
+        ></risca-table>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- ALERT NEL CASO IN CUI NON VENGANO TROVATI DATI  -->
+  <ng-container *ngIf="ricerca && !soggettoTrovato">
+    <!-- ALERT DI WARNING CHE INFORMA L'UTENTE CHE IL SOGGETTO CERCATO NON ESISTE -->
+    <div class="row r-m-intL-t">
+      <div class="col">
+        <!-- GESTIONE DEI MESSAGGI -->
+        <risca-alert
+          [alertConfigs]="alertConfigs" (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+        ></risca-alert>
+      </div>
+    </div>
+  </ng-container>
+  
+</div>
+
+<div class="modal-footer risca-model-footer">
+
+  <!-- ANNULLA -->
+  <risca-button
+    class="r-mri--a"
+    [dataConfig]="C_C.BTN_ANNULLA"
+    [cssConfig]="C_C.CSS_ANNULLA"
+    (onClick)="resetRicercaSoggetto()"
+  ></risca-button>
+
+  <!-- BOTTONE CHE APRE LA PAGINA D'INSERIMENTO DI UN NUOVO GRUPPO -->
+  <ng-container *riscaMaintain="gestioneGruppiON">
+    <risca-primary-button
+      *ngIf="ricerca && !soggettoTrovato"
+      [dataConfig]="{ label: 'VAI A NUOVO GRUPPO' }"
+      (onClick)="modalConfirm(DA_C.CLOSE_AGGIUNGI_GRUPPO)">
+    </risca-primary-button>
+  </ng-container>
+
+  <!-- BOTTONE PER VISUALIZZARE I DATI DEL TITOLARE SELEZIONATO E I DATI ANAGRAFICI -->
+  <risca-primary-button
+    *ngIf="ricerca && soggettoTrovato"
+    [dataConfig]="{ label: 'INSERISCI TITOLARE' }"
+    (onClick)="modalConfirm(DA_C.CLOSE_TITOLARE_SCELTO)">
+  </risca-primary-button>
+
+  <!-- BOTTONE CHE APRE LA PAGINA D'INSERIMENTO DI UN NUOVO SOGGETTO -->
+  <ng-container *riscaMaintain="gestioneSoggettiON">
+    <risca-primary-button
+      *ngIf="ricerca && !soggettoTrovato"
+      [dataConfig]="{ label: 'INSERISCI SOGGETTO', codeAEA: AEAK_C.NUOVO_SOGGETTO_CERCA }"
+      (onClick)="modalConfirm(DA_C.CLOSE_AGGIUNGI_SOGGETTO)">
+    </risca-primary-button>
+  </ng-container>
+  
+</div>

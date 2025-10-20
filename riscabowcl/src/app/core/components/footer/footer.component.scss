@@ -1,0 +1,95 @@
+@import '../../../color.scss';
+
+footer .container-fluid {
+  @media screen and (max-width: 800px) {
+    padding: 0 15px;
+  }
+
+  @media screen and (min-width: 801px) {
+    padding: 0 104px;
+  }
+}
+
+$footer-height: 179.1px;
+$inner-page-height: calc(100vh - #{$footer-height});
+
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem 0 !important;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  // to adapt once final svg are available:
+  .logo-left {
+    max-width: 174px;
+  }
+
+  .logo-center {
+    max-width: 214px;
+  }
+
+  .logo-right {
+    max-width: 171px;
+  }
+}
+
+
+.footer-link-group {
+  padding-top: 16px;
+  padding-bottom: 27px;
+}
+
+.footer-link-label {
+  color: white;
+  font-family: 'Titillium Web', sans-serif;
+  margin-right: 50px;
+  cursor: pointer;
+
+  @media screen and (max-width: 800px) {
+    font-size: 0.625rem;
+  }
+
+  @media screen and (min-width: 801px) {
+    font-size: 1.125rem;
+  }
+}
+
+.bg-second-blue {
+  background-color: #213366;
+}
+
+h3 {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+.p-customize {
+  font-size: 10px;
+}
+
+.hr-footer {
+  border-top: 1px solid #939393 !important;
+  margin-top: 10px !important;
+  margin-bottom: 0px !important;
+}
+
+.f-mt-75 {
+  margin-top: 75px;
+}
+
+.f-a-c {
+  text-align: center;
+}
+
+.f-a-r {
+  text-align: right;
+}

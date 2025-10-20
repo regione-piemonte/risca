@@ -1,0 +1,32 @@
+<div class="container-fluid">
+
+  <!-- NAV BAR -->
+  <ul ngbNav id="mainNavBody" class="nav r-ngb-nav-1 r-m-intL-t"
+    [activeId]="router.url | riscaBodyActiveNav:links"
+    [destroyOnHide]="true"
+  >
+    <!-- NAV ITEMS -->
+    <ng-container *ngFor="let link of links">
+      <li class="nav-item body-item" [ngbNavItem]="link.path" [disabled]="link.disabled">
+        <a ngbNavLink class="nav-link"
+          [routerLink]="link.path"
+          [state]="link.state"
+          (click)="onTabClick(link)"
+        >
+          {{ link.title }}
+        </a>
+        <div class="badge badge-pill badge-danger badge-body" *ngIf="link.badges">
+          <ng-container *ngIf="notificaReport">
+            {{ notificaReport }}
+          </ng-container>
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+
+  <!-- ROUTER-OUTLET -->
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

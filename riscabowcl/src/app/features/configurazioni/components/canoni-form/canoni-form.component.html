@@ -1,0 +1,40 @@
+<div class="container-fluid r-plr--0">
+  <div class="row">
+    <div class="col">
+
+      <!-- RECAPITO FORM -->
+      <form [formGroup]="mainForm" (ngSubmit)="onFormSubmit()">
+        <div class="d-flex flex-row r-m-intL-t">
+          
+          <div class="r-mr--40">
+            <!-- CANONE_UFFICIALE -->
+            <risca-select 
+              [formControlName]="CF_C.CANONE_UFFICIALE"
+              [idFormControl]="CF_C.CANONE_UFFICIALE"
+              [formGroup]="mainForm"
+              [formSubmitted]="mainFormSubmitted"
+              [cssConfig]="formInputs.canoneUfficiale.css"
+              [dataConfig]="formInputs.canoneUfficiale.data"
+              [dataSource]="listaCanoniUfficiali"
+              [propertyToShow]="CF_C.PROPERTY_CANONE_UFFICIALE"
+              [errMapFormControl]="EM.MAP_FORM_CONTROL_REQUIRED"
+              [disableRequiredCheck]="false"
+            ></risca-select>
+          </div>
+        
+          <div class="cf-mt-22">
+            <!-- SUBMIT -->
+            <risca-button
+              [dataConfig]="C_C.BTN_CERCA"
+              [cssConfig]="C_C.CSS_CERCA"
+              (onClick)="onFormSubmit()">
+            </risca-button>
+          </div>
+        
+        </div>
+                
+      </form>
+    </div>
+  
+  </div>
+</div>

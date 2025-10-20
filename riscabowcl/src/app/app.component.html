@@ -1,0 +1,42 @@
+<!-- <body class="fixed-sn light-blue-skin"> -->
+<body>
+
+  <!-- GESTIONE DELLO STATO DI PRE-CARICAMENTO DELL'APP -->
+  <ng-container [ngSwitch]="status">
+    <ng-container *ngSwitchCase="statusLoading" [ngTemplateOutlet]="appLoading"></ng-container>
+    <ng-container *ngSwitchCase="statusLoaded" [ngTemplateOutlet]="appLoaded"></ng-container>
+    <ng-container *ngSwitchCase="statusFailed" [ngTemplateOutlet]="appNotLoaded"></ng-container>
+  </ng-container>
+
+</body>
+
+<!-- TEMPLATE VISUALIZZATO DURANTE IL CARICAMENTO DEI DATI MINIMI DELL'APP -->
+<ng-template #appLoading>
+  <!-- HEADER (VUOTO) -->
+  <risca-header></risca-header>
+  <!-- LANDING PAGE -->
+  <risca-landing></risca-landing>
+</ng-template>
+
+<ng-template #appLoaded>
+  <!-- HEADER -->
+  <risca-header></risca-header>
+  <!-- BODY -->
+  <risca-body></risca-body>
+  <!-- FOOTER -->
+  <risca-footer></risca-footer>
+</ng-template>
+
+<ng-template #appNotLoaded>
+  <!-- HEADER -->
+  <risca-header></risca-header>
+  <!-- UNAUTHORIZED -->
+  <risca-unauthorized></risca-unauthorized>
+  <!-- FOOTER -->
+  <risca-footer></risca-footer>
+</ng-template>
+
+<!-- SPINNER: SI POSSONO DEFINIRE n ISTANZE DELLO SPINNER, PER GESTIRE DIFFERENTI SITUAZIONI. N.B.: USARE [name]="name" PER IDENTIFICARE UNO SPECIFICO SPINNER -->
+<!-- ### SPINNER GENERICO ### -->
+<ngx-spinner [name]="C_C.SPINNER" type="ball-spin-clockwise" size="medium"></ngx-spinner>
+<ngx-spinner [name]="C_C.SPINNER_MANUALE" type="ball-spin-clockwise" size="medium"></ngx-spinner>

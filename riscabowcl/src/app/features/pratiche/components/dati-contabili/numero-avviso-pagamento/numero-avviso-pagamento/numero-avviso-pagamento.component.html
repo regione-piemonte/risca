@@ -1,0 +1,52 @@
+<!-- UL DI STRUTTURA -->
+<ul ngbNav #napNav="ngbNav" class="nav nav-tabs numero-avviso-pagamento-nav" [(activeId)]="sezioneSDNAP" [destroyOnHide]="true" (navChange)="onSezioneNAPChange($event)">
+  <!-- CONTAINER PER IL CICLO DELLE TAB -->
+  <ng-container *ngFor="let nav of sdNapNavConfigs.navs; let i = index">
+    <!-- LI PER LA TAB -->
+    <li class="nav-item"
+      [ngbNavItem]="nav.ngbNavItem"
+      [disabled]="nav.disabled"
+      [ngClass]="[(i | riscaNavLinkClass:sdNapNavConfigs:nav2ndLvlClass)]"
+    >
+      <!-- LINK PER LA SELEZIONE DEL TAB -->
+      <a ngbNavLink [id]="nav.ngbNavItem" (click)="cambiaSezioneNAP(nav.ngbNavItem)">
+        <div>{{ nav.label }}</div>
+      </a>
+      <ng-template ngbNavContent>
+        <div class="tab-pane fade show" [id]="nav.ngbNavItem">
+          
+          <!-- SD_NAP_COMPONENT -->
+          <ng-container *riscaMaintain="nav.component === sdNapNavConfigs.SD_NAP_COMPONENT">
+            <stati-debitori-nap
+              [statoDebitorio]="statoDebitorio"
+              (onDettaglioStatoDebitorio)="onDettaglioStatoDebitorio($event)"
+            ></stati-debitori-nap>
+          </ng-container>
+
+          <!-- DETTAGLIO_SD_COMPONENT -->
+          <ng-container *riscaMaintain="nav.component === sdNapNavConfigs.DETTAGLIO_SD_COMPONENT">
+            <dettaglio-sd-nap
+              [statoDebitorio]="statoDebitorioSelezionato"
+              (onTornaAStatiDebitoriNap)="onTornaAStatiDebitoriNap($event)"
+            ></dettaglio-sd-nap>
+          </ng-container>
+          
+        </div>
+      </ng-template>
+    </li>
+  </ng-container>
+</ul>
+
+<!-- TAB CONTENT CONTAINER -->
+<div class="tab-content" id="sezioneSDNAP" [ngbNavOutlet]="napNav"></div>
+
+<!-- ALERT -->
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert
+      [alertConfigs]="alertConfigs"
+      [allowAlertClose]="true"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>

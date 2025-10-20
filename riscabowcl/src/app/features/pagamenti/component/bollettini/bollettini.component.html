@@ -1,0 +1,59 @@
+<div class="r-m-intL-t">
+  <!-- FILO ARIANNA -->
+  <risca-filo-arianna></risca-filo-arianna>
+</div>
+
+<!-- Card box -->
+<div class="card-box card-box-external card-box-internal">
+  <!-- FORM DI RICERCA E TABELLA -->
+  <div class="row">
+    <div class="col">
+
+      <div class="row">
+        <!--Form ricerca bollettini-->
+        <div class="col">
+          <risca-ricerca-bollettini #riscaRicercaBollettini
+            (onFormSubmit)="filtraBollettini($event)"
+            (fineCaricamento)="avviaPrimaRicerca()"
+          ></risca-ricerca-bollettini>
+        </div>
+        <div class="col col-nuova-elaborazione" *ngIf="existNPConfig">
+          <risca-dropdown-button
+            [dataConfig]="nuovaPrenotazione.dataConfig"
+            [cssConfig]="nuovaPrenotazione.cssConfig"
+            [placement]="nuovaPrenotazione.placement"
+            (onItemClick)="onNuovaPrenotazione($event)"
+          ></risca-dropdown-button>
+        </div>
+      </div>
+
+      <!--Tabella risultati ricerca semplice Bollettini-->
+      <div class="row r-m-intL-t">
+        <div class="col" *ngIf="existBollettini">
+          <risca-table #riscaBollettazioneTable
+            [cssConfig]="tableBollettini.cssConfig"
+            [dataConfig]="tableBollettini.dataConfig"
+            [source]="tableBollettini.source"
+            [isFETable]="false"
+            (onCambioPagina)="cambiaPagina($event)"
+            (onRowCustomAction)="customBTable($event)"
+          ></risca-table>
+        </div>
+        <div class="col" *ngIf="!existBollettini">
+          <div>
+            {{ NO_TABLE_DATA_CODE | riscaMessage }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GESTIONE DEGLI ERRORI -->
+  <div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+    <div class="col">
+      <risca-alert [alertConfigs]="alertConfigs" (onAlertHidden)="onAlertHidden($event, alertConfigs)"></risca-alert>
+    </div>
+  </div>
+
+</div>

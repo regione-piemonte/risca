@@ -1,0 +1,201 @@
+<div class="card-box card-box-internal card-box-external">
+  
+  <!-- SEZIONE REPORT DISPONIBILI -->
+  <div class="container-fluid card-box-internal container-report-disponibili r-m-intL-b" *ngIf="checkReportsScaricabili">
+    
+    <!-- TESTATA -->
+    <div class="row">
+      <div class="col">
+        <div class="risca-head-section-label">
+          REPORT RICHIESTI
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col risca-common-label" [innerHTML]="RISCA_NOTIFY_CODES.I027 | riscaMessage"></div>
+    </div>
+    
+    <!-- ITERAZIONE RIGHE PER OGNI REPORT DISPONIBILE -->
+    <ng-container *ngIf="checkReportsDisponibili">
+      <ng-container *ngFor="let report of reportsDisponibili">
+        <div class="row">
+          <div class="col risca-common-label">
+            
+            <!-- REPORT -->
+            <div class="d-flex flex-row">
+              <div class="r-m-intC-r">
+                <div class="file-link" (click)="onReportClick(report)">
+                  {{ report?.file_name_ext }}
+                </div>
+              </div>
+              <div>
+                <risca-icon
+                  [icon]="ED_C.ICON_DOWNLOAD"
+                  [classes]="['file-link']"
+                  [enableClick]="true"
+                  (onIconClick)="onReportClick(report)"
+                ></risca-icon>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- ITERAZIONE RIGHE PER OGNI ELABORAZIONE CON REPORT GENERATO IN PRECEDENTI SESSIONI -->
+    <ng-container *ngIf="checkElaborazioniOldSessions">
+      <ng-container *ngFor="let elaborazioneOS of elaborazioniOldSessions">
+        <div class="row">
+          <div class="col risca-common-label">
+            
+            <!-- ELABORAZIONE CON REPORT -->
+            <div class="d-flex flex-row">
+              <div class="r-m-intC-r">
+                <div class="file-link" (click)="onElaborazioneOldSessionsClick(elaborazioneOS)">
+                  {{ elaborazioneOS?.nomeFile }}
+                </div>
+              </div>
+              <div>
+                <risca-icon
+                  [icon]="ED_C.ICON_DOWNLOAD"
+                  [classes]="['file-link']"
+                  [enableClick]="true"
+                  (onIconClick)="onElaborazioneOldSessionsClick(elaborazioneOS)"
+                ></risca-icon>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  
+  </div>
+
+  <!-- SEZIONE REPORT IN ERRORE -->
+  <div class="container-fluid card-box-internal container-report-errore r-m-intL-b" *ngIf="checkReportsInErrore">
+    
+    <!-- TESTATA -->
+    <div class="row">
+      <div class="col">
+        <div class="risca-head-section-label">
+          REPORT IN ERRORE
+        </div>
+      </div>
+    </div>
+    
+    <!-- ITERAZIONE RIGHE PER OGNI REPORT DISPONIBILE -->
+    <ng-container *ngFor="let reportErrore of reportsInErrore">
+      <div class="row">
+
+        <div class="col-auto">  
+          <!-- REPORT -->
+          <div class="risca-common-label file-error" (click)="onReportErrorClick(reportErrore)">
+            <span [innerHTML]="RISCA_NOTIFY_CODES.E092 | riscaMessageWithPlacholderByCode:[
+                reportErrore.error?.detail?.des_tipo_elabora,
+                reportErrore.timestamp?.format(C_C.DATE_FORMAT_VIEW_EXTENDED)
+              ]"
+            ></span>
+          </div>
+        </div>
+        <div class="col">
+          <risca-icon
+            [classes]="['fa fa-times', 'cursor-pointer']"
+            [enableClick]="true"
+            (onIconClick)="onReportErrorClick(reportErrore)"
+          ></risca-icon>
+        </div>
+          
+      </div>
+    </ng-container>
+  
+  </div>
+  
+  <!-- ALERT DI COMUNICAZIONE PER I REPORT TRASVERSALI DISABILITATI -->
+  <div class="container-fluid r-m-intL-b r-plr--0" *ngIf="AEA_EDDisabled || !enableReportTrasversali">
+    <div class="row">
+      <div class="col">
+        <risca-alert [alertConfigs]="alertReportTrasversaliConfigs"></risca-alert>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEZIONE RICERCA/EXPORT DATI -->
+  <div class="row">
+    <div class="col">
+      <div class="risca-head-section-label">
+        Export dati
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col risca-common-label">
+      E' possibile creare uno o più Report: la disponibilità del/i Report sarà segnalata dalla comparsa del contatore, l'operazione potrebbe richiedere alcuni minuti.
+    </div>
+  </div>
+  
+  <div class="row r-m-intL-t">
+    <div class="col">
+      <!-- FORM DI RICERCA-->
+      <ricerca-esporta-dati #ricercaEsportaDati
+        [filtriIniziali]="filtriEDIniziali"
+        (onFormSubmit)="onFiltriReady($event)"
+        (onFormErrors)="onFiltriErrors($event)"
+        (onEmitServiziError)="onEmitServiziError($event)"
+      ></ricerca-esporta-dati>
+    </div>
+  </div>
+
+</div>
+
+<!-- GESTIONE ALERT -->
+<div class="row r-m-intL-t" *ngIf="alertReportBilancioCheck">
+  <div class="col">
+    <risca-alert 
+      [alertConfigs]="alertReportBilancioConfigs"
+      [allowAlertClose]="true"
+      (onAlertHidden)="onAlertHidden($event, alertReportBilancioConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<div class="row r-m-intL-t" *ngIf="alertConfigsCheck">
+  <div class="col">
+    <risca-alert 
+      [alertConfigs]="alertConfigs"
+      [allowAlertClose]="true"
+      (onAlertHidden)="onAlertHidden($event, alertConfigs)"
+    ></risca-alert>
+  </div>
+</div>
+
+<div class="row r-m-intL-t">
+  <div class="col">
+    
+    <!-- BOTTONI PER AVVIO RICERCA -->
+    <div class="button-group">
+      <!-- CONTAINER -->
+      <div class="row">
+        <div class="col">
+          <!-- ANNULLA -->
+          <risca-link-button
+            [dataConfig]="C_C.BTN_ANNULLA"
+            [disable]="AEA_EDDisabled || !enableReportTrasversali"
+            (onClick)="annullaRicerca()">
+          </risca-link-button>
+        </div>
+        <div class="col text-right">
+          <!-- CREA REPORT -->
+          <risca-button 
+            [dataConfig]="ED_C.BTN_CONFIG_CREA_REPORT.dataConfig"
+            [cssConfig]="ED_C.BTN_CONFIG_CREA_REPORT.cssConfig"
+            [disable]="AEA_EDDisabled || !enableReportTrasversali"
+            (onClick)="creaReport()">
+          </risca-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
