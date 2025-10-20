@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ##################################################### -->
+<!-- # build.xml file per compilazione e generazione     # -->
+<!-- # del pacchetto per il rilascio dell'applicazione.  # -->
+<!-- #                                                   # -->
+<!-- # Per una lista completa dei tasks eseguibili usare # -->
+<!-- # l'argomento di ant -projecthelp quando si         # -->
+<!-- # richiama questo build.xml.                        # -->
+<!-- ##################################################### -->
+
+<project basedir="."
+         default="default"
+         name="riscaboweb"
+         xmlns:ivy="antlib:fr.jayasoft.ivy.ant" >
+
+    <description>Build file per il progetto: [riscaboweb]</description>
+
+    <!-- -->
+    <echo message="Loading build properties..." />
+    <property file="buildfiles/build.properties" />
+    <property file="buildfiles/build.locale.properties" />
+    <property file="buildfiles/${target}.properties" />
+
+    <!-- -->
+    <path id="library.ref">
+        <fileset dir="${lib}">
+            <include name="**/*.jar" />
+            <include name="**/*.zip" />
+        </fileset>
+    </path>
+
+
+
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: init                                              # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="init" description="Inizializza lo script Ant.">
+        <tstamp />
+        <condition property="target" value="dev">
+            <equals arg1="${target}" arg2="$${target}" />
+        </condition>
+        <mkdir dir="${build}/classes" />
+        <mkdir dir="${temp}/${target}/${earLib}" />
+        <mkdir dir="${build}/archives/${target}" />
+        <mkdir dir="${dist}/${target}" />
+        <mkdir dir="${build}/javadoc" />
+        <mkdir dir="${build}/jsp" />
+        <mkdir dir="${build}/cache" />
+        <mkdir dir="${build}/classes/template" />
+    	
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: default                                           # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="default"
+            description="Eseguire il build per l'environment
+                         specificato a linea di comando con
+                         -Dtarget=${target} o per tutti gli
+                         environment (se non specificato).">
+
+        <condition property="first-call" value="distribution">
+            <not>
+                <equals arg1="${target}" arg2="$${target}" />
+            </not>
+        </condition>
+
+        <condition property="first-call" value="all-targets">
+            <equals arg1="${target}" arg2="$${target}" />
+        </condition>
+
+        <echo message="server: ${server}" />
+        <echo message="target: ${target}" />
+        <echo message="first-call: ${first-call}" />
+
+        <antcall target="clean-all" />
+        <antcall target="${first-call}" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [DISTRIB]: all-targets                                    # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="all-targets"
+            description="Esegue il build per le varie distribuzioni in sequenza.">
+        <!-- Inserire le varie distribuzioni di cui si intende eseguire il build. -->
+        <antcall target="distribution" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [DISTRIB]: distribution                                   # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="distribution" depends="package-all"
+            description="Costruisce il tar per la distribuzione." >
+        <echo message="====== Creating distribution for ${target} ..."/>
+        <echo message="====== Basedir: ${build}/archives/${target} ..."/>
+        <!-- inserire qui eventuali statement antcall aggiuntivi da invocare
+             nel processo di distribuzione del tar -->
+        <tar tarfile="${dist}/${target}/${dist-file-name}.tar"
+             basedir="${build}/archives/${target}"
+             includes="*.ear,*.xml">
+            <tarfileset dir="buildfiles">
+                <include name="readme.txt"/>
+                <!-- inserire qui eventuali statement per includere oggetti extra nel tar -->
+            </tarfileset>
+        </tar>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [IVY]: resolve-dependencies                               # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="resolve-dependencies"
+            description="carica le librerie dal repository remoto">
+        <ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+        <ivy:resolve file="${basedir}/buildfiles/ivy.xml" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [IVY]: internal target: load-dependencies                 # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="load-dependencies"
+            depends="resolve-dependencies"
+            description="Risolve le dipendenze esterne.">
+        <ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: compile-all                                       # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="compile-all" depends="init,load-dependencies"
+            description="Compila tutti i sorgenti.">
+
+        <echo message="===> Target: ${target}" />
+
+        <!-- compilazione dei sorgenti -->
+    	<javac srcdir="${src}/java" destdir="${build}/classes"
+    	       optimize="on" deprecation="on"
+    	       compiler="modern"
+    	       debug="on" debuglevel="lines,vars,source">
+    	    <compilerarg value="-parameters"/> 
+    	    <classpath refid="library.ref" />
+    	</javac>
+
+
+        <!-- copia dei sorgenti -->
+        <copy todir="${build}/classes">
+            <fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*" />
+        </copy>
+    	
+    	<copy file="buildfiles/${target}.properties"
+			tofile="${temp}/conf/web/be/rest/WEB-INF/classes/application.properties">
+		</copy>
+    	
+    	<copy file="buildfiles/MOD_SINTESI_PRATICA_V1.docx"
+			tofile="${temp}/conf/web/be/rest/WEB-INF/classes/MOD_SINTESI_PRATICA_V1.docx">
+		</copy>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: environment-recreate                              # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="environment-recreate"
+            description="Ricrea l&apos;environment di configurazione per il target corrente (per applicare le sostituzionidelle variabili).">
+        <mkdir dir="build/temp/conf" />
+            <copy todir="build/temp/conf" overwrite="true">
+        <fileset dir="${conf}" />
+        </copy>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: environment-config                                # -->
+    <!-- #         Gestire qui i  replace delle variabile d'ambiente # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="environment-config"
+            description="Predispone le configurazioni dipendenti dall&apos;ambiente." >
+
+
+        <!-- Gestione replace delle variabile d'ambiente create dal generatore -->
+
+        <!-- disabilitazione del filtro di XSRF -->
+        <condition property="xsrffilter.disabled" value="false">
+              <equals arg1="${xsrffilter.disabled}" arg2="$${xsrffilter.disabled}" />
+        </condition>
+            <replace dir="${build}/temp/conf/web/" token="@@@XSRFFILTER.DISABLED@@@" value="${xsrffilter.disabled}"/>
+
+        <!-- modalita' di sviluppo del filtro IDAdapter -->
+        <condition property="idadapterfilter.devmode" value="false">
+              <equals arg1="${idadapterfilter.devmode}" arg2="$${idadapterfilter.devmode}" />
+        </condition>
+            <replace dir="${build}/temp/conf/web/" token="@@@IDADAPTERFILTER.DEVMODE@@@" value="${idadapterfilter.devmode}"/>
+
+        <!-- gestione di un eventuale CORS -->
+        <condition property="corsfilter.enablecors" value="false">
+              <equals arg1="${corsfilter.enablecors}" arg2="$${corsfilter.enablecors}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@@@CORSFILTER.ENABLECORS@@@" value="${corsfilter.enablecors}"/>
+
+
+     
+        <!-- gestire qui i  replace delle proprie variabili d'ambiente -->
+
+
+        <condition property="riscabesrv.hostname" value="false">
+            <equals arg1="${riscabesrv.hostname}" arg2="$${riscabesrv.hostname}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@riscabesrv.hostname@" value="${riscabesrv.hostname}" />
+
+        <condition property="riscabesrv.endpoint_base" value="false">
+            <equals arg1="${riscabesrv.endpoint_base}" arg2="$${riscabesrv.endpoint_base}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@riscabesrv.endpoint_base@" value="${riscabesrv.endpoint_base}" />
+        
+      	<condition property="iride.endpoint" value="false">
+      	     <equals arg1="${iride.endpoint}" arg2="$${iride.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@iride.endpoint@" value="${iride.endpoint}" />
+    	
+    	<condition property="riscabesrv.hostname.nodo" value="false">
+            <equals arg1="${riscabesrv.hostname.nodo}" arg2="$${riscabesrv.hostname.nodo}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@riscabesrv.hostname.nodo@" value="${riscabesrv.hostname.nodo}" />
+
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: package-all                                        # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="package-all"
+            description="Esegue il packaging di ogni componente del prodotto">
+        <antcall target="package-ear" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: package-ear                                        # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="package-ear"
+            depends="environment-recreate, environment-config, compile-all, package-commons-jar, 
+                     package-all-ws-wars"
+            description="costruisce l&apos;ear">
+
+        <!-- librerie infrastrutturali o client di servizi fruiti -->
+        <copy todir="${temp}/${target}/${earLib}">
+            <fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
+            <fileset dir="${build}/archives/${target}" includes="*common.jar" />
+        </copy>
+
+        <ear appxml="${temp}/conf/ear/application.xml"
+             destfile="${build}/archives/${target}/${ear-file-name}.ear">
+            <fileset dir="${build}/archives/${target}" includes="*.jar,*.war" excludes="*client*.jar,*common.jar" />
+            <fileset dir="${temp}/${target}">
+                <include name="**/*" />
+            </fileset>
+            <metainf dir="${temp}/conf/ear/" includes="jboss-deployment-structure.xml" />
+            <manifest>
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Built-Date" value="${DSTAMP}" />
+                <attribute name="Target" value="${target}" />
+                <attribute name="Appl-Version" value="${version}" />
+            </manifest>
+        </ear>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: package-all-ws-wars                                # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="package-all-ws-wars"
+            description="Costruisce i war di tutti i web services">
+        <!-- richiamo costruzione war backend REST  -->
+        <antcall target="_package-ws-war">
+            <param name="component.name" value="riscaboweb"/>
+            <param name="service.name" value="be"/>
+            <param name="binding.code" value="rest"/>
+            <param name="service.type" value="appl"/>
+        </antcall>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: _package-ws-war                                    # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="_package-ws-war"
+            description="Costruisce il war per un singolo web service">
+        <!-- prende in input i parametri: component.name, service.name, binding.code, service.type, service.ver (deve essere a 2 cifre!!!) -->
+
+        
+                <war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
+                     webxml="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/web.xml"
+                     roundup="false">
+                    <webinf dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/">
+                        <include name="*.xml" />
+                        <include name="*.properties" />
+                        <include name="/classes/*.properties" />
+                        <include name="/classes/*.docx" />
+                    </webinf>
+                    <classes dir="${build}/classes">
+                        <include name="it/csi/risca/riscaboweb/**"/>
+                    </classes>
+
+
+                    <classes dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/classes">
+                    	<include name="*.properties"/>
+                    	<include name="*.docx"/>
+                    </classes>
+
+                    <lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}" />
+
+                    <!-- se sono presenti risorse web statiche vengono inserite nel pacchetto
+                         es. distribuizone webpack gia' buildata della parte client di una
+                         Single Page Application -->
+                    <fileset dir="${src}/web/${service.name}/${binding.code}" includes="**"></fileset>
+                </war>
+
+    </target>
+
+
+
+
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: package-commons-jar                                # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="package-commons-jar" description="Genera il jar per le classi comuni.">
+        <jar destfile="${build}/archives/${target}/riscaboweb-common.jar"
+             basedir="${build}/classes"
+             includes="it/csi/risca/riscaboweb/business/**,
+                       it/csi/risca/riscaboweb/integration/**,
+                       it/csi/risca/riscaboweb/util/**">
+
+            <exclude name="it/csi/risca/riscaboweb/business/be/**" />
+            <exclude name="it/csi/risca/riscaboweb/integration/be/**" />
+        </jar>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-all                                        # -->
+    <!-- ############################################################# -->
+    <!-- nota: non cancella la directory "dist" appositamente: v. STDMDD-495.
+    per ripulire anche la "dist" richiamare esplicitamente il target "clean-dist" -->
+    <!-- -->
+    <target name="clean-all" description="Rimuove tutte le cartelle temporanee."
+            depends="clean-archives, clean-cache, clean-classes, clean-javadoc, clean-jsp, clean-temp" />
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-cache                                      # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-cache"
+            description="Rimuove la cartella di cache di Ivy e la lib.">
+        <delete dir="${build}/cache" failonerror="no" />
+        <delete dir="${lib}" failonerror="no" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-temp                                       # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-temp"
+            description="Rimuove la cartella dei files temporanei di build.">
+        <delete dir="${temp}" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-archives                                  # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-archives"
+            description="Rimuove la cartella degli archivi (war, ear, ...).">
+        <delete dir="${build}/archives" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-dist                                       # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-dist"
+            description="Rimuove la cartella delle distribuzioni.">
+        <delete dir="${dist}" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-classes                                    # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-classes"
+            description="Rimuove la cartella dei sorgenti compilati.">
+        <delete dir="${build}/classes" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-javadoc                                    # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-javadoc"
+            description="Rimuove la cartella temporanea dei javadoc.">
+        <delete dir="${build}/javadoc" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-jsp                                        # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-jsp"
+            description="Rimuove la cartella temporanea delle jsp compilate.">
+    <delete dir="${build}/jsp" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: _clean-web-inf                                   # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="_clean-web-inf"
+            description="Rimuove il contenuto di lib e classes della
+                         web application (per run locali).">
+        <delete dir="${srcweb}/WEB-INF/classes" />
+        <delete dir="${srcweb}/WEB-INF/lib" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: about                                             # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="about" description="Visualizza l'elenco dei target pubblici dello script.">
+        <loadproperties srcfile="buildfiles/build.properties" />
+        <loadfile property="about" srcfile="buildfiles/about.txt" />
+        <echo message="${about}" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: about-custom                                      # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="about-custom"
+            description="Visualizza l'elenco di tutti i target,
+                         pubblici e privati
+                         (equivalente a 'ant -projecthelp')" >
+
+        <loadproperties srcfile="buildfiles/build.properties" />
+        <loadfile property="about-custom" srcfile="buildfiles/about-custom.txt" />
+        <echo message="${about-custom}" />
+        <java classname="org.apache.tools.ant.Main">
+            <arg value="-projecthelp" />
+        </java>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: show-vars                                         # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="show-vars" depends="init"
+            description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+        <echo message="*****************************************" />
+        <echo message="********  ${componente} environment  *******" />
+        <echo message="*****************************************" />
+        <echoproperties />
+        <echo />
+        <echo />
+        <echo message="*****************************************" />
+        <echo message="********    java properties      ********" />
+        <echo message="*****************************************" />
+        <echoproperties prefix="java."/>
+    </target>
+
+	
+	<!--build in dev -->
+		<target name="deploy"
+			        description="effettua il deploy di uno specifico target">
+			<antcall target="build-frontend" />
+			<antcall target="default" />
+			  <echo>::::::::copyFileToServer Example::::::::::::</echo>
+			<scp file="${build}/archives/${target}/riscaboweb.ear" todir="${build_remote_machine}"  trust="true"/>
+		</target>
+
+		<target name="build-frontend" description="effettua il deploy del fe per dev, specificare come target dev">
+				<echo>clean file frontend</echo>
+				<delete includeemptydirs="true">
+			  		<fileset dir="${srcweb}/rest" includes="**/*"/>
+				</delete>
+
+				<echo>inizio build frontend</echo>
+				<exec dir="${build_local_frontend_path}" executable="/bin/bash">
+					<arg value="npm install" />
+				</exec>
+				<exec dir="${build_local_frontend_path}" executable="/bin/bash">
+		         	<arg line="npm run build_${target}"/>
+		        </exec>
+
+				<echo>sposto i file nel be </echo>
+				<move todir="${srcweb}/rest">
+					<fileset dir="${build_local_frontend_path}/dist/${componente_wcl}/${target}"/>
+				</move>
+		</target>
+
+		<target name="deploy-unix"
+						        description="effettua il deploy di uno specifico target">
+						<antcall target="build-frontend-unix" />
+						<antcall target="default" />
+			  <echo>::::::::copyFileToServer Example::::::::::::</echo>
+			<scp file="${build}/archives/${target}/riscaboweb.ear" todir="${build_remote_machine}"  trust="true"/>
+					</target>
+
+					<target name="build-frontend-unix" description="effettua il deploy del fe per dev, specificare come target dev">
+						<echo>clean file frontend</echo>
+						<delete includeemptydirs="true">
+							<fileset dir="${srcweb}/rest" includes="**/*"/>
+						</delete>
+
+						<echo>inizio build frontend</echo>
+						<exec dir="${build_local_frontend_path}" executable="/bin/sh">
+													 <arg value="-c" />
+													<arg value="${path_npm_linux} install" />
+												</exec>
+							
+						<exec dir="${build_local_frontend_path}" executable="/bin/sh">
+							 <arg value="-c" />
+							<arg value="${path_npm_linux} run build_${target}" />
+						</exec>
+
+						<echo>sposto i file nel be </echo>
+						<move todir="${srcweb}/rest">
+							<fileset dir="${build_local_frontend_path}/dist/${componente_wcl}/${target}"/>
+						</move>
+					</target>
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+    <!-- inserire qui eventuali target extra -->
+
+</project>

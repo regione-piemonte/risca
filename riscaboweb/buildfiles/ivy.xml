@@ -1,0 +1,282 @@
+<ivy-module version="1.0">
+    <info organisation="csipiemonte" module="riscaboweb" />
+    <dependencies>
+
+        <!-- librerie per il logging applicativo e la misurazione
+             delle performance. Nota: la piattaforma jboss impone l'utilizzo della
+             versione 1.2.14.
+        -->
+        <dependency org="apache" name="log4j" rev="2.16.0">
+            <artifact name="log4j-1.2-api-2.16.0" type="jar" />
+            <artifact name="log4j-api-2.16.0" type="jar" />
+            <artifact name="log4j-core-2.16.0" type="jar" />
+        </dependency>
+
+        <dependency org="csipiemonte" name="util-perf" rev="1.0.0">
+            <artifact name="util-perf-1.0.0" type="jar" />
+        </dependency>
+
+        <dependency org="csipiemonte" name="axiscsi" rev="1.0.0" transitive="false"/>
+
+        <dependency org="apache" name="axis" rev="1.4" transitive="false">
+            <artifact name="axis-jaxrpc-1.4" type="jar"/>
+        </dependency>
+        
+        <dependency org="redhat" name="wsdl4j" rev="1.6.3.redhat-1"/>
+        
+        <dependency org="apache" name="commons-logging" rev="1.1.1">
+            <artifact name="commons-logging-1.1.1" type="jar" />
+        </dependency>
+
+        <dependency org="apache" name="commons-lang3" rev="3.1">
+            <artifact name="commons-lang3-3.1" type="jar" />
+        </dependency>
+
+          <dependency org="others" name="aopalliance" rev="1.0.0" >
+            <artifact name="aopalliance-1.0.0" type="jar" />
+        </dependency>
+
+        <dependency org="others" name="asm" rev="3.3.1"  transitive="false"/>
+
+        <dependency org="others" name="cglib" rev="2.2.2">
+            <artifact name="cglib-2.2.2" type="jar"/>
+        </dependency>
+
+        <dependency org="others" name="asm" rev="3.3.1">
+            <artifact name="asm-3.3.1" type="jar"/>
+        </dependency>
+
+        <!-- ############################################################## -->
+        <!-- # SPRING                                                     # -->
+        <!-- ############################################################## -->
+        <!--  -->
+        <dependency org="others" name="spring" rev="4.3.24.RELEASE" transitive="false" >
+          <artifact name="spring-aop-4.3.24.RELEASE" type="jar" />
+          <artifact name="spring-instrument-4.3.24.RELEASE" type="jar" />
+          <artifact name="spring-beans-4.3.24.RELEASE" type="jar" />
+          <artifact name="spring-context-4.3.24.RELEASE" type="jar" />
+          <artifact name="spring-core-4.3.24.RELEASE" type="jar" />
+          <artifact name="spring-expression-4.3.24.RELEASE" type="jar" />
+          <artifact name="spring-jdbc-4.3.24.RELEASE" type="jar" />
+          <artifact name="spring-tx-4.3.24.RELEASE" type="jar" />
+          <artifact name="spring-web-4.3.24.RELEASE" type="jar" />
+        </dependency>
+
+        <!-- librerie per JAX-RS -->
+        <dependency org="others" name="jettison" rev="1.3.1">
+            <artifact name="jettison-1.3.1" type="jar"/>
+        </dependency>
+
+        <dependency org="sun" name="servlet-api" rev="2.5">
+        </dependency>
+
+        <!-- Cooperative Systems Infrastructure -->
+        <dependency org="csipiemonte" name="csi" rev="1.4.6">
+            <artifact name="csi-core-1.4.6" type="jar"/>
+            <artifact name="csi-rmi-1.4.6" type="jar"/>
+            <artifact name="csi-ejb-1.4.6" type="jar"/>
+            <artifact name="csi-apachesoap-1.4.6" type="jar"/>
+            <artifact name="csi-stadapter-1.4.6" type="jar"/>
+        </dependency>
+
+        <!-- Iride2 PEP -->
+        <dependency org="csipiemonte" name="iridev2" rev="2.0.0">
+        </dependency>
+
+
+        <!-- Inserire qui le dipendenze aggiuntive -->
+        <dependency org="others" name="jettison" rev="1.3.1">
+            <artifact name="jettison-1.3.1" type="jar"/>
+        </dependency>
+        <dependency org="redhat" name="jboss-jaxrs-api_2.1_spec" rev="1.0.2.Final">
+            <artifact name="jboss-jaxrs-api_2.1_spec-1.0.2.Final" type="jar"/>
+        </dependency>
+        <dependency org="sun" name="servlet-api" rev="2.5">
+        </dependency>
+
+        <!--  verificare se serve davvero -->
+        <dependency org="redhat" name="resteasy-jaxrs" rev="3.7.0.Final">
+            <artifact name="resteasy-jaxrs-3.7.0.Final" type="jar" />
+            <artifact name="resteasy-client-3.7.0.Final" type="jar" />
+        </dependency>
+
+        <!--  per upload -->
+        <dependency org="redhat" name="resteasy-multipart-provider" rev="2.3.10.Final-redhat-1">
+            <artifact name="resteasy-multipart-provider-2.3.10.Final-redhat-1" type="jar" />
+        </dependency>
+        
+        <dependency org="redhat" name="validation-api" rev="1.0.0.GA-redhat-3">
+            <artifact name="validation-api-1.0.0.GA-redhat-3" type="jar" />
+        </dependency>
+        <dependency org="others" name="swagger-annotations" rev="1.5.18">
+            <artifact name="swagger-annotations-1.5.18" type="jar" />
+        </dependency>
+
+        <dependency org="others" name="swagger-jaxrs" rev="1.5.18">
+            <artifact name="swagger-jaxrs-1.5.18" type="jar" />
+        </dependency>
+
+        <!-- dipendenze per client -->
+        <dependency org="fasterxml" name="jackson-core" rev="2.9.9">
+            <artifact name="jackson-core-2.9.9" type="jar" />
+        </dependency>
+        <dependency org="fasterxml" name="jackson-annotations" rev="2.9.9">
+            <artifact name="jackson-annotations-2.9.9" type="jar" />
+        </dependency>
+        <dependency org="fasterxml" name="jackson-databind" rev="2.9.9">
+            <artifact name="jackson-databind-2.9.9" type="jar" />
+        </dependency>
+
+        <dependency org="fasterxml" name="jackson-module-jaxb-annotations" rev="2.9.9">
+            <artifact name="jackson-module-jaxb-annotations-2.9.9" type="jar" />
+        </dependency>
+
+        <dependency org="apache" name="commons-io" rev="2.5">
+            <artifact name="commons-io-2.5" type="jar" />
+        </dependency>
+
+        <dependency org="redhat" name="jboss-annotations-api_1.3_spec" rev="1.0.1.Final">
+            <artifact name="jboss-annotations-api_1.3_spec-1.0.1.Final" type="jar" />
+        </dependency>
+
+        <dependency org="redhat" name="jboss-jaxb-api_2.3_spec" rev="1.0.1.Final">
+            <artifact name="jboss-jaxb-api_2.3_spec-1.0.1.Final" type="jar" />
+        </dependency>
+
+        <dependency org="jboss" name="jboss-logging" rev="3.1.2.GA">
+            <artifact name="jboss-logging-3.1.2.GA" type="jar" />
+        </dependency>
+
+        <dependency org="apache" name="httpclient" rev="4.5.4">
+            <artifact name="httpclient-4.5.4" type="jar" />
+        </dependency>
+
+        <dependency org="apache" name="httpcore" rev="4.4.5">
+            <artifact name="httpcore-4.4.5" type="jar" />
+        </dependency>
+
+        <dependency org="fasterxml" name="jackson-jaxrs-base" rev="2.9.9">
+            <artifact name="jackson-jaxrs-base-2.9.9" type="jar" />
+        </dependency>
+
+        <dependency org="fasterxml" name="jackson-jaxrs-json-provider" rev="2.9.9">
+            <artifact name="jackson-jaxrs-json-provider-2.9.9" type="jar" />
+        </dependency>
+
+        <dependency org="reactivestreams" name="reactive-streams" rev="1.0.2">
+            <artifact name="reactive-streams-1.0.2" type="jar" />
+        </dependency>
+
+        <dependency org="redhat" name="resteasy-jackson2-provider" rev="3.7.0.Final">
+            <artifact name="resteasy-jackson2-provider-3.7.0.Final" type="jar" />
+        </dependency>
+        
+        
+               <dependency org="csipiemonte" name="axiscsi" rev="1.0.0" transitive="false"/>
+
+        <dependency org="apache" name="axis" rev="1.4" transitive="false">
+            <artifact name="axis-jaxrpc-1.4" type="jar"/>
+        </dependency>
+
+        <dependency org="apache" name="commons-discovery" rev="0.2"/>
+
+        <dependency org="redhat" name="wsdl4j" rev="1.6.3.redhat-1"/>
+
+        <!-- AAEP -->
+        <dependency org="csipiemonte" name="aaeporch" rev="2.0.0">
+            <artifact name="aaeporch-cxfclient-2.0.0" type="jar"/>
+        </dependency>
+
+        <dependency org="json" name="json" rev="20180813">
+            <artifact name="json-20180813" type="jar"/>
+        </dependency>
+
+        <dependency org="json" name="json-simple" rev="1.1.1">
+            <artifact name="json-simple-1.1.1" type="jar"/>
+        </dependency>
+
+        <dependency org="others" name="itext" rev="2.1.7">
+            <artifact name="itext-2.1.7" type="jar"/>
+        </dependency>
+
+        <dependency org="others" name="oro" rev="2.0.8">
+            <artifact name="oro-2.0.8" type="jar"/>
+        </dependency>
+
+        <dependency org="others" name="slf4j" rev="1.7.28">
+            <artifact name="slf4j-api-1.7.28" type="jar"/>
+        </dependency>
+
+        <dependency org="apache" name="xerces" rev="2.9.0">
+            <artifact name="xercesImpl-2.9.0" type="jar" />
+            <artifact name="xml-apis-1.3.04" type="jar" />
+        </dependency>
+
+        <dependency org="apache" name="commons-lang" rev="2.6">
+            <artifact name="commons-lang-2.6" type="jar"/>
+        </dependency>
+
+        <dependency org="minidev" name="accessors-smart" rev="1.2">
+            <artifact name="accessors-smart-1.2" type="jar"/>
+        </dependency>
+
+        <dependency org="minidev" name="jsonsmart" rev="2.3">
+            <artifact name="json-smart-2.3" type="jar"/>
+        </dependency>
+
+        <dependency org="opensagres" name="xdocreport" rev="2.0.2">
+            <artifact name="fr.opensagres.poi.xwpf.converter.core-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.poi.xwpf.converter.pdf-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.poi.xwpf.converter.xhtml-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.converter.docx.xwpf-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.converter.odt.odfdom-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.converter-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.core-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.document.docx-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.document.odt-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.document-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.itext.extension-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.template.velocity-2.0.2" type="jar"/>
+            <artifact name="fr.opensagres.xdocreport.template-2.0.2" type="jar"/>
+        </dependency>
+
+        <dependency org="sun" name="jaxws" rev="2.1.1">
+            <artifact name="jaxws-api-2.1-1-osgi" type="jar"/>
+        </dependency>
+
+        <dependency org="jayway" name="jsonpath" rev="2.5.0">
+            <artifact name="json-path-2.5.0" type="jar"/>
+            <artifact name="json-path-assert-2.5.0" type="jar"/>
+        </dependency>
+
+        <dependency org="apache" name="velocity" rev="1.7">
+            <artifact name="velocity-1.7-dep" type="jar" />
+            <artifact name="velocity-1.7" type="jar" />
+        </dependency>
+
+        <dependency org="apache" name="xmlbeans" rev="3.0.1">
+            <artifact name="xmlbeans-3.0.1" type="jar"/>
+        </dependency>
+
+        <dependency org="apache" name="poi" rev="4.0.1">
+            <artifact name="poi-4.0.1" type="jar"/>
+            <artifact name="poi-ooxml-4.0.1" type="jar"/>
+            <artifact name="poi-ooxml-schemas-4.0.1" type="jar"/>
+            <artifact name="ooxml-schemas-1.4" type="jar"/>
+        </dependency>
+
+
+        <dependency org="archibus" name="archibus" rev="24.1.1">
+            <artifact name="commons-collections-3.2.2" type="jar" />
+            <artifact name="commons-collections4-4.1" type="jar" />
+            <artifact name="jaxws-rt-2.3.0" type="jar" />
+        </dependency>
+
+        <dependency org="apache" name="commons-compress" rev="1.18">
+            <artifact name="commons-compress-1.18" type="jar"/>
+        </dependency>
+        
+
+    </dependencies>
+
+</ivy-module>

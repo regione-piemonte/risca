@@ -1,0 +1,15 @@
+<!-- NOTA BENE: LE STRINGHE XXXXXX SONO DA VALORIZZARE CON I RIFERIMENTI OPPORTUNI -->
+<ivysettings>
+    <settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
+    <resolvers>
+        <url name="myUrlResolver">
+            <artifact pattern="XXXXXX" />
+            <artifact pattern="XXXXXX" />
+
+            <artifact pattern="XXXXXX" />
+
+            <ivy pattern="XXXXXX" />
+            <ivy pattern="XXXXXX" />
+        </url>
+    </resolvers>
+</ivysettings>

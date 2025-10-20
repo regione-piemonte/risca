@@ -1,0 +1,22 @@
+package it.csi.risca.riscaboweb.business.be.helper;
+
+import java.io.IOException;
+
+import javax.ws.rs.client.ClientRequestContext;
+import javax.ws.rs.client.ClientRequestFilter;
+
+public class AddHeaderFilter implements ClientRequestFilter {
+	private final String key;
+	private final String value;
+
+	public AddHeaderFilter(String key, String value) {
+		this.key = key;
+		this.value = value;
+	}
+
+	@Override
+	public void filter(ClientRequestContext requestContext) throws IOException {
+		String header = key + " : " + value;
+		requestContext.getHeaders().add(key, value);
+	}
+}

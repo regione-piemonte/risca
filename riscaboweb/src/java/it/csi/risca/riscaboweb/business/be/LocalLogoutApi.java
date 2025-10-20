@@ -1,0 +1,34 @@
+package it.csi.risca.riscaboweb.business.be;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
+
+
+/**
+ * The interface local logout api.
+ *
+ * @author CSI PIEMONTE
+ */
+@Path("/localLogout")
+@Produces(MediaType.APPLICATION_JSON)
+public interface LocalLogoutApi {
+
+	 /**
+     * Load ambiti config response.
+     *
+     * @param securityContext SecurityContext
+     * @param httpHeaders     HttpHeaders
+     * @param httpRequest     HttpServletRequest
+     * @return Response response
+     */
+    @GET
+    void localLogout( @Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);
+
+    
+}

@@ -1,0 +1,62 @@
+package it.csi.risca.riscaboweb.business.be;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+
+/**
+ * The interface ambiti config api.
+ *
+ * @author CSI PIEMONTE
+ */
+@Path("/ambiti-config")
+@Produces(MediaType.APPLICATION_JSON)
+public interface AmbitiConfigApi {
+
+	 /**
+     * Load ambiti config response.
+     *
+     * @param securityContext SecurityContext
+     * @param httpHeaders     HttpHeaders
+     * @param httpRequest     HttpServletRequest
+     * @return Response response
+     */
+    @GET
+    Response loadAmbitiConfig( @Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);
+
+    /**
+     * Load ambiti config tramite idAmbito o codAmbito.
+     *
+     * @param idAmbito    idAmbito
+     * @param securityContext SecurityContext
+     * @param httpHeaders     HttpHeaders
+     * @param httpRequest     HttpServletRequest
+     * @return Response response
+     */
+    @GET
+    @Path("/{idAmbito}")
+    Response loadAmbitiConfigByIdOrCodAmbito(@PathParam("idAmbito") String idAmbito,  @Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);
+
+    /**
+     * Load ambiti config by codAmbito and chiave.
+     *
+     * @param codAmbito codAmbito
+     * @param chiave    chiave
+     * @param securityContext    SecurityContext
+     * @param httpHeaders        HttpHeaders
+     * @param httpRequest        HttpServletRequest
+     * @return Response response
+     */
+    @GET
+    @Path("/{codAmbito}/chiave/{chiave}")
+    Response loadAmbitiConfigByCodeAndKey(@PathParam("codAmbito") String codAmbito, @PathParam("chiave") String chiave,  @Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);
+
+
+}

@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+    <import resource="dao-beans.xml"/>
+
+    <bean
+            class="it.csi.risca.riscaboweb.business.SpringApplicationContextHelper"></bean>
+            
+
+    <bean id="pingApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.PingApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipiRiscossioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiRiscossioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+
+    <bean id="statiRiscossioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.StatiRiscossioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+
+    <bean id="tipiAutorizzazioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiAutorizzazioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipiProvvedimentoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiProvvedimentoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipiTitoloApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiTitoloApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="provinceApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.ProvinceApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="riscossioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.RiscossioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+        
+    <bean id="irideServiceHelper"
+        class="it.csi.risca.riscaboweb.business.be.helper.iride.IrideServiceHelper">
+        <constructor-arg index="0" value="@iride.endpoint@" />
+    </bean>
+    
+    
+    <bean id="tipoUsoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipoUsoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="unitaMisuraApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.UnitaMisuraApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="riduzioneAumentoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.RiduzioneAumentoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="datoTecnicoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.DatoTecnicoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="calcoloCanoneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.CalcoloCanoneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipiSoggettoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiSoggettoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipiSedeApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiSedeApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipiInvioApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiInvioApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="nazioniApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.NazioniApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+
+    <bean id="gruppiApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.GruppiApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+   <bean id="comuniApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.ComuniApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipiNaturaGiuridicaApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiNaturaGiuridicaApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="soggettiApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.SoggettiApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="ambitiConfigApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.AmbitiConfigApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    
+    <bean id="messaggiApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.MessaggiApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="csiLogAuditApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.CsiLogAuditApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipiRecapitoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiRecapitoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="LogAuditHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.LogAuditHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tracciamentoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TracciamentoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+     <bean id="regioniApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.RegioniApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="provvedimentiIstanzeApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.ProvvedimentiIstanzeApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="profilazioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.ProfilazioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+
+    <bean id="tipiElaborazioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiElaborazioneApiServiceHelper">
+                <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+              </bean>
+          
+    <bean id="componentiDtApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.ComponentiDtApiServiceHelper">
+
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+   <bean id="statiElaborazioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.StatiElaborazioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="elaboraApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.ElaboraApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="indirizziSpedizioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.IndirizziSpedizioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="documentiAllegatiApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.DocumentiAllegatiApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.hostname.nodo@"/>
+        <constructor-arg index="2"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="statoDebitorioApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.StatoDebitorioApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipoRimborsoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipoRimborsoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="attivitaStatoDebitorioApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.AttivitaStatoDebitorioApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="iuvApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.IuvApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="rataSdApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.RataSdApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipoDilazioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipoDilazioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="pagamentoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.PagamentoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipoAccertamentoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiAccertamentoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+        <bean id="accertamentoApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.AccertamentoApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+ 
+     <bean id="calcoloInteressiApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.CalcoloInteressiApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="dettaglioPagApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.DettaglioPagApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+            
+    <bean id="dettaglioPagSearchResultApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.DettaglioPagSearchResultApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    <bean id="stampaRiscossioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.StampaRiscossioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+     <bean id="lockRiscossioneApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.LockRiscossioneApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+     <bean id="immagineApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.ImmagineApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipoRicercaMorositaApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipoRicercaMorositaApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tipoRicercaRimborsiApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipoRicercaRimborsiApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+        <bean id="assegnaPagamentiApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.AssegnaPagamentiApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    <bean id="reportApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.ReportApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.hostname.nodo@"/>
+        <constructor-arg index="2"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+     <bean id="tipoRicercaPagamentiApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipoRicercaPagamentiApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    <bean id="tipiModalitaPagApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipiModalitaPagApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+     <bean id="tipoUsoRegolaApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TipoUsoRegolaApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+    
+    <bean id="tassiDiInteresseApiServiceHelper"
+          class="it.csi.risca.riscaboweb.business.be.helper.riscabe.TassiDiInteresseApiServiceHelper">
+        <constructor-arg index="0"
+                         value="@riscabesrv.hostname@"/>
+        <constructor-arg index="1"
+                         value="@riscabesrv.endpoint_base@"/>
+    </bean>
+
+    
+    <context:component-scan
+            base-package="it.csi.risca.riscaboweb"/>
+    <context:component-scan
+            base-package="it.csi.risca.riscaboweb.business.be.impl"/>
+            
+            
+
+</beans>

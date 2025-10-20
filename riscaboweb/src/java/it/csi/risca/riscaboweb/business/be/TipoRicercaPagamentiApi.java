@@ -1,0 +1,58 @@
+package it.csi.risca.riscaboweb.business.be;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
+import it.csi.risca.riscaboweb.business.be.helper.riscabe.dto.RicercaPagamentoDTO;
+
+/**
+ * The interface TipoRicercaPagamentiApi.
+ *
+ * @author CSI PIEMONTE
+ */
+@Path("")
+@Produces(MediaType.APPLICATION_JSON)
+public interface TipoRicercaPagamentiApi {
+
+	/**
+	 * load All Tipi Ricerca Pagamenti.
+	 * 
+	 * @param securityContext SecurityContext
+	 * @param httpHeaders     HttpHeaders
+	 * @param httpRequest     HttpServletRequest
+	 * @return Response response
+	 */
+	@GET
+	@Path("/tipi-ricerca-pagamenti")
+	Response loadAllTipiRicercaPagamenti(@Context HttpHeaders httpHeaders, @Context HttpServletRequest httpRequest);
+
+	/**
+	 * ricercaPagamenti.
+	 * 
+	 * @param fruitore            fruitore
+	 * @param RicercaPagamentoDTO ricercaPagamentoDTO
+	 * @param securityContext     SecurityContext
+	 * @param httpHeaders         HttpHeaders
+	 * @param httpRequest         HttpServletRequest
+	 * @return Response response
+	 */
+	@POST
+	@Path("/ricerca_pagamenti")
+	Response ricercaPagamenti(@RequestBody RicercaPagamentoDTO ricercaPagamentoDTO,
+			@QueryParam("fruitore") String fruitore,
+			@QueryParam(value = "offset") String offset,
+			@QueryParam(value = "limit")  String limit,
+			@QueryParam(value = "sort") String sort, @Context HttpHeaders httpHeaders,
+			@Context HttpServletRequest httpRequest);
+
+}

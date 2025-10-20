@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="8949a5f7-e820-4dad-b326-ca99fe77abda" activeEnvironment="Default" name="jsoncxf" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="2799978b-e630-402e-9f7f-450c56b4bc53" wsaVersion="NONE" name="JsoncxfSrvEPMainServiceSoapBinding" type="wsdl" bindingName="{http://jsoncxf.business.jsoncxf.test.csi.it/}JsoncxfSrvEPMainServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl"><con:part><con:url>http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="JsoncxfSrvEPMainService" targetNamespace="http://jsoncxf.business.jsoncxf.test.csi.it/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://jsoncxf.business.jsoncxf.test.csi.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://jsoncxf.interfacews.jsoncxf.test.csi.it/">
+  <wsdl:import location="http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl=Jsoncxf.wsdl" namespace="http://jsoncxf.interfacews.jsoncxf.test.csi.it/"></wsdl:import>
+  <wsdl:binding name="JsoncxfSrvEPMainServiceSoapBinding" type="ns1:Jsoncxf">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="test1">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="test1">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="test1Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="MyException">
+        <soap:fault name="MyException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JsoncxfSrvEPMainService">
+    <wsdl:port binding="tns:JsoncxfSrvEPMainServiceSoapBinding" name="JsoncxfSrvPort">
+      <soap:address location="/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMain"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl=Jsoncxf.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="Jsoncxf" targetNamespace="http://jsoncxf.interfacews.jsoncxf.test.csi.it/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://jsoncxf.interfacews.jsoncxf.test.csi.it/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://jsoncxf.interfacews.jsoncxf.test.csi.it/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://jsoncxf.interfacews.jsoncxf.test.csi.it/">
+      <xs:element name="test1" type="tns:test1"/>
+      <xs:element name="test1Response" type="tns:test1Response"/>
+      <xs:complexType name="test1">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="nome" type="xs:string"/>
+          <xs:element name="eta" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="test1Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="result" type="tns:persona"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="persona">
+        <xs:sequence>
+          <xs:element name="nome" type="xs:string"/>
+          <xs:element name="eta" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="MyException" type="tns:MyException"/>
+      <xs:complexType name="MyException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UnrecoverableException" type="tns:UnrecoverableException"/>
+      <xs:complexType name="UnrecoverableException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="test1Response">
+    <wsdl:part element="ns1:test1Response" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="MyException">
+    <wsdl:part element="ns1:MyException" name="MyException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part element="ns1:UnrecoverableException" name="UnrecoverableException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="ns1:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="test1">
+    <wsdl:part element="ns1:test1" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Jsoncxf">
+    <wsdl:operation name="test1">
+      <wsdl:input message="ns1:test1" name="test1"></wsdl:input>
+      <wsdl:output message="ns1:test1Response" name="test1Response"></wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException"></wsdl:fault>
+      <wsdl:fault message="ns1:MyException" name="MyException"></wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMain</con:endpoint></con:endpoints><con:operation id="ae80303a-e345-484c-a165-680d23eefc65" isOneWay="false" action="" name="test1" bindingOperationName="test1" type="Request-Response" outputName="test1Response" inputName="test1" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ba6945dd-2ff8-4fdf-9466-1b8ca0d6e34d" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:json="http://jsoncxf.interfacews.jsoncxf.test.csi.it/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <json:test1>\r
+         <!--Optional:-->\r
+         <nome>pippo</nome>\r
+         <eta>2344</eta>\r
+      </json:test1>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>user1</con:username><con:password>mypass</con:password><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://jsoncxf.business.jsoncxf.test.csi.it/Jsoncxf/test1"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
