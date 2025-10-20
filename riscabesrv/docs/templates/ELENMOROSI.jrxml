@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 8.0.2.final utlizzo versione della libreria JasperReportshotfix-6.18.1-SNAPSHOT-2961835b2212865be359a43768fc5fa9b356148c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report_morosita" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="81bf5e97-602a-4005-ac1e-dc620119b4d9">
+
+
+	<property name="net.sf.jasperreports.print.keep.full.text"  value="true"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+
+	<field name="valoreColonna1" class="java.lang.String"/>
+	<field name="valoreColonna2" class="java.lang.String"/>
+	<field name="valoreColonna3" class="java.lang.String"/>
+	<field name="valoreColonna4" class="java.lang.String"/>
+	<field name="valoreColonna5" class="java.lang.String"/>
+	<field name="valoreColonna6" class="java.lang.String"/>
+	<field name="valoreColonna7" class="java.lang.String"/>
+	<field name="valoreColonna8" class="java.lang.String"/>
+	<field name="valoreColonna9" class="java.lang.String"/>
+	<field name="valoreColonna10" class="java.lang.String"/>
+	<field name="valoreColonna11" class="java.lang.String"/>
+	<field name="valoreColonna12" class="java.lang.String"/>
+	<field name="valoreColonna13" class="java.lang.String"/>
+	<field name="valoreColonna14" class="java.lang.String"/>
+	<detail>
+		<band height="13">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="100" height="13" />
+				<textFieldExpression><![CDATA[$F{valoreColonna1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="0" width="100" height="13" />
+				<textFieldExpression><![CDATA[$F{valoreColonna2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="0" width="100" height="13" />
+				<textFieldExpression><![CDATA[$F{valoreColonna3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="300" y="0" width="100" height="13" />
+				<textFieldExpression><![CDATA[$F{valoreColonna4}]]></textFieldExpression>
+			</textField>
+			
+		    <textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="400" y="0" width="100" height="13" uuid="58a6cf15-690e-4d1a-8d6e-5659531e61eb">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna5} : Double.parseDouble($F{valoreColonna5})]]></textFieldExpression>
+			</textField>
+	       <textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="500" y="0" width="100" height="13" uuid="ded2f0bb-23b9-4d38-9334-f66e5b685961">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="dd/MM/yyyy"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna6} : new SimpleDateFormat("dd/MM/yyyy").parse($F{valoreColonna6})]]></textFieldExpression>
+			</textField>
+	  	   <textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="600" y="0" width="100" height="13" uuid="58a6cf15-690e-4d1a-8d6e-5659531e61eb">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna7} : Double.parseDouble($F{valoreColonna7})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="700" y="0" width="100" height="13" uuid="58a6cf15-690e-4d1a-8d6e-5659531e61eb">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna8} : Double.parseDouble($F{valoreColonna8})]]></textFieldExpression>
+			</textField>
+			
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="800" y="0" width="100" height="13" uuid="58a6cf15-690e-4d1a-8d6e-5659531e61eb">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna9} : Double.parseDouble($F{valoreColonna9})]]></textFieldExpression>
+			</textField>
+			
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="900" y="0" width="100" height="13" uuid="58a6cf15-690e-4d1a-8d6e-5659531e61eb">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna10} : Double.parseDouble($F{valoreColonna10})]]></textFieldExpression>
+			</textField>
+			
+				  	<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="1000" y="0" width="100" height="13" uuid="58a6cf15-690e-4d1a-8d6e-5659531e61eb">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna11} : Double.parseDouble($F{valoreColonna11})]]></textFieldExpression>
+			</textField>
+			
+				  	<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="1100" y="0" width="100" height="13" uuid="58a6cf15-690e-4d1a-8d6e-5659531e61eb">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="#,##0.00"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna12} : Double.parseDouble($F{valoreColonna12})]]></textFieldExpression>
+			</textField>
+			
+	    <textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="1200" y="0" width="100" height="13" uuid="ded2f0bb-23b9-4d38-9334-f66e5b685961">
+					<property name="net.sf.jasperreports.export.xls.pattern" value="dd/MM/yyyy"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 1 ? $F{valoreColonna13} : new SimpleDateFormat("dd/MM/yyyy").parse($F{valoreColonna13})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1300" y="0" width="100" height="13" />
+				<textFieldExpression><![CDATA[$F{valoreColonna14}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

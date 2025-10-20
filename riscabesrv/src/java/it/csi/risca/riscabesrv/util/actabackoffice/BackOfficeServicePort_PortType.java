@@ -1,0 +1,32 @@
+/*******************************************************************************
+ *  ========================LICENSE_START=================================
+ *   
+ *  Copyright (C) 2025 Regione Piemonte
+ *   
+ *  SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+ *  SPDX-License-Identifier: EUPL-1.2
+ *  =========================LICENSE_END==================================
+ *******************************************************************************/
+/**
+ * BackOfficeServicePort_PortType.java
+ *
+ * This file was auto-generated from WSDL
+ * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
+ */
+
+package it.csi.risca.riscabesrv.util.actabackoffice;
+
+public interface BackOfficeServicePort_PortType extends java.rmi.Remote {
+    public it.csi.risca.riscabesrv.util.actabackoffice.PrincipalResponseType[] getPrincipal(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.CodiceFiscaleType idUtente, it.csi.risca.riscabesrv.util.actabackoffice.IdAOOType idAOO, it.csi.risca.riscabesrv.util.actabackoffice.IdStrutturaType idStruttura, it.csi.risca.riscabesrv.util.actabackoffice.IdNodoType idNodo) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.PrincipalExtResponseType[] getPrincipalExt(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.CodiceFiscaleType idUtente, it.csi.risca.riscabesrv.util.actabackoffice.IdAOOType idAOO, it.csi.risca.riscabesrv.util.actabackoffice.IdStrutturaType idStruttura, it.csi.risca.riscabesrv.util.actabackoffice.IdNodoType idNodo, it.csi.risca.riscabesrv.util.actabackoffice.ClientApplicationInfo clientApplicationInfo) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.PagingResponseType getDescendants(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.PrincipalIdType principalId, java.lang.String path, it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType rootNodeId, java.util.Date date, java.lang.Integer depth, it.csi.risca.riscabesrv.util.actabackoffice.PropertyFilterType filter, java.lang.Integer maxItems, java.lang.Integer skipCount) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.ObjectResponseType[] getObjectParents(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.PrincipalIdType principalId, it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType rootNodeId, java.util.Date date, it.csi.risca.riscabesrv.util.actabackoffice.PropertyFilterType filter) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.RelazioniStrutturaPropertiesType[] getRelazioniStruttura(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.PrincipalIdType principalId, it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType objectId, java.lang.String ruolo, java.util.Date date, it.csi.risca.riscabesrv.util.actabackoffice.PropertyFilterType filter) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.ObjectResponseType getProperties(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType objectId, it.csi.risca.riscabesrv.util.actabackoffice.PrincipalIdType principalId, it.csi.risca.riscabesrv.util.actabackoffice.PropertyFilterType filter) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.ObjectResponseType[] getPropertiesMassive(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.PrincipalIdType principalId, it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType[] identifiers, it.csi.risca.riscabesrv.util.actabackoffice.PropertyFilterType filter) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.DettaglioAOOType getDettaglioAOO(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.IdAOOType idAOO) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.DettaglioStrutturaType getDettaglioStruttura(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.IdStrutturaType idStruttura) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.QueryableObjectType[] getQueryableObjects(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, java.lang.String service) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.ObjectMetadataType[] getQueryableObjectMetadata(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.QueryableObjectType queryableObject, java.lang.String operation) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+    public it.csi.risca.riscabesrv.util.actabackoffice.PagingResponseType query(it.csi.risca.riscabesrv.util.actabackoffice.ObjectIdType repositoryId, it.csi.risca.riscabesrv.util.actabackoffice.PrincipalIdType principalId, it.csi.risca.riscabesrv.util.actabackoffice.QueryableObjectType target, it.csi.risca.riscabesrv.util.actabackoffice.PropertyFilterType filter, it.csi.risca.riscabesrv.util.actabackoffice.QueryConditionType[] criteria, it.csi.risca.riscabesrv.util.actabackoffice.NavigationConditionInfoType navigationLimits, java.lang.Integer maxItems, java.lang.Integer skipCount) throws java.rmi.RemoteException, it.csi.risca.riscabesrv.util.actabackoffice.AcarisFaultType;
+}

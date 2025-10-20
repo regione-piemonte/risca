@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     ========================LICENSE_START=================================
+      
+     Copyright (C) 2025 Regione Piemonte
+      
+     SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+     SPDX-License-Identifier: EUPL-1.2
+     =========================LICENSE_END==================================
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <import resource="dao-beans.xml" />
+
+    <bean
+        class="it.csi.risca.riscabesrv.business.SpringApplicationContextHelper"></bean>
+
+    <bean id="dataSource"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="@risca.datasource@" />
+        <property name="proxyInterface" value="javax.sql.DataSource" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
+    </bean>
+
+    <bean id="transactionTemplate"
+        class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager" />
+    </bean>
+
+    <bean id="template"
+        class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource" />
+    </bean>
+    
+    <bean id="scrivaServiceHelper"
+          class="it.csi.risca.riscabesrv.business.be.helper.scriva.ScrivaServiceHelper">
+        <constructor-arg index="0" value="@scriva.endpoint@"/>
+        <constructor-arg index="1" value="@scriva.serviceUrl@"/>
+    </bean>
+
+    
+    <bean id="LogAuditHelper"
+          class="it.csi.risca.riscabesrv.business.be.helper.LogAuditHelper">
+    </bean>
+    
+    <bean id="irideServiceHelper"
+        class="it.csi.risca.riscabesrv.business.be.helper.iride.IrideServiceHelper">
+        <constructor-arg index="0" value="@iride.endpoint@" />
+    </bean>
+    
+
+     <bean id="actaBackOfficeServiceHelper" 
+         class="it.csi.risca.riscabesrv.business.be.helper.acta.backoffice.ActaBackOfficeServiceHelper"> 
+        <constructor-arg index="0" value="@actabackoffice.endpoint@" /> 
+     </bean> 
+    
+    <bean id="actaRepositoryServiceHelper"
+        class="it.csi.risca.riscabesrv.business.be.helper.acta.repositoryservice.ActaRepositoryServiceHelper">
+        <constructor-arg index="0" value="@actarepositoryservice.endpoint@" />
+    </bean>
+    
+     <bean id="actaObjectServiceHelper"
+        class="it.csi.risca.riscabesrv.business.be.helper.acta.object.ActaObjectServiceHelper">
+        <constructor-arg index="0" value="@actaobjectservice.endpoint@" />
+    </bean>
+    <bean id="actaNavigationServiceHelper"
+        class="it.csi.risca.riscabesrv.business.be.helper.acta.navigationservice.ActaNavigationServiceHelper">
+        <constructor-arg index="0" value="@actanavigationservice.endpoint@" />
+    </bean>
+     <bean id="actaRelationshipsServiceHelper"
+        class="it.csi.risca.riscabesrv.business.be.helper.acta.relationshipsservice.ActaRelationshipsServiceHelper">
+        <constructor-arg index="0" value="@actarelationshipsservice.endpoint@" />
+    </bean>
+    
+    <bean id="actaOfficialBookServiceHelper"
+        class="it.csi.risca.riscabesrv.business.be.helper.acta.officialbookservice.ActaOfficialBookServiceHelper">
+        <constructor-arg index="0" value="@actaofficialbookservice.endpoint@" />
+    </bean>
+    
+
+    <bean id="pagopaServiceHelper"
+        class="it.csi.risca.riscabesrv.business.be.helper.pagopa.PagopaServiceHelper">
+        <constructor-arg index="0" value="@epay.endpoint@"/>
+    </bean>
+    
+     <bean id="identitaDigitaleManager"
+        class="it.csi.risca.riscabesrv.identitadigitale.IdentitaDigitaleManager">
+    </bean>
+    
+    <bean id="mailManager"
+        class="it.csi.risca.riscabesrv.util.mail.MailManager">
+        <constructor-arg index="0" value="@mail.host@" />
+        <constructor-arg index="1" value="@mail.port@" />
+    </bean>
+    
+    <bean id="downloadManager"
+        class="it.csi.risca.riscabesrv.util.download.DownloadManager">
+        <constructor-arg index="0" value="@download.path@" />
+        <constructor-arg index="1" value="@download.url@" />
+    </bean>
+    
+    <bean id="stardasServiceHelper"
+        class="it.csi.risca.riscabesrv.business.be.helper.stardas.StardasServiceHelper">
+        <constructor-arg index="0" value="@stardas.endpoint@"/>
+        <constructor-arg index="1" value="@stardas.serviceUrl@"/>
+    </bean>
+
+     <bean id="tracciamentoManager"
+        class="it.csi.risca.riscabesrv.tracciamento.TracciamentoManagerImpl">
+    </bean>
+    
+    <bean id="businessLogic"
+        class="it.csi.risca.riscabesrv.business.be.impl.BusinessLogicManager">
+    </bean>
+    
+    <bean id="businessLogicFile450"
+        class="it.csi.risca.riscabesrv.business.be.impl.BusinessLogicManagerFile450">
+    </bean>
+    
+    <bean id="pagamentoBilAccLogic"
+        class="it.csi.risca.riscabesrv.business.be.impl.PagamentoBilAccLogic">
+    </bean>
+    
+    <context:component-scan
+            base-package="it.csi.risca.riscabesrv.business.be.impl" />
+    <context:component-scan
+            base-package="it.csi.risca.riscabesrv.util" />
+ 	
+</beans>

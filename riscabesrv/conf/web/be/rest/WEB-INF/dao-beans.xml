@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     ========================LICENSE_START=================================
+      
+     Copyright (C) 2025 Regione Piemonte
+      
+     SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+     SPDX-License-Identifier: EUPL-1.2
+     =========================LICENSE_END==================================
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+    <bean id="pingDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.PingDAOImpl">
+        <property name="template" ref="template"/>
+    </bean>
+
+    <bean id="tipoRiscossioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoRiscossioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_riscossione"/>
+    </bean>
+    
+    <bean id="statiRiscossioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.StatiRiscossioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_riscossione"/>
+    </bean>
+    
+    <bean id="tipiAutorizzazioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiAutorizzazioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_autorizza"/>
+    </bean>
+    
+    <bean id="tipiProvvedimentoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiProvvedimentoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_provvedimento"/>
+    </bean>
+    
+    <bean id="tipiTitoloDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiTitoloDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_titolo"/>
+    </bean>
+    
+    <bean id="provinceDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ProvinceDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_provincia"/>
+    </bean>
+    
+    <bean id="riscossioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RiscossioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_riscossione"/>
+    </bean>
+    
+    <bean id="tipoUsoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoUsoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_uso"/>
+    </bean>
+    
+    <bean id="unitaMisuraDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.UnitaMisuraDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_unita_misura"/>
+    </bean>
+    
+    <bean id="riduzioneAumentoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RiduzioneAumentoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_riduzione_aumento"/>
+    </bean>
+
+    <bean id="datoTecnicoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.DatoTecnicoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_riscossione"/>
+    </bean>    
+    
+    <bean id="calcoloCanoneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.CalcoloCanoneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_riscossione"/>
+    </bean>   
+    
+    <bean id="tipiSoggettoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiSoggettoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_soggetto"/>
+    </bean>   
+    
+    <bean id="tipiSedeDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiSedeDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_sede"/>
+    </bean>   
+    
+    <bean id="tipiInvioDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiInvioDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_invio"/>
+    </bean>
+    
+    <bean id="nazioniDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.NazioniDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_nazione"/>
+    </bean>
+    
+    <bean id="comuniDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ComuniDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_comune"/>
+    </bean>
+    
+    <bean id="tipiNaturaGiuridicaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiNaturaGiuridicaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_natura_giuridica"/>
+    </bean>
+    
+    <bean id="soggettiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SoggettiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_soggetti"/>
+    </bean>
+    
+    <bean id="ambitiConfigDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AmbitiConfigDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ambito_config"/>
+    </bean>
+    
+    <bean id="configurazioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ConfigurazioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ambito_config"/>
+    </bean>
+    
+    <bean id="gruppiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.GruppiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_gruppo_soggetto"/>
+    </bean>
+    
+    <bean id="messaggiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.MessaggiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_messaggi"/>
+    </bean>
+    
+     <bean id="csiLogAuditDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.CsiLogAuditDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="csi_log_audit"/>
+    </bean>
+    
+    <bean id="tipiRecapitoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiRecapitoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_recapito"/>
+    </bean>  
+    
+    <bean id="tracciamentoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TracciamentoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_s_tracciamento"/>
+    </bean>  
+    
+    <bean id="regioniDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RegioniDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_regione"/>
+    </bean> 
+    
+    <bean id="provvedimentiIstanzeDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ProvvedimentiIstanzeDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_provvedimento"/>
+    </bean> 
+    
+     <bean id="profilazioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ProfilazioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_profilo_ogg_app"/>
+    </bean> 
+
+    <bean id="ambitiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AmbitiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_ambito"/>
+    </bean>
+    
+    <bean id="registroElaboraDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RegistroElaboraDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_registro_elabora"/>
+    </bean> 
+    
+    <bean id="elaboraDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ElaboraDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_elabora"/>
+    </bean> 
+    
+    <bean id="parametroElaboraDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ParametroElaboraDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_parametro_elabora"/>
+    </bean> 
+
+    <bean id="componentiDtDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ComponentiDtDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_componente_dt"/>
+    </bean> 
+    
+    <bean id="tipiElaborazioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiElaborazioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_elabora"/>
+    </bean> 
+    
+     <bean id="statiElaborazioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.StatiElaborazioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_elabora"/>
+     </bean> 
+     
+    <bean id="riscossioniBollDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RiscossioniBollDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="v_riscossioni_bollettazione_speciale"/>
+    </bean> 
+    
+    <bean id="spedizioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SpedizioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_spedizione"/>
+    </bean> 
+
+    <bean id="fonteDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.FonteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_fonte"/>
+    </bean>    
+    
+    <bean id="indirizziSpedizioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.IndirizziSpedizioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_recapito_postel"/>
+    </bean> 
+    
+    <bean id="riscAmbienteDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.RiscossioneAmbienteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_riscossioni"/>
+    </bean> 
+    
+    <bean id="riscTributiDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.tributi.RiscossioneTributiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_riscossioni"/>
+    </bean> 
+    
+    <bean id="rataSdDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RataSdDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_rata_sd"/>
+    </bean>
+    
+    <bean id="annualitaSdDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AnnualitaSdDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_annualita_sd"/>
+    </bean>
+    
+    <bean id="avvisoPagamentoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AvvisoPagamentoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_avviso_pagamento"/>
+    </bean>
+    
+    <bean id="statoDebitorioDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.StatoDebitorioDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_stato_debitorio"/>
+    </bean>
+    
+    <bean id="avvisoDatiTitolareDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AvvisoDatiTitolareDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_avviso_dati_titolare"/>
+    </bean>
+    
+    <bean id="avvisoDatiAmminDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AvvisoDatiAmminDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_avviso_dati_ammin"/>
+    </bean>
+    
+    <bean id="avvisoAnnualitaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AvvisoAnnualitaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_avviso_annualita"/>
+    </bean>
+    
+    <bean id="avvisoUsoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AvvisoUsoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_avviso_uso"/>
+    </bean>
+    
+    <bean id="annualitaUsoSdDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AnnualitaUsoSdDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_annualita_uso_sd"/>
+    </bean>
+    
+    <bean id="tipoDilazioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoDilazioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_dilazione"/>
+    </bean>
+    
+    <bean id="rimborsoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RimborsoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_rimborso"/>
+    </bean>
+    
+    <bean id="rimborsoSdUtilizzatoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RimborsoSdUtilizzatoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_rimborso_sd_utilizzato"/>
+    </bean>
+    
+    <bean id="outputDatiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.OutputDatiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_output_dati"/>
+    </bean>
+
+    <bean id="outputFileDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.OutputFileDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_output_file"/>
+    </bean>
+    
+    <bean id="outputFoglioDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.OutputFoglioDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_output_foglio"/>
+    </bean>
+    
+    <bean id="outputColonnaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.OutputColonnaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_output_colonna"/>
+    </bean>
+    
+    <bean id="documentiAllegatiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.DocumentiAllegatiDAOImpl">
+        <property name="template" ref="template"/>
+    </bean>
+    
+    <bean id="tipoRimborsoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoRimborsoDAOImpl">
+        <property name="template" ref="template"/>
+    </bean>
+    <bean id="recapitoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RecapitoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_recapito"/>
+    </bean>
+    <bean id="attivitaStatoDebitorioDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AttivitaStatoDebitorioDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_attivita_stato_deb"/>
+    </bean>
+     <bean id="statoContribuzioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.StatoContribuzioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_stato_contribuzione"/>
+    </bean>
+    
+   <bean id="usoRidaumSdDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.UsoRidaumSdDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_annualita_uso_sd_ra"/>
+    </bean>
+    
+    <bean id="iuvDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.IuvDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_iuv"/>
+    </bean> 
+    
+       <bean id="dettaglioPagDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.DettaglioPagDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_dettaglio_pag"/>
+    </bean>
+    
+    <bean id="entePagopaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.EntePagopaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_ente_pagopa"/>
+    </bean>
+    
+    <bean id="pagopaScompRichIuvDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.PagopaScompRichIuvDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_pagopa_scomp_rich_iuv"/>
+    </bean>
+    
+    <bean id="rataSdAmbienteDAOImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.RataSdAmbienteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_rata_sd"/>
+    </bean>
+    
+     <bean id="pagamentoDAOImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.PagamentoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_pagamento"/>
+    </bean>
+    
+    <bean id="pagopaListaCarIuvDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.PagopaListaCarIuvDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_pagopa_lista_car_iuv"/>
+    </bean>
+    
+    <bean id="lottoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.LottoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_lotto"/>
+    </bean>
+    
+    <bean id="annualitaUsoSdRaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AnnualitaUsoSdRaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_annualita_uso_sd_ra"/>
+    </bean>
+    
+    <bean id="tipoUsoRegolaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoUsoRegolaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_tipo_uso_regola"/>
+    </bean>
+
+    <bean id="ambitoFonteDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AmbitoFonteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ambito_fonte"/>
+    </bean>
+    
+    <bean id="pagNonPropriDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.PagNonPropriDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_pag_non_propri"/>
+    </bean>
+        
+    <bean id="tipiAccertamentoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipiAccertamentoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_accertamento"/>
+    </bean>
+    
+    <bean id="accertamentoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AccertamentoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_accertamento"/>
+    </bean>
+    
+    <bean id="tipoModalitaPagDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoModalitaPagDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_modalita_pag"/>
+    </bean>  
+
+    <bean id="datoTecnicoAmbienteDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.DatoTecnicoAmbienteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_riscossioni"/>
+    </bean> 
+    
+    <bean id="datoTecnicoTributiDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.tributi.DatoTecnicoTributiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_riscossioni"/>
+    </bean> 
+    
+    <bean id="emailServizioDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.EmailServizioDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_email_servizio"/>
+    </bean> 
+    
+    <bean id="emailStandardDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.EmailStandardDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_email_standard"/>
+    </bean> 
+    
+    <bean id="spedizioneActaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SpedizioneActaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_spedizione_acta"/>
+    </bean> 
+
+     <bean id="file450DAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.File450DAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_file_450"/>
+    </bean>
+
+     <bean id="rimborsoAmbienteDAOImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.RimborsoAmbienteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_rimborso"/>
+    </bean> 
+    <bean id="rimborsoTributiDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.tributi.RimborsoTributiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_rimborso"/>
+    </bean> 
+        <bean id="rataSdTributiDAOImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.tributi.RataSdTributiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_rata_sd"/>
+    </bean>
+    
+     <bean id="sdAmbienteDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.StatoDebitorioAmbienteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_stato_debitorio"/>
+    </bean>
+     <bean id="sdTributiDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.tributi.StatoDebitorioTributiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_stato_debitorio"/>
+    </bean> 
+     <bean id="annualitaSdAmbienteDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.AnnualitaSdAmbienteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_annualita_sd"/>
+    </bean>
+    <bean id="annualitaSdTributiDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.tributi.AnnualitaSdTributiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_annualita_sd"/>
+    </bean>
+    <bean id="emailStPuntiValoriDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.EmailStPuntiValoriDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_email_st_punti_valori"/>
+    </bean> 
+    
+    <bean id="emailStSegnapostoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.EmailStSegnapostoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_email_st_segnaposto"/>
+    </bean> 
+    <bean id="calcoloInteresseDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.CalcoloInteresseDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ambito_interesse"/>
+    </bean> 
+     <bean id="ambitoInteresseDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AmbitoInteresseDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ambito_interesse"/>
+    </bean> 
+    
+    <bean id="archiviazioneActaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ArchiviazioneActaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="v_archiviazione_acta_ordinaria_speciale"/>
+    </bean>
+    <bean id="invioActaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.InvioActaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_invio_acta"/>
+    </bean>
+    
+    <bean id="rpPagopaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RpPagopaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_rp_pagopa"/>
+    </bean>
+    
+    <bean id="filePosteDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.FilePosteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_file_poste"/>
+    </bean>  
+    <bean id="immagineDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ImmagineDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_immagine"/>
+    </bean>
+    <bean id="rpNonPremarcatiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RpNonPremarcatiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_rp_nonpremarcati"/>
+    </bean>
+    <bean id="rpEstrcoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RpEstrcoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_rp_estrco"/>
+    </bean>
+    
+    <bean id="lockRiscossioneDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.LockRiscossioneDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_lock_riscossione"/>
+    </bean> 
+        
+    <bean id="tipoRicercaMorositaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoRicercaMorositaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_ricerca_morosita"/>
+    </bean> 
+            
+    <bean id="tipoRicercaRimborsiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoRicercaRimborsiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_ricerca_morosita"/>
+    </bean> 
+    
+    <bean id="statiDebitoriAvvisiSollecitiDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.StatiDebitoriAvvisiSollecitiDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="v_stati_debitori_avvisi_e_solleciti"/>
+    </bean> 
+    
+    <bean id="sollDatiTitolareDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SollDatiTitolareDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soll_dati_titolare"/>
+    </bean> 
+    
+    <bean id="sollDatiAmministrDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SollDatiAmministrDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soll_dati_amministr"/>
+    </bean> 
+    
+    <bean id="sollDatiPagopaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SollDatiPagopaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soll_dati_pagopa"/>
+    </bean> 
+    
+    <bean id="sollDestinatariDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SollDestinatariDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soll_destinatari"/>
+    </bean> 
+    
+    <bean id="sollDettVersDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SollDettVersDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soll_dett_vers"/>
+    </bean>
+     <bean id="tipoRicercaPagamentoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TipoRicercaPagamentoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_d_tipo_ricerca_pagamento"/>
+    </bean>
+    <bean id="delegheDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.DelegheDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_delegato"/>
+    </bean>
+     <bean id="soggettoDelegaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SoggettoDelegaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_soggetto_delega"/>
+    </bean>
+     <bean id="gruppoDelegaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.GruppoDelegaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_gruppo_delega"/>
+    </bean>
+     <bean id="reportAmbienteDaoImpl"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.ReportAmbienteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_output_dati"/>
+    </bean>
+    <bean id="soggettoGruppoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.SoggettoGruppoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_soggetto_gruppo"/>
+    </bean>
+    <bean id="riscossioneRecapitoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RiscossioneRecapitoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_riscossione_recapito"/>
+    </bean>
+    <bean id="recapitoPostelDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RecapitoPostelDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_recapito_postel"/>
+    </bean>
+    
+     <bean id="tableColumnDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TableColumnDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="information_schema.columns"/>
+    </bean>
+    
+    
+    
+    <bean id="iuvDaInviareDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.IuvDaInviareDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_iuv_da_inviare"/>
+    </bean>
+    <bean id="pagopaScompVarIuvDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.PagopaScompVarIuvDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_pagopa_scomp_var_iuv"/>
+    </bean>
+    <bean id="pagopaListaCaricoDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.PagopaListaCaricoDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_pagopa_lista_carico"/>
+    </bean>
+    
+   <bean id="areaCompetenzaDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.AreaCompetenzaDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ambito_area_competenza"/>
+    </bean>
+    
+    <bean id="ternaUtenzeDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TernaUtenzeDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_terna_utenze"/>
+    </bean>
+    
+    <bean id="ternaProdEnergDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TernaProdEnergDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_terna_prod_energ"/>
+    </bean>
+    
+    <bean id="tassiDiInteresseDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.TassiDiInteresseDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ambito_interesse"/>
+    </bean>
+    
+     <bean id="ruoloDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.RuoloDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ruolo"/>
+    </bean>
+    
+     <bean id="ruoloAmbienteDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.RuoloAmbienteDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ruolo"/>
+      </bean>
+
+    <bean id="dettaglioPagBilAccDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.DettaglioPagBilAccDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_dettaglio_pag_bil_acc"/>
+    </bean>
+    
+    <bean id="bilAccDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.BilAccDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_bil_acc"/>
+    </bean>
+    
+    <bean id="datiReportBilancioDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.ambiente.DatiReportBilancioDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_output_dati"/>
+    </bean>
+    
+    <bean id="fileSorisDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.FileSorisDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_t_file_soris"/>
+    </bean>  
+    
+       <bean id="sorisTotDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.SorisTotDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soris_tot"/>
+    </bean> 
+    
+           <bean id="soris00CDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.Soris00CDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soris_00c"/>
+    </bean> 
+    
+       <bean id="sorisFr0DAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.SorisFr0DAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soris_fr0"/>
+    </bean> 
+    
+       <bean id="sorisFr1DAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.SorisFr1DAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soris_fr1"/>
+    </bean> 
+    
+        <bean id="sorisFr3DAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.SorisFr3DAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soris_fr3"/>
+    </bean> 
+    
+    <bean id="sorisFr7DAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.SorisFr7DAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soris_fr7"/>
+    </bean> 
+    
+     <bean id="soris99CDAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.Soris99CDAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_w_soris_99C"/>
+    </bean> 
+    
+     <bean id="ruoloSorisFr1DAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.RuoloSorisFr1DAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ruolo_soris_fr1"/>
+    </bean> 
+    
+     <bean id="ruoloSorisFr3DAO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.RuoloSorisFr3DAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ruolo_soris_fr3"/>
+    </bean> 
+    
+      <bean id="ruoloSorisFr7AO"
+          class="it.csi.risca.riscabesrv.business.be.impl.dao.impl.soris.RuoloSorisFr7DAOImpl">
+        <property name="template" ref="template"/>
+        <property name="tableName" value="risca_r_ruolo_soris_fr7"/>
+    </bean> 
+    
+</beans>

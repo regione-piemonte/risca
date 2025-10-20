@@ -1,0 +1,24 @@
+<!--
+     ========================LICENSE_START=================================
+      
+     Copyright (C) 2025 Regione Piemonte
+      
+     SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+     SPDX-License-Identifier: EUPL-1.2
+     =========================LICENSE_END==================================
+ -->
+ <!-- NOTA BENE: LE STRINGHE XXXXXX SONO DA VALORIZZARE CON I RIFERIMENTI OPPORTUNI -->
+<ivysettings>
+    <settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
+    <resolvers>
+        <url name="myUrlResolver">
+            <artifact pattern="XXXXX" />
+            <artifact pattern="XXXXX" />
+
+            <artifact pattern="XXXXX" />
+
+            <ivy pattern="XXXXX" />
+            <ivy pattern="XXXXX" />
+        </url>
+    </resolvers>
+</ivysettings>

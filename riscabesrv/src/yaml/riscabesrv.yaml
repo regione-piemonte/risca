@@ -1,0 +1,4709 @@
+swagger: '2.0'
+info:
+  title: RISCA API
+  description: Servizi di fruizione RISCA
+  version: 1.0.0
+host: "dev-riscabesrv.csi.it"
+basePath: "/riscabesrv/api/v1"
+schemes:
+  - "http"
+paths:
+    '/ping':
+      get:
+        summary: Verifica la connessione al db.
+        tags:
+          - "Ping"
+        operationId: ping
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/Ping'
+              type: array
+    '/tipi-riscossione':
+      get:
+        summary: Restituisce l'elenco di tutti i tipi di riscossione.
+        tags:
+          - "Tipi Riscossione"
+        operationId: loadTipiRiscossione
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipoRiscossioneDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              items:
+                $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-riscossione':
+      get:
+        summary: Restituisce il tipo di adempimento il cui id è quello passato in input and Date inizio e fine Validita .
+        tags:
+          - "Tipi Riscossione"
+        operationId: getTipiRiscossioneByIdAmbitoAndDateValidita
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: dataIniVal
+            required: true
+            type: string
+          - in: query
+            name: dataFineVal
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/TipoRiscossioneDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-riscossione/{idTipoRiscossione}':
+      get:
+        summary: Restituisce il tipo di riscossione il cui id e l id dell ambito sono passati in input.
+        tags:
+          - "Tipi Riscossione"
+        operationId: loadTipoRiscossioneByIdTipoRiscossioneAndIdAmbito
+        parameters:
+          - in: path
+            name: idTipoRiscossione
+            required: true
+            type: integer
+            format: int64
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/TipoRiscossioneDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/tipi-riscossione/codice/{codTipoRiscossione}/id-ambito/{idAmbito}':
+      get:
+        summary: Restituisce il tipo di riscossione che fa riferimentoal codice tipo riscossione passato in input e all'ambito il cui id � quello passato in input.
+        tags:
+          - "Tipi Riscossione"
+        operationId: loadTipoRiscossioneByCodeAndIdAmbito
+        parameters:
+          - in: path
+            name: codTipoRiscossione
+            required: true
+            type: string
+          - format: int64
+            in: path
+            name: idAmbito
+            required: true
+            type: integer
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipoRiscossioneExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/info-utente':
+      get:
+        summary: Restituisce le informazioni dell'utente.
+        tags:
+          - "Info Utente"
+        operationId: loadInfoUtente
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/UserInfo'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/stati-riscossione':
+      get:
+        summary: Restituisce l'elenco di tutti gli stati di riscossione.
+        tags:
+          - "Stati Riscossione"
+        operationId: loadStatiRiscossione
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/StatiRiscossioneExtendedDTO'
+             type: array
+          '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/stati-riscossione/idAmbito/{idAmbito}':
+      get:
+        summary: Restituisce il tipo di adempimento il cui id è quello passato in input.
+        tags:
+          - "Stati Riscossione"
+        operationId: loadStatiRiscossioneByIdAmbito
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/StatiRiscossioneExtendedDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/tipi-autorizzazione':
+      get:
+        summary: Restituisce l'elenco di tutti i tipi di autorizzazione.
+        tags:
+          - "Tipi Autorizzazione"
+        operationId: loadTipiAutorizzazione
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipiAutorizzazioneExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-autorizzazione':
+      get:
+        summary: Restituisce il tipo di autorizzazione il cui id quello passato in input.
+        tags:
+          - "Tipi Autorizzazione"
+        operationId: loadTipiAutorizzazioneByIdAmbito
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: dataIniVal
+            required: true
+            type: string
+          - in: query
+            name: dataFineVal
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/TipiAutorizzazioneExtendedDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/tipi-autorizzazione/id/{idTipoAutorizza}/id-ambito/{idAmbito}':
+      get:
+        summary: Restituisce il tipo di autorizzazione il cui id e l'id dell'ambito sono passati in input.
+        tags:
+          - "Tipi Autorizzazione"
+        operationId: loadTipoAutorizzazioneByIdTipoAutorizzazioneAndIdAmbito
+        parameters:
+          - in: path
+            name: idTipoAutorizza
+            required: true
+            type: integer
+            format: int64
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/TipiAutorizzazioneExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-autorizzazione/{codTipoAutorizza}':
+      get:
+        summary: Restituisce il tipo di autorizzazione il cui id quello passato in input e cod Tipo Autorizza.
+        tags:
+          - "Tipi Autorizzazione"
+        operationId: loadTipoAutorizzazioneByCodeAndIdAmbito
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+          - in: path
+            name: codTipoAutorizza
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/TipiAutorizzazioneExtendedDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+
+    '/tipi-provvedimentoistanza':
+      get:
+        summary: Restituisce l'elenco di tutti i tipi di provvedimento.
+        tags:
+          - "Tipi Provvedimento"
+        operationId: loadTipiProvvedimento
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipiProvvedimentoExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-provvedimentoistanza':
+      get:
+        summary: Restituisce il tipo di provvedimento il cui idAMbito e flgIStanza e dataIniVal e dataFineVal sono quelli passato in input.
+        tags:
+          - "Tipi Provvedimento"
+        operationId: loadTipiProvvedimentoByIdAmbitoAndFlgIstanza
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: flgIstanza
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: dataIniVal
+            required: true
+            type: string
+          - in: query
+            name: dataFineVal
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/TipiProvvedimentoExtendedDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/tipi-provvedimentoistanza/id/{idTipoProvvedimento}/idAmbito/{idAmbito}':
+      get:
+        summary: Restituisce il tipo di provvedimento il cui id e l'id dell'ambito sono passati in input.
+        tags:
+          - "Tipi Provvedimento"
+        operationId: loadTipoProvvedimentoByIdTipoProvvedimentoAndIdAmbito
+        parameters:
+          - in: path
+            name: idTipoProvvedimento
+            required: true
+            type: integer
+            format: int64
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/TipiProvvedimentoExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-provvedimentoistanza/{codOrIdTipoProvvedimento}':
+      get:
+        summary: Restituisce il tipo di provvedimento che fa riferimento al codice o id tipo provvedimento passato in input e all'ambito il cui id � quello passato in input.
+        tags:
+          - "Tipi Provvedimento"
+        operationId: loadTipoProvvedimentoByCodeAndIdAmbito
+        parameters:
+          - in: path
+            name: codOrIdTipoProvvedimento
+            required: true
+            type: string
+          - format: int64
+            in: path
+            name: idAmbito
+            required: true
+            type: integer
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipiProvvedimentoExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/tipi-titolo':
+      get:
+        summary: Restituisce l'elenco di tutti i tipi di titolo.
+        tags:
+          - "Tipi Titolo"
+        operationId: loadTipiTitolo
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipiTitoloExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-titolo':
+      get:
+        summary: Restituisce il tipo di titolo il cui idAmbito  quello passato in input e data ini val e fine val.
+        tags:
+          - "Tipi Titolo"
+        operationId: loadTipiTitoloByIdAmbito
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64�
+          - in: query
+            name: dataIniVal
+            required: true
+            type: string
+          - in: query
+            name: dataFineVal
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/TipiTitoloExtendedDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/tipi-titolo/id/{idTipoTitolo}/idAmbito/{idAmbito}':
+      get:
+        summary: Restituisce il tipo di titolo il cui id e l id dell ambito sono passati in input.
+        tags:
+          - "Tipi Titolo"
+        operationId: loadTipoTitoloByIdTipoTitoloAndIdAmbito
+        parameters:
+          - in: path
+            name: idTipoTitolo
+            required: true
+            type: integer
+            format: int64
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/TipiTitoloExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-titolo/{codTipoTitolo}':
+      get:
+        summary: Restituisce il tipo di titolo che fa riferimento al codice tipo titolo passato in input e all'ambito il cui id � quello passato in input.
+        tags:
+          - "Tipi Titolo"
+        operationId: loadTipoTitoloByCodeAndIdAmbito
+        parameters:
+          - in: path
+            name: codTipoTitolo
+            required: true
+            type: string
+          - format: int64
+            in: path
+            name: idAmbito
+            required: true
+            type: integer
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipiTitoloExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/province':
+      get:
+        summary: Restituisce l'elenco di tutte le province.
+        tags:
+          - "Province"
+        operationId: loadProvince
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/ProvinceExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/province/comune/{codIstatComune}':
+      get:
+        summary: Restituisce la provincia di appartenenza al comune.
+        tags:
+          - "Province"
+        operationId: loadProvinceByCodIstatComune
+        parameters:
+          - in: path
+            name: codIstatComune
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/ProvinceExtendedDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/regione/{codRegione}/province':
+      get:
+        summary: Restituisce le province appartenenti ad una regione.
+        tags:
+          - "Province"
+        operationId: loadProvinceByCodRegione
+        parameters:
+          - in: path
+            name: codRegione
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/ProvinceExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/regioni/{codRegione}/province/{codProvincia}':
+      get:
+        summary: Restituisce la provincia appartenente ad una regione.
+        tags:
+          - "Province"
+        operationId: loadProvinciaByIdOrCodRegioneAndIdOrCodProvincia
+        parameters:
+          - in: path
+            name: codRegione
+            required: true
+            type: string
+          - in: path
+            name: codProvincia
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+               $ref: '#/definitions/ProvinceExtendedDTO'
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/csi-log-audit':
+      post:
+        summary: Salva l'oggetto csi log audit
+        tags:
+          - "Csi Log Audit"
+        operationId: saveCsiLogAudit
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              $ref: '#/definitions/CsiLogAuditDTO'
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/riscossioni':
+      post:
+        summary: Salva l'oggetto riscossioni
+        tags:
+          - "Riscossioni"
+        operationId: saveRiscossione
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/RiscossioneDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+      put:
+        summary: Aggiorna l'oggetto riscossioni
+        tags:
+          - "Riscossioni"
+        operationId: updateRiscossione
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/RiscossioneDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/_search/riscossioni':
+      post:
+        summary: Restituisce l'elenco riscossioni
+        tags:
+          - "Riscossioni"
+        operationId: searchRiscossione
+        parameters: []
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/RiscossioneSearchResultDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'  
+    '/_verify_riscossioni_stdebitori/{idOggetto}':
+       get:
+        summary: Restituisce verify Riscossioni Stato Debitori
+        tags:
+          - "Riscossioni"
+        operationId: verifyRiscossioniSTDebitori
+        parameters:
+          - in: path
+            name: idOggetto
+            required: true
+            type: integer
+          - in: query
+            name: indTipoOggetto
+            required: true
+            type: string
+          - in: query
+            name: idTipoOper 
+            required: true
+            type: string
+          - in: query
+            name: idRiscossione 
+            required: true
+            type: integer
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+               $ref: '#/definitions/VerifyRiscossioneStatoDebDTO'
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/messaggi/':
+      get:
+        summary: Restituisce l'elenco di tutti i messaggi.
+        tags:
+          - "Messaggi"
+        operationId: loadMessaggi
+        parameters: []
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/MessaggiDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'   
+    '/messaggi/{codMessaggio}':
+      get:
+        summary: Restituisce il messaggio By Codice Messaggio  .
+        tags:
+          - "Messaggi"
+        operationId: loadMessaggiByCodMessaggio
+        parameters:
+          - in: path
+            name: codMessaggio
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/MessaggiDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'  
+    '/tipi-soggetto':
+       get:
+          summary: Restituisce l'elenco di tutti i tipi soggetto.
+          tags:
+            - "Tipi Soggetto"
+          operationId: loadTipiSoggetto
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/TipiSoggettoDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'        
+    '/tipi-soggetto/{idTipoSoggetto}':
+        get:
+          summary: Restituisce il tipo soggetto by id tipo soggetto.
+          tags:
+            - "Tipi Soggetto"
+          operationId: loadTipiSoggettoByIdOrCodTipoSoggetto
+          parameters:
+            - in: path
+              name: idTipoSoggetto
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/TipiSoggettoDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+    '/ambiti-config':
+       get:
+          summary: Restituisce l'elenco di tutti gli ambiti config.
+          tags:
+            - "Ambiti Config"
+          operationId: loadAmbitiConfig
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/AmbitoConfigDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'        
+    '/ambiti-config/{idAmbito}':
+        get:
+          summary: Restituisce l'elenco di tutti gli ambiti config by idAmbito .
+          tags:
+            - "Ambiti Config"
+          operationId: loadAmbitiConfigByIdOrCodAmbito
+          parameters:
+            - in: path
+              name: idAmbito
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/AmbitoConfigDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO' 
+    '/ambiti-config/{codAmbito}/chiave/{chiave}':
+        get:
+          summary: Restituisce l'elenco di tutti gli ambiti config by codice Ambito e la chiave.
+          tags:
+            - "Ambiti Config"
+          operationId: loadAmbitiConfigByCodeAndKey
+          parameters:
+            - in: path
+              name: codAmbito
+              required: true
+              type: string
+            - in: path
+              name: chiave
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/AmbitoConfigDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+    '/calcolo-canone/idRiscossione/{idRiscossione}/dataRif/{dataRiferimento}':
+        get:
+          summary: Restituisce il calcolo canone che fa riferimento al   idRiscossione e la data riferimento quelle passate in input.
+          tags:
+            - "Calcolo Canone"
+          operationId: calcoloCanone
+          parameters:
+            - in: path
+              name: idRiscossione
+              required: true
+              type: integer
+            - in: path
+              name: dataRiferimento
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/CalcoloCanoneDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'    
+    '/comuni':
+        get:
+          summary: Restituisce l'elenco di tutti i comuni .
+          tags:
+            - "Comuni"
+          operationId: loadComuni
+          parameters:
+            - in: query
+              name: attivo
+              required: true
+              type: boolean
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/ComuneDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO' 
+    '/regioni/{idRegione}/province/{idProvincia}/comuni/{codIstatComune}':
+        get:
+          summary: Restituisce l'elenco di tutti i comuni by idRegione e idProvincia e codIstatComune .
+          tags:
+            - "Comuni"
+          operationId: loadComuniByIdOrCod
+          parameters:
+            - in: path
+              name: idRegione
+              required: true
+              type: string
+            - in: path
+              name: idProvincia
+              required: true
+              type: string
+            - in: path
+              name: codIstatComune
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/ComuneDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+    '/regioni/{codRegione}/province/{codProvincia}/comuni':
+        get:
+          summary: Restituisce l'elenco di tutti i comuni by codice regione e codice province .
+          tags:
+            - "Comuni"
+          operationId: loadComuniByCodRegione
+          parameters:
+            - in: path
+              name: codRegione
+              required: true
+              type: string
+            - in: path
+              name: codProvincia
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/ComuneDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+    '/comuni-qry':
+        get:
+          summary: Restituisce l'elenco di tutti i comuni by search string.
+          tags:
+            - "Comuni"
+          operationId: loadComuniByRicerca
+          parameters:
+            - in: query
+              name: q
+              required: true
+              type: string
+            - in: query
+              name: attivo
+              required: true
+              type: boolean
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/ComuneDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO' 
+    '/comuni/{codIstatComune}':
+      get:
+        summary: Restituisce il comune by  codIstatComune.
+        tags:
+          - "Comuni"
+        operationId: loadComuneByCodIstatComune
+        parameters:
+          - in: path
+            name: codIstatComune
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/ComuneDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'   
+    '/dati-tecnici':
+      post:
+        summary: Salva l'oggetto dati tecnici
+        tags:
+          - "Dati Tecnici"
+        operationId: saveDatoTecnico
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/RiscossioneDatoTecnicoDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/nazioni':
+      get:
+        summary: Restituisce l'elenco di tutti i nazioni.
+        tags:
+          - "Nazioni"
+        operationId: loadNazioni
+        parameters:
+          - in: query
+            name: attivo
+            required: true
+            type: boolean
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/ComuneDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'  
+    '/riduzione-aumento':
+       get:
+          summary: Restituisce l'elenco di riduzione aumento.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadRiduzioneAumento
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/RiduzioneAumentoDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO' 
+    '/riduzione-aumento/idAmbito/{idAmbito}':
+        get:
+          summary:  Restituisce l'elenco di riduzione aumento by id ambito.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadRiduzioneAumentoByIdAmbito
+          parameters:
+            - in: path
+              name: idAmbito
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO' 
+    '/riduzione-aumento/idTipoUso/{idTipoUso}':
+        get:
+          summary:  Restituisce l'elenco di riduzione aumento by id Tipo Uso.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadRiduzioneAumentoByIdTipoUso
+          parameters:
+            - in: path
+              name: idTipoUso
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'  
+    '/riduzione-aumento/idTipoUso/{idTipoUso}/flgRidAum/{flgRidAum}':
+        get:
+          summary:  Restituisce l'elenco di riduzione aumento by id Tipo Uso e flg riduzione aumento.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadRiduzioneAumentoByIdTipoUsoAndFlgRidAum
+          parameters:
+            - in: path
+              name: idTipoUso
+              required: true
+              type: integer
+            - in: path
+              name: flgRidAum
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO' 
+    '/riduzione-aumento/idRiduzioneAumento/{idRiduzioneAumento}':
+        get:
+          summary:  Restituisce l'elenco di riduzione aumento by id Riduzione Aumento.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadRiduzioneAumentoByIdRiduzioneAumento
+          parameters:
+            - in: path
+              name: idRiduzioneAumento
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/riduzioni/{codRiduzione}':
+        get:
+          summary:  Restituisce riduzione by cod Riduzione e dataIniVal e dataFineVal .
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadRiduzioniByIdOrCodRiduzioneAumento
+          parameters:
+            - in: path
+              name: codRiduzione
+              required: true
+              type: string
+            - in: query
+              name: dataIniVal
+              required: true
+              type: string
+            - in: query
+              name: dataFineVal
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/aumenti/{codAumenti}':
+        get:
+          summary:  Restituisce aumento by cod Aumenti e dataIniVal e dataFineVal.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadAumentoByIdOrCodRiduzioneAumento
+          parameters:
+            - in: path
+              name: codAumenti
+              required: true
+              type: string
+            - in: query
+              name: dataIniVal
+              required: true
+              type: string
+            - in: query
+              name: dataFineVal
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/riduzioni':
+        get:
+          summary:  Restituisce riduzione by flgManuale e dataIniVal e dataFineVal  .
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadRiduzioniByflgManuale
+          parameters:
+            - in: query
+              name: flgManuale
+              required: true
+              type: string
+            - in: query
+              name: dataIniVal
+              required: true
+              type: string
+            - in: query
+              name: dataFineVal
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/aumenti':
+        get:
+          summary:  Restituisce aumenti  by flgManuale e dataIniVal e dataFineVal.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadAumentiByflgManuale
+          parameters:
+            - in: query
+              name: flgManuale
+              required: true
+              type: string
+            - in: query
+              name: dataIniVal
+              required: true
+              type: string
+            - in: query
+              name: dataFineVal
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-uso/{idTipoUso}/aumenti':
+        get:
+          summary:  Restituisce aumento by idTipoUso e flgManuale e dataIniVal e dataFineVal.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadAumentiByIdOrCodTipoUsoFlgManuale
+          parameters:
+            - in: path
+              name: idTipoUso
+              required: true
+              type: string
+            - in: query
+              name: flgManuale
+              required: true
+              type: string
+            - in: query
+              name: dataIniVal
+              required: true
+              type: string
+            - in: query
+              name: dataFineVal
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-uso/{idTipoUso}/riduzioni':
+        get:
+          summary:  Restituisce aumento by idTipoUso e flgManuale e dataIniVal e dataFineVal.
+          tags:
+            - "Riduzione Aumento"
+          operationId: loadRiduzioniByIdOrCodTipoUsoFlgManuale
+          parameters:
+            - in: path
+              name: idTipoUso
+              required: true
+              type: string
+            - in: query
+              name: flgManuale
+              required: true
+              type: string
+            - in: query
+              name: dataIniVal
+              required: true
+              type: string
+            - in: query
+              name: dataFineVal
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiduzioneAumentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/soggetti':
+        get:
+          summary:  Restituisce l'elenco di soggetti by id ambito e tipo soggetto e cf soggetto.
+          tags:
+            - "Soggetti"
+          operationId: loadSoggettiByIdAmbAndIdTipoSoggAndCfSogg
+          parameters:
+            - in: query
+              name: idAmbito
+              required: true
+              type: integer
+            - in: query
+              name: idTipoSoggetto
+              required: true
+              type: integer
+            - in: query
+              name: cfSoggetto
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+                $ref: '#/definitions/SoggettiExtendedResponseDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO' 
+        post:
+          summary: Salva l'oggetto soggetti
+          tags:
+            - "Soggetti"
+          operationId: saveSoggetto
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/SoggettiExtendedDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+        put:
+          summary: Salva l'oggetto soggetti
+          tags:
+            - "Soggetti"
+          operationId: updateSoggetto
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/SoggettiExtendedDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+    '/soggetti/{idSoggetto}':
+        get:
+          summary:  Restituisce l'elenco di soggetti by id Soggetto.
+          tags:
+            - "Soggetti"
+          operationId: loadSoggettoById
+          parameters:
+            - in: path
+              name: idSoggetto
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               $ref: '#/definitions/SoggettiExtendedDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO' 
+        delete:
+          summary:  delete soggetti  by id Soggetto.
+          tags:
+            - "Soggetti"
+          operationId: deleteSoggetto
+          parameters:
+            - in: path
+              name: idSoggetto
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               $ref: '#/definitions/SoggettiExtendedDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/soggetti-qry':
+        get:
+          summary:  Restituisce l'elenco di soggetti by una campo di ricerca
+          tags:
+            - "Soggetti"
+          operationId: loadSoggettiByCampoRicerca
+          parameters:
+            - in: query
+              name: idAmbito
+              required: true
+              type: integer
+            - in: query
+              name: campoRicerca
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/SoggettiExtendedDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-invio':
+        get:
+          summary:  Restituisce l'elenco di tipi invio
+          tags:
+            - "Tipi Invio"
+          operationId: loadTipiInvio
+          parameters: []
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipiInvioDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-natura-giuridica':
+        get:
+          summary:  Restituisce l'elenco di tipi natura giuridica
+          tags:
+            - "Tipi Natura Giuridica"
+          operationId: loadTipiNaturaGiuridica
+          parameters: []
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipiNaturaGiuridicaDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-natura-giuridica/{idTipoNaturaGiuridica}':
+        get:
+          summary:  Restituisce il tipo natura giuridica by Id 
+          tags:
+            - "Tipi Natura Giuridica"
+          operationId: loadTipoNaturaGiuridicaByIdOrCod
+          parameters: 
+            - in: path
+              name: idTipoNaturaGiuridica
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+                 $ref: '#/definitions/TipiNaturaGiuridicaDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-sede':
+        get:
+          summary:  Restituisce l'elenco di tipi sede
+          tags:
+            - "Tipi Sede"
+          operationId: loadTipiSede
+          parameters: 
+            - in: query
+              name: TipoSoggetto
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipiSedeDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-uso':
+        get:
+          summary:  Restituisce l'elenco di tipi uso
+          tags:
+            - "Tipi Uso"
+          operationId: loadTipiUso
+          parameters: []
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipoUsoExtendedDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-uso/idAmbito/{idAmbito}':
+        get:
+          summary:  Restituisce l'elenco di tipi uso by id ambito
+          tags:
+            - "Tipi Uso"
+          operationId: loadTipiUsoByIdAmbito
+          parameters:
+            - in: path
+              name: idAmbito
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipoUsoExtendedDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-uso/idTipoUsoPadre/{idTipoUsoPadre}':
+        get:
+          summary:  Restituisce l'elenco di tipi uso by id tipo uso padre
+          tags:
+            - "Tipi Uso"
+          operationId: loadTipoUsoByIdTipoUsoPadre
+          parameters:
+            - in: path
+              name: idTipoUsoPadre
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipoUsoExtendedDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-uso/{idTipoUso}':
+        get:
+          summary:  Restituisce il tipo d' uso by id tipo uso o codice tipo uso.
+          tags:
+            - "Tipi Uso"
+          operationId: loadTipoUsoByIdTipoUsoOrCodTipoUso
+          parameters:
+            - in: path
+              name: idTipoUso
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipoUsoExtendedDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-uso/{codTipoUso}':
+        get:
+          summary:  Restituisce il tipo d' uso by codice tipo uso e id ambito.
+          tags:
+            - "Tipi Uso"
+          operationId: loadTipoUsoByCodeAndIdAmbito
+          parameters:
+            - in: path
+              name: codTipoUso
+              required: true
+              type: string
+            - in: path
+              name: idAmbito
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+                 $ref: '#/definitions/TipoUsoExtendedDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/tipi-uso':
+        get:
+          summary:  Restituisce il tipo d' uso by id tipo uso padre e id ambito e dataIniVal e dataFineVal.
+          tags:
+            - "Tipi Uso"
+          operationId: loadTipoUsoByIdTipoUsoPadreAndIdAmbito
+          parameters:
+            - in: query
+              name: idTipoUsoPadre
+              required: true
+              type: string
+            - in: query
+              name: dataIniVal
+              required: true
+              type: string
+            - in: query
+              name: dataFineVal
+              required: true
+              type: string
+            - in: path
+              name: idAmbito
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipoUsoExtendedDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/unita-misura':
+        get:
+          summary:  Restituisce l'elenco d' unita misura
+          tags:
+            - "Unita Misura"
+          operationId: loadUnitaMisura
+          parameters: []
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/UnitaMisuraDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/unita-misura/idAmbito/{idAmbito}':
+        get:
+          summary:  Restituisce l'elenco d'unita misura by id ambito
+          tags:
+            - "Unita Misura"
+          operationId: loadUnitaMisuraByIdAmbito
+          parameters:
+            - in: path
+              name: idAmbito
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/UnitaMisuraDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/unita-misura/keyUnitaMisura/{keyUnitaMisura}':
+        get:
+          summary:  Restituisce l'unita misura by key Unita Misura.
+          tags:
+            - "Unita Misura"
+          operationId: loadUnitaMisuraByKeyUnitaMisura
+          parameters:
+            - in: path
+              name: keyUnitaMisura
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+                 $ref: '#/definitions/UnitaMisuraDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/unita-misura/{idUnitaMisura}':
+        get:
+          summary:  Restituisce l'unita misura by id or sigla Unita Misura .
+          tags:
+            - "Unita Misura"
+          operationId: loadUnitaMisuraByIdUnitaMisura
+          parameters:
+            - in: path
+              name: idUnitaMisura
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+                 $ref: '#/definitions/UnitaMisuraDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/gruppi':
+        get:
+          summary:  Restituisce l'elenco di gruppi
+          tags:
+            - "Gruppi"
+          operationId: loadGruppiSoggetto
+          parameters: []
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/GruppiDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+        post:
+          summary: Salva l'oggetto gruppi
+          tags:
+            - "Gruppi"
+          operationId: saveGruppi
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/GruppiDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+        put:
+          summary: aggiorna l'oggetto gruppi
+          tags:
+            - "Gruppi"
+          operationId: updateGruppi
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/GruppiDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+    '/gruppi-qry':               
+        get:
+          summary:  Restituisce l'elenco di gruppo by id ambito e campo ricerca
+          tags:
+            - "Gruppi"
+          operationId: loadGruppiByIdAmbitoAndCampoRicerca
+          parameters:
+            - in: query
+              name: idAmbito 
+              required: true
+              type: string
+            - in: query
+              name:  campoRicerca
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/GruppiDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/gruppi/{idGruppo}':
+        get:
+          summary:  Restituisce gruppo by id Gruppo
+          tags:
+            - "Gruppi"
+          operationId: loadGruppiById
+          parameters:
+            - in: path
+              name: idGruppo
+              required: true
+              type: string
+            - in: query
+              name: desGruppo
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+                 $ref: '#/definitions/GruppiDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+        delete:
+          summary:  delete gruppi  by id gruppo.
+          tags:
+            - "Gruppi"
+          operationId: deleteGruppi
+          parameters:
+            - in: path
+              name: idGruppo
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               $ref: '#/definitions/GruppiDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/tipi-recapito':
+        get:
+          summary:  Restituisce l'elenco di tipi recapito
+          tags:
+            - "Tipi Recapito"
+          operationId: loadTipiRecapito
+          parameters: []
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/TipiRecapitoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO' 
+    '/provvedimenti-istanze':
+        get:
+          summary:  Restituisce l'elenco di Provvedimenti Istanze
+          tags:
+            - "Provvedimenti istanze"
+          operationId: getProvvedimentiIstanze
+          parameters: []
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/ProvvedimentoDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO' 
+        post:
+          summary: Salva l'oggetto Provvedimento Istanze
+          tags:
+            - "Provvedimenti istanze"
+          operationId: saveProvvedimentiIstanze
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/ProvvedimentoDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+        put:
+          summary: aggiorna l'oggetto Provvedimento Istanze
+          tags:
+            - "Provvedimenti istanze"
+          operationId: updateProvvedimentiIstanze
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/ProvvedimentoDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+
+    '/provvedimenti-istanze/{idProvvedimentiIstanze}':             
+        delete:
+          summary:  delete Provvedimenti Istanze  by id Provvedimenti Istanze.
+          tags:
+            - "Provvedimenti istanze"
+          operationId: deleteProvvedimentiIstanze
+          parameters:
+            - in: path
+              name: idProvvedimentiIstanze
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               $ref: '#/definitions/ProvvedimentoDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+        get:
+          summary:  Restituisce l'elenco Provvedimenti Istanze  by id Provvedimenti Istanze.
+          tags:
+            - "Provvedimenti istanze"
+          operationId: getProvvedimentoIstanzaByIdProvvedimenti
+          parameters:
+            - in: path
+              name: idProvvedimentiIstanze
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               $ref: '#/definitions/ProvvedimentoDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'  
+    '/riscossioni/{idRiscossione}/provvedimenti-istanze':             
+        get:
+          summary:  Restituisce l'elenco Provvedimenti Istanze  by id Riscossione.
+          tags:
+            - "Provvedimenti istanze"
+          operationId: getProvvedimentiIstanzeByidRiscossione
+          parameters:
+            - in: path
+              name: idRiscossione
+              required: true
+              type: integer
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               $ref: '#/definitions/ProvvedimentoDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'   
+    '/regioni':
+        get:
+          summary:  Restituisce l'elenco di regioni
+          tags:
+            - "regioni"
+          operationId: loadRegioni
+          parameters: []
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RegioneExtendedDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO' 
+    '/regioni/{codRegione}':             
+        get:
+          summary:  Restituisce regione bycodRegione.
+          tags:
+            - "regioni"
+          operationId: loadRegioneByCodRegione
+          parameters:
+            - in: path
+              name: codRegione
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               $ref: '#/definitions/ProvvedimentoDTO'
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'  
+    '/ambiti':
+       get:
+          summary: Restituisce l'elenco di tutti gli ambiti.
+          tags:
+            - "Ambiti"
+          operationId: loadAmbiti
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                items:
+                  $ref: '#/definitions/AmbitoDTO'
+                type: array
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'         
+
+    '/elabora':
+        get:
+          summary:  Restituisce una elaborazione per id_ambito, codTipoElabora, codStatoElabora
+          tags:
+            - "Elabora"
+          operationId: loadElaboraByAmbitoTipoStato
+          parameters:
+            - in: query
+              name: idAmbito
+              type: string
+            - in: query
+              name: codTipoElabora
+              type: string
+            - in: query
+              name: codStatoElabora
+              type: string
+            - in: query
+              name: dataRichiestaInizio
+              type: string
+            - in: query
+              name: dataRichiestaFine
+              type: string
+            - in: query
+              name: offset
+              type: string
+            - in: query
+              name: limit
+              type: string
+            - in: query
+              name: sort
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/ElaboraDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+        post:
+          summary: Salva l'oggetto elaborazione
+          tags:
+            - "Elabora"
+          operationId: saveElabora
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/ElaboraDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+        put:
+          summary: aggiorna l'oggetto elaborazione
+          tags:
+            - "Elabora"
+          operationId: updateElabora
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/ElaboraDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'    
+                
+    '/parametro-elabora':
+        get:
+          summary:  Restituisce i parametri di una elaborazione per idElabora, raggruppamento
+          tags:
+            - "Elabora"
+          operationId: loadParametroElaboraByElaboraRaggruppamento
+          parameters:
+            - in: query
+              name: idElabora
+              required: true
+              type: string
+            - in: query
+              name: raggruppamento
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/ParametroElaboraDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+        post:
+          summary: Salva l'oggetto parametro elaborazione
+          tags:
+            - "ParametroElabora"
+          operationId: saveParametroElabora
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/ParametroElaboraDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+        put:
+          summary: aggiorna l'oggetto parametro elaborazione
+          tags:
+            - "ParametroElabora"
+          operationId: updateParametroElabora
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/ParametroElaboraDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'    
+                
+    '/registro-elabora':
+        get:
+          summary:  Restituisce una lista di registro elabora per idElabora e idAmbito
+          tags:
+            - "Elabora"
+          operationId: loadRegistroElaboraByElaboraAndAmbito
+          parameters:
+            - in: query
+              name: idElabora
+              required: true
+              type: string
+            - in: query
+              name: idAmbito
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RegistroElaboraExtendedDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+        post:
+          summary: Salva l'oggetto registro elaborazione
+          tags:
+            - "RegistroElabora"
+          operationId: saveRegistroElabora
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/RegistroElaboraDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'                    
+    '/ambiti/{idAmbito}/componenti-dt':
+      get:
+        summary: Restituisce il tipo di componente dt.
+        tags:
+          - "Componenti Dt"
+        operationId: loadComponentiDt
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: codTipoComponente
+            required: false
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/ComponenteDtExtendedDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/ambiti/{idAmbito}/stato-elaborazione':
+      get:
+        summary: Restituisce tutti gli stati Elaborazione.
+        tags:
+          - "Stati Elaborazione"
+        operationId: loadStatiElaborazioneByIdAmbitoAndIdFunzionalita
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: idFunzionalita
+            required: true
+            type: integer
+            format: int64
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/StatoElaborazioneDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/tipi-elaborazione':
+      get:
+        summary: Restituisce tutti i tipi di Elaborazione.
+        tags:
+          - "tipi Elaborazione"
+        operationId: loadTipiElaborazioneByIdAmbitoAndContestoAndFlgVisibile
+        parameters:
+          - in: query
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: flgVisibile
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: contesto
+            required: false
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+             items:
+               $ref: '#/definitions/TipoElaboraExtendedDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+
+    '/spedizione/{idSpedizione}':
+        get:
+          summary:  Restituisce i dati di una spedizione per idSpedizione
+          tags:
+            - "Spedizione"
+          operationId: loadSpedizioneByIdSpedizione 
+          parameters:
+            - in: path
+              name: idSpedizione
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/SpedizioneDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/spedizione':  
+        post:
+          summary: Salva l'oggetto spedizione
+          tags:
+            - "Spedizione"
+          operationId: saveSpedizione
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/SpedizioneDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'
+        put:
+          summary: aggiorna l'oggetto Spedizione
+          tags:
+            - "Spedizione"
+          operationId: updateSpedizione
+          parameters: [ ]
+          produces:
+            - application/json
+          responses:
+            '200':
+              description: Successful operation.
+              schema:
+                $ref: '#/definitions/SpedizioneDTO'
+            '500':
+              description: Unexpected error.
+              schema:
+                $ref: '#/definitions/ErrorDTO'   
+    '/riscossioni-bs':
+        get:
+          summary:  Restituisce i dati delle riscossioni di tipo BS
+          tags:
+            - "RiscossioniBS"
+          operationId: loadRiscossioniBollettazioneSpeciale
+          parameters:
+            - in: query
+              name: codAmbito
+              required: true
+              type: string
+            - in: query
+              name: dtScadPagamento
+              required: true
+              type: string
+          produces:
+            - application/json
+          responses:
+           '200':
+             description: Successful operation.
+             schema:
+               items:
+                 $ref: '#/definitions/RiscossioneBsDTO'
+               type: array
+           '500':
+             description: Unexpected error.
+             schema:
+               $ref: '#/definitions/ErrorDTO'
+    '/rata-sd':
+      get:
+        summary:  Restituisce la rata principale dello stato debitorio per idStatoDebitorio
+        tags:
+          - "RataSd"
+        operationId: loadRataSdByStatoDebitorio
+        parameters:
+          - in: query
+            name: idStatoDebitorio
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/RataSdDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+    '/rata-sd/{idStatoDebitorio}':
+      post:
+        summary: Salva l'oggetto rata
+        tags:
+          - "RataSd"
+        operationId: saveNRataSd
+        parameters:
+          - in: path
+            name: idStatoDebitorio
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+                type: array
+                items:
+                  properties:
+                    listCodUtenza:
+                      type: integer
+                      format: int64
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+      
+    '/annualita-sd':
+      get:
+        summary:  Restituisce una lista di annualita per idStatoDebitorio, se speciali = true restituisce le annualità per lo stato debitorio con flg_invio_peciale = 1, se intre = true restituisce le annualità intere (flg_rateo_prima_annualita = 0 AND numero_mesi NULL)
+        tags:
+          - "AnnualitaSd"
+        operationId: loadAnnualitaSd
+        parameters:
+          - in: query
+            name: idStatoDebitorio
+            required: true
+            type: string
+          - in: query
+            name: speciali
+            required: false
+            type: boolean
+          - in: query
+            name: intere
+            required: false
+            type: boolean
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/AnnualitaSdDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO' 
+    '/attivita-stato-deb':
+       get:
+        summary:  Restituisce le attività degli stati debitori
+        tags:
+          - "attivita-stato-deb"
+        operationId: getAttivitaStatoDeb
+        parameters:
+          - in: query
+            name: flg_rm
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/AttivitaStatoDebitorioDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+    '/_calcolo-canone/dataRif/{dataRiferimento}':
+       post:
+        summary:  Effettua il calcolo e lo distingue per usi.
+        tags:
+          - "Calcolo Canone"
+        operationId: calcoloCanoneSingoloEFrazionato
+        parameters:
+          - in: query
+            name: dataFraz
+            required: true
+            type: string
+          - in: query
+            name: flgFraz
+            required: true
+            type: string
+          - in: path
+            name: dataRiferimento
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/RiscossioneDatoTecnicoDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'   
+    '/classificazioni/{idRiscossione}':
+       get:
+        summary:  Il servizio  permette di reperire il fascicolo associato in ACTA a una pratica di riscossione, e successivamente,  i documenti principali archiviati nel fascicolo
+        tags:
+          - "Documenti Allegati"
+        operationId: classificazioni
+        parameters:
+          - in: query
+            name: limit
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: offset
+            required: true
+            type: integer
+            format: int64
+          - in: path
+            name: idRiscossione
+            required: true
+            type: string  
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/ClassificazioniDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+             
+    '/allegati/{dbKeyClassificazione}':
+       get:
+        summary:  Il servizio  permette di recuperare un elenco allegati
+        tags:
+          - "Documenti Allegati"
+        operationId: allegati
+        parameters:
+
+          - in: query
+            name: idRiscossione
+            required: true
+            type: string
+
+          - in: path
+            name: dbKeyClassificazione
+            required: true
+            type: string  
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/AllegatiDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+    '/actaContentStream/{idClassificazione}':
+       get:
+        summary:  Il servizio permette, per ciascuna classificazione passata in input, di recuperare il relativo documento elettronico associato 
+        tags:
+          - "Documenti Allegati"
+        operationId: actaContentStream
+        parameters:
+
+          - in: query
+            name: idRiscossione
+            required: true
+            type: string
+
+          - in: path
+            name: idClassificazione
+            required: true
+            type: string  
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/AcarisContentStreamType'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+    '/indirizzi-spedizione':
+       post:
+        summary:  Il servizio riceve in input l’oggetto IndirizzoSpedizione e deve eseguire step        
+        tags:
+          - "Indirizzi Spedizione"
+        operationId: saveIndirizziSpedizione
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/IndirizzoSpedizioneDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO' 
+       put:
+        summary:  Il servizio riceve in input l’oggetto IndirizzoSpedizione e deve eseguire step        
+        tags:
+          - "Indirizzi Spedizione"
+        operationId: updateIndirizziSpedizione
+        parameters: 
+          - in: query
+            name: modalitaVerifica
+            required: true
+            type: integer
+            format: int64
+
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/IndirizzoSpedizioneDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+    '/stati-debitori':
+      get:
+        summary:  Il servizio  permette di reperire lo stato debitorio dato l'id riscossione
+        tags:
+          - "Stati Debitori"
+        operationId: loadAllStatoDebitorioOrByIdRiscossione
+        parameters:
+          - in: query
+            name: limit
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: offset
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: sort
+            required: true
+            type: string
+          - in: query
+            name: idRiscossione
+            required: true
+            type: string  
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/StatoDebitorioExtendedDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+      post:
+        summary: Salva l'oggetto riscossioni
+        tags:
+          - "Stati Debitori"
+        operationId: saveStatoDebitorio
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/StatoDebitorioExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+      put:
+        summary: Aggiorna l'oggetto riscossioni
+        tags:
+          - "Stati Debitori"
+        operationId: updateStatoDebitorio
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/StatoDebitorioExtendedDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/stati-debitori/{idStatoDebitorio}':
+       get:
+        summary:  Il servizio  permette di reperire lo stato debitorio dato l'id stato debitorio
+        tags:
+          - "Stati Debitori"
+        operationId: loadStatoDebitorioByIdStatoDebitorio
+        parameters:
+          - in: query
+            name: limit
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: offset
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: sort
+            required: true
+            type: string
+          - in: path
+            name: idStatoDebitorio
+            required: true
+            type: string  
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/StatoDebitorioExtendedDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+    '/stati-debitori/idRimborso/{idRimborso}':
+       get:
+        summary:  Il servizio  permette di reperire lo stato debitorio dato l'id stato debitorio
+        tags:
+          - "Stati Debitori"
+        operationId: loadStatoDebitorioByIdRimborso
+        parameters:
+          - in: path
+            name: idRimborso
+            required: true
+            type: string  
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/UtRimbDTO'
+             type: array
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+    '/riscossioni/{codRiscossione}':
+      get:
+        summary: recupera l'oggetto riscossioni dato il  codRiscossione
+        tags:
+          - "Riscossioni"
+        operationId: getRiscossione
+        parameters:
+          - in: path
+            name: codRiscossione
+            required: true
+            type: string  
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/RiscossioneDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+              
+    '/riscossioni/{idRiscossione}/dati-tecnici':
+      get:
+        summary: recupera  dati tecnici
+        tags:
+          - "Riscossioni"
+        operationId: loadDatoTecnico
+        parameters:
+          - in: path
+            name: idRiscossione
+            required: true
+            type: string  
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+                type: object
+                properties:
+                  json_dt:
+                    type: string
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/riscossioni/idStatoDebitorio/{idStatoDebitorio}':
+      get:
+        summary: recupera codici utenze dal'id stato debitorio
+        tags:
+          - "Riscossioni"
+        operationId: getCodiciUtenzaByIdStatoDebitorio
+        parameters:
+          - in: path
+            name: idStatoDebitorio
+            required: true
+            type: integer
+            format: int64
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+                type: array
+                items:
+                  properties:
+                    listCodUtenza:
+                      type: string
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/iuv':
+      get:
+        summary: recupera codici utenze dal'id stato debitorio
+        tags:
+          - "Iuv"
+        operationId: getIuvByNap
+        parameters:
+          - in: query
+            name: nap
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/IuvDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/pagamento':
+      get:
+        summary: recupera pagamento con l'id dello stato debitorio
+        tags:
+          - "Pagamento"
+        operationId: getPagamentoWithMaxDataOpVal
+        parameters:
+          - in: query
+            name: idStatoDebitorio
+            required: true
+            type: string
+        produces:
+          - application/json
+        responses:
+          '200':
+           description: Successful operation.
+           schema:
+             items:
+               $ref: '#/definitions/PagamentoDTO'
+             type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/profilazione':             
+      get:
+        summary:  Restituisce la profilazione by ruolo utente loggato.
+        tags:
+          - "profilazione"
+        operationId: loadProfilazione
+        parameters: []
+        produces:
+          - application/json
+        responses:
+         '200':
+           description: Successful operation.
+           schema:
+             $ref: '#/definitions/ProfilazioneDTO'
+         '500':
+           description: Unexpected error.
+           schema:
+             $ref: '#/definitions/ErrorDTO'
+    '/dilazione/ambito/{idAmbito}':
+      get:
+        summary: recupera  Tipo Dilazione tramite Id Ambito e Id Tipo Dilazione
+        tags:
+          - "Dilazione"
+        operationId: loadTipoDilazioneByIdAmbitoAndIdTipoDilazione
+        parameters:
+          - in: path
+            name: idAmbito
+            required: true
+            type: integer
+            format: int64
+          - in: query
+            name: idTipoDilazione
+            required: true
+            type: integer
+            format: int64
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipoDilazioneDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+    '/tipi-rimborso':
+      get:
+        summary: recupera i Tipi Rimborso
+        tags:
+          - "Tipi rimborso"
+        operationId: loadTipiRimborso
+        parameters: []
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+                $ref: '#/definitions/TipoRimborsoDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'
+          
+    '/tracciamento':
+      post:
+        summary: Salva l'oggetto traccimento
+        tags:
+          - "Tracciamento"
+        operationId: saveTracciamento
+        parameters: [ ]
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Successful operation.
+            schema:
+              items:
+               $ref: '#/definitions/TracciamentoDTO'
+              type: array
+          '500':
+            description: Unexpected error.
+            schema:
+              $ref: '#/definitions/ErrorDTO'          
+             
+             
+definitions:
+  ErrorDTO:
+    properties:
+      status:
+        type: string
+      code:
+        type: string
+      title:
+        type: string
+      detail:
+        type: object
+        additionalProperties:
+          type: string
+      links:
+        type: array
+        items:
+          type: string
+    type: object
+  TracciamentoDTO:
+    properties:
+      id_tracciamento:
+        format: int64
+        type: integer
+      data_ora:
+        type: string
+        format: date
+      flg_operazione:
+        type: string
+      id_riscossione:
+        format: int64
+        type: integer
+      json_tracciamento:
+        type: string
+      tipo_json:
+        type: string
+    type: object
+  TipoDilazioneDTO:
+    properties:
+      id_tipo_dilazione:
+        format: int64
+        type: integer
+      data_fine_validita:
+        type: string
+        format: date
+      data_inizio_val:
+        type: string
+        format: date
+      num_annualita_magg:
+        format: int64
+        type: integer
+      importo_magg:
+        type: number
+        format: double
+      importo_min:
+        type: number
+        format: double
+      num_mesi:
+        format: int64
+        type: integer
+      num_rate:
+        format: int64
+        type: integer
+      id_ambito:
+        format: int64
+        type: integer
+    type: object
+  ProfilazioneDTO:
+    properties:
+      profilo_pa:
+        $ref: '#/definitions/ProfiloPaDTO'
+      profilo_oggetto_app:
+        type: array
+        items:
+             $ref: '#/definitions/ProfiloOggAppDTO'
+    type: object
+  ProfiloOggAppDTO:
+    properties:
+      id_profilo_pa:
+        format: int64
+        type: integer
+      flg_attivo:
+        type: boolean
+      OggettoAppDTO:
+        $ref: '#/definitions/OggettoAppDTO'
+    type: object
+  TipoOggettoAppDTO:
+    properties:
+      id_tipo_oggetto_app:
+        format: int64
+        type: integer
+      cod_tipo_oggetto_app:
+        type: string
+      des_tipo_oggetto_app:
+        type: string
+    type: object
+  OggettoAppDTO:
+    properties:
+      id_oggetto_app:
+        format: int64
+        type: integer
+      cod_oggetto_app:
+        type: string
+      des_oggetto_app:
+        type: string
+      tipo_oggetto_app:
+        $ref: '#/definitions/TipoOggettoAppDTO'
+    type: object  
+  ProfiloPaDTO:
+    properties:
+      id_profilo_pa:
+        format: int64
+        type: integer
+      cod_profilo_pa:
+        type: string
+      des_profilo_pa:
+        type: string
+    type: object  
+  PagamentoDTO:
+    properties:
+      id_pagamento:
+        type: integer
+        format: int64
+      id_tipologia_pag:
+        type: integer
+        format: int64
+      id_tipo_modalita_pag:
+        type: integer
+        format: int64
+      id_file_poste:
+        type: integer
+        format: int64
+      id_immagine:
+        type: integer
+        format: int64
+      causale:
+        type: string
+      data_op_val:
+        type: string
+        format: date
+      importo_versato:
+        type: number
+        format: double
+      data_download:
+        type: string
+        format: date
+      quinto_campo:
+        type: string
+      cro:
+        type: string
+      note:
+        type: string
+      numero_pagamento:
+        type: integer
+        format: int64
+      soggetto_versamento:
+        type: string
+      indirizzo_versamento:
+        type: string
+      civico_versamento:
+        type: string
+      frazione_versamento:
+        type: string
+      comune_versamento:
+        type: string
+      cap_versamento:
+        type: string
+      prov_versamento:
+        type: string
+      flg_rimborsato:
+        type: integer
+        format: int64
+      imp_da_assegnare:
+        type: number
+        format: double
+      codice_avviso:
+        type: string
+      gest_attore_ins:
+        type: string
+      gest_data_ins:
+        type: string
+        format: date
+      gest_attore_upd:
+        type: string
+      gest_data_upd:
+        type: string
+        format: date
+      gest_uid:
+        type: string
+    type: object
+  IuvDTO:
+    properties:
+      id_iuv:
+        type: integer
+        format: int64
+      nap:
+        type: string
+      stato_iuv:
+        $ref: '#/definitions/StatoIuvDTO'
+      iuv:
+        type: string
+      codice_avviso:
+        type: string
+      importo:
+        type: number
+        format: double
+      codice_versamento:
+        type: string
+      gest_attore_ins:
+        type: string
+      gest_data_ins:
+        type: string
+        format: double
+      gest_attore_upd:
+        type: string
+      gest_data_upd:
+        type: string
+        format: date
+      gest_uid:
+        type: string
+    type: object
+  StatoIuvDTO:
+    properties:
+      id_stato_iuv:
+        type: string
+      cod_stato_iuv:
+        type: string
+      des_stato_iuv:
+        type: string
+    type: object
+  UtRimbDTO:
+    properties:
+      cod_utenza:
+        type: string
+      desc_periodo_pagamento:
+        type: string
+    type: object
+  StatoDebitorioExtendedDTO:
+    properties:
+      attivita_stato_deb:
+        $ref: '#/definitions/AttivitaStatoDebitorioDTO'
+      stato_contribuzione:
+        $ref: '#/definitions/StatoContribuzioneDTO'
+      annualita_sd:
+        type: array
+        items:
+          $ref: '#/definitions/AnnualitaSdDTO'
+      rimborsi:
+        type: array
+        items:
+          $ref: '#/definitions/RimborsoExtendedDTO'
+      rate:
+        type: array
+        items:
+          $ref: '#/definitions/RataSdDTO'
+      multi_nap:  
+        type: boolean
+      data_pagamento:
+        type: string
+      cod_utenza:
+        type: string
+      data_inizio_concessione:
+        type: string
+      data_fine_concessione:
+        type: string
+      stato_riscossione:
+        type: string
+      tipo_titolo:
+        type: string
+    type: object
+  RimborsoExtendedDTO:
+   properties:
+    id_riscossione:
+      type: integer
+      format: int64
+    tipo_rimborso:
+      $ref: '#/definitions/TipoRimborsoDTO'
+    soggetto_rimborso:
+      $ref: '#/definitions/SoggettiExtendedDTO'
+    rimborso_sd_utilizzato:
+      $ref: '#/definitions/RimborsoSdUtilizzatoDTO'
+   type: object
+  RimborsoSdUtilizzatoDTO:
+    properties:
+      id_stato_debitorio:
+        type: integer
+        format: int64
+      id_rimborso:
+        type: integer
+        format: int64
+      imp_utilizzato:
+        type: integer
+        format: double
+      gest_attore_ins:
+        type: string
+      gest_data_ins:
+        type: string
+        format: date
+      gest_attore_upd:
+       type: string
+      gest_data_upd:
+        type: string
+        format: date
+      gest_uid:
+        type: string
+    type: object
+  TipoRimborsoDTO:
+    properties:
+      id_tipo_rimborso:
+        type: integer
+        format: int64
+      cod_tipo_rimborso:
+        type: string
+      des_tipo_rimborso:
+        type: string
+    type: object
+  StatoContribuzioneDTO:
+    properties:
+      id_stato_contribuzione:
+        type: integer
+        format: int64
+      cod_stato_contribuzione:
+        type: string
+      des_stato_contribuzione:
+        type: string
+    type: object  
+  CsiLogAuditDTO:
+    properties:
+      data_ora:
+        type: string
+      id_app:
+        type: string
+      ip_address:
+        type: string
+      utente:
+        type: string
+      operazione:
+        type: string
+      ogg_oper:  
+        type: string
+      key_oper:
+        type: string
+    type: object   
+  Ping:
+    properties:
+      label:
+        type: string
+      status:
+        type: string
+    type: object
+  TipoRiscossioneDTO:
+    properties:
+      id_tipo_riscossione:
+        format: int64
+        type: integer
+      cod_tipo_riscossione:
+        type: string
+      des_tipo_riscossione:
+        type: string
+      id_ambito:
+        format: int64
+        type: integer
+    type: object
+  TipoRiscossioneExtendedDTO:
+    properties:
+      ambito:
+        $ref: '#/definitions/AmbitoDTO'
+    type: object
+  AmbitoDTO:
+    properties:
+      idAmbito:
+        format: int64
+        type: integer
+      codAmbito:
+        type: string
+      desAmbito:
+        type: string
+    type: object
+  UserInfo:
+    properties:
+      nome:
+        type: string
+      cognome:
+        type: string
+      codFisc:
+        type: string
+      ente:
+        type: string
+      ruolo:
+        type: string
+      codRuolo:
+        type: string
+      livAuth:
+        format: int64
+        type: integer
+      community:
+        type: string
+    type: object
+  TipiAutorizzazioneDTO:
+    properties:
+      id_tipo_autorizza:
+        format: int64
+        type: integer
+      cod_tipo_autorizza:
+        type: string
+      des_tipo_autorizza:
+        type: string
+      id_ambito:
+        format: int64
+        type: integer
+    type: object
+  TipiAutorizzazioneExtendedDTO:
+    properties:
+      ambito:
+        $ref: '#/definitions/AmbitoDTO'
+    type: object
+  StatiRiscossioneDTO:
+    properties:
+      id_stato_riscossione:
+        format: int64
+        type: integer
+      cod_stato_riscossione:
+        type: string
+      des_stato_riscossione:
+        type: string
+      id_ambito:
+        format: int64
+        type: integer
+    type: object
+  StatiRiscossioneExtendedDTO:
+    properties:
+      ambito:
+        $ref: '#/definitions/AmbitoDTO'
+    type: object
+  TipiProvvedimentoDTO:
+    properties:
+      id_tipo_provvedimento:
+        format: int64
+        type: integer
+      cod_tipo_provvedimento:
+        type: string
+      des_tipo_provvedimento:
+        type: string
+      id_ambito:
+        format: int64
+        type: integer
+      flg_istanza:
+        type: string
+    type: object
+  TipiProvvedimentoExtendedDTO:
+    properties:
+      ambito:
+        $ref: '#/definitions/AmbitoDTO'
+    type: object
+  TipiTitoloDTO:
+    properties:
+      id_tipo_titolo:
+        format: int64
+        type: integer
+      cod_tipo_titolo:
+        type: string
+      des_tipo_titolo:
+        type: string
+      id_ambito:
+        format: int64
+        type: integer
+    type: object
+  TipiTitoloExtendedDTO:
+    properties:
+      ambito:
+        $ref: '#/definitions/AmbitoDTO'
+    type: object
+  ComuneDTO:
+    properties:
+      id_comune:
+        format: int64
+        type: integer
+      cod_istat_comune:
+        type: string
+      cod_belfiore_comune:
+        type: string
+      denom_comune:
+        type: string
+      id_provincia:
+        format: int64
+        type: integer
+      data_inizio_validita:
+        type: string
+      data_fine_validita:
+        type: string
+      dt_id_comune:
+        format: int64
+        type: integer
+      dt_id_comune_prev:
+        format: int64
+        type: integer
+      dt_id_comune_next:
+        format: int64
+        type: integer
+      cap_comune:
+        type: string
+    type: object
+  NazioniDTO:
+    properties:
+      id_nazione:
+        format: int64
+        type: integer
+      cod_istat_nazione:
+        type: string
+      cod_belfiore_nazione:
+        type: string
+      denom_nazione:
+        type: string
+      data_inizio_validita:
+        type: string
+      data_fine_validita:
+        type: string
+      dt_id_stato:
+        format: int64
+        type: integer
+      dt_id_stato_prev:
+        format: int64
+        type: integer
+      dt_id_stato_next:
+        format: int64
+        type: integer
+      id_origine:
+        format: int64
+        type: integer
+    type: object
+  ProvinciaDTO:
+    properties:
+      id_provincia:
+        format: int64
+        type: integer
+      cod_provincia:
+        type: string
+      denom_provincia:
+        type: string
+      sigla_provincia:
+        type: string
+      id_regione:
+        format: int64
+        type: integer
+      data_inizio_validita:
+        type: string
+      data_fine_validita:
+        type: string
+    type: object
+  ProvinceExtendedDTO:
+    properties:
+      comune:
+        $ref: '#/definitions/ComuneDTO'
+      regione:
+        $ref: '#/definitions/RegioneDTO'
+    type: object
+  RegioneDTO:
+    properties:
+      id_regione:
+        format: int64
+        type: integer
+      cod_regione:
+        type: string
+      denom_regione:
+        type: string
+      id_nazione:
+        format: int64
+        type: integer
+      data_inizio_validita:
+        type: string
+      data_fine_validita:
+        type: string
+    type: object
+  RegioneExtendedDTO:
+    properties:
+      nazione:
+        $ref: '#/definitions/NazioniDTO'
+    type: object
+  RiscossioneDTO:
+    properties:
+      id_riscossione:
+        format: int64
+        type: integer
+      id_tipo_riscossione:
+        format: int64
+        type: integer
+      id_template:
+        format: int64
+        type: integer
+      id_stato_riscossione:
+        format: int64
+        type: integer
+      id_soggetto:
+        format: int64
+        type: integer
+      id_gruppo_soggetto:
+        format: int64
+        type: integer
+      id_tipo_autorizza:
+        format: int64
+        type: integer
+      cod_riscossione:
+        type: string
+      cod_riscossione_prov:
+        type: string
+      cod_riscossione_prog:
+        type: string
+      id_sigla_riscossione:
+        format: int64
+        type: integer
+      cod_riscossione_lettera_prov:
+        type: string
+      num_pratica:
+        type: string
+      flg_prenotata:
+        type: integer
+      motivo_prenotazione:
+        type: string
+      note_riscossione:
+        type: string
+      data_ini_concessione:
+        type: string
+      data_scad_concessione:
+        type: string
+      data_ini_sosp_canone:
+        type: string
+      data_fine_sosp_canone:
+        type: string
+      json_dt:
+        type: string
+      gest_data_ins:
+        type: string
+      gest_attore_ins:
+        type: string
+      gest_data_upd:
+        type: string
+      gest_attore_upd:
+        type: string
+      gest_uid:
+        type: string
+      ambito:
+        type: string
+      provvedimentoIstanza:
+        $ref: '#/definitions/ProvvedimentoDTO'
+    type: object
+  ProvvedimentoDTO:
+    properties:
+      id_provvedimento:
+        format: int64
+        type: integer
+      id_riscossione:
+        format: int64
+        type: integer
+      id_tipo_titolo:
+        format: int64
+        type: integer
+      id_tipo_provvedimento:
+        format: int64
+        type: integer
+      num_titolo:
+        type: string
+      data_provvedimento:
+        type: string
+      note:
+        type: string
+      gest_data_ins:
+        format: int64
+        type: integer
+      gest_attore_ins:
+        type: string
+      gest_data_upd:
+        format: int64
+        type: integer
+      gest_attore_upd:
+        type: string
+      gest_uid:
+        type: string
+    type: object
+  MessaggiDTO:
+    properties:
+      id_messaggio:
+        format: int64
+        type: integer
+      id_tipo_messaggio:
+        format: int64
+        type: integer
+      codMessaggio:
+        type: string
+      desTestoMessaggio:
+        type: string
+    type: object
+  TipiSoggettoDTO:
+    properties:
+      id_tipo_soggetto:
+        format: int64
+        type: integer
+      cod_tipo_soggetto:
+        type: string
+      des_tipo_soggetto:
+        type: string
+      ordina_tipo_soggetto:
+        format: int64
+        type: integer
+    type: object
+  AmbitoConfigDTO:
+    properties:
+      id_ambito_config:
+        format: int64
+        type: integer
+      id_ambito:
+        format: int64
+        type: integer
+      chiave:
+        type: string
+      valore:
+        type: string
+      ordinamento:
+        format: int64
+        type: integer
+      flgAttivo:
+        type: string
+      note:
+        type: string
+    type: object
+  CalcoloCanoneDTO:
+    properties:
+      calcoloCanone:
+        format: int64
+        type: integer
+    type: object
+  RiscossioneDatoTecnicoDTO:
+    properties:
+      riscossione:
+        $ref: '#/definitions/DatoTecnicoJsonDTO'
+    type: object
+  DatoTecnicoJsonDTO:
+    properties:
+      gest_UID:
+        type: string
+      id_riscossione:
+        format: int64
+        type: integer
+      data_modifica:
+        type: string
+      data_inserimento:
+        type: string
+      dati_tecnici:
+        type: string
+    type: object
+  RiduzioneAumentoDTO:
+    properties:
+      id_riduzione_aumento:
+        format: int64
+        type: integer
+      sigla_riduzione_aumento:
+        type: string
+      des_riduzione_aumento:
+        type: string
+      perc_riduzione_aumento:
+        type: string
+      flg_riduzione_aumento:
+        type: string
+      flgManuale:
+        type: string
+      flg_da_applicare:
+        type: string
+      ordina_riduzione_aumento:
+        format: int64
+        type: integer
+    type: object
+  SoggettiExtendedDTO:
+    properties:
+      ambito:
+        $ref: '#/definitions/AmbitoDTO'
+      tipoSoggetto:
+        $ref: '#/definitions/TipiSoggettoDTO'  
+      tipiNaturaGiuridica:
+        $ref: '#/definitions/TipiNaturaGiuridicaDTO'    
+      recapiti:
+        type: array
+        items:
+             $ref: '#/definitions/RecapitiExtendedDTO'
+    type: object
+  SoggettiExtendedResponseDTO:
+    properties:
+      soggetto:
+        $ref: '#/definitions/SoggettiExtendedDTO'
+      fonti_ambito:
+        type: string
+      is_abilitato:
+        type: boolean
+      is_gestione_abilitata:
+        type: boolean
+      is_fonte_abilitata_in_lettura:
+        type: boolean
+      is_fonte_abilitata_in_scrittura:
+        type: boolean
+      codice_messaggio:
+        type: string
+      lista_campi_aggiornati:
+        type: string
+    type: object
+  TipiNaturaGiuridicaDTO:
+    properties:
+      idTipoNaturaGiuridica:
+        format: int64
+        type: integer
+      codTipoNaturaGiuridica:
+        type: string
+      desTipoNaturaGiuridica:
+        type: string
+      siglaTipoNaturaGiuridica:
+        type: string
+      ordinaNaturaGiuridica:
+        format: int64
+        type: integer
+      flgPubblico:
+        type: string
+    type: object
+  RecapitiExtendedDTO:
+    properties:
+      tipoInvio:
+        $ref: '#/definitions/TipiInvioDTO'
+      tipoRecapito:
+        $ref: '#/definitions/TipiRecapitoDTO'  
+      Fonte:
+        $ref: '#/definitions/FonteDTO'    
+      comuneRecapito:
+        $ref: '#/definitions/ComuneDTO' 
+      nazioneRecapito:
+        $ref: '#/definitions/NazioniDTO' 
+    type: object
+  TipiInvioDTO:
+    properties:
+      idTipoInvio:
+        format: int64
+        type: integer
+      codTipoInvio:
+        type: string
+      desTipoInvio:
+        type: string
+      ordinaTipoInvio:
+        format: int64
+        type: integer
+    type: object 
+  TipiRecapitoDTO:
+    properties:
+      idTipoRecapito:
+        format: int64
+        type: integer
+      codTipoRecapito:
+        type: string
+      desTipoRecapito:
+        type: string
+    type: object 
+  FonteDTO:
+    properties:
+      idFonte:
+        format: int64
+        type: integer
+      codFonte:
+        type: string
+      desFonte:
+        type: string
+      chiaveSottoscrizione:
+        type: string
+    type: object 
+  TipiSedeDTO:
+    properties:
+      idTipoSede:
+        format: int64
+        type: integer
+      codTipoSede:
+        type: string
+      desTipoSede:
+        type: string
+      ordinaTipoSede:
+        format: int64
+        type: integer
+      indDefault:
+        type: string
+    type: object
+  TipoUsoExtendedDTO:
+    properties:
+      ambito:
+        $ref: '#/definitions/AmbitoDTO'
+    type: object
+  UnitaMisuraDTO:
+    properties:
+      idUnitaMisura:
+        format: int64
+        type: integer
+      siglaUnitaMisura:
+        type: string
+      desUnitaMisura:
+        type: string
+      ordinaUnitaMisura:
+        format: int64
+        type: integer
+    type: object
+  GruppiDTO:
+    properties:
+      idGruppoSoggetto:
+        format: int64
+        type: integer
+      codGruppoSoggetto:
+        type: string
+      codGruppoFonte:
+        type: string
+      desGruppoSoggetto:
+        type: string
+      idFonte:
+        format: int64
+        type: integer
+      idFonteOrigine:
+        format: int64
+        type: integer
+      gestAttoreIns:
+        type: string
+      gestDataIns:
+        type: string
+      gestAttoreUpd:
+        type: string
+      gestDataUpd:
+        type: string
+      gestUid:
+        type: string
+      dataAggiornamento:
+        type: string
+      dataCancellazione:
+        type: string
+      componentiGruppo:
+        type: array
+        items:
+             $ref: '#/definitions/GruppiSoggettoDTO'
+    type: object
+  GruppiSoggettoDTO:
+    properties:
+      idSoggetto:
+        format: int64
+        type: integer
+      idGruppoSoggetto:
+        format: int64
+        type: integer
+      flgCapoGruppo:
+        format: int64
+        type: integer
+      gestAttoreIns:
+        type: string
+      gestDataIns:
+        type: string
+      gestAttoreUpd:
+        type: string
+      gestDataUpd:
+        type: string
+      gestUid:
+        type: string
+    type: object
+  RiscossioneSearchResultDTO:
+    properties:
+      id_riscossione:
+        format: int64
+        type: integer
+      codice_utenza:
+        type: string
+      numero_pratica:
+        type: string
+      procedimento:
+        type: string
+      titolare:
+        type: string
+      stato:
+        type: string
+      comune_opera_di_presa:
+        type: string
+      corpo_idrico:
+        type: string
+      nome_impianto:
+        type: string
+    type: object
+    
+  ElaboraDTO:
+    properties:
+      idElabora:
+        format: int64
+        type: integer
+      idAmbito:
+        format: int64
+        type: integer
+      codTipoElabora:
+        type: string
+      codStatoElabora:
+        type: string
+      dataRichiesta:
+        type: string
+      gestAttoreIns:
+        type: string
+      gestDataIns:
+        type: string
+      gestAttoreUpd:
+        type: string
+      gestDataUpd:
+        type: string        
+      gestUid:
+        type: string  
+    type: object
+  ParametroElaboraDTO:
+    properties:
+      idParametroElabora:
+        format: int64
+        type: integer
+      idElabora:
+        format: int64
+        type: integer
+      raggruppamento:
+        type: string
+      chiave:
+        type: string
+      valore:
+        type: string
+    type: object
+  RegistroElaboraDTO:
+    properties:
+      idRegistroElabora:
+        format: int64
+        type: integer
+      idElabora:
+        format: int64
+        type: integer
+      codPassoElabora:
+        type: string
+      flgEsitoElabora:
+        format: int64
+        type: integer
+      notaElabora:
+        type: string
+      gestAttoreIns:
+        type: string
+      gestDataIns:
+        type: string
+      gestAttoreUpd:
+        type: string
+      gestDataUpd:
+        type: string        
+      gestUid:
+        type: string
+    type: object
+  RegistroElaboraExtendedDTO:
+    properties:
+      registroElabora:
+        $ref: '#/definitions/RegistroElaboraDTO'
+      dataRichiesta:
+        type: string
+      desTipoElabora:
+        type: string
+      desStatoElabora:
+        type: string
+      desPassoElabora:
+        type: string
+    type: object
+  ComponenteDtDTO:
+    properties:
+      id_componente_dt:
+        format: int64
+        type: integer
+      id_ambito:
+        format: int64
+        type: integer
+      id_tipo_componente_dt:
+        format: int64
+        type: integer
+      nome_componente_dt:
+        type: string
+      des_componente_dt:
+        type: string
+      data_inizio_validita:
+        type: string
+      data_fine_validita:
+        type: string
+    type: object
+  ComponenteDtExtendedDTO:
+    properties:
+      tipo_componente_dt:
+        $ref: '#/definitions/TipoComponenteDtDTO'
+    type: object
+  TipoComponenteDtDTO:
+    properties:
+      id_tipo_componente_dt:
+        format: int64
+        type: integer
+      cod_tipo_componente_dt:
+        type: string
+      des_tipo_componente_dt:
+        type: string
+    type: object
+  StatoElaborazioneDTO:
+    properties:
+      id_stato_elabora:
+        format: int64
+        type: integer
+      cod_stato_elabora:
+        type: string
+      des_stato_elabora:
+        type: string
+    type: object
+  TipoElaboraDTO:
+    properties:
+      id_tipo_elabora:
+        format: int64
+        type: integer
+      id_ambito:
+        format: int64
+        type: integer
+      id_funzionalita:
+        format: int64
+        type: integer
+      cod_tipo_elabora:
+        type: string
+      des_tipo_elabora:
+        type: string
+      flg_default:
+        format: int64
+        type: integer        
+      ordina_tipo_elabora:
+        format: int64
+        type: integer
+      flg_visibile:
+        format: int64
+        type: integer        
+      data_inizio_validita:
+        type: string
+      data_fine_validita:
+        type: string
+    type: object
+  FunzionalitaDTO:
+    properties:
+      id_funzionalita:
+        format: int64
+        type: integer
+      cod_funzionalita:
+        type: string
+      des_funzionalita:
+        type: string
+    type: object
+  TipoElaboraExtendedDTO:
+    properties:
+      ambito:
+        $ref: '#/definitions/AmbitoDTO'
+      funzionalitaDTO:
+        $ref: '#/definitions/FunzionalitaDTO'  
+      tipoElaboraDTO:
+        $ref: '#/definitions/TipoElaboraDTO' 
+  SpedizioneDTO:
+    properties:
+      idSpedizione:
+        format: int64
+        type: integer
+      idAmbito:
+        format: int64
+        type: integer
+      codTipoSpedizione:
+        type: string
+      dataSpedizione:
+        type: string
+      flgRecapito:
+        type: string
+      dataProt:
+        type: string
+      numProt:
+        type: string
+      dataScad:
+        type: string
+      numDeterm:
+        type: string
+      dataDeterm:
+        type: string
+      anno:
+        type: string
+    type: object
+  RiscossioneBsDTO:
+    properties:
+      datiRiscossione: 
+        type: string
+      idRiscossione: 
+        format: int64
+        type: integer
+      idTipoRiscossione: 
+        format: int64
+        type: integer
+      idStatoRiscossione: 
+        format: int64
+        type: integer
+      idSoggetto: 
+        format: int64
+        type: integer
+      idGruppoSoggetto: 
+        format: int64
+        type: integer
+      idTipoAutorizza: 
+        format: int64
+        type: integer
+      codRiscossione: 
+        type: string
+      codRiscossioneProv: 
+        type: string
+      codRiscossioneProg: 
+        type: string
+      idSiglaRiscossione: 
+        format: int64
+        type: integer
+      codRiscossioneLetteraProv: 
+        type: string
+      numPratica: 
+        type: string
+      flgPrenotata: 
+        format: int64
+        type: integer
+      motivoPrenotazione: 
+        type: string
+      noteRiscossione: 
+        type: string
+      dataIniConcessione: 
+        type: string
+      dataScadConcessione: 
+        type: string
+      dataIniSospCanone: 
+        type: string
+      dataFineSospCanone: 
+        type: string
+      jsonDt: 
+        type: string
+      idComponenteDt: 
+        type: string
+      datiTipoRiscossione: 
+        type: string
+      codTipoRiscossione: 
+        type: string
+      desTipoRiscossione: 
+        type: string
+      datiStatoRiscossione: 
+        type: string
+      codStatoRiscossione: 
+        type: string
+      desStatoRiscossione: 
+        type: string
+      datiTipoAutorizza: 
+        type: string
+      codTipoAutorizza: 
+        type: string
+      desTipoAutorizza: 
+        type: string
+      datiAmbito: 
+        type: string
+      codAmbito: 
+        type: string
+      desAmbito: 
+        type: string
+      datiIndirizzoPrincipale: 
+        type: string
+      idRiscossioneP: 
+        format: int64
+        type: integer
+      idRecapitoP: 
+        format: int64
+        type: integer
+      codTipoRecapitoP: 
+        type: string
+      desTipoRecapitoP: 
+        type: string
+      codTipoInvioP: 
+        type: string
+      desTipoInvioP: 
+        type: string
+      datiIndirizzoAlternativo: 
+        type: string
+      idRiscossioneA: 
+        format: int64
+        type: integer
+      idRecapitoA: 
+        format: int64
+        type: integer
+      codTipoRecapitoA: 
+        type: string
+      desTipoRecapitoA: 
+        type: string
+      codTipoInvioA: 
+        type: string
+      desTipoInvioA: 
+        type: string
+      datiRimborso: 
+        type: string
+      sumImpRimborsoRiscossione: 
+        type: string
+      datiStatoDebitorio: 
+        type: string
+      idStatoDebitorio: 
+        format: int64
+        type: integer
+      descPeriodoPagamento: 
+        type: string
+      statoContribuzione: 
+        type: string
+    type: object
+  RataSdDTO:
+    properties:
+      idRataSd:
+        format: int64
+        type: integer
+      idStatoDebitorio:
+        format: int64
+        type: integer
+      idRataSdPadre:
+        format: int64
+        type: integer
+      canoneDovuto:
+        format: int64
+        type: integer
+      interessiMaturati:
+        format: int64
+        type: integer
+      dataScadenzaPagamento:
+        type: string
+      dataCancellazione:
+        type: string
+      gestAttoreIns:
+        type: string
+      gestDataIns:
+        type: string
+      gestAttoreUpd:
+        type: string
+      gestDataUpd:
+        type: string        
+      gestUid:
+        type: string
+    type: object
+  AnnualitaSdDTO:
+    properties:
+      idAnnualitaSd:
+        format: int64
+        type: integer
+      id_stato_debitorio:
+        format: int64
+        type: integer
+      anno:
+        format: int64
+        type: integer
+      json_dt_riscossione:
+        type: string
+      canone_annuo:
+        format: int64
+        type: integer
+      gestAttoreIns:
+        type: string
+      gestDataIns:
+        type: string
+      gestAttoreUpd:
+        type: string
+      gestDataUpd:
+        type: string        
+      gestUid:
+        type: string
+    type: object
+  VerifyRiscossioneStatoDebDTO:
+    properties:
+      num_riscossioni:
+        format: int64
+        type: integer
+      num_statdeb:
+        format: int64
+        type: integer
+    type: object
+  AttivitaStatoDebitorioDTO:
+    properties:
+      idAttivitaStatoDeb:
+        format: int64
+        type: integer
+      codAttivitaStatoDeb:
+        type: string
+      desAttivitaStatoDeb:
+        type: string
+      idTipoAttivitaStatoDeb:
+        format: int64
+        type: integer
+    type: object
+    
+  ClassificazioniDTO:
+    properties:
+      id_classificazione:
+        type: string
+      db_key_classificazione:
+        type: string
+      entrata_uscita:
+        type: string
+      protocollo_regionale:
+        type: string
+      protocollo_mittente:
+        type: string
+      descrizione:
+        type: string
+      visibilita:
+        type: string
+    type: object
+    
+  AllegatiDTO:
+    properties:
+      id_classificazione:
+        type: string
+      descrizione:
+        type: string
+      doc_con_allegati:
+        type: boolean
+      rappresentazione_digitale:
+       type: boolean
+    type: object
+    
+  AcarisContentStreamType:
+    properties:
+      length:
+        format: int64
+        type: integer
+      mimeType:
+        type: string
+      filename:
+        type: string
+      streamMTOM:
+       type: object
+      stream:
+       type: object
+      nodeUID:
+       type: string
+    type: object
+    
+  IndirizzoSpedizioneDTO:
+    properties:
+      idRecapito:
+        format: int64
+        type: integer
+      idRecapitoPostel:
+        format: int64
+        type: integer
+      idGruppoSoggetto:
+        format: int64
+        type: integer
+      destinatarioPostel:
+        type: string
+      pressoPostel:
+         type: string
+      indirizzoPostel:
+        type: string
+      cittaPostel:
+        type: string
+      provinciaPostel:
+        type: string
+      capPostel:
+        type: string
+      frazionePostel:
+        type: string
+      nazionePostel:
+        type: string
+      indValidoPostel:
+        format: int64
+        type: integer
+      gestDataIns:
+        type: string
+      gestAttoreIns:
+        type: string
+      gestDataUpd:
+        type: string
+      gestAttoreUpd:
+        type: string
+      gestUid:
+        type: string
+    type: object    
+x-components: { }

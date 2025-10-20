@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     ========================LICENSE_START=================================
+      
+     Copyright (C) 2025 Regione Piemonte
+      
+     SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+     SPDX-License-Identifier: EUPL-1.2
+     =========================LICENSE_END==================================
+ -->
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+
+    <listener>
+        <listener-class>it.csi.risca.riscabesrv.util.AppServletContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+    <!-- filtro di protezione ad attacchi XSRF -->
+    <filter>
+        <filter-name>XSRFProtectionFilter</filter-name>
+        <filter-class>it.csi.risca.riscabesrv.filter.XSRFProtectionFilter</filter-class>
+        <init-param>
+            <param-name>disabled</param-name>
+            <param-value>@@@XSRFFILTER.DISABLED@@@</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>XSRFProtectionFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>it.csi.risca.riscabesrv.filter.CorsFilter</filter-class>
+        <init-param>
+            <param-name>enablecors</param-name>
+            <param-value>@@@CORSFILTER.ENABLECORS@@@</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+
+    <context-param>
+        <param-name>resteasy.providers</param-name>
+        <param-value>it.csi.risca.riscabesrv.business.be.JacksonConfig</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>resteasy.async.job.service.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+	<!-- Thread pool size of background threads that run the job questo OK funziona e limita i threads -->
+    <context-param>
+        <param-name>resteasy.async.job.service.thread.pool.size</param-name>
+        <param-value>3</param-value>
+    </context-param>
+
+
+</web-app>

@@ -1,0 +1,20 @@
+/*******************************************************************************
+ *  ========================LICENSE_START=================================
+ *   
+ *  Copyright (C) 2025 Regione Piemonte
+ *   
+ *  SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+ *  SPDX-License-Identifier: EUPL-1.2
+ *  =========================LICENSE_END==================================
+ *******************************************************************************/
+package it.csi.risca.riscabesrv.business.be.helper.stardas;
+
+import it.csi.stardas.services.stardascallbackservice.EsitoSmistaDocumento;
+import it.csi.stardas.services.stardascallbackservice.EsitoSmistaDocumentoResponse;
+
+
+public interface IStardasToRiscaWS {
+
+	public EsitoSmistaDocumentoResponse EsitoSmistaDocumento(EsitoSmistaDocumento parameters) throws Exception;
+
+}

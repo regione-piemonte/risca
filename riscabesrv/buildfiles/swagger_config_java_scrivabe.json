@@ -1,0 +1,18 @@
+{
+"java8": false,
+"useBeanValidation": true,
+"hideGenerationTimestamp": true,
+"apiPackage": "it.csi.risca.riscabesrv.business.be",
+"modelPackage":  "it.csi.risca.riscabesrv.dto",
+"invokerPackage": "it.csi.risca.riscabesrv.business.be",
+"implFolder": "impl",
+"sourceFolder": "src/java",
+"useSwaggerFeature": false,
+"generateJbossDeploymentDescriptor": false,
+"generateImplArtifacts": false,
+"generateSwaggerMetadata": false,
+"attributeSerializationStrategy": "explicit-as-modeled",
+"accessHttpHeaders": true,
+"accessHttpRequest": true,
+"jsonLibrary": "fasterxml-jackson"
+}

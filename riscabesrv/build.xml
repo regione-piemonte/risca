@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+     ========================LICENSE_START=================================
+      
+     Copyright (C) 2025 Regione Piemonte
+      
+     SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+     SPDX-License-Identifier: EUPL-1.2
+     =========================LICENSE_END==================================
+ -->
+
+<!-- ##################################################### -->
+<!-- # build.xml file per compilazione e generazione     # -->
+<!-- # del pacchetto per il rilascio dell'applicazione.  # -->
+<!-- #                                                   # -->
+<!-- # Per una lista completa dei tasks eseguibili usare # -->
+<!-- # l'argomento di ant -projecthelp quando si         # -->
+<!-- # richiama questo build.xml.                        # -->
+<!-- ##################################################### -->
+
+<project basedir="."
+         default="default"
+         name="riscabesrv"
+         xmlns:ivy="antlib:fr.jayasoft.ivy.ant" >
+
+    <description>Build file per il progetto: [riscabesrv]</description>
+
+    <!-- -->
+    <echo message="Loading build properties..." />
+    <property file="buildfiles/build.properties" />
+    <property file="buildfiles/${target}.properties" />
+
+    <!-- -->
+    <path id="library.ref">
+        <fileset dir="${lib}">
+            <include name="**/*.jar" />
+            <include name="**/*.zip" />
+        </fileset>
+    	<fileset dir="${libext}">
+    	      <include name="**/*.jar" />
+    	      <include name="**/*.zip" />
+    	</fileset>
+    </path>
+
+
+
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: init                                              # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="init" description="Inizializza lo script Ant.">
+        <tstamp />
+        <condition property="target" value="dev">
+            <equals arg1="${target}" arg2="$${target}" />
+        </condition>
+    	<echo message="TARGET: ${target}"></echo>
+        <mkdir dir="${build}/classes" />
+        <mkdir dir="${temp}/${target}/${earLib}" />
+        <mkdir dir="${build}/archives/${target}" />
+        <mkdir dir="${dist}/${target}" />
+        <mkdir dir="${build}/javadoc" />
+        <mkdir dir="${build}/jsp" />
+        <mkdir dir="${build}/cache" />
+        <mkdir dir="${docs}" />
+        <mkdir dir="${docs}/templates" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: default                                           # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="default"
+            description="Eseguire il build per l'environment
+                         specificato a linea di comando con
+                         -Dtarget=${target} o per tutti gli
+                         environment (se non specificato).">
+
+        <condition property="first-call" value="distribution">
+            <not>
+                <equals arg1="${target}" arg2="$${target}" />
+            </not>
+        </condition>
+
+        <condition property="first-call" value="all-targets">
+            <equals arg1="${target}" arg2="$${target}" />
+        </condition>
+
+        <echo message="server: ${server}" />
+        <echo message="target: ${target}" />
+        <echo message="first-call: ${first-call}" />
+
+        <antcall target="clean-all" />
+        <antcall target="${first-call}" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [DISTRIB]: all-targets                                    # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="all-targets"
+            description="Esegue il build per le varie distribuzioni in sequenza.">
+        <!-- Inserire le varie distribuzioni di cui si intende eseguire il build. -->
+        <antcall target="distribution" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [DISTRIB]: distribution                                   # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="distribution" depends="package-all"
+            description="Costruisce il tar per la distribuzione." >
+        <echo message="====== Creating distribution for ${target} ..."/>
+        <echo message="====== Basedir: ${build}/archives/${target} ..."/>
+        <!-- inserire qui eventuali statement antcall aggiuntivi da invocare
+             nel processo di distribuzione del tar -->
+        <tar tarfile="${dist}/${target}/${dist-file-name}.tar"
+             basedir="${build}/archives/${target}"
+             includes="*.ear,*.xml">
+            <tarfileset dir="buildfiles">
+                <include name="readme.txt"/>
+                <!-- inserire qui eventuali statement per includere oggetti extra nel tar -->
+            </tarfileset>
+        </tar>    
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [IVY]: resolve-dependencies                               # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="resolve-dependencies"
+            description="carica le librerie dal repository remoto">
+        <ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+        <ivy:resolve file="${basedir}/buildfiles/ivy.xml" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [IVY]: internal target: load-dependencies                 # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="load-dependencies"
+            depends="resolve-dependencies"
+            description="Risolve le dipendenze esterne.">
+        <ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: compile-all                                       # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="compile-all" depends="init,load-dependencies"
+            description="Compila tutti i sorgenti.">
+
+        <echo message="===> Target: ${target}" />
+
+        <!-- compilazione dei sorgenti -->
+        <javac srcdir="${src}/java" destdir="${build}/classes"
+               optimize="on" deprecation="on"
+               compiler="modern"
+               debug="on" debuglevel="lines,vars,source">
+            <classpath refid="library.ref" />
+        </javac>
+
+        <!-- copia dei sorgenti -->
+        <copy todir="${build}/classes">
+            <fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*" />
+        </copy>
+        <copy todir="${build}/classes/templates">
+            <fileset dir="${docs}/templates"  />
+        	
+        </copy>
+    	<copy file="buildfiles/${target}.properties"
+			tofile="${temp}/conf/web/be/rest/WEB-INF/classes/application.properties">
+		</copy>
+    	
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: environment-recreate                              # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="environment-recreate"
+            description="Ricrea l&apos;environment di configurazione per il target corrente (per applicare le sostituzionidelle variabili).">
+        <mkdir dir="build/temp/conf" />
+            <copy todir="build/temp/conf" overwrite="true">
+        <fileset dir="${conf}" />
+        </copy>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: environment-config                                # -->
+    <!-- #         Gestire qui i  replace delle variabile d'ambiente # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="environment-config"
+            description="Predispone le configurazioni dipendenti dall&apos;ambiente." >
+
+
+        <!-- Gestione replace delle variabile d'ambiente create dal generatore -->
+
+        <!-- disabilitazione del filtro di XSRF -->
+        <condition property="xsrffilter.disabled" value="false">
+              <equals arg1="${xsrffilter.disabled}" arg2="$${xsrffilter.disabled}" />
+        </condition>
+            <replace dir="${build}/temp/conf/web/" token="@@@XSRFFILTER.DISABLED@@@" value="${xsrffilter.disabled}"/>
+
+        <!-- modalita' di sviluppo del filtro IDAdapter -->
+        <condition property="idadapterfilter.devmode" value="false">
+              <equals arg1="${idadapterfilter.devmode}" arg2="$${idadapterfilter.devmode}" />
+        </condition>
+            <replace dir="${build}/temp/conf/web/" token="@@@IDADAPTERFILTER.DEVMODE@@@" value="${idadapterfilter.devmode}"/>
+
+        <!-- gestione di un eventuale CORS -->
+        <condition property="corsfilter.enablecors" value="false">
+              <equals arg1="${corsfilter.enablecors}" arg2="$${corsfilter.enablecors}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@@@CORSFILTER.ENABLECORS@@@" value="${corsfilter.enablecors}"/>
+
+
+        <!-- DATASOURCE-->
+        <condition property="risca.datasource" value="">
+            <equals arg1="${risca.datasource}" arg2="$${risca.datasource}" />
+        </condition>
+      	<echo message="**${risca.datasource}" />
+        <replace dir="${build}/temp/conf/web/" token="@risca.datasource@" value="${risca.datasource}" />
+
+        <!-- gestire qui i  replace delle proprie variabili d'ambiente -->
+        <condition property="accra.endpoint" value="">
+              <equals arg1="${accra.endpoint}" arg2="$${accra.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@accra.endpoint@" value="${accra.endpoint}"/>
+
+
+        <condition property="geeco.endpoint" value="">
+              <equals arg1="${geeco.endpoint}" arg2="$${geeco.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@geeco.endpoint@" value="${geeco.endpoint}"/>
+
+
+        <condition property="geeco.token" value="">
+              <equals arg1="${geeco.token}" arg2="$${geeco.token}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@geeco.token@" value="${geeco.token}"/>
+
+        <!-- AAEP -->
+        <condition property="aaep.endpoint" value="">
+            <equals arg1="${aaep.endpoint}" arg2="$${aaep.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@aaep.endpoint@" value="${aaep.endpoint}" />
+
+        <!-- ANAGAMB -->
+        <condition property="anagamb.endpoint" value="">
+            <equals arg1="${anagamb.endpoint}" arg2="$${anagamb.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@anagamb.endpoint@" value="${anagamb.endpoint}" />
+    	
+        <!-- IRIDE -->
+        <condition property="iride.endpoint" value="">
+            <equals arg1="${iride.endpoint}" arg2="$${iride.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@iride.endpoint@" value="${iride.endpoint}" />
+
+        <!-- ACTA BACKOFFICE -->
+        <condition property="actabackoffice.endpoint" value="">
+            <equals arg1="${actabackoffice.endpoint}" arg2="$${actabackoffice.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@actabackoffice.endpoint@" value="${actabackoffice.endpoint}" />
+
+        <!-- ACTA REPOSITORY SERVICE -->
+        <condition property="actarepositoryservice.endpoint" value="">
+            <equals arg1="${actarepositoryservice.endpoint}" arg2="$${actarepositoryservice.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@actarepositoryservice.endpoint@" value="${actarepositoryservice.endpoint}" />
+    	
+        <!-- ACTA NAVIGATION SERVICE -->
+        <condition property="actanavigationservice.endpoint" value="">
+            <equals arg1="${actanavigationservice.endpoint}" arg2="$${actanavigationservice.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@actanavigationservice.endpoint@" value="${actanavigationservice.endpoint}" />
+    	
+        <!-- ACTA OBJECT SERVICE -->
+        <condition property="actaobjectservice.endpoint" value="">
+            <equals arg1="${actaobjectservice.endpoint}" arg2="$${actaobjectservice.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@actaobjectservice.endpoint@" value="${actaobjectservice.endpoint}" />
+      	
+        <!-- ACTA OFFICIALBOOK SERVICE -->
+        <condition property="actaofficialbookservice.endpoint" value="">
+            <equals arg1="${actaofficialbookservice.endpoint}" arg2="$${actaofficialbookservice.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@actaofficialbookservice.endpoint@" value="${actaofficialbookservice.endpoint}" />
+      	
+        <!-- ACTA RELATIONSHIPS SERVICE -->
+        <condition property="actarelationshipsservice.endpoint" value="">
+            <equals arg1="${actarelationshipsservice.endpoint}" arg2="$${actarelationshipsservice.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@actarelationshipsservice.endpoint@" value="${actarelationshipsservice.endpoint}" />
+    	
+        <!-- INDEX -->
+        <condition property="index.endpoint" value="">
+            <equals arg1="${index.endpoint}" arg2="$${index.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@index.endpoint@" value="${index.endpoint}" />
+
+        <condition property="index.serviceUrl" value="">
+            <equals arg1="${index.serviceUrl}" arg2="$${index.serviceUrl}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@index.serviceUrl@" value="${index.serviceUrl}" />
+
+        <condition property="index.consumerKey" value="">
+            <equals arg1="${index.consumerKey}" arg2="$${index.consumerKey}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@index.consumerKey@" value="${index.consumerKey}" />
+
+        <condition property="index.consumerSecret" value="">
+            <equals arg1="${index.consumerSecret}" arg2="$${index.consumerSecret}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@index.consumerSecret@" value="${index.consumerSecret}" />
+
+        <condition property="index.tenant" value="">
+            <equals arg1="${index.tenant}" arg2="$${index.tenant}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@index.tenant@" value="${index.tenant}" />
+
+        <condition property="index.username" value="">
+            <equals arg1="${index.username}" arg2="$${index.username}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@index.username@" value="${index.username}" />
+
+        <condition property="index.password" value="">
+            <equals arg1="${index.password}" arg2="$${index.password}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@index.password@" value="${index.password}" />
+
+        <condition property="index.repository" value="">
+            <equals arg1="${index.repository}" arg2="$${index.repository}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@index.repository@" value="${index.repository}" />
+
+        <!-- PIEMONTE PAY -->
+        <condition property="ppay.endpoint" value="">
+            <equals arg1="${ppay.endpoint}" arg2="$${ppay.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@ppay.endpoint@" value="${ppay.endpoint}" />
+
+        <condition property="ppay.serviceUrl" value="">
+            <equals arg1="${ppay.serviceUrl}" arg2="$${ppay.serviceUrl}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@ppay.serviceUrl@" value="${ppay.serviceUrl}" />
+
+    	<!-- MAIL -->
+        <condition property="mail.host" value="">
+            <equals arg1="${mail.host}" arg2="$${mail.host}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@mail.host@" value="${mail.host}" />
+
+        <condition property="mail.port" value="">
+            <equals arg1="${mail.port}" arg2="$${mail.port}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@mail.port@" value="${mail.port}" />
+    	
+    	
+    	<!-- SCRIVA -->
+        <condition property="scriva.endpoint" value="">
+            <equals arg1="${scriva.endpoint}" arg2="$${scriva.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@scriva.endpoint@" value="${scriva.endpoint}" />
+
+        <condition property="scriva.serviceUrl" value="">
+            <equals arg1="${scriva.serviceUrl}" arg2="$${scriva.serviceUrl}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@scriva.serviceUrl@" value="${scriva.serviceUrl}" />
+    	
+    	<!-- DOWNLOAD -->
+        <condition property="download.path" value="">
+            <equals arg1="${download.path}" arg2="$${download.path}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@download.path@" value="${download.path}" />
+    	<condition property="download.url" value="">
+    	    <equals arg1="${download.url}" arg2="$${download.url}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@download.url@" value="${download.url}" />
+    	
+    	<!-- EPAY -->
+        <condition property="epay.endpoint" value="">
+            <equals arg1="${epay.endpoint}" arg2="$${epay.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@epay.endpoint@" value="${epay.endpoint}" />
+    	
+    	<!-- STARDAS -->
+        <condition property="stardas.endpoint" value="">
+            <equals arg1="${stardas.endpoint}" arg2="$${stardas.endpoint}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@stardas.endpoint@" value="${stardas.endpoint}" />
+
+        <condition property="stardas.serviceUrl" value="">
+            <equals arg1="${stardas.serviceUrl}" arg2="$${stardas.serviceUrl}" />
+        </condition>
+        <replace dir="${build}/temp/conf/web/" token="@stardas.serviceUrl@" value="${stardas.serviceUrl}" />
+    	
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: package-all                                        # -->
+    <!-- ############################################################# -->
+    <!-- -->
+	 <target name="package-all"
+	            description="Esegue il packaging di ogni componente del prodotto">
+	        <antcall target="package-ear" />
+	 </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: package-ear                                        # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="package-ear"
+            depends="environment-recreate, environment-config, compile-all, package-commons-jar,
+                     package-all-ws-wars"
+            description="costruisce l&apos;ear">
+
+        <!-- librerie infrastrutturali o client di servizi fruiti -->
+        <copy todir="${temp}/${target}/${earLib}">
+            <fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
+            <fileset dir="${build}/archives/${target}" includes="*common.jar" />
+        </copy>
+
+        <ear appxml="${temp}/conf/ear/application.xml"
+             destfile="${build}/archives/${target}/${ear-file-name}.ear">
+            <fileset dir="${build}/archives/${target}" includes="*.jar,*.war" excludes="*client*.jar,*common.jar" />
+            <fileset dir="${temp}/${target}">
+                <include name="**/*" />
+            </fileset>
+            <metainf dir="${temp}/conf/ear/" includes="jboss-deployment-structure.xml" />
+            <manifest>
+                <attribute name="Built-By" value="${user.name}" />
+                <attribute name="Built-Date" value="${DSTAMP}" />
+                <attribute name="Target" value="${target}" />
+                <attribute name="Appl-Version" value="${version}" />
+            </manifest>
+        </ear>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: package-all-ws-wars                                # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="package-all-ws-wars"
+            description="Costruisce i war di tutti i web services">
+        <!-- richiamo costruzione war backend REST  -->
+        <antcall target="_package-ws-war">
+            <param name="component.name" value="riscabesrv"/>
+            <param name="service.name" value="be"/>
+            <param name="binding.code" value="rest"/>
+            <param name="service.type" value="appl"/>
+        </antcall>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: _package-ws-war                                    # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="_package-ws-war"
+            description="Costruisce il war per un singolo web service">
+        <!-- prende in input i parametri: component.name, service.name, binding.code, service.type, service.ver (deve essere a 2 cifre!!!) -->
+
+
+                <war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
+                     webxml="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/web.xml"
+                     roundup="false">
+                    <webinf dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/">
+                        <include name="*.xml" />
+                        <include name="*.properties" />
+                        <include name="/classes/*.properties" />
+                    	<include name="/classes/*.jrxml" />
+                    </webinf>
+                    <classes dir="${build}/classes">
+                        <include name="it/csi/risca/riscabesrv/**"/>
+                        <include name="templates/**"/>
+                    </classes>
+
+
+                    <lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}" />
+                	  <lib dir="${libext}" includes="*" excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}"/>
+
+                    <!-- se sono presenti risorse web statiche vengono inserite nel pacchetto
+                         es. distribuizone webpack gia' buildata della parte client di una
+                         Single Page Application
+                    <fileset dir="${src}/web/${service.name}/${binding.code}" includes="**"></fileset>-->
+                </war>
+
+    </target>
+
+
+
+
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [PKG]: package-commons-jar                                # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="package-commons-jar" description="Genera il jar per le classi comuni.">
+        <jar destfile="${build}/archives/${target}/riscabesrv-common.jar"
+             basedir="${build}/classes"
+             includes="it/csi/risca/riscabesrv/business/**,
+                       it/csi/risca/riscabesrv/integration/**,
+                       it/csi/risca/riscabesrv/util/**">
+
+            <exclude name="it/csi/risca/riscabesrv/business/be/**" />
+            <exclude name="it/csi/risca/riscabesrv/integration/be/**" />
+        </jar>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-all                                        # -->
+    <!-- ############################################################# -->
+    <!-- nota: non cancella la directory "dist" appositamente: v. STDMDD-495.
+    per ripulire anche la "dist" richiamare esplicitamente il target "clean-dist" -->
+    <!-- -->
+    <target name="clean-all" description="Rimuove tutte le cartelle temporanee."
+            depends="clean-archives, clean-cache, clean-classes, clean-javadoc, clean-jsp, clean-temp" />
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-cache                                      # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-cache"
+            description="Rimuove la cartella di cache di Ivy e la lib.">
+        <delete dir="${build}/cache" failonerror="no" />
+        <delete dir="${lib}" failonerror="no" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-temp                                       # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-temp"
+            description="Rimuove la cartella dei files temporanei di build.">
+        <delete dir="${temp}" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-archives                                  # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-archives"
+            description="Rimuove la cartella degli archivi (war, ear, ...).">
+        <delete dir="${build}/archives" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-dist                                       # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-dist"
+            description="Rimuove la cartella delle distribuzioni.">
+        <delete dir="${dist}" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-classes                                    # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-classes"
+            description="Rimuove la cartella dei sorgenti compilati.">
+        <delete dir="${build}/classes" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-javadoc                                    # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-javadoc"
+            description="Rimuove la cartella temporanea dei javadoc.">
+        <delete dir="${build}/javadoc" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: clean-jsp                                        # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="clean-jsp"
+            description="Rimuove la cartella temporanea delle jsp compilate.">
+    <delete dir="${build}/jsp" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # [CLEAN]: _clean-web-inf                                   # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="_clean-web-inf"
+            description="Rimuove il contenuto di lib e classes della
+                         web application (per run locali).">
+        <delete dir="${srcweb}/WEB-INF/classes" />
+        <delete dir="${srcweb}/WEB-INF/lib" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: about                                             # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="about" description="Visualizza l'elenco dei target pubblici dello script.">
+        <loadproperties srcfile="buildfiles/build.properties" />
+        <loadfile property="about" srcfile="buildfiles/about.txt" />
+        <echo message="${about}" />
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: about-custom                                      # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="about-custom"
+            description="Visualizza l'elenco di tutti i target,
+                         pubblici e privati
+                         (equivalente a 'ant -projecthelp')" >
+
+        <loadproperties srcfile="buildfiles/build.properties" />
+        <loadfile property="about-custom" srcfile="buildfiles/about-custom.txt" />
+        <echo message="${about-custom}" />
+        <java classname="org.apache.tools.ant.Main">
+            <arg value="-projecthelp" />
+        </java>
+    </target>
+
+    <!-- -->
+    <!-- ############################################################# -->
+    <!-- # Target: show-vars                                         # -->
+    <!-- ############################################################# -->
+    <!-- -->
+    <target name="show-vars" depends="init"
+            description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+        <echo message="*****************************************" />
+        <echo message="********  ${componente} environment  *******" />
+        <echo message="*****************************************" />
+        <echoproperties />
+        <echo />
+        <echo />
+        <echo message="*****************************************" />
+        <echo message="********    java properties      ********" />
+        <echo message="*****************************************" />
+        <echoproperties prefix="java."/>
+    </target>
+
+
+</project>
