@@ -1,3 +1,8 @@
+// Copyright Regione Piemonte - 2025
+// SPDX-FileCopyrightText: (C) Copyright 2025 Regione Piemonte
+// SPDX-License-Identifier: EUPL-1.2
+// ============LICENSE_END===================
+
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 

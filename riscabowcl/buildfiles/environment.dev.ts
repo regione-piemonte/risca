@@ -1,3 +1,7 @@
+/** 
+* SPDX-FileCopyrightText: (C) Copyright 2025 Regione Piemonte
+* SPDX-License-Identifier: EUPL-1.2
+*/
 export const environment = {
   production: false,
   beServerPrefix: 'https://dev-risca.servizi.regione.piemonte.it',

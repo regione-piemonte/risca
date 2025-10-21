@@ -1,3 +1,7 @@
+// Copyright Regione Piemonte - 2025
+// SPDX-FileCopyrightText: (C) Copyright 2025 Regione Piemonte
+// SPDX-License-Identifier: EUPL-1.2
+// ============LICENSE_END===================
 /*
     The mock server maps the url to a folder in the roote folder according to:
     ->  /mocks/api/getTest.json is mapped to -> http://localhost:3000/api/getTest
