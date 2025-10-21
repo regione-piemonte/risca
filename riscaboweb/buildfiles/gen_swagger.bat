@@ -1,3 +1,12 @@
+@rem ***************************************************************************
+@rem  ========================LICENSE_START=================================
+@rem   
+@rem  Copyright (C) 2025 Regione Piemonte
+@rem   
+@rem  SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+@rem  SPDX-License-Identifier: EUPL-1.2
+@rem  =========================LICENSE_END==================================
+@rem ***************************************************************************
 REM La directory dove sono presenti i jar del generatore csi-swagger
 set CSI_SWAGGER_GEN_HOME=c:\devtools\csi-swagger-codegen
 

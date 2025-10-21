@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+     ========================LICENSE_START=================================
+      
+     Copyright (C) 2025 Regione Piemonte
+      
+     SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+     SPDX-License-Identifier: EUPL-1.2
+     =========================LICENSE_END==================================
+ -->
+
 <web-app version="2.4"
          xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -35,6 +45,7 @@
    </filter-mapping>
 
 
+  
  <!-- filtro di recepimento token autenticazione -->
     
     <filter>

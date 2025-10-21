@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+     ========================LICENSE_START=================================
+      
+     Copyright (C) 2025 Regione Piemonte
+      
+     SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+     SPDX-License-Identifier: EUPL-1.2
+     =========================LICENSE_END==================================
+ -->
+
 <con:soapui-project id="8949a5f7-e820-4dad-b326-ca99fe77abda" activeEnvironment="Default" name="jsoncxf" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="2799978b-e630-402e-9f7f-450c56b4bc53" wsaVersion="NONE" name="JsoncxfSrvEPMainServiceSoapBinding" type="wsdl" bindingName="{http://jsoncxf.business.jsoncxf.test.csi.it/}JsoncxfSrvEPMainServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl"><con:part><con:url>http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="JsoncxfSrvEPMainService" targetNamespace="http://jsoncxf.business.jsoncxf.test.csi.it/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://jsoncxf.business.jsoncxf.test.csi.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://jsoncxf.interfacews.jsoncxf.test.csi.it/">
   <wsdl:import location="http://jeetest64-local.csi.it:10110/jsoncxfApplJsoncxfWs/JsoncxfSrvEPMainService?wsdl=Jsoncxf.wsdl" namespace="http://jsoncxf.interfacews.jsoncxf.test.csi.it/"></wsdl:import>
   <wsdl:binding name="JsoncxfSrvEPMainServiceSoapBinding" type="ns1:Jsoncxf">

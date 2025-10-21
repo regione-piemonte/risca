@@ -1,3 +1,12 @@
+/*******************************************************************************
+ *  ========================LICENSE_START=================================
+ *   
+ *  Copyright (C) 2025 Regione Piemonte
+ *   
+ *  SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+ *  SPDX-License-Identifier: EUPL-1.2
+ *  =========================LICENSE_END==================================
+ *******************************************************************************/
 package it.csi.risca.riscaboweb.filter;
 
 import java.io.IOException;
@@ -150,7 +159,8 @@ public class IrideIdAdapterFilter extends AbstractApiServiceImpl implements Filt
                     userInfo.setCodFisc("BVORCR93E08A182G");
                     userInfo.setLivAuth(0);
                     userInfo.setCommunity("");
-                    userInfo.setAmbito(1L);
+                    //userInfo.setAmbito(1L); //ambiente
+                    userInfo.setAmbito(3L); //attivita estrattive
                     hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
 
                     

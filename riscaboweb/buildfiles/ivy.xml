@@ -1,3 +1,12 @@
+<!--
+     ========================LICENSE_START=================================
+      
+     Copyright (C) 2025 Regione Piemonte
+      
+     SPDX-FileCopyrightText: (C) Copyright 2025  Regione Piemonte
+     SPDX-License-Identifier: EUPL-1.2
+     =========================LICENSE_END==================================
+ -->
 <ivy-module version="1.0">
     <info organisation="csipiemonte" module="riscaboweb" />
     <dependencies>
