@@ -1,16 +1,17 @@
-publiccodeYmlVersion: '0.4.0'
+publiccodeYmlVersion: 0.4.0
 name: RISCA
 applicationSuite: Regione Piemonte Sistema Informativo Ambiente
 url: https://github.com/regione-piemonte/risca
 softwareVersion: 1.0.0
-releaseDate: '2025-06-03'
+releaseDate: 2025-06-03
+logo: https://github.com/regione-piemonte/risca/blob/main/OPSRISCA.png
 platforms:
-- web
+  - web
 categories:
-- business-process-management
-- payment-gateway
+  - business-process-management
+  - payment-gateway
 usedBy:
-- Regione Piemonte
+  - Regione Piemonte
 developmentStatus: stable
 softwareType: standalone/web
 description:
@@ -18,11 +19,12 @@ description:
     localisedName: RISCA
     shortDescription: Gestione della riscossione canoni condivisibile tra diversi
       ambiti di applicazione
-    longDescription: 'Il progetto intende proporre una soluzione multiutente per la
-      gestione della riscossione canoni condivisibile tra diversi ambiti di applicazione,
-      collegata al Back Office (Scrivania del Funzionario) e al Front Office (Scrivania
-      del richiedente) nel caso di procedimenti di tipo concessorio. Nello specifico
-      i Settori Regionali interessati sono:
+    longDescription: >-
+      Il progetto intende proporre una soluzione multiutente per la gestione
+      della riscossione canoni condivisibile tra diversi ambiti di applicazione,
+      collegata al Back Office (Scrivania del Funzionario) e al Front Office
+      (Scrivania del richiedente) nel caso di procedimenti di tipo concessorio.
+      Nello specifico i Settori Regionali interessati sono:
 
 
       • A1600 - AMBIENTE, ENERGIA E TERRITORIO [Ambiente]
@@ -31,42 +33,40 @@ description:
       eventuali nuovi ambiti in future release.
 
 
-      L’esigenza principale è quella di fornire adeguato supporto alla gestione dei
-      canoni:
+      L’esigenza principale è quella di fornire adeguato supporto alla gestione
+      dei canoni:
 
 
       • delle utenze di acque pubbliche e delle acque minerali
 
 
-      L’obiettivo è invece quello di fornire adeguato supporto al Gestore canoni ed
-      ai concessionari attraverso una soluzione multiutente che consenta di soddisfare
-      le esigenze comuni ai diversi fruitori.'
+      L’obiettivo è invece quello di fornire adeguato supporto al Gestore canoni
+      ed ai concessionari attraverso una soluzione multiutente che consenta di
+      soddisfare le esigenze comuni ai diversi fruitori.
     features:
-    - supporto alla gestione dei canoni delle utenze di acque pubbliche e delle acque
-      minerali
-    - gestione pratica di riscossione
-    - ricerca semplice e avanzata
-    - calcolo canone
-    - calcolo interessi
-    - rateizzazioni
-    - iscrizione al ruolo
-    - ricerca morosità e rimborsi
-    - report
-    - configurazione canoni
+      - supporto alla gestione dei canoni delle utenze di acque pubbliche e
+        delle acque minerali
+      - gestione pratica di riscossione
+      - ricerca semplice e avanzata
+      - calcolo canone
+      - calcolo interessi
+      - rateizzazioni
+      - iscrizione al ruolo
+      - ricerca morosità e rimborsi
+      - report
+      - configurazione canoni
 legal:
   license: EUPL-1.2
 maintenance:
   type: internal
   contacts:
-  - name: Silvia Cordero
-    email: silvia.cordero@csi.it
-    phone: ''
-    affiliation: ''
+    - name: Silvia Cordero
+      email: silvia.cordero@csi.it
 localisation:
   localisationReady: false
   availableLanguages:
-  - it
+    - it
 it:
-  countryExtensionVersion: '1.0'
+  countryExtensionVersion: "1.0"
   riuso:
     codiceIPA: r_piemon
