@@ -4,7 +4,7 @@ applicationSuite: Regione Piemonte Sistema Informativo Ambiente
 url: https://github.com/regione-piemonte/risca
 softwareVersion: 1.0.0
 releaseDate: 2025-06-03
-logo: https://github.com/regione-piemonte/risca/blob/main/OPSRISCA.png
+logo: OPSRISCA.png
 platforms:
   - web
 categories:
