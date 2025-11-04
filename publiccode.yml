@@ -20,29 +20,13 @@ description:
     shortDescription: Gestione della riscossione canoni condivisibile tra diversi
       ambiti di applicazione
     longDescription: >-
-      Il progetto intende proporre una soluzione multiutente per la gestione
-      della riscossione canoni condivisibile tra diversi ambiti di applicazione,
-      collegata al Back Office (Scrivania del Funzionario) e al Front Office
-      (Scrivania del richiedente) nel caso di procedimenti di tipo concessorio.
+      Il progetto intende proporre una soluzione multiutente per la gestione della riscossione canoni condivisibile tra diversi ambiti di applicazione, collegata al Back Office (Scrivania del Funzionario) e al Front Office (Scrivania del richiedente) nel caso di procedimenti di tipo concessorio.
       Nello specifico i Settori Regionali interessati sono:
-
-
       • A1600 - AMBIENTE, ENERGIA E TERRITORIO [Ambiente]
-
-
       eventuali nuovi ambiti in future release.
-
-
-      L’esigenza principale è quella di fornire adeguato supporto alla gestione
-      dei canoni:
-
-
+      L’esigenza principale è quella di fornire adeguato supporto alla gestione dei canoni:
       • delle utenze di acque pubbliche e delle acque minerali
-
-
-      L’obiettivo è invece quello di fornire adeguato supporto al Gestore canoni
-      ed ai concessionari attraverso una soluzione multiutente che consenta di
-      soddisfare le esigenze comuni ai diversi fruitori.
+      L’obiettivo è invece quello di fornire adeguato supporto al Gestore canoni ed ai concessionari attraverso una soluzione multiutente che consenta di soddisfare le esigenze comuni ai diversi fruitori.
     features:
       - supporto alla gestione dei canoni delle utenze di acque pubbliche e
         delle acque minerali
